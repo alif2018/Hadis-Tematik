@@ -1,0 +1,421 @@
+@charset "UTF-8";
+
+body {
+    background-color: white;
+    counter-reset: n-1-0 29 n-10-0 17 n-2-0 0 n-3-0 10 n-4-0 0 n-5-0 0 n-6-0 0 n-7-0 0 n-8-0 0 n-9-0 0;
+    font-size: 12pt;
+}
+
+p {
+    -ms-defaultTabStop: 36pt;
+    line-height: 1.56;
+    margin-bottom: 1.9pt;
+    margin-left: 0.5pt;
+    margin-top: 0pt;
+    text-align: justify;
+}
+
+p:empty {
+    height: 1em;
+}
+
+a {
+    text-decoration: none;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0pt;
+    empty-cells: hide;
+}
+
+td {
+    padding-bottom: 0pt;
+    padding-left: 5.75pt;
+    padding-right: 5.75pt;
+    padding-top: 0pt;
+    vertical-align: top;
+}
+
+.p-Heading1 {
+    -ms-border-between-space: 0pt;
+    -ms-border-between-sz: 0pt;
+    -ms-border-between: none;
+    background-color: transparent;
+    border-bottom-style: none;
+    border-bottom-width: 0pt;
+    border-left-style: none;
+    border-left-width: 0pt;
+    border-right-style: none;
+    border-right-width: 0pt;
+    border-top-style: none;
+    border-top-width: 0pt;
+    color: #000000;
+    font-family: "Times New Roman";
+    font-size: 22pt;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: bold;
+    line-height: 1.54;
+    margin-bottom: 6.05pt;
+    margin-left: 0.5pt;
+    margin-right: 0pt;
+    margin-top: 0pt;
+    padding-bottom: 0pt;
+    padding-left: 0pt;
+    padding-right: 0pt;
+    padding-top: 0pt;
+    page-break-after: avoid;
+    page-break-before: auto;
+    page-break-inside: avoid;
+    text-align: left;
+    text-decoration: none;
+    text-indent: -0.5pt;
+    vertical-align: baseline;
+}
+
+.p-Heading2 {
+    -ms-border-between-space: 0pt;
+    -ms-border-between-sz: 0pt;
+    -ms-border-between: none;
+    background-color: transparent;
+    border-bottom-style: none;
+    border-bottom-width: 0pt;
+    border-left-style: none;
+    border-left-width: 0pt;
+    border-right-style: none;
+    border-right-width: 0pt;
+    border-top-style: none;
+    border-top-width: 0pt;
+    color: #000000;
+    font-family: "Times New Roman";
+    font-size: 14pt;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: bold;
+    line-height: 1.56;
+    margin-bottom: 10.45pt;
+    margin-left: 0.5pt;
+    margin-right: 14.55pt;
+    margin-top: 0pt;
+    padding-bottom: 0pt;
+    padding-left: 0pt;
+    padding-right: 0pt;
+    padding-top: 0pt;
+    page-break-after: avoid;
+    page-break-before: auto;
+    page-break-inside: avoid;
+    text-align: left;
+    text-decoration: none;
+    text-indent: -0.5pt;
+    vertical-align: baseline;
+}
+
+.p-Heading3 {
+    -ms-border-between-space: 0pt;
+    -ms-border-between-sz: 0pt;
+    -ms-border-between: none;
+    background-color: transparent;
+    border-bottom-style: none;
+    border-bottom-width: 0pt;
+    border-left-style: none;
+    border-left-width: 0pt;
+    border-right-style: none;
+    border-right-width: 0pt;
+    border-top-style: none;
+    border-top-width: 0pt;
+    color: #000000;
+    font-family: "Times New Roman";
+    font-size: 12pt;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: bold;
+    line-height: 1.56;
+    margin-bottom: 14.3pt;
+    margin-left: 0.5pt;
+    margin-right: 35.95pt;
+    margin-top: 0pt;
+    padding-bottom: 0pt;
+    padding-left: 0pt;
+    padding-right: 0pt;
+    padding-top: 0pt;
+    page-break-after: avoid;
+    page-break-before: auto;
+    page-break-inside: avoid;
+    text-align: left;
+    text-decoration: none;
+    text-indent: -0.5pt;
+    vertical-align: baseline;
+}
+
+.p-Normal {
+
+}
+
+.pn-1-0 {
+    margin-left: 90pt;
+    text-indent: -18pt;
+}
+
+.n-1-0 {
+    -ms-lvlJc: left;
+    -ms-lvlText: "%1.";
+    -ms-numFmt: decimal;
+    -ms-start: 30;
+    counter-reset: n-1-1 0;
+}
+
+.n-1-0:before {
+    content: counter(n-1-0) ".";
+    counter-increment: n-1-0;
+    float: left;
+    width: 18pt;
+}
+
+.n-1-0:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+.pn-10-0 {
+    margin-left: 54pt;
+    text-indent: -18pt;
+}
+
+.n-10-0 {
+    -ms-lvlJc: left;
+    -ms-lvlText: "%1.";
+    -ms-numFmt: decimal;
+    -ms-start: 18;
+    counter-reset: n-10-1 0;
+}
+
+.n-10-0:before {
+    content: counter(n-10-0) ".";
+    counter-increment: n-10-0;
+    float: left;
+    width: 18pt;
+}
+
+.n-10-0:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+.pn-2-0 {
+    margin-left: 14.4pt;
+    text-indent: -18pt;
+}
+
+.n-2-0 {
+    -ms-lvlJc: left;
+    -ms-lvlText: "%1.";
+    -ms-numFmt: upperLetter;
+    -ms-start: 1;
+    counter-reset: n-2-1 0;
+}
+
+.n-2-0:before {
+    content: counter(n-2-0, upper-alpha) ".";
+    counter-increment: n-2-0;
+    float: left;
+    font-size: 12pt;
+    width: 18pt;
+}
+
+.n-2-0:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+.pn-3-0 {
+    margin-left: 32.4pt;
+    text-indent: -18pt;
+}
+
+.n-3-0 {
+    -ms-lvlJc: left;
+    -ms-lvlText: "%1.";
+    -ms-numFmt: upperLetter;
+    -ms-start: 11;
+    counter-reset: n-3-1 0;
+}
+
+.n-3-0:before {
+    content: counter(n-3-0, upper-alpha) ".";
+    counter-increment: n-3-0;
+    float: left;
+    font-weight: normal;
+    width: 18pt;
+}
+
+.n-3-0:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+.pn-4-0 {
+    margin-left: 14.4pt;
+    text-indent: -18pt;
+}
+
+.n-4-0 {
+    -ms-lvlJc: left;
+    -ms-lvlText: "%1.";
+    -ms-numFmt: upperLetter;
+    -ms-start: 1;
+    counter-reset: n-4-1 0;
+}
+
+.n-4-0:before {
+    content: counter(n-4-0, upper-alpha) ".";
+    counter-increment: n-4-0;
+    float: left;
+    width: 18pt;
+}
+
+.n-4-0:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+.pn-5-0 {
+    margin-left: 36pt;
+    text-indent: -18pt;
+}
+
+.n-5-0 {
+    -ms-lvlJc: left;
+    -ms-lvlText: "%1.";
+    -ms-numFmt: upperLetter;
+    -ms-start: 1;
+    counter-reset: n-5-1 0;
+}
+
+.n-5-0:before {
+    content: counter(n-5-0, upper-alpha) ".";
+    counter-increment: n-5-0;
+    float: left;
+    font-size: 12pt;
+    font-weight: normal;
+    width: 18pt;
+}
+
+.n-5-0:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+.pn-6-0 {
+    margin-left: 36pt;
+    text-indent: -18pt;
+}
+
+.n-6-0 {
+    -ms-lvlJc: left;
+    -ms-lvlText: "%1.";
+    -ms-numFmt: decimal;
+    -ms-start: 1;
+    counter-reset: n-6-1 0;
+}
+
+.n-6-0:before {
+    content: counter(n-6-0) ".";
+    counter-increment: n-6-0;
+    float: left;
+    font-weight: normal;
+    width: 18pt;
+}
+
+.n-6-0:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+.pn-7-0 {
+    margin-left: 36pt;
+    text-indent: -18pt;
+}
+
+.n-7-0 {
+    -ms-lvlJc: left;
+    -ms-lvlText: "%1.";
+    -ms-numFmt: upperLetter;
+    -ms-start: 1;
+    counter-reset: n-7-1 0;
+}
+
+.n-7-0:before {
+    content: counter(n-7-0, upper-alpha) ".";
+    counter-increment: n-7-0;
+    float: left;
+    font-size: 12pt;
+    font-weight: normal;
+    width: 18pt;
+}
+
+.n-7-0:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+.pn-8-0 {
+    margin-left: 36pt;
+    text-indent: -18pt;
+}
+
+.n-8-0 {
+    -ms-lvlJc: left;
+    -ms-lvlText: "%1.";
+    -ms-numFmt: upperLetter;
+    -ms-start: 1;
+    counter-reset: n-8-1 0;
+}
+
+.n-8-0:before {
+    content: counter(n-8-0, upper-alpha) ".";
+    counter-increment: n-8-0;
+    float: left;
+    width: 18pt;
+}
+
+.n-8-0:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+.pn-9-0 {
+    margin-left: 36pt;
+    text-indent: -18pt;
+}
+
+.n-9-0 {
+    -ms-lvlJc: left;
+    -ms-lvlText: "%1.";
+    -ms-numFmt: decimal;
+    -ms-start: 1;
+    counter-reset: n-9-1 0;
+}
+
+.n-9-0:before {
+    content: counter(n-9-0) ".";
+    counter-increment: n-9-0;
+    float: left;
+    font-weight: normal;
+    width: 18pt;
+}
+
+.n-9-0:after {
+    clear: both;
+    content: "";
+    display: block;
+}
