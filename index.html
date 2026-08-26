@@ -1,45 +1,1230 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="id-ID"><head><meta content="text/html; charset=UTF-8" http-equiv="content-type" />
-<title>Bukhari 401-500</title><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" type="text/javascript"></script>
-    <script charset="UTF-8" src="_wh/wh.js" type="text/javascript"></script>
-    <script charset="UTF-8" defer="defer" src="_wh/search.js" type="text/javascript"></script>
-    <script src="Praktek-Website_files/expand-tabs.js" type="text/javascript"></script>
-    <link href="Praktek-Website.css" rel="stylesheet" type="text/css" />
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wawasan Hadis tentang Ujaran Kebencian</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        /* ───────────── RESET & BASE ───────────── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
+        :root {
+            --primary: #1a4a3a;
+            --primary-light: #2a6a52;
+            --primary-dark: #0e2f24;
+            --gold: #c9a84c;
+            --gold-light: #e0c87a;
+            --gold-dark: #a8882e;
+            --cream: #f5f0e8;
+            --cream-light: #faf8f4;
+            --text: #2d2d2d;
+            --text-light: #5a5a5a;
+            --white: #ffffff;
+            --shadow: 0 8px 32px rgba(26, 74, 58, 0.12);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --sidebar-width: 300px;
+            --header-height: 100px;
+        }
 
+        html {
+            scroll-behavior: smooth;
+        }
 
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.7;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
+        /* ───────────── SCROLLBAR ───────────── */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--cream);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold-dark);
+        }
 
-<meta name="author" content="Muhammad Alif"><meta content="width=device-width, initial-scale=1" name="viewport" /><link href="_wh/wh.css" rel="stylesheet" type="text/css" /></head><body>
-    
+        /* ───────────── HEADER ───────────── */
+        .header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 18px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            min-height: var(--header-height);
+        }
 
-    <div id="wh-body">
-      <div class="wh-icon-menu" id="wh-menu"></div>
-      <div id="wh-navigation">
-        <ul id="wh-tabs" role="tablist">
-          <li id="wh-toc-tab" role="tab"><a class="wh-icon-toc" href="#wh-toc-container"></a></li>
-          
-          <li id="wh-search-tab" role="tab"><a class="wh-icon-search" href="#wh-search-container"></a></li>
-        </ul>
-        <div id="wh-toc-container" role="tabpanel">
-          <div id="wh-toc-form"><span class="wh-icon-collapse-all" id="wh-toc-collapse-all" role="button"></span><span class="wh-icon-expand-all" id="wh-toc-expand-all" role="button"></span><span class="wh-toc-spring"></span><span class="wh-icon-previous" id="wh-toc-previous" role="button"></span><span class="wh-icon-next" id="wh-toc-next" role="button"></span><span class="wh-toc-spring"></span><span class="wh-icon-print" id="wh-toc-print" role="button"></span></div>
-          <div id="wh-toc-pane">
-          </div>
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1 1 auto;
+        }
+
+        .header-brand .logo-icon {
+            font-size: 28px;
+            line-height: 1;
+            color: var(--gold);
+        }
+
+        .header-brand h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+        }
+
+        .header-brand h1 small {
+            display: block;
+            font-weight: 400;
+            font-size: 0.75rem;
+            font-family: 'Inter', sans-serif;
+            opacity: 0.75;
+            letter-spacing: 0.3px;
+            margin-top: 2px;
+        }
+
+        .header-meta {
+            text-align: right;
+            font-size: 0.8rem;
+            opacity: 0.85;
+            line-height: 1.4;
+            flex-shrink: 0;
+        }
+
+        .header-meta .author {
+            font-weight: 600;
+            color: var(--gold-light);
+        }
+        .header-meta .publisher {
+            font-size: 0.7rem;
+            opacity: 0.7;
+        }
+
+        /* ───────────── HAMBURGER ───────────── */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+        .hamburger:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: var(--white);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ───────────── LAYOUT ───────────── */
+        .app {
+            display: flex;
+            flex: 1;
+            min-height: calc(100vh - var(--header-height));
+        }
+
+        /* ───────────── SIDEBAR ───────────── */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--white);
+            border-right: 1px solid rgba(26, 74, 58, 0.08);
+            padding: 20px 0 32px;
+            overflow-y: auto;
+            flex-shrink: 0;
+            height: calc(100vh - var(--header-height));
+            position: sticky;
+            top: var(--header-height);
+            transition: transform var(--transition), box-shadow var(--transition);
+            z-index: 500;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0 12px;
+        }
+
+        .sidebar-nav>li {
+            margin-bottom: 2px;
+        }
+
+        /* Menu item — main level */
+        .nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.92rem;
+            color: var(--text);
+            transition: var(--transition);
+            text-decoration: none;
+            gap: 8px;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-item:hover {
+            background: rgba(26, 74, 58, 0.06);
+            color: var(--primary);
+        }
+
+        .nav-item.active {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: 0 2px 12px rgba(26, 74, 58, 0.25);
+        }
+
+        .nav-item .icon {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            width: 24px;
+            text-align: center;
+        }
+
+        .nav-item .label {
+            flex: 1;
+        }
+
+        .nav-item .arrow {
+            font-size: 0.7rem;
+            transition: transform var(--transition);
+            opacity: 0.6;
+            flex-shrink: 0;
+        }
+
+        .nav-item .arrow.open {
+            transform: rotate(90deg);
+        }
+
+        .nav-item.active .arrow {
+            opacity: 0.9;
+        }
+
+        /* Sub-menu */
+        .sub-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 0 12px;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .sub-menu.open {
+            max-height: 600px;
+            opacity: 1;
+        }
+
+        .sub-menu li {
+            margin-bottom: 1px;
+        }
+
+        .sub-menu .nav-item {
+            padding: 8px 16px 8px 40px;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--text-light);
+        }
+
+        .sub-menu .nav-item:hover {
+            background: rgba(26, 74, 58, 0.05);
+            color: var(--primary);
+        }
+
+        .sub-menu .nav-item.active {
+            background: var(--primary-light);
+            color: var(--white);
+            box-shadow: 0 2px 10px rgba(26, 74, 58, 0.2);
+        }
+
+        .sub-menu .nav-item .icon {
+            font-size: 0.9rem;
+            width: 20px;
+        }
+
+        /* Divider in menu */
+        .menu-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(26, 74, 58, 0.1), transparent);
+            margin: 8px 16px;
+        }
+
+        /* ───────────── CONTENT ───────────── */
+        .content {
+            flex: 1;
+            padding: 40px 48px 60px;
+            background: var(--cream-light);
+            min-height: calc(100vh - var(--header-height));
+            overflow-y: auto;
+        }
+
+        .content-panel {
+            display: none;
+            animation: fadeUp 0.4s ease;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .content-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ───────────── TYPOGRAPHY ───────────── */
+        .content-panel h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .content-panel .subtitle {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 28px;
+            border-bottom: 2px solid rgba(201, 168, 76, 0.3);
+            padding-bottom: 14px;
+        }
+
+        .content-panel h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-top: 32px;
+            margin-bottom: 12px;
+        }
+
+        .content-panel h4 {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--primary);
+            margin-top: 24px;
+            margin-bottom: 6px;
+        }
+
+        .content-panel p {
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+
+        .content-panel .arabic {
+            font-family: 'Amiri', 'Noto Serif', 'Times New Roman', serif;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            text-align: right;
+            direction: rtl;
+            background: rgba(26, 74, 58, 0.04);
+            padding: 18px 24px;
+            border-radius: var(--radius);
+            border-right: 4px solid var(--gold);
+            margin: 18px 0;
+            color: #1a2a22;
+        }
+
+        .content-panel .hadith-ref {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: -10px;
+            margin-bottom: 18px;
+            padding-left: 8px;
+            border-left: 3px solid var(--gold-light);
+            padding-left: 14px;
+        }
+
+        .content-panel .hadith-ref a {
+            color: var(--primary);
+            text-decoration: none;
+            border-bottom: 1px dotted rgba(26, 74, 58, 0.3);
+        }
+        .content-panel .hadith-ref a:hover {
+            border-bottom-color: var(--gold);
+        }
+
+        .content-panel ul,
+        .content-panel ol {
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+        .content-panel li {
+            margin-bottom: 6px;
+        }
+
+        .content-panel blockquote {
+            border-left: 4px solid var(--gold);
+            padding: 12px 20px;
+            margin: 20px 0;
+            background: rgba(201, 168, 76, 0.06);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            font-style: italic;
+            color: var(--text-light);
+        }
+
+        .content-panel .basmalah {
+            font-size: 1.6rem;
+            text-align: center;
+            margin: 10px 0 24px;
+            color: var(--primary);
+            font-family: 'Amiri', 'Noto Serif', serif;
+        }
+
+        /* ───────────── BIBLIOGRAPHY ───────────── */
+        .bibliography {
+            list-style: none;
+            padding: 0;
+        }
+        .bibliography li {
+            padding: 10px 16px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            font-size: 0.92rem;
+            line-height: 1.6;
+            display: flex;
+            gap: 8px;
+        }
+        .bibliography li::before {
+            content: "•";
+            color: var(--gold);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .bibliography li:last-child {
+            border-bottom: none;
+        }
+
+        /* ───────────── AUTHOR PROFILE ───────────── */
+        .author-profile {
+            display: flex;
+            gap: 28px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .author-avatar {
+            width: 140px;
+            height: 180px;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 4rem;
+            font-weight: 300;
+            flex-shrink: 0;
+            box-shadow: 0 4px 20px rgba(26, 74, 58, 0.2);
+        }
+
+        .author-info {
+            flex: 1;
+            min-width: 200px;
+        }
+        .author-info h3 {
+            margin-top: 0;
+        }
+        .author-info .bio {
+            color: var(--text-light);
+        }
+
+        /* ───────────── SYNOPSIS ───────────── */
+        .synopsis-box {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 28px 32px;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--gold);
+            margin-top: 8px;
+        }
+
+        /* ───────────── RESPONSIVE ───────────── */
+        @media (max-width: 1024px) {
+            .content {
+                padding: 28px 32px;
+            }
+        }
+
+        @media (max-width: 820px) {
+            :root {
+                --sidebar-width: 280px;
+                --header-height: 80px;
+            }
+
+            .header {
+                padding: 14px 20px;
+                min-height: var(--header-height);
+            }
+            .header-brand h1 {
+                font-size: 1.1rem;
+            }
+            .header-meta {
+                font-size: 0.7rem;
+            }
+            .header-meta .publisher {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                bottom: 0;
+                transform: translateX(-100%);
+                width: 280px;
+                height: calc(100vh - var(--header-height));
+                box-shadow: 4px 0 30px rgba(0, 0, 0, 0.12);
+                border-right: none;
+                border-radius: 0 12px 12px 0;
+                background: var(--white);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.3);
+                z-index: 499;
+                backdrop-filter: blur(4px);
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+
+            .content {
+                padding: 24px 20px 40px;
+            }
+
+            .content-panel h2 {
+                font-size: 1.6rem;
+            }
+            .content-panel h3 {
+                font-size: 1.2rem;
+            }
+
+            .author-profile {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .author-avatar {
+                width: 120px;
+                height: 156px;
+                font-size: 3.2rem;
+            }
+
+            .content-panel .arabic {
+                font-size: 1rem;
+                padding: 14px 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-brand h1 {
+                font-size: 0.95rem;
+            }
+            .header-brand .logo-icon {
+                font-size: 22px;
+            }
+            .header-meta .author {
+                font-size: 0.7rem;
+            }
+            .content {
+                padding: 18px 14px 32px;
+            }
+            .content-panel h2 {
+                font-size: 1.3rem;
+            }
+            .content-panel h3 {
+                font-size: 1.05rem;
+            }
+            .synopsis-box {
+                padding: 18px 16px;
+            }
+            .nav-item {
+                font-size: 0.85rem;
+                padding: 8px 12px;
+            }
+            .sub-menu .nav-item {
+                padding: 6px 12px 6px 32px;
+                font-size: 0.8rem;
+            }
+            .sidebar {
+                width: 260px;
+            }
+        }
+
+        /* ───────────── UTILITY ───────────── */
+        .text-gold {
+            color: var(--gold);
+        }
+        .text-primary {
+            color: var(--primary);
+        }
+        .mt-0 {
+            margin-top: 0;
+        }
+        .mb-0 {
+            margin-bottom: 0;
+        }
+        .fw-600 {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════════ HEADER ═══════════════ -->
+    <header class="header" id="top">
+        <div class="header-brand">
+            <span class="logo-icon">☪</span>
+            <h1>
+                Wawasan Hadis tentang Ujaran Kebencian
+                <small>Pusat Studi Hadis Digital · FUSPI UIN Banten</small>
+            </h1>
         </div>
-        
-        <div id="wh-search-container" role="tabpanel">
-          <div id="wh-search-form"><span id="wh-search-group"><span class="wh-icon-search" id="wh-do-search" role="button"></span><input id="wh-search-field" type="text" /><span class="wh-icon-cancel" id="wh-cancel-search" role="button"></span></span><span class="wh-icon-highlight" id="wh-search-highlight" role="switch"></span></div>
-          <div id="wh-search-pane">
-            <div id="wh-search-results">
+        <div class="header-meta">
+            <div class="author">Muhammad Alif</div>
+            <div class="publisher">e-Book · 2026</div>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <!-- ═══════════════ OVERLAY ═══════════════ -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ═══════════════ APP ═══════════════ -->
+    <div class="app">
+
+        <!-- ─── SIDEBAR ─── -->
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Navigasi utama">
+            <ul class="sidebar-nav">
+
+                <!-- HOME -->
+                <li>
+                    <button class="nav-item active" data-target="home" data-type="page">
+                        <span class="icon">🏠</span>
+                        <span class="label">Beranda</span>
+                    </button>
+                </li>
+
+                <li class="menu-divider"></li>
+
+                <!-- BAB 1 -->
+                <li>
+                    <button class="nav-item" data-target="bab1" data-type="folder">
+                        <span class="icon">📖</span>
+                        <span class="label">BAB 1 — Anatomi Ujaran Kebencian Personal</span>
+                        <span class="arrow">▸</span>
+                    </button>
+                    <ul class="sub-menu" id="sub-bab1">
+                        <li>
+                            <button class="nav-item" data-target="bab1-a" data-type="page">
+                                <span class="icon">▸</span>
+                                <span class="label">A. Pencacian, Pelaknatan, &amp; Umpatan</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="nav-item" data-target="bab1-b" data-type="page">
+                                <span class="icon">▸</span>
+                                <span class="label">B. Perundungan, Penghinaan, Merendahkan Martabat</span>
+                            </button>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- BAB 2 -->
+                <li>
+                    <button class="nav-item" data-target="bab2" data-type="folder">
+                        <span class="icon">⚔️</span>
+                        <span class="label">BAB 2 — Eskalasi: Provokasi, Fitnah, Konflik</span>
+                        <span class="arrow">▸</span>
+                    </button>
+                    <ul class="sub-menu" id="sub-bab2">
+                        <li>
+                            <button class="nav-item" data-target="bab2-a" data-type="page">
+                                <span class="icon">▸</span>
+                                <span class="label">A. Adu Domba &amp; Hoaks Kebencian</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="nav-item" data-target="bab2-b" data-type="page">
+                                <span class="icon">▸</span>
+                                <span class="label">B. Tuduhan Tanpa Dasar &amp; Fanatisme</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="nav-item" data-target="bab2-c" data-type="page">
+                                <span class="icon">▸</span>
+                                <span class="label">C. Intimidasi &amp; Ujaran Provokatif</span>
+                            </button>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- BAB 3 -->
+                <li>
+                    <button class="nav-item" data-target="bab3" data-type="folder">
+                        <span class="icon">🕊️</span>
+                        <span class="label">BAB 3 — Solusi &amp; Konsekuensi Spiritual</span>
+                        <span class="arrow">▸</span>
+                    </button>
+                    <ul class="sub-menu" id="sub-bab3">
+                        <li>
+                            <button class="nav-item" data-target="bab3-a" data-type="page">
+                                <span class="icon">▸</span>
+                                <span class="label">A. Pengendalian Diri &amp; Etika Komunikasi</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="nav-item" data-target="bab3-b" data-type="page">
+                                <span class="icon">▸</span>
+                                <span class="label">B. Dampak Akhirat &amp; Kerusakan Amal</span>
+                            </button>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="menu-divider"></li>
+
+                <!-- DAFTAR PUSTAKA -->
+                <li>
+                    <button class="nav-item" data-target="daftar-pustaka" data-type="page">
+                        <span class="icon">📚</span>
+                        <span class="label">Daftar Pustaka</span>
+                    </button>
+                </li>
+
+                <!-- PROFIL PENULIS -->
+                <li>
+                    <button class="nav-item" data-target="profil-penulis" data-type="page">
+                        <span class="icon">✍️</span>
+                        <span class="label">Profil Penulis</span>
+                    </button>
+                </li>
+
+                <!-- SINOPSIS -->
+                <li>
+                    <button class="nav-item" data-target="sinopsis" data-type="page">
+                        <span class="icon">📄</span>
+                        <span class="label">Sinopsis</span>
+                    </button>
+                </li>
+
+            </ul>
+        </nav>
+
+        <!-- ─── OVERLAY ─── -->
+
+        <!-- ─── CONTENT ─── -->
+        <main class="content" id="mainContent">
+
+            <!-- ═══ HOME / KATA PENGANTAR ═══ -->
+            <div class="content-panel active" id="panel-home">
+                <h2>Kata Pengantar</h2>
+                <div class="subtitle">Prakata dari penulis</div>
+
+                <div class="basmalah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+
+                <p>Lisan adalah anugerah terbesar dari Allah SWT yang dianugerahkan kepada manusia sebagai sarana komunikasi, penyampai kebaikan, dan alat untuk merajut ukhuwah. Namun, di sisi lain, lisan juga menjadi salah satu anggota tubuh yang paling mudah membawa seseorang kepada kehancuran jika tidak dijaga dengan bijak. Di era digital saat ini, penyalahgunaan lisan telah bergeser ke ruang siber dalam bentuk ujaran kebencian (<em>hate speech</em>), hoaks, provokasi, dan perundungan digital (<em>cyberbullying</em>) yang kian mengkhawatirkan dan mengancam keharmonisan sosial.</p>
+
+                <p>Sebagai panduan hidup umat Islam, sunnah dan hadis Rasulullah SAW telah memberikan peta jalan yang sangat komprehensif dalam mengatur etika komunikasi serta menanggulangi bahaya penyimpangan lisan. Buku sederhana yang berjudul <strong>"Wawasan Hadis tentang Ujaran Kebencian"</strong> ini hadir untuk mengkaji dan memetakan pandangan hadis-hadis Nabi SAW terkait berbagai bentuk penyalahgunaan lisan, mulai dari tingkat personal hingga konflik sosial yang lebih luas.</p>
+
+                <p>Penyusunan materi dalam buku ini dibagi secara sistematis ke dalam tiga bab besar:</p>
+
+                <ul>
+                    <li><strong>Anatomi Ujaran Kebencian Personal dan Perundungan Verbal</strong>, yang mengupas larangan mencaci, melaknat, ghibah, hingga merendahkan martabat manusia.</li>
+                    <li><strong>Eskalasi Ujaran Kebencian: Provokasi, Fitnah, dan Konflik Kelompok</strong>, yang menyoroti bahaya namimah (adu domba), hoaks, fanatisme buta (<em>ash-shabiyah</em>), serta tuduhan tanpa dasar (<em>takfiri</em>).</li>
+                    <li><strong>Solusi dan Konsekuensi Spiritual Pelaku Ujaran Kebencian</strong>, yang mengetengahkan prinsip pengendalian diri, pentingnya berkata santun, serta dampak buruk kerusakan amal akibat lisan yang tidak terjaga.</li>
+                </ul>
+
+                <p>Kehadiran e-book ini diharapkan mampu menjadi pencerahan intelektual sekaligus panduan praktis bagi masyarakat luas, akademisi, dan pegiat media sosial agar senantiasa menebarkan kedamaian serta menjauhkan diri dari segala bentuk provokasi verbal.</p>
+
+                <p>Kami mengucapkan terima kasih kepada semua pihak yang telah mendukung penyusunan karya ini, khususnya kepada Pusat Studi Hadis Digital FUSPI UIN Banten yang terus berkomitmen mengembangkan literasi hadis berbasis kontemporer. Semoga amal ibadah ini bernilai di sisi Allah SWT dan membawa maslahat bagi umat.</p>
+
+                <p style="margin-top:32px; text-align:right; font-style:italic;">
+                    Wallahul muwaffiq ila aqwamith thariq.
+                </p>
+
+                <div style="text-align:right; margin-top:8px;">
+                    <strong>Banten, 2026</strong><br />
+                    <strong>MUHAMMAD ALIF</strong>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div id="wh-separator"></div>
-      <div id="wh-content">
-      <p class="p-Normal" style="line-height: 1.54; margin-bottom: 0pt; margin-left: -72pt; margin-right: 524pt; text-align: left;"><span style="font-size: 1pt;"><img alt="gambar cover" height="100%" src="Praktek-Website_files/image5.png" width="100%" /></span></div>
+
+            <!-- ═══ BAB 1 — A ═══ -->
+            <div class="content-panel" id="panel-bab1-a">
+                <h2>BAB 1 — Anatomi Ujaran Kebencian Personal dan Perundungan Verbal</h2>
+                <div class="subtitle">A. Pencacian, Pelaknatan, dan Umpatan Kasar</div>
+
+                <div class="arabic">
+                    قال عبد الله : قال النبي ﷺ: سباب المسلم فسوق، وقتاله كفر.
+                </div>
+                <p><strong>Abdullah berkata:</strong> Nabi (shallallahu 'alaihi wa sallam) bersabda: <em>"Mencaci seorang Muslim adalah perbuatan fasik, dan memeranginya adalah perbuatan kufur."</em></p>
+                <div class="hadith-ref">HR. al-Bukhārī, <em>Ṣaḥīḥ al-Bukhāriy</em>, vol. 9, p. 50.</div>
+
+                <div class="arabic">
+                    عن أبي الدرداء. سمعت رسول الله صلى الله عليه وسلم يقول: "إن اللعانين لا يكونون شهداء ولا شفعاء يوم القيامة"
+                </div>
+                <p><strong>Diriwayatkan dari Abu Darda:</strong> Aku mendengar Rasulullah (shallallahu 'alaihi wa sallam) bersabda, <em>"Orang-orang yang gemar melaknat orang lain tidak akan menjadi saksi maupun pemberi syafaat pada hari kiamat."</em></p>
+                <div class="hadith-ref">HR. Muslim, <em>Ṣaḥīḥ Muslim</em>, vol. 4, p. 2006.</div>
+
+                <p style="margin-top:20px;">Hadis-hadis di atas dengan tegas melarang tindakan mencaci dan melaknat sesama Muslim. Mencaci digambarkan sebagai perbuatan fasik—keluar dari ketaatan—sedangkan melaknat menghalangi pelakunya dari kedudukan mulia di akhirat. Kedua larangan ini menunjukkan betapa seriusnya Islam menjaga kehormatan lisan dan martabat sesama mukmin.</p>
+            </div>
+
+            <!-- ═══ BAB 1 — B ═══ -->
+            <div class="content-panel" id="panel-bab1-b">
+                <h2>BAB 1 — Anatomi Ujaran Kebencian Personal dan Perundungan Verbal</h2>
+                <div class="subtitle">B. Perundungan, Penghinaan, dan Merendahkan Martabat</div>
+
+                <div class="arabic">
+                    عن أبي برزة الأسلمي، قال: قال رسول الله -صلى الله عليه وسلم-: "يا معشر من آمن بلسانه ولم يدخل الإيمان قلبه، لا تغتابوا المسلمين، ولا تتبعوا عَوْرَاتِهِمْ"
+                </div>
+                <p><strong>Diriwayatkan dari Abu Barzah al-Aslami:</strong> Rasulullah shallallahu 'alaihi wa sallam bersabda: <em>"Wahai orang-orang yang mengaku beriman dengan lisan tetapi hati belum menerimanya, janganlah kalian mengghibah orang-orang mukmin, dan janganlah kalian mencari-cari kesalahan mereka."</em></p>
+                <div class="hadith-ref">HR. Abū Dāwud, <em>Sunan Abī Dāwud</em>, vol. 7, p. 241.</div>
+
+                <div class="arabic">
+                    عن سالم بن عبد الله ، عن أبيه قال: قال رسول الله صلى الله عليه وسلم: «ثلاثة لا ينظر الله عز وجل إليهم يوم القيامة: العاق لوالديه، والمرأة المترجلة، والديوث، وثلاثة لا يدخلون الجنة: العاق لوالديه، والمدمن على الخمر، والمنان بما أعطى».
+                </div>
+                <p><strong>Diriwayatkan oleh Salim bin Abdullah, dari ayahnya:</strong> Rasulullah shallallahu 'alaihi wa sallam bersabda: <em>"Ada tiga golongan yang tidak akan dipandang oleh Allah—'Azza wa Jalla—pada hari Kiamat: orang yang durhaka kepada kedua orang tuanya, wanita yang menyerupai laki-laki, dan dayyuth [laki-laki yang membiarkan perbuatan keji terjadi dalam keluarganya]. Dan ada tiga golongan yang tidak akan masuk Surga: orang yang durhaka kepada kedua orang tuanya, pecandu minuman keras, dan orang yang selalu mengungkit-ungkit pemberiannya kepada orang lain."</em></p>
+                <div class="hadith-ref">HR. al-Nassā'iy, <em>Sunan al-Nassā'iy</em>, vol. 5, p. 80.</div>
+
+                <div class="arabic">
+                    عن عبد الله بن مسعود، عن النبي صلى الله عليه وسلم قال: "لا يدخل الجنة من كان في قلبه مثقال ذرة من كبر" قال رجل: إن الرجل يحب أن يكون ثوبه حسنا ونعله حسنة. قال: "إن الله جميل يحب الجمال. الكبر بطر الحق وغمط الناس".
+                </div>
+                <p><strong>Diriwayatkan dari Abdullah bin Mas'ud, dari Nabi shallallahu 'alaihi wa sallam:</strong> Beliau bersabda: <em>"Tidak akan masuk Surga seseorang yang di dalam hatinya terdapat kesombongan seberat biji sawi."</em> Seseorang bertanya: <em>"Namun, ada orang yang menyukai pakaian dan sandalnya bagus."</em> Beliau menjawab: <em>"Sesungguhnya Allah itu Indah dan mencintai keindahan. Kesombongan adalah menolak kebenaran dan meremehkan orang lain."</em></p>
+                <div class="hadith-ref">HR. Muslim, <em>Ṣaḥīḥ Muslim</em>, vol. 1, p. 93.</div>
+
+                <p style="margin-top:20px;">Bab ini menegaskan bahwa perundungan verbal, ghibah, dan sikap merendahkan orang lain adalah perilaku tercela yang dapat menghalangi pelakunya dari rahmat Allah. Bahkan kesombongan sekecil biji sawi pun cukup untuk menjauhkan seseorang dari surga. Islam mengajarkan umatnya untuk menjaga lisan dan tidak mencari-cari aib saudaranya.</p>
+            </div>
+
+            <!-- ═══ BAB 2 — A ═══ -->
+            <div class="content-panel" id="panel-bab2-a">
+                <h2>BAB 2 — Eskalasi Ujaran Kebencian: Provokasi, Fitnah, dan Konflik</h2>
+                <div class="subtitle">A. Adu Domba dan Penyebaran Hoaks Kebencian</div>
+
+                <div class="arabic">
+                    قال حذيفة: سمعت رسول الله صلى الله عليه وسلم يقول: "لا يدخل الجنة نمام".
+                </div>
+                <p><strong>Hudhayfah berkata:</strong> Aku mendengar Rasulullah (shallallahu 'alaihi wa sallam) bersabda: <em>"Tidak akan masuk Surga orang yang suka menyebarkan fitnah (adu domba)."</em></p>
+                <div class="hadith-ref">HR. Muslim, <em>Ṣaḥīḥ Muslim</em>, vol. 1, p. 101.</div>
+
+                <div class="arabic">
+                    عن أبي هريرة؛ قال: قال رسول الله صلى الله عليه وسلم: "كفى بالمرء كذبا أن يحدث بكل ما سمع".
+                </div>
+                <p><strong>Diriwayatkan dari Abu Hurairah:</strong> Rasulullah (shallallahu 'alaihi wa sallam) bersabda: <em>"Cukuplah seseorang dianggap berdusta jika ia menceritakan segala sesuatu yang didengarnya."</em></p>
+                <div class="hadith-ref">HR. Muslim, <em>Ṣaḥīḥ Muslim</em>, vol. 1, p. 10.</div>
+
+                <div class="arabic">
+                    عن جندب بن عبد الله البجلي. قال: قال رسول الله صلى الله عليه وسلم: "من قتل تحت راية عمية، يدعو عصبية، أو ينصر عصبية، فقتلة جاهلية".
+                </div>
+                <p><strong>Diriwayatkan oleh Jundub bin Abdullah al-Bajali:</strong> Rasulullah shallallahu 'alaihi wa sallam bersabda: <em>"Barangsiapa terbunuh di bawah panji yang samar (buta)—menyerukan fanatisme golongan atau mendukung fanatisme golongan—maka kematiannya adalah kematian Jahiliyyah."</em></p>
+                <div class="hadith-ref">HR. Muslim, <em>Ṣaḥīḥ Muslim</em>, vol. 3, p. 1478.</div>
+
+                <p style="margin-top:20px;">Adu domba (<em>namimah</em>) dan penyebaran hoaks adalah pintu masuk utama konflik sosial. Rasulullah SAW memperingatkan bahwa pelaku namimah tidak akan masuk surga, dan menyebarkan berita tanpa verifikasi adalah bentuk kebohongan. Fanatisme buta (<em>'ashabiyyah</em>) juga dikecam sebagai peninggalan jahiliyyah yang merusak persatuan umat.</p>
+            </div>
+
+            <!-- ═══ BAB 2 — B ═══ -->
+            <div class="content-panel" id="panel-bab2-b">
+                <h2>BAB 2 — Eskalasi Ujaran Kebencian: Provokasi, Fitnah, dan Konflik</h2>
+                <div class="subtitle">B. Tuduhan Tanpa Dasar dan Ujaran Kebencian Berbasis Fanatisme</div>
+
+                <div class="arabic">
+                    عن عبد الله بن عمر، أن رسول الله ﷺ قال: «أيما رجل قال لأخيه: يا كافر، فقد باء بها أحدهما.»
+                </div>
+                <p><strong>Diriwayatkan dari Abdullah bin Umar:</strong> Rasulullah shallallahu 'alaihi wa sallam bersabda: <em>"Jika seseorang berkata kepada saudaranya, 'Wahai orang kafir,' maka salah satu dari keduanya telah menyandang sebutan tersebut."</em></p>
+                <div class="hadith-ref">HR. al-Bukhārī, <em>Ṣaḥīḥ al-Bukhāriy</em>, vol. 8, p. 26.</div>
+
+                <p style="margin-top:20px;">Tuduhan kafir (<em>takfir</em>) tanpa dasar adalah bentuk ujaran kebencian yang sangat berbahaya. Hadis ini mengingatkan bahwa jika tuduhan tersebut tidak benar, maka tuduhan itu akan kembali kepada pelakunya. Fanatisme golongan sering kali menjadi pemicu tuduhan semacam ini, yang dapat merusak persaudaraan dan memecah belah umat.</p>
+            </div>
+
+            <!-- ═══ BAB 2 — C ═══ -->
+            <div class="content-panel" id="panel-bab2-c">
+                <h2>BAB 2 — Eskalasi Ujaran Kebencian: Provokasi, Fitnah, dan Konflik</h2>
+                <div class="subtitle">C. Intimidasi dan Ujaran Provokatif Pemicu Permusuhan</div>
+
+                <div class="arabic">
+                    عن عبد الله ابن عمرو بن العاص؛ أن رسول الله صلى الله عليه وسلم قال: "من الكبائر شتم الرجل والديه" قالوا: يا رسول الله! وهل يشتم الرجل والديه؟ قال: "نعم. يسب أبا الرجل، فيسب أباه. ويسب أمه، فيسب أمه".
+                </div>
+                <p><strong>Diriwayatkan dari Abdullah bin Amr bin Al-Ash:</strong> Rasulullah shallallahu 'alaihi wa sallam bersabda: <em>"Termasuk dosa besar adalah seseorang mencaci kedua orang tuanya."</em> Mereka bertanya: <em>"Wahai Rasulullah! Adakah orang yang mencaci kedua orang tuanya sendiri?"</em> Beliau menjawab: <em>"Ya; dia mencaci ayah orang lain, lalu orang itu membalas mencaci ayahnya; dan dia mencaci ibu orang lain, lalu orang itu membalas mencaci ibunya."</em></p>
+                <div class="hadith-ref">HR. Muslim, <em>Ṣaḥīḥ Muslim</em>, vol. 1, p. 92.</div>
+
+                <div class="arabic">
+                    عن عبد الله بن يسار، عن عبد الرحمن بن أبي ليلى حدثنا أصحاب محمد - صلى الله عليه وسلم - أنهم كانوا يسيرون مع النبي - صلى الله عليه وسلم -، فنام رجل منهم، فانطلق بعضهم إلى حبل معه فأخذه، ففزع، فقال رسول الله -صلى الله عليه وسلم-: "لا يحل لمسلم أن يروع مسلما"
+                </div>
+                <p><strong>Diriwayatkan oleh Abdullah bin Yasar, dari Abdur-Rahman bin Abi Layla:</strong> Para sahabat Muhammad (shallallahu 'alaihi wa sallam) menceritakan bahwa mereka sedang dalam perjalanan bersama Nabi ketika salah seorang dari mereka tertidur. Beberapa orang mengambil tali yang dibawanya sehingga ia terkejut. Rasulullah (shallallahu 'alaihi wa sallam) bersabda: <em>"Tidak halal bagi seorang Muslim untuk menakut-nakuti Muslim lainnya."</em></p>
+                <div class="hadith-ref">HR. Abū Dāwud, <em>Sunan Abī Dāwud</em>, vol. 7, p. 352.</div>
+
+                <p style="margin-top:20px;">Ujaran provokatif dan intimidasi tidak hanya menyakiti korban secara langsung, tetapi juga dapat memicu permusuhan yang meluas hingga mencakup keluarga dan kerabat. Rasulullah SAW mengingatkan bahwa mencaci orang lain sama dengan mencaci orang tuanya sendiri, karena akan memicu balasan yang setimpal. Intimidasi dalam bentuk apapun juga dilarang keras dalam Islam.</p>
+            </div>
+
+            <!-- ═══ BAB 3 — A ═══ -->
+            <div class="content-panel" id="panel-bab3-a">
+                <h2>BAB 3 — Solusi dan Konsekuensi Spiritual Pelaku Ujaran Kebencian</h2>
+                <div class="subtitle">A. Prinsip Pengendalian Diri dan Etika Komunikasi Anti-Kebencian</div>
+
+                <div class="arabic">
+                    عن أبي هريرة، عن رسول الله صلى الله عليه وسلم قال: "من كان يؤمن بالله واليوم الآخر فليقل خيرا أو ليصمت. ومن كان يؤمن بالله واليوم الآخر فليكرم جاره. ومن كان يؤمن بالله واليوم الآخر فليكرم ضيفه".
+                </div>
+                <p><strong>Diriwayatkan dari Abu Hurairah, dari Rasulullah shallallahu 'alaihi wa sallam:</strong> Beliau bersabda: <em>"Barangsiapa yang beriman kepada Allah dan Hari Akhir, hendaklah ia berkata baik atau diam. Dan barangsiapa yang beriman kepada Allah dan Hari Akhir, hendaklah ia memuliakan tetangganya. Dan barangsiapa yang beriman kepada Allah dan Hari Akhir, hendaklah ia memuliakan tamunya."</em></p>
+                <div class="hadith-ref">HR. Muslim, <em>Ṣaḥīḥ Muslim</em>, vol. 1, p. 68.</div>
+
+                <div class="arabic">
+                    عن عائشة، زوج النبي صلى الله عليه وسلم، عن النبي صلى الله عليه وسلم قال: "إن الرفق لا يكون في شيء إلا زانه. ولا ينزع من شيء إلا شانه".
+                </div>
+                <p><strong>Diriwayatkan dari Aisyah, istri Nabi shallallahu 'alaihi wa sallam:</strong> Beliau bersabda: <em>"Tidaklah sifat lemah lembut itu ada pada sesuatu melainkan ia akan menghiasinya, dan tidaklah ia dicabut dari sesuatu melainkan ia akan mencorengnya."</em></p>
+                <div class="hadith-ref">HR. Muslim, <em>Ṣaḥīḥ Muslim</em>, vol. 4, p. 2004.</div>
+
+                <p style="margin-top:20px;">Prinsip <em>"berkata baik atau diam"</em> adalah fondasi etika komunikasi dalam Islam. Sikap lemah lembut (<em>rifq</em>) adalah kunci keindahan dalam setiap urusan. Islam mengajarkan umatnya untuk mengendalikan lisan, memuliakan tetangga, dan menghormati tamu sebagai wujud keimanan kepada Allah dan Hari Akhir.</p>
+            </div>
+
+            <!-- ═══ BAB 3 — B ═══ -->
+            <div class="content-panel" id="panel-bab3-b">
+                <h2>BAB 3 — Solusi dan Konsekuensi Spiritual Pelaku Ujaran Kebencian</h2>
+                <div class="subtitle">B. Dampak Akhirat dan Kerusakan Amal Akibat Ujaran Kebencian</div>
+
+                <div class="arabic">
+                    عن أبي هريرة، قال: قال رجل: يا رسول الله، إن فلانة يذكر من كثرة صلاتها، وصيامها، وصدقتها، غير أنها تؤذي جيرانها بلسانها، قال: " هي في النار "، قال: يا رسول الله، فإن فلانة يذكر من قلة صيامها، وصدقتها، وصلاتها، وإنها تصدق بالأثوار من الأقط ولا تؤذي جيرانها بلسانها.
+                </div>
+                <p><strong>Diriwayatkan dari Abu Hurairah:</strong> Seorang pria berkata, <em>"Wahai Rasulullah, ada seorang wanita yang dikenal karena seringnya ia melakukan shalat, puasa, dan sedekah, namun ia menyakiti tetangganya dengan lisannya."</em> Beliau bersabda, <em>"Dia di Neraka."</em> Pria itu berkata, <em>"Wahai Rasulullah, ada wanita lain yang dikenal karena sedikitnya puasa, sedekah, dan shalatnya—ia hanya bersedekah potongan-potongan kecil dadih kering—namun ia tidak menyakiti tetangganya dengan lisannya."</em></p>
+                <div class="hadith-ref">HR. Aḥmad ibn Ḥanbal, <em>Musnad al-Imām Aḥmad</em>, vol. 15, p. 421–422.</div>
+
+                <p style="margin-top:20px;">Hadis ini memberikan peringatan keras bahwa amal ibadah yang banyak sekalipun tidak akan menyelamatkan seseorang jika lisannya menyakiti orang lain. Sebaliknya, orang yang sedikit amal ibadahnya namun menjaga lisannya dari menyakiti sesama lebih baik di sisi Allah. Ini menunjukkan bahwa menjaga lisan dari ujaran kebencian adalah amal yang sangat besar nilainya di akhirat.</p>
+
+                <blockquote>
+                    <p><strong>Pesan utama:</strong> Ujaran kebencian tidak hanya merusak hubungan sosial, tetapi juga dapat menghancurkan pahala amal ibadah seseorang. Oleh karena itu, setiap Muslim dituntut untuk senantiasa menjaga lisannya, berkata baik, dan menebarkan kedamaian.</p>
+                </blockquote>
+            </div>
+
+            <!-- ═══ DAFTAR PUSTAKA ═══ -->
+            <div class="content-panel" id="panel-daftar-pustaka">
+                <h2>Daftar Pustaka</h2>
+                <div class="subtitle">Referensi hadis yang dikutip</div>
+
+                <ul class="bibliography">
+                    <li>Bukhāriy, Abū ʻAbdillāh Muḥammad ibn Ismāʻīl al-. <em>Ṣaḥīḥ al-Bukhāriy</em>. Edited by Muḥammad Zuhair ibn Nāṣir al-Nāṣir. 9 vols. n.p.: Dār Ṭauq al-Najāt, 1422.</li>
+                    <li>Ibn al-Ḥajjāj, Muslim. <em>Ṣaḥīḥ Muslim</em>. Edited by Muḥammad Fu'ād ʻAbd al-Bāqī. 5 vols. n.p.: Dār Iḥyā' al-Turāṡ al-ʻArabiy, 1955.</li>
+                    <li>Nassā'iy, Abū ʻAbd al-Raḥmān ibn Syuʻaib al-. <em>Sunan al-Nassā'iy</em>. Edited by ʻAbd al-Fattāḥ Abū Guddah. 8 vols. Aleppo: Maktab al-Maṭbūʻāt al-Islāmiyyah, 1986.</li>
+                    <li>Abū Dāwud, Sulaimān ibn al-Asyʻaṡ. <em>Sunan Abī Dāwud</em>. Edited by Syuʻaib al-Arna'ūṭ, Muḥammad Kāmil Qurah Balaliy. 7 vols. n.p.: Dār al-Risālah al-ʻĀlamiyah, 2009.</li>
+                    <li>Ibn Ḥanbal, Aḥmad. <em>Musnad al-Imām Aḥmad ibn Ḥanbal</em>. Edited by Syuʻaib al-Arna'ūṭ, ʻĀdil Mursyid. 50 vols. n.p.: Muʼassasah al-Risālah, 2001.</li>
+                </ul>
+            </div>
+
+            <!-- ═══ PROFIL PENULIS ═══ -->
+            <div class="content-panel" id="panel-profil-penulis">
+                <h2>Profil Penulis</h2>
+                <div class="subtitle">Muhammad Alif</div>
+
+                <div class="author-profile">
+                    <div class="author-avatar">✍️</div>
+                    <div class="author-info">
+                        <h3>Muhammad Alif</h3>
+                        <p class="bio">Penulis adalah akademisi dan pegiat studi hadis digital di Pusat Studi Hadis Digital FUSPI UIN Banten. Beliau memiliki kepedulian tinggi terhadap literasi hadis berbasis kontemporer, khususnya dalam merespons fenomena sosial-keagamaan di era digital.</p>
+                        <p class="bio">Karya-karya beliau berfokus pada pengembangan pemahaman hadis yang kontekstual dan aplikatif, dengan tujuan memberikan pencerahan intelektual bagi masyarakat luas.</p>
+                        <p style="margin-top:12px; font-size:0.9rem; color:var(--text-light);">
+                            <strong>Bidang minat:</strong> Studi Hadis, Etika Komunikasi Islam, Digital Literacy, dan Tafsir Sosial.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ SINOPSIS ═══ -->
+            <div class="content-panel" id="panel-sinopsis">
+                <h2>Sinopsis</h2>
+                <div class="subtitle">Tentang buku ini</div>
+
+                <div class="synopsis-box">
+                    <p>Buku digital berjudul <strong>"Wawasan Hadis tentang Ujaran Kebencian"</strong> karya Muhammad Alif yang diterbitkan oleh Pusat Studi Hadis Digital FUSPI UIN Banten ini mengkaji secara mendalam etika komunikasi dan bahaya penyimpangan lisan berdasarkan petunjuk sunnah Nabi SAW. Di tengah maraknya fenomena <em>hate speech</em>, hoaks, dan perundungan di era digital, buku ini hadir untuk memberikan pencerahan melalui pendekatan tekstual hadis yang diklasifikasikan secara sistematis.</p>
+
+                    <p>Materi buku ini terbagi menjadi tiga bab utama. <strong>Bab pertama</strong> membahas anatomi ujaran kebencian personal, seperti larangan mencaci, melaknat, ghibah, dan merendahkan martabat. <strong>Bab kedua</strong> menyoroti eskalasi konflik sosial akibat adu domba, hoaks, fanatisme golongan, serta tuduhan tanpa dasar. Adapun <strong>bab ketiga</strong> menawarkan solusi berupa prinsip pengendalian diri, pentingnya berkata lembut, serta peringatan terhadap kerusakan amal akibat lisan yang tidak terjaga.</p>
+
+                    <p style="margin-top:16px;"><strong>E-book ini sangat penting sebagai panduan moral umat Islam dalam menghadapi tantangan komunikasi di era digital.</strong></p>
+                </div>
+            </div>
+
+        </main>
+
     </div>
 
-    
-  </body></html>
+    <!-- ═══════════════ JAVASCRIPT ═══════════════ -->
+    <script>
+        (function() {
+            'use strict';
+
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const hamburger = document.getElementById('hamburger');
+            const mainContent = document.getElementById('mainContent');
+
+            // ─── All nav buttons ───
+            const navButtons = document.querySelectorAll('.nav-item');
+            const subMenus = document.querySelectorAll('.sub-menu');
+
+            // ─── State ───
+            let activePanelId = 'home';
+            let activeButton = document.querySelector('.nav-item[data-target="home"]');
+
+            // ─── Close sidebar on mobile ───
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                hamburger.classList.add('active');
+            }
+
+            function toggleSidebar() {
+                if (sidebar.classList.contains('open')) {
+                    closeSidebar();
+                } else {
+                    openSidebar();
+                }
+            }
+
+            hamburger.addEventListener('click', toggleSidebar);
+            overlay.addEventListener('click', closeSidebar);
+
+            // ─── Show panel ───
+            function showPanel(panelId, button) {
+                // Hide all panels
+                document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
+
+                // Show target
+                const target = document.getElementById('panel-' + panelId);
+                if (target) {
+                    target.classList.add('active');
+                    activePanelId = panelId;
+                }
+
+                // Update active button
+                navButtons.forEach(b => b.classList.remove('active'));
+                if (button) {
+                    button.classList.add('active');
+                    activeButton = button;
+                } else {
+                    // find button with data-target
+                    const found = document.querySelector('.nav-item[data-target="' + panelId + '"]');
+                    if (found) {
+                        found.classList.add('active');
+                        activeButton = found;
+                    }
+                }
+
+                // Ensure parent folder is open and highlighted
+                const parentLi = button ? button.closest('li') : null;
+                if (parentLi) {
+                    const parentFolder = parentLi.closest('li')?.querySelector('.nav-item[data-type="folder"]');
+                    if (parentFolder) {
+                        parentFolder.classList.add('active');
+                        const sub = parentFolder.nextElementSibling;
+                        if (sub && sub.classList.contains('sub-menu')) {
+                            sub.classList.add('open');
+                            parentFolder.querySelector('.arrow')?.classList.add('open');
+                        }
+                    }
+                }
+
+                // Close sidebar on mobile after navigation
+                if (window.innerWidth <= 820) {
+                    closeSidebar();
+                }
+            }
+
+            // ─── Handle click on nav item ───
+            navButtons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const target = this.dataset.target;
+                    const type = this.dataset.type;
+
+                    if (type === 'folder') {
+                        // Toggle sub-menu
+                        const sub = this.nextElementSibling;
+                        if (sub && sub.classList.contains('sub-menu')) {
+                            const isOpen = sub.classList.contains('open');
+                            // Close all other sub-menus
+                            subMenus.forEach(s => {
+                                if (s !== sub) {
+                                    s.classList.remove('open');
+                                    const parentBtn = s.closest('li').querySelector('.nav-item[data-type="folder"]');
+                                    if (parentBtn) {
+                                        parentBtn.querySelector('.arrow')?.classList.remove('open');
+                                    }
+                                }
+                            });
+                            // Toggle this one
+                            if (isOpen) {
+                                sub.classList.remove('open');
+                                this.querySelector('.arrow')?.classList.remove('open');
+                            } else {
+                                sub.classList.add('open');
+                                this.querySelector('.arrow')?.classList.add('open');
+                                // Show first sub-item's content
+                                const firstSub = sub.querySelector('.nav-item[data-type="page"]');
+                                if (firstSub) {
+                                    showPanel(firstSub.dataset.target, firstSub);
+                                }
+                            }
+                        }
+                        // Highlight folder
+                        navButtons.forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        activeButton = this;
+                    } else if (type === 'page') {
+                        showPanel(target, this);
+                    }
+                });
+            });
+
+            // ─── Open first sub-item of BAB 1 by default ───
+            // Wait for DOM then open BAB 1 sub and show its first item
+            function initDefault() {
+                // Home is already active
+                // But we want to show BAB 1 sub as open with its first item active?
+                // Actually, let's keep home as default, but also pre-open BAB 1 sub for UX
+                const bab1Folder = document.querySelector('.nav-item[data-target="bab1"]');
+                if (bab1Folder) {
+                    const sub = bab1Folder.nextElementSibling;
+                    if (sub && sub.classList.contains('sub-menu')) {
+                        sub.classList.add('open');
+                        bab1Folder.querySelector('.arrow')?.classList.add('open');
+                        // Make first sub-item active
+                        const firstSub = sub.querySelector('.nav-item[data-type="page"]');
+                        if (firstSub) {
+                            // Don't show it yet, just style
+                            firstSub.classList.add('active');
+                        }
+                    }
+                }
+            }
+
+            // ─── Keyboard / Escape ───
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                    closeSidebar();
+                }
+            });
+
+            // ─── Resize: auto-close sidebar on desktop ───
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 820 && sidebar.classList.contains('open')) {
+                    closeSidebar();
+                }
+            });
+
+            // ─── Init ───
+            initDefault();
+
+            // Ensure home panel is shown
+            const homeBtn = document.querySelector('.nav-item[data-target="home"]');
+            if (homeBtn) {
+                // But only if no other panel is active
+                const activePanel = document.querySelector('.content-panel.active');
+                if (!activePanel) {
+                    showPanel('home', homeBtn);
+                }
+            }
+
+            // Fix: if home is not active but home panel is visible, sync
+            const homePanel = document.getElementById('panel-home');
+            if (homePanel && homePanel.classList.contains('active')) {
+                const homeBtn2 = document.querySelector('.nav-item[data-target="home"]');
+                if (homeBtn2) {
+                    navButtons.forEach(b => b.classList.remove('active'));
+                    homeBtn2.classList.add('active');
+                    activeButton = homeBtn2;
+                }
+            }
+
+            console.log('✅ Wawasan Hadis — Website siap digunakan.');
+        })();
+    </script>
+
+</body>
+</html>
