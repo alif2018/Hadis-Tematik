@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hadis Tematik · Parenting Salat</title>
+    <base target="_self" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f6f0;
+            color: #1e2b3a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        :root {
+            --primary: #2b4f8c;
+            --gold: #c9a84c;
+            --gold-light: #e0c66e;
+            --gold-dark: #a8892f;
+            --bg-body: #f8f6f0;
+            --bg-card: #ffffff;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+            --sidebar-width: 300px;
+            --header-height: 72px;
+        }
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 2px 12px rgba(43,79,140,0.25);
+        }
+        .app-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .app-header .brand img {
+            height: 44px;
+            width: auto;
+            border-radius: 6px;
+            background: #fff;
+            padding: 4px;
+            object-fit: contain;
+        }
+        .app-header .brand .title-group {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .app-header .brand .title-group h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .app-header .brand .title-group .author {
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+        .app-header .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px 4px;
+            border-radius: 6px;
+        }
+        .app-header .hamburger:hover { background: rgba(255,255,255,0.1); }
+        .app-header .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: #fff;
+            border-radius: 4px;
+        }
+        .app-layout { display: flex; flex: 1; position: relative; }
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            border-left: 1px solid rgba(43,79,140,0.10);
+            box-shadow: -4px 0 20px rgba(0,0,0,0.04);
+            height: calc(100vh - var(--header-height));
+            position: sticky;
+            top: var(--header-height);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 16px 10px 30px;
+            flex-shrink: 0;
+            transition: transform var(--transition);
+            z-index: 900;
+        }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-track { background: #f0ede7; }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 8px; }
+
+        .menu-section { margin-bottom: 4px; border-bottom: 1px solid rgba(43,79,140,0.06); }
+        .menu-section:last-of-type { border-bottom: none; }
+        .menu-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 14px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-align: left;
+        }
+        .menu-head:hover { background: rgba(43,79,140,0.06); }
+        .menu-head .icon { font-size: 1.1rem; flex-shrink: 0; width: 1.5rem; text-align: center; }
+        .menu-head .arrow {
+            margin-left: auto;
+            font-size: 0.7rem;
+            transition: transform var(--transition);
+            color: var(--gold-dark);
+        }
+        .menu-head.open .arrow { transform: rotate(90deg); }
+
+        .sub-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 6px 0;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.35s ease, opacity 0.25s ease;
+            opacity: 0;
+        }
+        .sub-menu.open { max-height: 800px; opacity: 1; }
+        .sub-menu li { margin: 0; }
+        .sub-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px 8px 38px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 450;
+            color: #2d3f54;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .sub-link:hover { background: rgba(43,79,140,0.07); color: var(--primary); }
+        .sub-link.active {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(43,79,140,0.25);
+        }
+        .sub-link .sub-icon { font-size: 0.85rem; opacity: 0.7; width: 1.2rem; text-align: center; }
+        .sub-link.active .sub-icon { opacity: 1; }
+
+        .extra-menu {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 2px solid rgba(43,79,140,0.08);
+        }
+        .extra-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .extra-link:hover { background: rgba(43,79,140,0.06); }
+        .extra-link.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(43,79,140,0.25);
+        }
+        .extra-link .icon { font-size: 1.1rem; width: 1.5rem; text-align: center; }
+
+        .main-content {
+            flex: 1;
+            padding: 32px 40px 60px;
+            min-width: 0;
+            background: var(--bg-body);
+        }
+        .content-panel { display: none; animation: fadeUp 0.35s ease; }
+        .content-panel.active { display: block; }
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .panel-sub { font-size: 0.95rem; color: #5e6f82; margin-bottom: 24px; }
+        .hadith-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 18px 0 22px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--gold);
+        }
+        .hadith-box .arabic {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #1e2b3a;
+            direction: rtl;
+            font-family: 'Times New Roman', 'Traditional Arabic', serif;
+            margin-bottom: 12px;
+            padding: 6px 0;
+            word-wrap: break-word;
+        }
+        .hadith-box .translation {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #2d3f54;
+            border-top: 1px dashed rgba(43,79,140,0.12);
+            padding-top: 12px;
+        }
+        .hadith-box .source {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--gold-dark);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+        .sub-section { margin-top: 28px; }
+        .sub-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .sub-section p { line-height: 1.7; color: #2d3f54; margin-bottom: 10px; }
+
+        .bibliography {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43,79,140,0.10);
+        }
+        .bibliography h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 14px;
+        }
+        .bibliography ul { list-style: none; padding: 0; }
+        .bibliography ul li {
+            padding: 6px 0 6px 20px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #2d3f54;
+            border-bottom: 1px solid rgba(43,79,140,0.05);
+            text-indent: -20px;
+            padding-left: 30px;
+        }
+        .bibliography ul li::before {
+            content: "•";
+            color: var(--gold);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.35);
+            z-index: 850;
+            backdrop-filter: blur(2px);
+        }
+        .overlay.active { display: block; }
+
+        @media (max-width: 991px) {
+            .app-header .hamburger { display: flex; }
+            .sidebar {
+                position: fixed;
+                top: var(--header-height);
+                right: 0;
+                height: calc(100vh - var(--header-height));
+                transform: translateX(100%);
+                box-shadow: -8px 0 30px rgba(0,0,0,0.10);
+                border-left: none;
+                width: 290px;
+                padding: 12px 8px 30px;
+            }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { padding: 20px 18px 40px; }
+            .panel-title { font-size: 1.5rem; }
+            .app-header .brand .title-group h1 { font-size: 1rem; }
+            .app-header .brand img { height: 36px; }
+            .hadith-box { padding: 16px 18px; }
+            .hadith-box .arabic { font-size: 1rem; }
+        }
+        @media (max-width: 480px) {
+            :root { --header-height: 64px; }
+            .app-header { padding: 0 14px; }
+            .app-header .brand .title-group h1 { font-size: 0.85rem; }
+            .app-header .brand .title-group .author { font-size: 0.7rem; }
+            .sidebar { width: 265px; }
+            .main-content { padding: 14px 12px 30px; }
+            .panel-title { font-size: 1.25rem; }
+            .sub-link { padding: 7px 10px 7px 28px; font-size: 0.8rem; }
+            .menu-head { padding: 10px 12px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="brand">
+            <img src="logo-pshd.jpg" alt="Logo" />
+            <div class="title-group">
+                <h1>Hadis Tematik Parenting Salat</h1>
+                <span class="author">Penyusun: Muhammad Alif</span>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+    <div class="app-layout">
+        <div class="overlay" id="overlay"></div>
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Daftar isi">
+            <div class="top-menu" id="topMenu"></div>
+            <div id="menuContainer"></div>
+            <div class="extra-menu" id="extraMenu"></div>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div id="panelContainer"></div>
+        </main>
+    </div>
+    <script>
+        (function() {
+            'use strict';
+
+            // ===== DATA MENU =====
+            // Menggunakan ikon Font Awesome yang relevan
+            const menuData = [{
+                id: 'babA',
+                label: 'A. Pendidikan Anak',
+                icon: 'fa-graduation-cap',
+                children: [{
+                    id: 'A1',
+                    label: '1. Pendidikan anak tanggung jawab orang tua',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">1. Pendidikan anak adalah tanggung jawab orang tua</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">٢٥٥٤ - حَدَّثَنَا مُسَدَّدٌ: حَدَّثَنَا يَحْيَى، عَنْ عُبَيْدِ اللهِ قَالَ: حَدَّثَنِي نَافِعٌ، عَنْ عَبْدِ اللهِ رَضِيَ اللهُ عَنْهُ: أَنَّ رَسُولَ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ قَالَ: «كُلُّكُمْ رَاعٍ فَمَسْؤُولٌ عَنْ رَعِيَّتِهِ، فَالْأَمِيرُ الَّذِي عَلَى النَّاسِ رَاعٍ وَهُوَ مَسْؤُولٌ عَنْهُمْ، وَالرَّجُلُ رَاعٍ عَلَى أَهْلِ بَيْتِهِ وَهُوَ مَسْؤُولٌ عَنْهُمْ، وَالْمَرْأَةُ رَاعِيَةٌ عَلَى بَيْتِ بَعْلِهَا وَوَلَدِهِ، وَهِيَ مَسْؤُولَةٌ عَنْهُمْ، وَالْعَبْدُ رَاعٍ عَلَى مَالِ سَيِّدِهِ وَهُوَ مَسْؤُولٌ عَنْهُ، أَلَا فَكُلُّكُمْ رَاعٍ وَكُلُّكُمْ مَسْؤُولٌ عَنْ رَعِيَّتِهِ.»</div>
+                            <div class="translation">Telah menceritakan kepada kami Musaddad ... dari Abdullah raḍiallāhu 'anhu bahwa Rasulullah ṣallalāhu 'alaihi wasallam bersabda: "Setiap kalian adalah pemimpin dan akan diminta pertanggung jawaban atas yang dipimpinnya. Amir (kepala Negara), dia adalah pemimpin manusia, suami pemimpin keluarganya, wanita pemimpin di rumah suami dan anak-anaknya... Ketahuilah bahwa setiap kalian adalah pemimpin dan setiap kalian akan diminta pertanggung jawaban."</div>
+                            <span class="source">Sumber: HR. Bukhari No. 2554 & Muslim No. 1829</span>
+                        </div>
+                    `
+                }, {
+                    id: 'A2',
+                    label: '2. Mendidik anak > sedekah',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">2. Mendidik anak lebih baik daripada sedekah</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">١٩٥١ - حَدَّثَنَا قُتَيْبَةُ قَالَ: حَدَّثَنَا يَحْيَى بْنُ يَعْلَى، عَنْ نَاصِحٍ، عَنْ سِمَاكِ بْنِ حَرْبٍ، عَنْ جَابِرِ بْنِ سَمُرَةَ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «لَأَنْ يُؤَدِّبَ الرَّجُلُ وَلَدَهُ خَيْرٌ لَهُ مِنْ أَنْ يَتَصَدَّقَ بِصَاعٍ».</div>
+                            <div class="translation">Telah menceritakan kepada kami Qutaibah ... dari Jabir bin Samurah ia berkata; Rasulullah ṣallallāhu 'alaihi wasallam bersabda: "Seseorang yang mengajari anaknya tentang kebaikan adalah lebih baik baginya daripada ia bersedekah sebanyak satu ṣa'."</div>
+                            <span class="source">HR. Tirmidzi No. 1951 (hasan)</span>
+                        </div>
+                    `
+                }, {
+                    id: 'A3',
+                    label: '3. Akhlak mulia target pendidikan',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">3. Akhlak mulia adalah target pendidikan anak</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">٨٩٥٢ - حَدَّثَنَا سَعِيدُ بْنُ مَنْصُورٍ، قَالَ: حَدَّثَنَا عَبْدُ الْعَزِيزِ بْنُ مُحَمَّدٍ، عَنْ مُحَمَّدِ بْنِ عَجْلَانَ، عَنْ الْقَعْقَاعِ بْنِ حَكِيمٍ، عَنْ أَبِي صَالِحٍ،عَنْ أَبِي هُرَيْرَةَ، قَالَ: قَالَ رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: " إِنَّمَا بُعِثْتُ لِأُتَمِّمَ صَالِحَ الْأَخْلَاقِ "</div>
+                            <div class="translation">Telah menceritakan kepada kami Sa'id bin Mansur ... dari Abu Hurairah berkata; Rasulullah ṣallallāhu 'alaihi wasallam bersabda: "Sesungguhnya aku diutus untuk menyempurnakan akhlak yang baik."</div>
+                            <span class="source">HR. Ahmad No. 8952, juga Baihaqi</span>
+                        </div>
+                    `
+                }, {
+                    id: 'A4',
+                    label: '4. Ṣalat materi pendidikan keluarga',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">4. Ṣalat merupakan salah satu materi pendidikan anggota keluarga</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">٥١٥٦ - حدَّثنا زُهيرُ بنُ حَرْب وعثمانُ بنُ أبي شَيبةَ، قالا: حدَّثنا محمدُ ابنُ الفُضَيل، عن مُغيرةَ، عن أُمّ موسى عن عليٍّ، قال: كان آخِرُ كلام رسول الله -صلى الله عليه وسلم-: "الصلاةَ الصلاةَ، اتقوا الله فيما مَلَكَتْ أيمانُكم"</div>
+                            <div class="translation">Telah menceritakan kepada kami Zuhair bin Harb dan Utsman... dari Ali bin Abi Thalib radhiyallahu 'anhu, ia berkata, "Ucapan terakhir Rasulullah shallallahu 'alaihi wasallam adalah, 'Kerjakanlah ṣalat, kerjakanlah ṣalat, dan takutlah kalian kepada Allah terhadap hak-hak hamba sahaya kalian.'"</div>
+                            <span class="source">HR. Abu Dawud No. 5156, shahih</span>
+                        </div>
+                    `
+                }, {
+                    id: 'A5',
+                    label: '5. Investasi akhirat',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">5. Pendidikan ṣalat merupakan investasi akhirat bagi orang tua</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">٣٦٥١ - حَدَّثَنَا عَلِيُّ بْنُ حُجْرٍ، قَالَ: أَخْبَرَنَا إِسْمَاعِيلُ بْنُ جَعْفَرٍ، عَنِ الْعَلَاءِ بْنِ عَبْدِ الرَّحْمَنِ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ قَالَ: «إِذَا مَاتَ الْإِنْسَانُ انْقَطَعَ عَمَلُهُ إِلَّا مِنْ ثَلَاثٍ: صَدَقَةٌ جَارِيَةٌ، وَعِلْمٌ يُنْتَفَعُ بِهِ، وَوَلَدٌ صَالِحٌ يَدْعُو لَهُ»</div>
+                            <div class="translation">Telah menceritakan kepada kami Ali bin Hujr... bahwa Rasulullah ṣallallāhu 'alaihi wasallam bersabda: "Jika seseorang meninggal dunia maka terputuslah amalnya kecuali tiga hal; Sedekah jariyah, ilmu yang dimanfaatkan, dan anak saleh yang mendoakannya."</div>
+                            <span class="source">HR. Muslim No. 1631, Tirmidzi No. 3651</span>
+                        </div>
+                        <div class="sub-section">
+                            <p style="color:#2d3f54; margin-top:16px;"><strong>Tafsir Tersirat:</strong> Dalam frasa <em>وَوَلَدٌ صَالِحٌ يَدْعُو لَهُ</em>, kesalehan anak tidak hanya diukur dari akhlak umum, tetapi juga mencakup komitmennya dalam <strong>salat</strong>. Anak yang dibiasakan salat sejak dini akan tumbuh dengan kesadaran spiritual yang kuat, dan ia akan senantiasa mendoakan kedua orang tuanya, terutama pada waktu-waktu mustajab seperti setelah salat fardhu, dalam sujud terakhir, dan pada sepertiga malam. Dengan demikian, orang tua yang mendidik anaknya untuk salat telah menanamkan <strong>investasi akhirat</strong> yang tak terputus pahalanya.</p>
+                        </div>
+                    `
+                }]
+            }, {
+                id: 'babB',
+                label: 'B. Menciptakan Miliu Kondusif',
+                icon: 'fa-house-chimney',
+                children: [{
+                    id: 'B1a',
+                    label: 'a. Rumah bukan kuburan',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">a. Menjadikan rumah tidak seperti kuburan</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">٤٣٢ - حَدَّثَنَا مُسَدَّدٌ قَالَ: حَدَّثَنَا يَحْيَى، عَنْ عُبَيْدِ اللهِ قَالَ: أَخْبَرَنِي نَافِعٌ، عَنِ ابْنِ عُمَرَ، عَنِ النَّبِيِّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ قَالَ: «اجْعَلُوا فِي بُيُوتِكُمْ مِنْ صَلَاتِكُمْ، وَلَا تَتَّخِذُوهَا قُبُورًا»</div>
+                            <div class="translation">Jadikanlah (sebagian) ṣalat kalian di rumah kalian, dan jangan jadikan ia sebagai kuburan.</div>
+                            <span class="source">HR. Bukhari</span>
+                        </div>
+                    `
+                }, {
+                    id: 'B1b',
+                    label: 'b. Rumah masjid kedua',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">b. Menjadikan rumah sebagai masjid kedua</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">٧٧٨ - وَحَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، وَأَبُو كُرَيْبٍ قَالَا: حَدَّثَنَا أَبُو مُعَاوِيَةَ ، عَنِ الْأَعْمَشِ ، عَنْ أَبِي سُفْيَانَ ، عَنْ جَابِرٍ قَالَ: قَالَ رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: « إِذَا قَضَى أَحَدُكُمُ الصَّلَاةَ فِي مَسْجِدِهِ، فَلْيَجْعَلْ لِبَيْتِهِ نَصِيبًا مِنْ صَلَاتِهِ فَإِنَّ اللهَ جَاعِلٌ فِي بَيْتِهِ مِنْ صَلَاتِهِ خَيْرًا»</div>
+                            <div class="translation">Jika salah seorang dari kalian telah menunaikan ṣalat di masjid, hendaknya ia menyisakan sebagian ṣalatnya untuk (dikerjakan) di rumahnya...</div>
+                            <span class="source">HR. Muslim</span>
+                        </div>
+                    `
+                }, {
+                    id: 'B1c',
+                    label: 'c. Ṣalat bagian kesenangan',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">c. Menjadikan ṣalat bagian dari kesenangan dalam rumah</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">٣٩٤٠ - أَخْبَرَنَا عَلِيُّ بْنُ مُسْلِمٍ الطُّوسِيُّ، قَالَ: حَدَّثَنَا سَيَّارٌ، قَالَ: حَدَّثَنَا جَعْفَرٌ، قَالَ: حَدَّثَنَا ثَابِتٌ ، عَنْ أَنَسٍ، قَالَ: قَالَ رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: «حُبِّبَ إِلَيَّ النِّسَاءُ وَالطِّيبُ، وَجُعِلَتْ قُرَّةُ عَيْنِي فِي الصَّلَاةِ»</div>
+                            <div class="translation">Dijadikan kesenanganku dari dunia pada wanita dan minyak wangi, dan dijadikan penyejuk hatiku dalam ṣalat.</div>
+                            <span class="source">HR. An-Nasa'i, Ahmad</span>
+                        </div>
+                    `
+                }, {
+                    id: 'B2',
+                    label: '2. Pendidikan Alquran bagian dari salat',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">2. Pendidikan membaca Alquran bagian dari pendidikan ṣalat</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">٢٩١٥ - حَدَّثَنَا نَصْرُ بْنُ عَلِيٍّ الْجَهْضَمِيُّ ، قَالَ: حَدَّثَنَا عَبْدُ الصَّمَدِ بْنُ عَبْدِ الْوَارِثِ ، قَالَ: أَخْبَرَنَا شُعْبَةُ ، عَنْ عَاصِمٍ ، عَنْ أَبِي صَالِحٍ ، عَنْ أَبِي هُرَيْرَةَ : عَنِ النَّبِيِّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ قَالَ: «يَجِيءُ الْقُرْآنُ يَوْمَ الْقِيَامَةِ ... اقْرَأْ وَارْقَ وَيُزَادُ بِكُلِّ آيَةٍ حَسَنَةً»</div>
+                            <div class="translation">Pada hari kiamat, Alquran akan datang memberi syafaat, dibacakan mahkota kemuliaan. Dikatakan: "Bacalah dan naiklah, setiap ayat akan menambah kebaikan."</div>
+                            <span class="source">HR. Tirmidzi No. 2915, hasan</span>
+                        </div>
+                    `
+                }]
+            }, {
+                id: 'babC',
+                label: 'C. Tahapan Pendidikan Ṣalat',
+                icon: 'fa-clock',
+                children: [{
+                    id: 'C1',
+                    label: '1. Usia balita',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">1. Pendidikan ṣalat untuk usia balita</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">٤٩٧ - حَدَّثَنَا سُلَيْمَانُ بْنُ دَاوُدَ الْمَهْرِيُّ، حَدَّثَنَا ابْنُ وَهْبٍ، حَدَّثَنَا هِشَامُ بْنُ سَعْدٍ، حَدَّثَنِي مُعَاذُ بْنُ عَبْدِ اللَّهِ بْنِ خُبَيْبٍ الْجُهَنِيُّ، قَالَ: ... فَقَالَ: «إِذَا عَرَفَ يَمِينَهُ مِنْ شِمَالِهِ، فَمُرُوهُ بِالصَّلَاةِ»</div>
+                            <div class="translation">Apabila anak sudah mengetahui mana yang kanan dan mana yang kiri, maka perintahkanlah dia untuk ṣalat.</div>
+                            <span class="source">HR. Abu Dawud No. 497, hasan</span>
+                        </div>
+                    `
+                }, {
+                    id: 'C2',
+                    label: '2. Usia 7-10 tahun',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">2. Pendidikan ṣalat untuk usia 7-10 tahun</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">٤٩٥ - حَدَّثَنَا مُؤَمَّلُ بْنُ هِشَامٍ يَعْنِي الْيَشْكُرِيَّ، حَدَّثَنَا إِسْمَاعِيلُ، عَنْ سَوَّارٍ أَبِي حَمْزَةَ ... عَنْ عَمْرِو بْنِ شُعَيْبٍ، عَنْ أَبِيهِ، عَنْ جَدِّهِ، قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: «مُرُوا أَوْلَادَكُمْ بِالصَّلَاةِ وَهُمْ أَبْنَاءُ سَبْعِ سِنِينَ، وَاضْرِبُوهُمْ عَلَيْهَا، وَهُمْ أَبْنَاءُ عَشْرٍ وَفَرِّقُوا بَيْنَهُمْ فِي الْمَضَاجِعِ»</div>
+                            <div class="translation">Perintahkanlah anak-anak kalian untuk melaksanakan ṣalat apabila sudah mencapai umur tujuh tahun, dan apabila sudah mencapai umur sepuluh tahun maka pukullah dia apabila meninggalkannya, serta pisahkan tempat tidur mereka.</div>
+                            <span class="source">HR. Abu Dawud, Tirmidzi</span>
+                        </div>
+                    `
+                }]
+            }, {
+                id: 'babD',
+                label: 'D. Metode & Sanksi',
+                icon: 'fa-scale-balanced',
+                children: [{
+                    id: 'D1',
+                    label: '1. Bertahap toleransi kualitas',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">1. Bertahap dalam toleransi terhadap kualitas ṣalat anak</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">١٨٨٩٤ - حَدَّثَنَا صَفْوَانُ بْنُ عِيسَى ... سَمِعْتُ رَسُولَ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: " إِنَّ الْعَبْدَ لَيُصَلِّي الصَّلَاةَ مَا يُكْتَبُ لَهُ مِنْهَا إِلَّا عُشْرُهَا، تُسْعُهَا... نِصْفُها "</div>
+                            <div class="translation">Sesungguhnya seorang hamba mengerjakan salat, namun tidak ditulis pahalanya kecuali sepersepuluh, sepersembilan, dst hingga setengahnya. Maka perbaiki secara bertahap.</div>
+                            <span class="source">HR. Ahmad</span>
+                        </div>
+                    `
+                }, {
+                    id: 'D2',
+                    label: '2. Peringatan kualitas buruk',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">2. Peringatan tentang kualitas ṣalat yang buruk</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">٢٢٦٤٢ - حَدَّثَنَا مُحَمَّدُ بْنُ النَّوْشَجَانِ ... قَالَ: قَالَ رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: " أَسْوَأُ النَّاسِ سَرِقَةً الَّذِي يَسْرِقُ مِنْ صَلَاتِهِ " قَالُوا: يَا رَسُولَ اللهِ، وَكَيْفَ يَسْرِقُ مِنْ صَلَاتِهِ؟ قَالَ: " لَا يُتِمُّ رُكُوعَهَا وَلَا سُجُودَهَا "</div>
+                            <div class="translation">Sejelek-jelek manusia yang mencuri adalah orang yang mencuri salatnya, yaitu tidak menyempurnakan rukuk dan sujudnya.</div>
+                            <span class="source">HR. Ahmad</span>
+                        </div>
+                    `
+                }, {
+                    id: 'D3',
+                    label: '3. Sanksi pemukulan edukatif',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">3. Sanksi dengan pemukulan (tidak menyakiti)</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">٤٩٥ - ... «مُرُوا أَوْلَادَكُمْ بِالصَّلَاةِ وَهُمْ أَبْنَاءُ سَبْعٍ، وَاضْرِبُوهُمْ عَلَيْهَا وَهُمْ أَبْنَاءُ عَشْرٍ»</div>
+                            <div class="translation">Perintah dan pukulan ringan sebagai edukasi pada usia 10 tahun, dengan tetap menjaga kelembutan.</div>
+                            <span class="source">HR. Abu Dawud</span>
+                        </div>
+                    `
+                }, {
+                    id: 'D4',
+                    label: '4. Pendidikan kelembutan',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">4. Pendidikan dengan Kelembutan</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">٢٤٤٢٧ - حَدَّثَنَا هَيْثَمُ بْنُ خَارِجَةَ قَالَ: حَدَّثَنَا حَفْصُ بْنُ مَيْسَرَةَ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ عَائِشَةَ، أَنَّهَا قَالَتْ: قَالَ رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: " إِذَا أَرَادَ اللهُ عَزَّ وَجَلَّ بِأَهْلِ بَيْتٍ خَيْرًا، أَدْخَلَ عَلَيْهِمُ الرِّفْقَ "</div>
+                            <div class="translation">Jika Allah menghendaki kebaikan bagi suatu keluarga, Allah akan memasukkan kelembutan (ke dalam diri mereka).</div>
+                            <span class="source">HR. Ahmad</span>
+                        </div>
+                    `
+                }, {
+                    id: 'D5',
+                    label: '5. Pendidikan kasih sayang',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">5. Pendidikan dengan Kasih Sayang</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">١٩٢٤ - حَدَّثَنَا ابْنُ أَبِي عُمَرَ، قَالَ: حَدَّثَنَا سُفْيَانُ، عَنْ عَمْرِو بْنِ دِينَارٍ ، عَنْ أَبِي قَابُوسَ ، عَنْ عَبْدِ اللهِ بْنِ عَمْرٍو قَالَ: قَالَ رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: «الرَّاحِمُونَ يَرْحَمُهُمُ الرَّحْمَنُ، ارْحَمُوا مَنْ فِي الْأَرْضِ يَرْحَمْكُمْ مَنْ فِي السَّمَاءِ»</div>
+                            <div class="translation">Orang-orang yang mengasihi akan dikasihi oleh Ar-Rahman. Sayangilah yang ada di bumi, niscaya yang di langit menyayangi kalian.</div>
+                            <span class="source">HR. Tirmidzi, hasan shahih</span>
+                        </div>
+                    `
+                }]
+            }];
+
+            // ===== TOP MENU & EXTRA MENU DATA =====
+            const topMenuData = [{
+                id: 'home',
+                label: 'Home',
+                icon: 'fa-house',
+                content: `
+                    <h2 class="panel-title">E-Book Digital</h2>
+                    <h3 style="font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--primary); margin:0.5rem 0 1.5rem;">📚 Hadis Tematik Parenting Salat</h3>
+                    <div style="background:var(--bg-card); border-radius:var(--radius); padding:2rem; box-shadow:var(--shadow);">
+                        <p style="font-size:1.1rem; line-height:1.8; color:#2d3f54;">Mengupas tuntunan Nabi ﷺ dalam mendidik anak tentang salat, menciptakan lingkungan ibadah, serta metode kasih sayang berbasis sunnah.</p>
+                        <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+                            <span style="background:#e8edf5; padding:0.5rem 1rem; border-radius:30px;"><i class="fas fa-graduation-cap" style="color:var(--primary);"></i> Parenting berbasis dalil</span>
+                            <span style="background:#e8edf5; padding:0.5rem 1rem; border-radius:30px;"><i class="fas fa-mosque" style="color:var(--primary);"></i> Pendidikan salat usia dini</span>
+                            <span style="background:#e8edf5; padding:0.5rem 1rem; border-radius:30px;"><i class="fas fa-heart" style="color:var(--primary);"></i> Metode kasih sayang & kelembutan</span>
+                        </div>
+                        <p style="margin-top:1.5rem; color:#6b7280;"><i class="fas fa-user-graduate" style="color:var(--gold);"></i> Penulis: Muhammad Alif</p>
+                    </div>
+                `
+            }];
+
+            const extraData = [{
+                id: 'daftar-pustaka',
+                label: 'Daftar Pustaka',
+                icon: 'fa-book',
+                content: `
+                    <h2 class="panel-title">Daftar Pustaka</h2>
+                    <div class="bibliography">
+                        <ul>
+                            <li>Al-Bukhāriy, Abū ‘Abdillāh Muḥammad ibn Ismā‘īl ibn Ibrāhīm ibn al-Muġīrah al-Ju‘fiy. <em>Al-Jāmi‘ Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Min Umūr Rasūlillah Ṣallā Allāh ‘alaih Wasallam Wa Sunanih Wa Ayyāmih</em>. Edited by Muḥammad Zuhaïr ibn Nāṣir Al-Nāṣir. Dār Ṭauq al-Najāt.</li>
+                            <li>Abū Dāwud, Sulaimān Ibn Al-Asy‘aṣ Ibn Ishāq Ibn Basyīr Ibn Syidād Ibn ‘Amru Al-Azdiy Al-Sijistāniy. <em>Sunan Abī Dāwud</em>.</li>
+                            <li>Ibn Al-Ḥajjāj, Muslim. <em>Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Binaql Al-‘Adl ‘an Al-‘Adl Ilā Rasūlillah Ṣallā Allāh ‘alaih Wasallam</em>. Edited by Muḥammad Fu’ād ‘Abd Al-Bāqī. Dār Iḥyā’ al-Turāṡ al-‘Arabiy.</li>
+                            <li>Al-Tirmīziy, Abū ‘Īsā Muḥammad Ibn ‘Īsā Ibn Saurah Ibn Mūsā Al-Ḍaḥḥak. <em>Al-Jāmi‘ Al-Kabīr Wahuwa Sunan Al-Tirmīziy</em>. Edited by Basysyār ‘Awad Ma‘rūf.</li>
+                            <li>Ibn Ḥanbal, Aḥmad. <em>Musnad Al-Imām Aḥmad Ibn Ḥanbal</em>. Dār al-Ḥadīṡ.</li>
+                        </ul>
+                    </div>
+                `
+            }];
+
+            // ===== RENDER =====
+            const topMenuContainer = document.getElementById('topMenu');
+            const menuContainer = document.getElementById('menuContainer');
+            const extraMenuContainer = document.getElementById('extraMenu');
+            const panelContainer = document.getElementById('panelContainer');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const hamburger = document.getElementById('hamburgerBtn');
+
+            let activePanelId = null;
+
+            function renderTopMenu() {
+                let html = '';
+                topMenuData.forEach(item => {
+                    html += `<div style="margin-bottom:12px; padding-bottom:12px; border-bottom:2px solid rgba(43,79,140,0.08);">`;
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                        <span class="icon"><i class="fas ${item.icon}"></i></span> ${item.label}
+                    </button>`;
+                    html += `</div>`;
+                });
+                topMenuContainer.innerHTML = html;
+            }
+
+            function renderMenuItems(items, depth) {
+                let html = '';
+                items.forEach(item => {
+                    if (item.children) {
+                        const isTop = depth === 0;
+                        html += `<div class="menu-section">`;
+                        html += `<button class="menu-head ${isTop ? 'open' : ''}" data-toggle="${item.id}" aria-expanded="${isTop}">
+                            <span class="icon"><i class="fas ${item.icon || 'fa-folder'}"></i></span> ${item.label}
+                            <span class="arrow">▶</span>
+                        </button>`;
+                        html += `<ul class="sub-menu ${isTop ? 'open' : ''}">`;
+                        html += renderMenuItems(item.children, depth + 1);
+                        html += `</ul></div>`;
+                    } else {
+                        html += `<li><button class="sub-link" data-panel="${item.id}">
+                            <span class="sub-icon"><i class="fas ${item.icon || 'fa-chevron-right'}"></i></span> ${item.label}
+                        </button></li>`;
+                    }
+                });
+                return html;
+            }
+
+            function renderMenu() {
+                let html = '';
+                menuData.forEach(item => {
+                    html += `<div class="menu-section">`;
+                    html += `<button class="menu-head open" data-toggle="${item.id}" aria-expanded="true">
+                        <span class="icon"><i class="fas ${item.icon || 'fa-folder'}"></i></span> ${item.label}
+                        <span class="arrow">▶</span>
+                    </button>`;
+                    html += `<ul class="sub-menu open">`;
+                    html += renderMenuItems(item.children, 1);
+                    html += `</ul></div>`;
+                });
+                menuContainer.innerHTML = html;
+            }
+
+            function renderExtraMenu() {
+                let html = '';
+                extraData.forEach(item => {
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                        <span class="icon"><i class="fas ${item.icon}"></i></span> ${item.label}
+                    </button>`;
+                });
+                extraMenuContainer.innerHTML = html;
+            }
+
+            function renderPanels() {
+                let html = '';
+                topMenuData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+                function collectPanels(items) {
+                    items.forEach(item => {
+                        if (item.children) {
+                            collectPanels(item.children);
+                        } else {
+                            html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                        }
+                    });
+                }
+                collectPanels(menuData);
+                extraData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+                panelContainer.innerHTML = html;
+            }
+
+            function showPanel(panelId, fromSubLink = true) {
+                document.querySelectorAll('.content-panel').forEach(el => el.classList.remove('active'));
+                const panel = document.getElementById('panel-' + panelId);
+                if (panel) panel.classList.add('active');
+                document.querySelectorAll('.sub-link, .extra-link').forEach(el => el.classList.remove('active'));
+                const link = document.querySelector(`.sub-link[data-panel="${panelId}"], .extra-link[data-panel="${panelId}"]`);
+                if (link) link.classList.add('active');
+                activePanelId = panelId;
+                if (window.innerWidth <= 991 && fromSubLink) closeSidebar();
+            }
+
+            function toggleSection(btn) {
+                const sub = btn.nextElementSibling;
+                if (!sub) return;
+                const isOpen = sub.classList.contains('open');
+                if (isOpen) {
+                    sub.classList.remove('open');
+                    btn.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+                } else {
+                    sub.classList.add('open');
+                    btn.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            }
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function toggleSidebar() {
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            function init() {
+                renderPanels();
+                renderTopMenu();
+                renderMenu();
+                renderExtraMenu();
+
+                topMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                menuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('menu-head')) {
+                        e.stopPropagation();
+                        toggleSection(target);
+                        return;
+                    }
+                    if (target.classList.contains('sub-link')) {
+                        e.preventDefault();
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                        return;
+                    }
+                });
+
+                extraMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                // Default: tampilkan home
+                if (topMenuData.length > 0) {
+                    showPanel(topMenuData[0].id, false);
+                }
+
+                hamburger.addEventListener('click', toggleSidebar);
+                overlay.addEventListener('click', closeSidebar);
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 991) closeSidebar();
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+                });
+            }
+
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hadis Tematik · Animal Abuse</title>
+    <base target="_self" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f6f0;
+            color: #1e2b3a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        :root {
+            --primary: #2b4f8c;
+            --gold: #c9a84c;
+            --gold-light: #e0c66e;
+            --gold-dark: #a8892f;
+            --bg-body: #f8f6f0;
+            --bg-card: #ffffff;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+            --sidebar-width: 300px;
+            --header-height: 72px;
+        }
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 2px 12px rgba(43,79,140,0.25);
+        }
+        .app-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .app-header .brand img {
+            height: 44px;
+            width: auto;
+            border-radius: 6px;
+            background: #fff;
+            padding: 4px;
+            object-fit: contain;
+        }
+        .app-header .brand .title-group {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .app-header .brand .title-group h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .app-header .brand .title-group .author {
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+        .app-header .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px 4px;
+            border-radius: 6px;
+        }
+        .app-header .hamburger:hover { background: rgba(255,255,255,0.1); }
+        .app-header .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: #fff;
+            border-radius: 4px;
+        }
+        .app-layout { display: flex; flex: 1; position: relative; }
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            border-left: 1px solid rgba(43,79,140,0.10);
+            box-shadow: -4px 0 20px rgba(0,0,0,0.04);
+            height: calc(100vh - var(--header-height));
+            position: sticky;
+            top: var(--header-height);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 16px 10px 30px;
+            flex-shrink: 0;
+            transition: transform var(--transition);
+            z-index: 900;
+        }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-track { background: #f0ede7; }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 8px; }
+
+        .menu-section { margin-bottom: 4px; border-bottom: 1px solid rgba(43,79,140,0.06); }
+        .menu-section:last-of-type { border-bottom: none; }
+        .menu-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 14px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-align: left;
+        }
+        .menu-head:hover { background: rgba(43,79,140,0.06); }
+        .menu-head .icon { 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            fill: var(--primary);
+        }
+        .menu-head .arrow {
+            margin-left: auto;
+            font-size: 0.7rem;
+            transition: transform var(--transition);
+            color: var(--gold-dark);
+        }
+        .menu-head.open .arrow { transform: rotate(90deg); }
+
+        .sub-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 6px 0;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.35s ease, opacity 0.25s ease;
+            opacity: 0;
+        }
+        .sub-menu.open { max-height: 1200px; opacity: 1; }
+        .sub-menu li { margin: 0; }
+        .sub-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px 8px 38px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 450;
+            color: #2d3f54;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .sub-link:hover { background: rgba(43,79,140,0.07); color: var(--primary); }
+        .sub-link.active {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(43,79,140,0.25);
+        }
+        .sub-link .sub-icon { 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px;
+            fill: #2d3f54;
+            opacity: 0.8; 
+        }
+        .sub-link:hover .sub-icon { fill: var(--primary); }
+        .sub-link.active .sub-icon { fill: #fff; opacity: 1; }
+
+        .extra-menu {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 2px solid rgba(43,79,140,0.08);
+        }
+        .extra-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .extra-link:hover { background: rgba(43,79,140,0.06); }
+        .extra-link.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(43,79,140,0.25);
+        }
+        .extra-link .icon { 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            fill: var(--primary);
+        }
+        .extra-link.active .icon { fill: #fff; }
+
+        .main-content {
+            flex: 1;
+            padding: 32px 40px 60px;
+            min-width: 0;
+            background: var(--bg-body);
+        }
+        .content-panel { display: none; animation: fadeUp 0.35s ease; }
+        .content-panel.active { display: block; }
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .panel-sub { font-size: 0.95rem; color: #5e6f82; margin-bottom: 24px; }
+        .hadith-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 18px 0 22px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--gold);
+        }
+        .hadith-box .arabic {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #1e2b3a;
+            direction: rtl;
+            font-family: 'Times New Roman', 'Traditional Arabic', serif;
+            margin-bottom: 12px;
+            padding: 6px 0;
+            word-wrap: break-word;
+        }
+        .hadith-box .translation {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #2d3f54;
+            border-top: 1px dashed rgba(43,79,140,0.12);
+            padding-top: 12px;
+        }
+        .hadith-box .source {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--gold-dark);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+        .sub-section { margin-top: 28px; }
+        .sub-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .sub-section p { line-height: 1.7; color: #2d3f54; margin-bottom: 10px; }
+
+        .bibliography {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43,79,140,0.10);
+        }
+        .bibliography h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 14px;
+        }
+        .bibliography ul { list-style: none; padding: 0; }
+        .bibliography ul li {
+            padding: 6px 0 6px 20px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #2d3f54;
+            border-bottom: 1px solid rgba(43,79,140,0.05);
+            text-indent: -20px;
+            padding-left: 30px;
+        }
+        .bibliography ul li::before {
+            content: "•";
+            color: var(--gold);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.35);
+            z-index: 850;
+            backdrop-filter: blur(2px);
+        }
+        .overlay.active { display: block; }
+
+        @media (max-width: 991px) {
+            .app-header .hamburger { display: flex; }
+            .sidebar {
+                position: fixed;
+                top: var(--header-height);
+                right: 0;
+                height: calc(100vh - var(--header-height));
+                transform: translateX(100%);
+                box-shadow: -8px 0 30px rgba(0,0,0,0.10);
+                border-left: none;
+                width: 290px;
+                padding: 12px 8px 30px;
+            }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { padding: 20px 18px 40px; }
+            .panel-title { font-size: 1.5rem; }
+            .app-header .brand .title-group h1 { font-size: 1rem; }
+            .app-header .brand img { height: 36px; }
+            .hadith-box { padding: 16px 18px; }
+            .hadith-box .arabic { font-size: 1rem; }
+        }
+        @media (max-width: 480px) {
+            :root { --header-height: 64px; }
+            .app-header { padding: 0 14px; }
+            .app-header .brand .title-group h1 { font-size: 0.85rem; }
+            .app-header .brand .title-group .author { font-size: 0.7rem; }
+            .sidebar { width: 265px; }
+            .main-content { padding: 14px 12px 30px; }
+            .panel-title { font-size: 1.25rem; }
+            .sub-link { padding: 7px 10px 7px 28px; font-size: 0.8rem; }
+            .menu-head { padding: 10px 12px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="brand">
+            <img src="logo-pshd.jpg" alt="Logo" />
+            <div class="title-group">
+                <h1>Hadis Tematik Animal Abuse</h1>
+                <span class="author">Penyusun: Eva Fatonah & Muhammad Alif</span>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+    <div class="app-layout">
+        <div class="overlay" id="overlay"></div>
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Daftar isi">
+            <div class="top-menu" id="topMenu"></div>
+            <div id="menuContainer"></div>
+            <div class="extra-menu" id="extraMenu"></div>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div id="panelContainer"></div>
+        </main>
+    </div>
+    <script>
+        (function() {
+            'use strict';
+
+            // SVG Icons Library
+            const svgIcons = {
+                target: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>',
+                money: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-1.18c-1.15-.22-2.11-.93-2.5-1.92l1.78-.74c.26.65.86 1.14 1.72 1.34v-2.55c-1.68-.38-3-1.42-3-2.95 0-1.4 1.07-2.5 2.5-2.82V5h2v1.18c1.15.22 2.11.93 2.5 1.92l-1.78.74c-.26-.65-.86-1.14-1.72-1.34v2.55c1.68.38 3 1.42 3 2.95 0 1.4-1.07 2.5-2.5 2.82V17z"/></svg>',
+                paw: '<svg viewBox="0 0 24 24"><path d="M12 3c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm7 4c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM5 7c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm7 5c-2.76 0-5 2.24-5 5 0 1.66 1.34 3 3 3h4c1.66 0 3-1.34 3-3 0-2.76-2.24-5-5-5z"/></svg>',
+                tag: '<svg viewBox="0 0 24 24"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg>',
+                knife: '<svg viewBox="0 0 24 24"><path d="M4 2v20h2V2H4zm14.5 2l-7.5 7.5L6.5 8 14 1.5 18.5 4z"/></svg>',
+                chartDown: '<svg viewBox="0 0 24 24"><path d="M16 18l2.29-2.29-4.88-4.88-4 4L2 7.41 3.41 6l6 6 4-4 6.3 6.29L22 12v6h-6z"/></svg>',
+                sad: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 9.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-7 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm6.5 6.5c-1.5 1.5-3.5 2-5 2s-3.5-.5-5-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+                camel: '<svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM4 18c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm15-9c-.55 0-1 .45-1 1v1h-2V7c0-.55-.45-1-1-1s-1 .45-1 1v3H9V7c0-.55-.45-1-1-1s-1 .45-1 1v3H5V8c0-.55-.45-1-1-1s-1 .45-1 1v4c0 2.21 1.79 4 4 4h12c2.21 0 4-1.79 4-4v-1c0-.55-.45-1-1-1z"/></svg>',
+                mask: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-1.03.2-2.01.56-2.91L10 14.44V16c0 1.1.9 2 2 2v2zm5.88-5.88l-1.88-.75V11c0-1.1-.9-2-2-2h-2V7h1c1.1 0 2-.9 2-2V4.26c3.22 1.15 5.6 3.99 6.13 7.5.02.12.04.24.04.36 0 1.25-.39 2.41-1.06 3.38z"/></svg>',
+                devil: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>',
+                circus: '<svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
+                angry: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15 9l-3 3-3-3M9 16c1.5-1 3.5-1 5 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+                fist: '<svg viewBox="0 0 24 24"><path d="M18 7h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v1H6c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-6-4c1.66 0 3 1.34 3 3v1H9V6c0-1.66 1.34-3 3-3zm8 10H4v6h16v-6z"/></svg>',
+                fire: '<svg viewBox="0 0 24 24"><path d="M17.56 10.59c-.93-.88-1.74-2.18-1.75-3.64 0-1.63 1.05-3.1 2.5-3.65-2.09-.64-4.52.22-5.73 2.05-1.46 2.21-.49 5.2 1.64 6.78-1.28-.15-2.43-.81-3.14-1.85-.94-1.38-1.02-3.21-.19-4.66C9.28 6.55 7.82 8.3 7.3 10.45c-.6 2.5.39 5.16 2.45 6.74C11.39 18.3 13.06 19 14.8 19c2.04 0 3.99-.87 5.37-2.38 1.4-1.52 1.94-3.7 1.35-5.65-.55-1.82-2.12-3.19-3.96-3.38z"/></svg>',
+                neutral: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.5" fill="currentColor"/><circle cx="15" cy="10" r="1.5" fill="currentColor"/><path d="M9 15h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+                storm: '<svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM10 17l-3-5h3l-1-4 5 6h-3l1 3z"/></svg>',
+                skull: '<svg viewBox="0 0 24 24"><path d="M12 2c-4.42 0-8 3.58-8 8 0 1.97.71 3.78 1.89 5.18L5 20l4.5-.82C10.5 19.5 11.23 19.75 12 19.75s1.5-.25 2.5-.57L19 20l-.89-4.82C19.29 13.78 20 11.97 20 10c0-4.42-3.58-8-8-8zm0 13c-1.93 0-3.5-1.57-3.5-3.5S10.07 8 12 8s3.5 1.57 3.5 3.5S13.93 15 12 15zm-2.5-4c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm5 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>',
+                hands: '<svg viewBox="0 0 24 24"><path d="M18 11h-2V6c0-1.1-.9-2-2-2v0c-1.1 0-2 .9-2 2v5H9V4c0-1.1-.9-2-2-2v0C5.9 2 5 2.9 5 4v12.25c0 .77.31 1.48.86 2.02l4.97 4.98c.55.55 1.28.86 2.04.86h5.08c1.66 0 3.01-1.34 3.01-3v-6c0-1.66-1.34-3-3-3z"/></svg>',
+                heart: '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>',
+                drop: '<svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>',
+                cloud: '<svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>',
+                scale: '<svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l4-2.18L12 3zm6.82 9L12 15.72 5.18 12 12 8.28l6.82 3.72zM5 16.5v-3.55L12 17l7-4.05v3.55L12 20.28 5 16.5z"/></svg>',
+                star: '<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>',
+                book: '<svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>',
+                books: '<svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>',
+                folder: '<svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>'
+            };
+
+            // ===== DATA MENU =====
+            const menuData = [{
+                id: 'bab1',
+                label: 'BAB I — Motiv-Motiv Animal Abuse',
+                icon: svgIcons.target,
+                children: [{
+                    id: '1A',
+                    label: 'A. Ekonomi',
+                    icon: svgIcons.money,
+                    children: [{
+                        id: '1A1',
+                        label: '1. Vivisection komersial',
+                        icon: svgIcons.knife,
+                        content: `
+                            <h2 class="panel-title">1. Vivisection komersial</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ الْأَعْلَى الصَّنْعَانِيُّ، قَالَ: حَدَّثَنَا سَلَمَةُ بْنُ رَجَاءٍ قَالَ: حَدَّثَ عَبْدُ الرَّحْمَنِ بْنُ عَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ عَطَاءِ بْنِ يَسَارٍ، عَنْ أَبِي وَاقِدٍ اللَّيْثِيِّ قَالَ: «قَدِمَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ الْمَدِينَةَ وَهُمْ يَجُبُّونَ أَسْنِمَةَ الْإِبِلِ وَيَقْطَعُونَ أَلْيَاتِ الْغَنَمِ، فَقَالَ: مَا قُطِعَ مِنَ الْبَهِيمَةِ وَهِيَ حَيَّةٌ فَهُوَ مَيْتَةٌ»</div>
+                                <div class="translation">Telah menceritakan kepada kami Muhammad bin ‘Abdil A’la ash-Shan’ani, ia berkata: Telah menceritakan kepada kami Salamah bin Raja’, ia berkata: Telah menceritakan ‘Abdurrahman bin ‘Abdillah bin Dinar, dari Zaid bin Aslam, dari ‘Atha’ bin Yasar, dari Abu Waqid al-Laitsi, ia berkata: 'Ketika Nabi tiba di Madinah, beliau mendapati orang-orang memotong punuk unta dan memotong ekor-ekor kambing (sementara hewan-hewan itu masih hidup). Maka Nabi bersabda: 'Apa yang dipotong dari hewan ketika ia masih hidup, maka itu adalah bangkai (haram dimakan).''</div>
+                                <span class="source">— Sunan At-Tirmidzi 145</span>
+                            </div>
+                        `
+                    }, {
+                        id: '1A2',
+                        label: '2. Eksploitasi ikatan biologis',
+                        icon: svgIcons.paw,
+                        content: `
+                            <h2 class="panel-title">2. Eksploitasi ikatan biologis</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا عُمَرُ بْنُ حَفْصِ بْنِ عُمَرَ الشَّيْبَانِيُّ، قَالَ: أَخْبَرَنَا عَبْدُ اللَّهِ بْنُ وَهْبٍ قَالَ: أَخْبَرَنِي حُيَيٌّ عَنْ أَبِي عَبْدِ الرَّحْمَنِ الْحُبْلِيِّ، عَنْ أَبِي أَيُّوبَ قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: «مَنْ فَرَّقَ بَيْنَ الْوَالِدَةِ وَوَلَدِهَا فَرَّقَ اللَّهُ بَيْنَهُ وَبَيْنَ أَحِبَّتِهِ يَوْمَ الْقِيَامَةِ»</div>
+                                <div class="translation">Telah menceritakan kepada kami Umar bin Hafsh bin Umar asy-Syaibani, ia berkata: Telah mengabarkan kepada kami Abdullah bin Wahb, ia berkata: Telah mengabarkan kepadaku Huyay, dari Abu Abdurrahman al-Hubuli, dari Abu Ayyub, ia berkata: 'Aku mendengar Rasulullah SAW bersabda: Barang siapa memisahkan induk dengan anaknya, maka Allah akan memisahkan ia dengan orang-orang yang dicintainya pada hari kiamat.'</div>
+                                <span class="source">— Sunan At-Tirmidzi 225</span>
+                            </div>
+                        `
+                    }, {
+                        id: '1A3',
+                        label: '3. Komodifikasi mahluk hidup',
+                        icon: svgIcons.tag,
+                        content: `
+                            <h2 class="panel-title">3. Komodifikasi mahluk hidup</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا عَبْدُ الْوَهَّابِ بْنُ نَجْدَةَ، حَدَّثَنَا ابْنُ عَيَّاشٍ، عَنْ يَحْيَى بْنِ أَبِي عَمْرٍو السَّيْبَانِيِّ، عَنْ أَبِي مَرْيَمَ، عَنْ أَبِي هُرَيْرَةَ، عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «إِيَّاكُمْ أَنْ تَتَّخِذُوا ظُهُورَ دَوَابِّكُمْ مَنَابِرَ، فَإِنَّ اللَّهَ إِنَّمَا سَخَّرَهَا لَكُمْ لِتُبْلِغَكُمْ إِلَى بَلَدٍ لَمْ تَكُونُوا بِالِغِيهِ إِلَّا بِشِقِّ الْأَنْفُسِ، وَجَعَلَ لَكُمُ الْأَرْضَ فَعَلَيْهَا فَاقْضُوا حَاجَاتِكُمْ»</div>
+                                <div class="translation">Dari ‘Abd al-Wahhab bin Najdah, dari Ibn ‘Ayyash, dari Yahya bin Abi ‘Amr al-Saybani, dari Abu Maryam, dari Abu Hurairah RA, dari Nabi SAW, beliau bersabda: 'Janganlah kalian menjadikan punggung hewan tunggangan kalian sebagai mimbar (tempat duduk atau berbicara). Sesungguhnya Allah hanya menundukkan hewan-hewan itu untuk kalian agar dapat mengantarkan kalian ke negeri yang tidak mungkin kalian capai kecuali dengan kesusahan. Dan Allah telah menjadikan bumi bagi kalian, maka selesaikanlah kebutuhan kalian di atasnya (bukan di atas punggung hewan).'</div>
+                                <span class="source">— Sunan Abu Dawud 214</span>
+                            </div>
+                        `
+                    }, {
+                        id: '1A4',
+                        label: '4. Negligensi krisis ekonomi',
+                        icon: svgIcons.chartDown,
+                        content: `
+                            <h2 class="panel-title">4. Negligensi krisis ekonomi</h2>
+                            <p>Tidak ditemukan hadis spesifik untuk sub-bab ini dalam naskah.</p>
+                        `
+                    }, {
+                        id: '1A5',
+                        label: '5. Trauma zoologis',
+                        icon: svgIcons.sad,
+                        content: `
+                            <h2 class="panel-title">5. Trauma zoologis</h2>
+                            <p>Tidak ditemukan hadis spesifik untuk sub-bab ini dalam naskah.</p>
+                        `
+                    }, {
+                        id: '1A6',
+                        label: '6. Eksploitasi hewan tunggangan',
+                        icon: svgIcons.camel,
+                        content: `
+                            <h2 class="panel-title">6. Eksploitasi hewan tunggangan</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">عَنْ عَبْدِ اللَّهِ بْنِ جَعْفَرٍ، قَالَ: أَرْدَفَنِي رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ ذَاتَ يَوْمٍ خَلْفَهُ، فَأَسَرَّ إِلَيَّ حَدِيثًا لَا أُخْبِرُ بِهِ أَحَدًا، وَكَانَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ أَحَبَّ مَا اسْتَتَرَ بِهِ فِي حَاجَتِهِ هَدَفٌ أَوْ حَائِشُ نَخْلٍ، فَدَخَلَ يَوْمًا حَائِطًا مِنْ حِيطَانِ الْأَنْصَارِ، فَإِذَا جَمَلٌ قَدْ أَتَاهُ فَجَرَجَرَ وَذَرَفَتْ عَيْنَاهُ، فَلَمَّا رَأَى النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ حَنَّ وَذَرَفَتْ عَيْنَاهُ، فَمَسَحَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ سَرَاتَهُ وَذِفْرَاهُ فَسَكَنَ، فَقَالَ: «مَنْ صَاحِبُ الْجَمَلِ؟» فَجَاءَ فَتًى مِنَ الْأَنْصَارِ فَقَالَ: هُوَ لِي يَا رَسُولَ اللَّهِ، فَقَالَ: «أَمَا تَتَّقِي اللَّهَ فِي هَذِهِ الْبَهِيمَةِ الَّتِي مَلَّكَكَهَا اللَّهُ، إِنَّهُ شَكَا إِلَيَّ أَنَّكَ تُجِيعُهُ وَتُدْئِبُهُ»</div>
+                                <div class="translation">Dari Abdullah bin Ja’far RA berkata: 'Suatu hari Rasulullah SAW memboncengku di belakang beliau. Lalu beliau membisikkan sebuah rahasia kepadaku yang tidak pernah aku ceritakan kepada siapa pun. Rasulullah SAW adalah orang yang paling suka mencari tempat yang teduh atau di balik dinding kebun kurma untuk memenuhi kebutuhannya. Pada suatu hari beliau masuk ke kebun milik seorang Anshar. Tiba-tiba seekor unta datang menghampiri beliau sambil mengeluarkan suara rintihan dan air matanya mengalir. Ketika unta itu melihat Nabi SAW, ia merintih dan meneteskan air mata. Rasulullah SAW pun mengusap punggung dan telinga unta itu, lalu unta itu menjadi tenang. Kemudian beliau bersabda: 'Siapakah pemilik unta ini?' Maka seorang pemuda Anshar datang dan berkata: 'Unta itu milikku, wahai Rasulullah.' Beliau bersabda: 'Tidakkah engkau bertakwa kepada Allah terhadap hewan tunggangan yang Allah titipkan kepadamu? Sesungguhnya ia telah mengadu kepadaku bahwa engkau membiarkannya lapar dan membebaninya (pekerjaan berat).''</div>
+                                <span class="source">— Musnad Ahmad 274</span>
+                            </div>
+                        `
+                    }]
+                }, {
+                    id: '1B',
+                    label: 'B. Hiburan',
+                    icon: svgIcons.mask,
+                    children: [{
+                        id: '1B1',
+                        label: '1. Zoosadisme demonstratif',
+                        icon: svgIcons.target,
+                        content: `
+                            <h2 class="panel-title">1. Zoosadisme demonstratif</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، حَدَّثَنَا مُحَمَّدُ بْنُ جَعْفَرٍ، حَدَّثَنَا شُعْبَةُ، قَالَ: سَمِعْتُ هِشَامَ بْنَ زَيْدِ بْنِ أَنَسِ بْنِ مَالِكٍ قَالَ: دَخَلْتُ مَعَ جَدِّي أَنَسِ بْنِ مَالِكٍ دَارَ الْحَكَمِ بْنِ أَيُّوبَ، فَإِذَا قَوْمٌ قَدْ نَصَبُوا دَجَاجَةً يَرْمُونَهُ، فَقَالَ أَنَسٌ: «نَهَى رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ أَنْ تُصْبَرَ الْبَهَائِمُ»</div>
+                                <div class="translation">Telah menceritakan kepada kami Muhammad bin al-Mutsanna, telah menceritakan kepada kami Muhammad bin Ja‘far, telah menceritakan kepada kami Syu‘bah, ia berkata: Aku mendengar Hisyam bin Zaid bin Anas bin Malik berkata: 'Aku pernah masuk bersama kakekku, Anas bin Malik, ke rumah al-Hakam bin Ayyub. Ternyata ada sekelompok orang yang sedang menancapkan seekor ayam (mengikatnya) lalu melempari (untuk dijadikan sasaran). Maka Anas berkata: Rasulullah SAW melarang menjadikan hewan sebagai sasaran (dengan cara diikat dan disiksa).'</div>
+                                <span class="source">— Shahih Muslim 1549</span>
+                            </div>
+                        `
+                    }, {
+                        id: '1B2',
+                        label: '2. Zoosadisme rekreatif',
+                        icon: svgIcons.devil,
+                        content: `
+                            <h2 class="panel-title">2. Zoosadisme rekreatif</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا عَلِيُّ بْنُ مُسْهِرٍ، عَنِ ابْنِ جُرَيْجٍ، عَنْ أَبِي الزُّبَيْرِ، عَنْ جَابِرٍ، قَالَ: «نَهَى رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ عَنِ الضَّرْبِ فِي الْوَجْهِ، وَعَنِ الْوَسْمِ فِي الْوَجْهِ»</div>
+                                <div class="translation">Telah menceritakan kepada kami Abu Bakar bin Abi Syaibah, telah menceritakan kepada kami Ali bin Mushir dari Ibnu Juraij, dari Abu Az-Zubair, dari Jabir, ia berkata: 'Rasulullah SAW melarang memukul pada wajah dan melarang menandai (hewan) di wajah.'</div>
+                                <span class="source">— Shahih Muslim 1673</span>
+                            </div>
+                        `
+                    }, {
+                        id: '1B3',
+                        label: '3. Festival zoosadisme',
+                        icon: svgIcons.circus,
+                        content: `
+                            <h2 class="panel-title">3. Festival zoosadisme</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">وَحَدَّثَنِي سَلَمَةُ بْنُ شَبِيبٍ، حَدَّثَنَا الْحَسَنُ بْنُ أَعْيَنَ، حَدَّثَنَا مَعْقِلٌ، عَنْ أَبِي الزُّبَيْرِ، عَنْ جَابِرٍ، أَنَّ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَرَّ عَلَيْهِ حِمَارٌ قَدْ وُسِمَ فِي وَجْهِهِ، فَقَالَ: «لَعَنَ اللَّهُ الَّذِي وَسَمَهُ»</div>
+                                <div class="translation">Telah menceritakan kepadaku Salamah bin Syabib, telah menceritakan kepada kami Al-Hasan bin A’yan, telah menceritakan Ma’qil dari Abu az-Zubair dari Jabir: 'Bahwa Nabi SAW melewati seekor keledai yang diberi tanda bakar pada wajahnya, maka beliau bersabda: 'Semoga Allah melaknat orang yang memberi tanda bakar padanya.'</div>
+                                <span class="source">— Shahih Muslim 2116</span>
+                            </div>
+                            <div class="hadith-box">
+                                <div class="arabic">وَحَدَّثَنِي زُهَيْرُ بْنُ حَرْبٍ، حَدَّثَنَا هُشَيْمٌ، أَخْبَرَنَا أَبُو بِشْرٍ، عَنْ سَعِيدِ بْنِ جُبَيْرٍ، قَالَ: مَرَّ ابْنُ عُمَرَ بِفِتْيَانٍ مِنْ قُرَيْشٍ قَدْ نَصَبُوا طَيْرًا وَهُمْ يَرْمُونَهُ، وَقَدْ جَعَلُوا لِصَاحِبِ الطَّيْرِ كُلَّ خَاطِئَةٍ مِنْ نَبْلِهِمْ، فَلَمَّا رَأَوْا ابْنَ عُمَرَ تَفَرَّقُوا، فَقَالَ ابْنُ عُمَرَ: مَنْ فَعَلَ هَذَا؟ لَعَنَ اللَّهُ مَنْ فَعَلَ هَذَا، إِنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ لَعَنَ مَنِ اتَّخَذَ شَيْئًا فِيهِ الرُّوحُ غَرَضًا</div>
+                                <div class="translation">Telah menceritakan kepadaku Zuhair bin Harb, telah menceritakan kepada kami Hasyim, telah mengabarkan kepada kami Abu Bisyr dari Said bin Jubair; ia berkata: 'Ibnu Umar pernah melewati sekelompok anak muda dari Quraisy yang sedang menancapkan seekor burung (sebagai sasaran), lalu mereka melemparinya. Mereka memberikan setiap anak panah yang meleset kepada pemilik burung itu. Ketika mereka melihat Ibnu Umar, mereka langsung bubar. Ibnu Umar berkata: ‘Siapa yang melakukan ini? Semoga Allah melaknat orang yang melakukan ini! Sesungguhnya Rasulullah SAW telah melaknat orang yang menjadikan sesuatu yang bernyawa sebagai sasaran lemparan.’</div>
+                                <span class="source">— Shahih Muslim 1550</span>
+                            </div>
+                        `
+                    }]
+                }, {
+                    id: '1C',
+                    label: 'C. Sadisme',
+                    icon: svgIcons.angry,
+                    children: [{
+                        id: '1C1',
+                        label: '1. Nafsu dominasi',
+                        icon: svgIcons.fist,
+                        content: `
+                            <h2 class="panel-title">1. Nafsu dominasi</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">أَخْبَرَنَا مُحَمَّدُ بْنُ عَبْدِ اللَّهِ بْنِ يَزِيدَ الْمُقْرِئُ، قَالَ: حَدَّثَنَا سُفْيَانُ، عَنْ عَمْرٍو، عَنْ صُهَيْبٍ مَوْلَى ابْنِ عَامِرٍ، عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «مَا مِنْ إِنْسَانٍ قَتَلَ عُصْفُورًا فَمَا فَوْقَهَا بِغَيْرِ حَقِّهَا إِلَّا سَأَلَهُ اللَّهُ عَزَّ وَجَلَّ عَنْهَا» قِيلَ: يَا رَسُولَ اللَّهِ، وَمَا حَقُّهَا؟ قَالَ: «يَذْبَحُهَا فَيَأْكُلُهَا، وَلَا يَقْطَعُ رَأْسَهَا فَيَرْمِي بِهَا»</div>
+                                <div class="translation">Telah mengabarkan kepada kami Muhammad bin Abdullah bin Yazid al-Muqri’, ia berkata: Telah menceritakan kepada kami Sufyan, dari ‘Amr, dari Shuhaib, mantan budak Ibn ‘Amir, dari Abdullah bin ‘Amr, bahwa Rasulullah SAW bersabda: 'Tidaklah seseorang membunuh burung pipit atau yang lebih besar darinya tanpa alasan yang benar, kecuali Allah ‘Azza wa Jalla akan menanyakannya tentang burung itu pada hari kiamat.' Para sahabat bertanya: 'Wahai Rasulullah, apa haknya (burung itu)?' Beliau menjawab: 'Menyembelihnya lalu memakannya, dan tidak memotong kepalanya lalu membuangnya (sia-sia).'</div>
+                                <span class="source">— Sunan An-Nasa’i 206</span>
+                            </div>
+                        `
+                    }, {
+                        id: '1C2',
+                        label: '2. Perlakuan destruktif terhadap hewan',
+                        icon: svgIcons.fire,
+                        content: `
+                            <h2 class="panel-title">2. Perlakuan destruktif terhadap hewan</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا إِسْمَاعِيلُ بْنُ أَبِي أُوَيْسٍ، قَالَ: حَدَّثَنِي مَالِكٌ، عَنْ أَبِي الزِّنَادِ، عَنِ الْأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «نَزَلَ نَبِيٌّ مِنَ الْأَنْبِيَاءِ تَحْتَ شَجَرَةٍ، فَلَدَغَتْهُ نَمْلَةٌ، فَأَمَرَ بِجَهَازِهِ فَأُخْرِجَ مِنْ تَحْتِهَا، ثُمَّ أَمَرَ بِبَيْتِهَا فَأُحْرِقَ بِالنَّارِ، فَأُوحِيَ اللَّهُ إِلَيْهِ: فَهَلَّا نَمْلَةً وَاحِدَةً؟»</div>
+                                <div class="translation">Telah menceritakan kepada kami Isma’il bin Abi Uwais, ia berkata: Telah menceritakan kepadaku Malik, dari Abu az-Zinad, dari al-A’raj, dari Abu Hurairah ra., bahwa Rasulullah SAW bersabda: 'Seorang nabi dari para nabi singgah di bawah sebuah pohon. Lalu ia digigit oleh seekor semut. Maka ia memerintahkan barang-barangnya dipindahkan dari bawah pohon tersebut. Kemudian ia memerintahkan untuk membakar sarang semut itu dengan api. Maka Allah mewahyukan kepadanya: ‘Mengapa tidak hanya semut yang menggigitmu saja (yang dibunuh)?’'</div>
+                                <span class="source">— Shahih Bukhari 130</span>
+                            </div>
+                        `
+                    }, {
+                        id: '1C3',
+                        label: '3. Ketidaksadaran etis pada hewan',
+                        icon: svgIcons.neutral,
+                        content: `
+                            <h2 class="panel-title">3. Ketidaksadaran etis pada hewan</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا عَبْدُ الرَّزَّاقِ، أَخْبَرَنَا سُفْيَانُ، عَنْ أَبِي إِسْحَاقَ الشَّيْبَانِيِّ، عَنِ الْحَسَنِ بْنِ سَعْدٍ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ عَبْدِ اللَّهِ، عَنْ عَبْدِ اللَّهِ، قَالَ: كُنَّا مَعَ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، فَمَرَرْنَا بِقَرْيَةِ نَمْلٍ قَدْ أُحْرِقَتْ، فَقَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «لَا يَنْبَغِي لِبَشَرٍ أَنْ يُعَذِّبَ بِعَذَابِ اللَّهِ عَزَّ وَجَلَّ»</div>
+                                <div class="translation">Telah menceritakan kepada kami ‘Abdur Razzaq, telah mengabarkan kepada kami Sufyan, dari Abu Ishaq asy-Syaibani, dari al-Hasan bin Sa‘d, dari ‘Abdur Rahman bin ‘Abdillah, dari ‘Abdullah (yakni Abdullah bin Mas‘ud) ia berkata: 'Kami pernah bersama Nabi Muhammad SAW, lalu kami melewati sebuah perkampungan semut yang telah dibakar. Maka Nabi SAW bersabda: ‘Tidak sepantasnya bagi seorang manusia untuk menyiksa dengan siksaan Allah ‘Azza wa Jalla (yaitu dengan api).’'</div>
+                                <span class="source">— Musnad Ahmad 118</span>
+                            </div>
+                        `
+                    }]
+                }]
+            }, {
+                id: 'bab2',
+                label: 'BAB II — Bentuk-Bentuk Animal Abuse',
+                icon: svgIcons.storm,
+                children: [{
+                    id: '2A',
+                    label: 'A. Physical Animal Abuse',
+                    icon: svgIcons.fist,
+                    children: [{
+                        id: '2A1',
+                        label: '1. Marking abuse',
+                        icon: svgIcons.tag,
+                        content: `
+                            <h2 class="panel-title">1. Marking abuse</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">وَحَدَّثَنِي سَلَمَةُ بْنُ شَبِيبٍ، حَدَّثَنَا الْحَسَنُ بْنُ أَعْيَنَ، حَدَّثَنَا مَعْقِلٌ، عَنْ أَبِي الزُّبَيْرِ، عَنْ جَابِرٍ، أَنَّ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَرَّ عَلَيْهِ حِمَارٌ قَدْ وُسِمَ فِي وَجْهِهِ، فَقَالَ: «لَعَنَ اللَّهُ الَّذِي وَسَمَهُ»</div>
+                                <div class="translation">Telah menceritakan kepadaku Salamah bin Syabib, telah menceritakan kepada kami Al-Hasan bin A’yan, telah menceritakan Ma’qil dari Abu az-Zubair dari Jabir: 'Bahwa Nabi SAW melewati seekor keledai yang diberi tanda bakar pada wajahnya, maka beliau bersabda: ‘Semoga Allah melaknat orang yang memberi tanda bakar padanya.’</div>
+                                <span class="source">— Shahih Muslim 2116</span>
+                            </div>
+                        `
+                    }, {
+                        id: '2A2',
+                        label: '2. Inhumane slaughter',
+                        icon: svgIcons.knife,
+                        content: `
+                            <h2 class="panel-title">2. Inhumane slaughter</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ الْأَعْلَى الصَّنْعَانِيُّ، قَالَ: حَدَّثَنَا سَلَمَةُ بْنُ رَجَاءٍ قَالَ: حَدَّثَ عَبْدُ الرَّحْمَنِ بْنُ عَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ عَطَاءِ بْنِ يَسَارٍ، عَنْ أَبِي وَاقِدٍ اللَّيْثِيِّ قَالَ: «قَدِمَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ الْمَدِينَةَ وَهُمْ يَجُبُّونَ أَسْنِمَةَ الْإِبِلِ وَيَقْطَعُونَ أَلْيَاتِ الْغَنَمِ، فَقَالَ: مَا قُطِعَ مِنَ الْبَهِيمَةِ وَهِيَ حَيَّةٌ فَهُوَ مَيْتَةٌ»</div>
+                                <div class="translation">Telah menceritakan kepada kami Muhammad bin ‘Abdil A’la ash-Shan’ani, ia berkata: Telah menceritakan kepada kami Salamah bin Raja’, ia berkata: Telah menceritakan ‘Abdurrahman bin ‘Abdillah bin Dinar, dari Zaid bin Aslam, dari ‘Atha’ bin Yasar, dari Abu Waqid al-Laitsi, ia berkata: 'Ketika Nabi tiba di Madinah, beliau mendapati orang-orang memotong punuk unta dan memotong ekor-ekor kambing (sementara hewan-hewan itu masih hidup). Maka Nabi bersabda: 'Apa yang dipotong dari hewan ketika ia masih hidup, maka itu adalah bangkai (haram dimakan).'</div>
+                                <span class="source">— Sunan At-Tirmidzi 145</span>
+                            </div>
+                        `
+                    }, {
+                        id: '2A3',
+                        label: '3. Genosida hewan',
+                        icon: svgIcons.skull,
+                        content: `
+                            <h2 class="panel-title">3. Genosida hewan</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا إِسْمَاعِيلُ بْنُ أَبِي أُوَيْسٍ، قَالَ: حَدَّثَنِي مَالِكٌ، عَنْ أَبِي الزِّنَادِ، عَنِ الْأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «نَزَلَ نَبِيٌّ مِنَ الْأَنْبِيَاءِ تَحْتَ شَجَرَةٍ، فَلَدَغَتْهُ نَمْلَةٌ، فَأَمَرَ بِجَهَازِهِ فَأُخْرِجَ مِنْ تَحْتِهَا، ثُمَّ أَمَرَ بِبَيْتِهَا فَأُحْرِقَ بِالنَّارِ، فَأُوحِيَ اللَّهُ إِلَيْهِ: فَهَلَّا نَمْلَةً وَاحِدَةً؟»</div>
+                                <div class="translation">Telah menceritakan kepada kami Isma’il bin Abi Uwais, ia berkata: Telah menceritakan kepadaku Malik, dari Abu az-Zinad, dari al-A’raj, dari Abu Hurairah ra., bahwa Rasulullah SAW bersabda: 'Seorang nabi dari para nabi singgah di bawah sebuah pohon. Lalu ia digigit oleh seekor semut. Maka ia memerintahkan barang-barangnya dipindahkan dari bawah pohon tersebut. Kemudian ia memerintahkan untuk membakar sarang semut itu dengan api. Maka Allah mewahyukan kepadanya: ‘Mengapa tidak hanya semut yang menggigitmu saja (yang dibunuh)?’'</div>
+                                <span class="source">— Shahih Bukhari 130</span>
+                            </div>
+                        `
+                    }]
+                }, {
+                    id: '2B',
+                    label: 'B. Non-Physical Animal Abuse',
+                    icon: svgIcons.sad,
+                    children: [{
+                        id: '2B1',
+                        label: '1. Trauma etologis',
+                        icon: svgIcons.sad,
+                        content: `
+                            <h2 class="panel-title">1. Trauma etologis</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا عُمَرُ بْنُ حَفْصِ بْنِ عُمَرَ الشَّيْبَانِيُّ، قَالَ: أَخْبَرَنَا عَبْدُ اللَّهِ بْنُ وَهْبٍ قَالَ: أَخْبَرَنِي حُيَيٌّ عَنْ أَبِي عَبْدِ الرَّحْمَنِ الْحُبْلِيِّ، عَنْ أَبِي أَيُّوبَ قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: «مَنْ فَرَّقَ بَيْنَ الْوَالِدَةِ وَوَلَدِهَا فَرَّقَ اللَّهُ بَيْنَهُ وَبَيْنَ أَحِبَّتِهِ يَوْمَ الْقِيَامَةِ»</div>
+                                <div class="translation">Telah menceritakan kepada kami Umar bin Hafsh bin Umar asy-Syaibani, ia berkata: Telah mengabarkan kepada kami Abdullah bin Wahb, ia berkata: Telah mengabarkan kepadaku Huyay, dari Abu Abdurrahman al-Hubuli, dari Abu Ayyub, ia berkata: 'Aku mendengar Rasulullah SAW bersabda: Barang siapa memisahkan induk dengan anaknya, maka Allah akan memisahkan ia dengan orang-orang yang dicintainya pada hari kiamat.'</div>
+                                <span class="source">— Sunan At-Tirmidzi 225</span>
+                            </div>
+                        `
+                    }]
+                }]
+            }, {
+                id: 'bab3',
+                label: 'BAB III — Etika & Dampak Animal Abuse',
+                icon: svgIcons.scale,
+                children: [{
+                    id: '3A',
+                    label: 'A. Etika Perlakuan terhadap Hewan',
+                    icon: svgIcons.hands,
+                    children: [{
+                        id: '3A1',
+                        label: '1. Ihsan',
+                        icon: svgIcons.hands,
+                        content: `
+                            <h2 class="panel-title">1. Ihsan</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا إِسْمَاعِيلُ بْنُ عُلَيَّةَ، عَنْ خَالِدٍ الْحَذَّاءِ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي الْأَشْعَثِ، عَنْ شَدَّادِ بْنِ أَوْسٍ، قَالَ: ثِنْتَانِ حَفِظْتُهُمَا عَنْ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، قَالَ: «إِنَّ اللَّهَ كَتَبَ الْإِحْسَانَ عَلَى كُلِّ شَيْءٍ، فَإِذَا قَتَلْتُمْ فَأَحْسِنُوا الْقِتْلَةَ، وَإِذَا ذَبَحْتُمْ فَأَحْسِنُوا الذَّبْحَ، وَلْيُحِدَّ أَحَدُكُمْ شَفْرَتَهُ، وَلْيُرِحْ ذَبِيحَتَهُ»</div>
+                                <div class="translation">Dari Abu Bakr bin Abi Syaibah, dari Ismail bin ‘Ulayyah, dari Khalid al-Haddza’, dari Abu Qilabah, dari Abu al-Asy’ats, dari Syaddad bin Aus RA, ia berkata: 'Ada dua hal yang aku hafalkan dari Rasulullah shallallahu ‘alaihi wasallam. Beliau bersabda: Sesungguhnya Allah telah menetapkan (mewajibkan) berbuat ihsan pada segala sesuatu. Maka apabila kalian membunuh, berbuatlah dengan cara yang baik; dan apabila kalian menyembelih, berbuatlah dengan cara yang baik. Hendaklah salah seorang dari kalian menajamkan pisaunya, lalu membuat nyaman hewan sembelihannya.'</div>
+                                <span class="source">— Shahih Muslim 1548</span>
+                            </div>
+                        `
+                    }, {
+                        id: '3A2',
+                        label: '2. Kasih sayang',
+                        icon: svgIcons.heart,
+                        content: `
+                            <h2 class="panel-title">2. Kasih sayang</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا ابْنُ أَبِي عُمَرَ، قَالَ: حَدَّثَنَا سُفْيَانُ، عَنْ عَمْرِو بْنِ دِينَارٍ، عَنْ أَبِي قَابُوسَ، عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو، قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «الرَّاحِمُونَ يَرْحَمُهُمُ الرَّحْمَنُ، ارْحَمُوا مَنْ فِي الْأَرْضِ يَرْحَمْكُمْ مَنْ فِي السَّمَاءِ، الرَّحِمُ شِجْنَةٌ مِنَ الرَّحْمَنِ، فَمَنْ وَصَلَهَا وَصَلَهُ اللَّهُ، وَمَنْ قَطَعَهَا قَطَعَهُ اللَّهُ»</div>
+                                <div class="translation">Dari Ibnu Abi ‘Umar, ia berkata: Telah menceritakan kepada kami Sufyan, dari ‘Amr bin Dinar, dari Abu Qabus, dari Abdullah bin ‘Amr RA, ia berkata: Rasulullah SAW bersabda: 'Orang-orang yang penyayang akan disayangi oleh (Allah) Yang Maha Penyayang. Sayangilah siapa saja yang ada di bumi, niscaya (Allah) yang di langit akan menyayangi kalian. Rahim (kasih sayang/ikatan kekerabatan) adalah cabang dari (sifat) Ar-Rahman. Barang siapa yang menyambungnya, Allah akan menyambungnya (dengan rahmat-Nya), dan barang siapa yang memutusnya, Allah akan memutusnya (dari rahmat-Nya).'</div>
+                                <span class="source">— Sunan At-Tirmidzi 483</span>
+                            </div>
+                        `
+                    }, {
+                        id: '3A3',
+                        label: '3. Reduksi penderitaan',
+                        icon: svgIcons.drop,
+                        content: `
+                            <h2 class="panel-title">3. Reduksi penderitaan</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا إِسْمَاعِيلُ بْنُ عُلَيَّةَ، عَنْ خَالِدٍ الْحَذَّاءِ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي الْأَشْعَثِ، عَنْ شَدَّادِ بْنِ أَوْسٍ، قَالَ: ثِنْتَانِ حَفِظْتُهُمَا عَنْ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، قَالَ: «إِنَّ اللَّهَ كَتَبَ الْإِحْسَانَ عَلَى كُلِّ شَيْءٍ، فَإِذَا قَتَلْتُمْ فَأَحْسِنُوا الْقِتْلَةَ، وَإِذَا ذَبَحْتُمْ فَأَحْسِنُوا الذَّبْحَ، وَلْيُحِدَّ أَحَدُكُمْ شَفْرَتَهُ، وَلْيُرِحْ ذَبِيحَتَهُ»</div>
+                                <div class="translation">Telah menceritakan kepada kami Abu Bakar bin Abi Syaibah, telah menceritakan kepada kami Isma'il bin 'Ulayyah, dari Khalid al-Hadzdza', dari Abu Qilabah, dari Abu al-Asy’ats, dari Syaddad bin Aus, ia berkata: 'Ada dua hal yang aku hafal dari Rasulullah SAW, beliau bersabda: 'Sesungguhnya Allah telah menetapkan (perintah) berbuat ihsan (kebaikan) atas segala sesuatu. Maka jika kalian membunuh, berbuat baiklah dalam membunuh itu; dan jika kalian menyembelih, maka berbuat baiklah dalam menyembelih itu. Hendaklah salah seorang di antara kalian menajamkan pisaunya, dan hendaklah ia membuat nyaman hewan sembelihannya.'</div>
+                                <span class="source">— Shahih Muslim 1458</span>
+                            </div>
+                        `
+                    }]
+                }, {
+                    id: '3B',
+                    label: 'B. Dampak Animal Abuse',
+                    icon: svgIcons.fire,
+                    children: [{
+                        id: '3B1',
+                        label: '1. Konsekuensi spiritual',
+                        icon: svgIcons.fire,
+                        content: `
+                            <h2 class="panel-title">1. Konsekuensi spiritual</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنِي عَبْدُ اللَّهِ بْنُ مُحَمَّدِ بْنِ أَسْمَاءَ، حَدَّثَنَا جُوَيْرِيَةُ بْنُ أَسْمَاءَ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «عُذِّبَتِ امْرَأَةٌ فِي هِرَّةٍ سَجَنَتْهَا حَتَّى مَاتَتْ، فَدَخَلَتْ فِيهَا النَّارَ، لَا هِيَ أَطْعَمَتْهَا وَلَا سَقَتْهَا إِذْ حَبَسَتْهَا، وَلَا هِيَ تَرَكَتْهَا تَأْكُلُ مِنْ حُشَاشِ الْأَرْضِ»</div>
+                                <div class="translation">Dari Abdullah bin Muhammad bin Asma' meriwayatkan kepadaku, Juwairiyyah bin Asma' meriwayatkan kepada kami, dari Nafi', dari Abdullah bin 'Umar radliallahu 'anhuma bahwa Rasulullah shallallahu 'alaihi wasallam bersabda: 'Ada seorang wanita disiksa disebabkan seekor kucing yang dikurungnya hingga mati kelaparan lalu wanita itupun masuk neraka karena dia tidak memberinya makan dan minum ketika mengurungnya, dan tidak melepaskannya sehingga dia dapat menyantap serangga tanah'.</div>
+                                <span class="source">— Shahih Muslim 3482</span>
+                            </div>
+                        `
+                    }, {
+                        id: '3B2',
+                        label: '2. Zulm berbalas',
+                        icon: svgIcons.scale,
+                        content: `
+                            <h2 class="panel-title">2. Zulm berbalas</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">أَخْبَرَنَا مُحَمَّدُ بْنُ عَبْدِ اللَّهِ بْنِ يَزِيدَ الْمُقْرِئُ، قَالَ: حَدَّثَنَا سُفْيَانُ، عَنْ عَمْرٍو، عَنْ صُهَيْبٍ مَوْلَى ابْنِ عَامِرٍ، عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «مَا مِنْ إِنْسَانٍ قَتَلَ عُصْفُورًا فَمَا فَوْقَهَا بِغَيْرِ حَقِّهَا إِلَّا سَأَلَهُ اللَّهُ عَزَّ وَجَلَّ عَنْهَا» قِيلَ: يَا رَسُولَ اللَّهِ، وَمَا حَقُّهَا؟ قَالَ: «يَذْبَحُهَا فَيَأْكُلُهَا، وَلَا يَقْطَعُ رَأْسَهَا فَيَرْمِي بِهَا»</div>
+                                <div class="translation">Telah mengabarkan kepada kami Muhammad bin Abdullah bin Yazid al-Muqri’, ia berkata: Telah menceritakan kepada kami Sufyan, dari ‘Amr, dari Shuhaib, mantan budak Ibn ‘Amir, dari Abdullah bin ‘Amr, bahwa Rasulullah SAW bersabda: 'Tidaklah seseorang membunuh burung pipit atau yang lebih besar darinya tanpa alasan yang benar, kecuali Allah ‘Azza wa Jalla akan menanyakannya tentang burung itu pada hari kiamat.' Para sahabat bertanya: 'Wahai Rasulullah, apa haknya (burung itu)?' Beliau menjawab: 'Menyembelihnya lalu memakannya, dan tidak memotong kepalanya lalu membuangnya (sia-sia).'</div>
+                                <span class="source">— Sunan An-Nasa’i 206</span>
+                            </div>
+                        `
+                    }, {
+                        id: '3B3',
+                        label: '3. Konsekuensi moral',
+                        icon: svgIcons.sad,
+                        content: `
+                            <h2 class="panel-title">3. Konsekuensi moral</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا مُحَمَّدٌ، أَخْبَرَنَا أَبُو مُعَاوِيَةَ، عَنِ الْأَعْمَشِ، عَنْ زَيْدِ بْنِ وَهْبٍ، وَأَبِي ظَبْيَانَ، عَنْ جَرِيرِ بْنِ عَبْدِ اللَّهِ، قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «لَا يَرْحَمُ اللَّهُ مَنْ لَا يَرْحَمُ النَّاسَ»</div>
+                                <div class="translation">Telah menceritakan kepada kami Muhammad, telah mengabarkan kepada kami Abu Mu’awiyah, dari al-A’masy, dari Zaid bin Wahb dan Abu Dzabyan, dari Jarir bin Abdullah, ia berkata: Rasulullah SAW bersabda: 'Allah tidak akan merahmati (memberikan kasih sayang-Nya kepada) orang yang tidak menyayangi manusia.'</div>
+                                <span class="source">— Shahih Bukhari 115</span>
+                            </div>
+                        `
+                    }, {
+                        id: '3B4',
+                        label: '4. Pahala moral',
+                        icon: svgIcons.star,
+                        content: `
+                            <h2 class="panel-title">4. Pahala moral</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا أَبُو خَالِدٍ الْأَحْمَرُ، عَنْ هِشَامٍ، عَنْ مُحَمَّدٍ، عَنْ أَبِي هُرَيْرَةَ، عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «أَنَّ امْرَأَةً بَغِيًّا رَأَتْ كَلْبًا فِي يَوْمٍ حَارٍّ يُحِيطُ بِبِئْرٍ، قَدْ أَدْلَعَ لِسَانَهُ مِنَ الْعَطَشِ، فَنَزَعَتْ خُفَّهَا فَأَوْكَتْهُ بِخِمَارِهَا، فَنَزَعَتْ لَهُ مِنَ الْمَاءِ، فَغُفِرَ لَهَا»</div>
+                                <div class="translation">Telah menceritakan kepada kami Abu Bakar bin Abi Syaibah, telah menceritakan kepada kami Abu Khalid al-Ahmar dari Hisyam, dari Muhammad, dari Abu Hurairah, dari Nabi SAW: 'Seorang wanita pezina melihat seekor anjing pada hari yang sangat panas sedang mengelilingi sumur sambil menjulurkan lidahnya karena kehausan. Maka wanita itu melepas sepatunya, lalu mengikatnya dengan kerudungnya, kemudian mengambil air untuk anjing itu, maka diampuni dosanya.'</div>
+                                <span class="source">— Shahih Muslim 1761</span>
+                            </div>
+                        `
+                    }, {
+                        id: '3B5',
+                        label: '5. Rahmat berbalas',
+                        icon: svgIcons.cloud,
+                        content: `
+                            <h2 class="panel-title">5. Rahmat berbalas</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «بَيْنَا رَجُلٌ يَمْشِي فَاشْتَدَّ عَلَيْهِ الْعَطَشُ، فَنَزَلَ بِئْرًا فَشَرِبَ مِنْهَا، ثُمَّ خَرَجَ فَإِذَا هُوَ بِكَلْبٍ يَلْهَثُ يَأْكُلُ الثَّرَى مِنَ الْعَطَشِ، فَقَالَ: لَقَدْ بَلَغَ هَذَا مِثْلُ الَّذِي بَلَغَ بِي، فَمَلَأَ خُفَّهُ ثُمَّ أَمْسَكَهُ بِفِيهِ، ثُمَّ رَقِيَ فَسَقَى الْكَلْبَ، فَشَكَرَ اللَّهُ لَهُ فَغَفَرَ لَهُ» قَالُوا: يَا رَسُولَ اللَّهِ، وَإِنَّ لَنَا فِي الْبَهَائِمِ أَجْرًا؟ قَالَ: «فِي كُلِّ كَبِدٍ رَطْبَةٍ أَجْرٌ»</div>
+                                <div class="translation">Dari Abdullah bin Yusuf, dari Malik, dari Sumay, dari Abu Shalih, dari Abu Hurairah RA, bahwa Rasulullah SAW bersabda: 'Ketika seorang laki-laki sedang berjalan, ia merasa sangat kehausan. Lalu ia turun ke sebuah sumur dan minum darinya. Setelah keluar, ia melihat seekor anjing yang menjulurkan lidahnya menjilat tanah karena sangat haus. Laki-laki itu berkata: ‘Sungguh, anjing ini merasakan haus sebagaimana yang aku rasakan tadi.’ Maka ia mengambil air menggunakan sepatunya, lalu menggigitnya dengan mulutnya (karena kedua tangannya sibuk memanjat), kemudian naik ke atas dan memberi minum anjing itu. Maka Allah berterima kasih kepadanya dan mengampuni dosanya.” Para sahabat bertanya: “Wahai Rasulullah, apakah kami mendapatkan pahala juga bila berbuat baik kepada hewan?” Beliau bersabda: “Pada setiap makhluk yang bernyawa (berhati basah) ada pahala.”</div>
+                                <span class="source">— Shahih Bukhari 111</span>
+                            </div>
+                        `
+                    }]
+                }]
+            }];
+
+            // ===== TOP MENU & EXTRA MENU DATA =====
+            const topMenuData = [{
+                id: 'kata-pengantar',
+                label: 'Kata Pengantar',
+                icon: svgIcons.book,
+                content: `
+                    <h2 class="panel-title">Kata Pengantar</h2>
+                    <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">Segala puji bagi Allah SWT yang telah melimpahkan rahmat dan kasih sayang-Nya, sehingga e-book berjudul “Animal Abuse dalam Perspektif Hadis” ini dapat terselesaikan. Shalawat dan salam semoga senantiasa tercurah kepada Nabi Muhammad SAW, sosok penuh kasih yang mengajarkan kelembutan kepada semua makhluk, termasuk hewan.</p>
+                    <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">Fenomena kekerasan terhadap hewan masih sering terjadi di sekitar kita. Banyak manusia memperlakukan hewan dengan kejam, tanpa menyadari bahwa setiap makhluk hidup memiliki hak untuk dihargai dan diperlakukan dengan kasih sayang. Melalui e-book ini, penulis ingin mengajak pembaca menelusuri bagaimana Islam, khususnya melalui hadis Nabi SAW, memberikan panduan yang sangat jelas tentang larangan menyakiti hewan dan pentingnya memperlakukan mereka dengan baik.</p>
+                    <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">E-book ini tidak hanya memuat kajian teks hadis, tetapi juga menghubungkannya dengan nilai-nilai kemanusiaan dan moralitas universal. Diharapkan pembaca dapat memahami bahwa berbuat baik kepada hewan bukan hanya soal belas kasihan, tetapi juga bagian dari keimanan dan tanggung jawab spiritual seorang Muslim.</p>
+                    <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">Penulis menyadari bahwa karya ini masih jauh dari sempurna, baik dari segi isi maupun penyusunan. Oleh karena itu, kritik dan saran yang bersifat membangun sangat diharapkan demi penyempurnaan karya ini di masa mendatang.</p>
+                    <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">Terima kasih yang tulus penulis sampaikan kepada dosen, keluarga, dan sahabat serta semua pihak yang telah memberikan dukungan dalam proses penyusunan buku ini. Semoga karya sederhana ini dapat menumbuhkan kesadaran, empati, dan rasa tanggung jawab terhadap sesama makhluk ciptaan Allah.</p>
+                    <p style="text-align:right; font-style:italic; color:#5e6f82;">Serang, 9 Oktober 2025</p>
+                `
+            }];
+
+            const extraData = [{
+                id: 'daftar-pustaka',
+                label: 'Daftar Pustaka',
+                icon: svgIcons.books,
+                content: `
+                    <h2 class="panel-title">Daftar Pustaka</h2>
+                    <div class="bibliography">
+                        <ul>
+                            <li>Al-Bukhāriy, Abū ‘Abdillāh Muḥammad ibn Ismā‘īl ibn Ibrāhīm ibn al-Muġīrah al-Ju‘fiy. <em>Al-Jāmi‘ Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Min Umūr Rasūlillah Ṣallā Allāh ‘alaih Wasallam Wa Sunanih Wa Ayyāmih</em>. Edited by Muḥammad Zuhaïr ibn Nāṣir Al-Nāṣir. Dār Ṭauq al-Najāt.</li>
+                            <li>Al-Nassā‘iy, Abū ‘Abd Al-Raḥmān Ibn Syu‘aib Ibn ‘Aliy Al-Khurrāsāniy. <em>Al-Mujtabā Min Al-Sunan (Al-Sunan Al-Ṣugrā)</em>. Edited by Abd al-Fattāḥ Abū Gudah. Maktab al-Matbū‘āt al-Islāmīyyah.</li>
+                            <li>Al-Tirmīziy, Abū ‘Īsā Muḥammad Ibn ‘Īsā Ibn Saurah Ibn Mūsā Al-Ḍaḥḥak. <em>Al-Jāmi‘ Al-Kabīr Wahuwa Sunan Al-Tirmīziy</em>. Edited by Basysyār ‘Awad Ma‘rūf.</li>
+                            <li>Abū Dāwud, Sulaimān Ibn Al-Asy‘aṣ Ibn Ishāq Ibn Basyīr Ibn Syidād Ibn ‘Amru Al-Azdiy Al-Sijistāniy. <em>Sunan Abī Dāwud</em>.</li>
+                            <li>Ibn Al-Ḥajjāj, Muslim. <em>Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Binaql Al-‘Adl ‘an Al-‘Adl Ilā Rasūlillah Ṣallā Allāh ‘alaih Wasallam</em>. Edited by Muḥammad Fu’ād ‘Abd Al-Bāقī. Dār Iḥyā’ al-Turāṡ al-‘Arabiy.</li>
+                            <li>Ibn Ḥanbal, Aḥmad. <em>Musnad Al-Imām Aḥmad Ibn Ḥanbal</em>. Dār al-Ḥadīṡ.</li>
+                        </ul>
+                    </div>
+                `
+            }];
+
+            // ===== RENDER =====
+            const topMenuContainer = document.getElementById('topMenu');
+            const menuContainer = document.getElementById('menuContainer');
+            const extraMenuContainer = document.getElementById('extraMenu');
+            const panelContainer = document.getElementById('panelContainer');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const hamburger = document.getElementById('hamburgerBtn');
+
+            let activePanelId = null;
+
+            function renderTopMenu() {
+                let html = '';
+                topMenuData.forEach(item => {
+                    html += `<div style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 2px solid rgba(43,79,140,0.08);">`;
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                        <span class="icon">${item.icon}</span> ${item.label}
+                    </button>`;
+                    html += `</div>`;
+                });
+                topMenuContainer.innerHTML = html;
+            }
+
+            // Fungsi render menu recursively
+            function renderMenuItems(items, depth) {
+                let html = '';
+                items.forEach(item => {
+                    if (item.children) {
+                        const isTop = depth === 0;
+                        html += `<div class="menu-section">`;
+                        html += `<button class="menu-head ${isTop ? 'open' : ''}" data-toggle="${item.id}" aria-expanded="${isTop}">
+                            <span class="icon">${item.icon || svgIcons.folder}</span> ${item.label}
+                            <span class="arrow">▶</span>
+                        </button>`;
+                        html += `<ul class="sub-menu ${isTop ? 'open' : ''}">`;
+                        html += renderMenuItems(item.children, depth + 1);
+                        html += `</ul></div>`;
+                    } else {
+                        html += `<li><button class="sub-link" data-panel="${item.id}">
+                            <span class="sub-icon">${item.icon || svgIcons.target}</span> ${item.label}
+                        </button></li>`;
+                    }
+                });
+                return html;
+            }
+
+            function renderMenu() {
+                let html = '';
+                menuData.forEach(item => {
+                    html += `<div class="menu-section">`;
+                    html += `<button class="menu-head open" data-toggle="${item.id}" aria-expanded="true">
+                        <span class="icon">${item.icon || svgIcons.folder}</span> ${item.label}
+                        <span class="arrow">▶</span>
+                    </button>`;
+                    html += `<ul class="sub-menu open">`;
+                    html += renderMenuItems(item.children, 1);
+                    html += `</ul></div>`;
+                });
+                menuContainer.innerHTML = html;
+            }
+
+            function renderExtraMenu() {
+                let html = '';
+                extraData.forEach(item => {
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                        <span class="icon">${item.icon}</span> ${item.label}
+                    </button>`;
+                });
+                extraMenuContainer.innerHTML = html;
+            }
+
+            function renderPanels() {
+                let html = '';
+                topMenuData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+                function collectPanels(items) {
+                    items.forEach(item => {
+                        if (item.children) {
+                            collectPanels(item.children);
+                        } else {
+                            html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                        }
+                    });
+                }
+                collectPanels(menuData);
+                extraData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+                panelContainer.innerHTML = html;
+            }
+
+            function showPanel(panelId, fromSubLink = true) {
+                document.querySelectorAll('.content-panel').forEach(el => el.classList.remove('active'));
+                const panel = document.getElementById('panel-' + panelId);
+                if (panel) panel.classList.add('active');
+                document.querySelectorAll('.sub-link, .extra-link').forEach(el => el.classList.remove('active'));
+                const link = document.querySelector(`.sub-link[data-panel="${panelId}"], .extra-link[data-panel="${panelId}"]`);
+                if (link) link.classList.add('active');
+                activePanelId = panelId;
+                if (window.innerWidth <= 991 && fromSubLink) closeSidebar();
+            }
+
+            function toggleSection(btn) {
+                const sub = btn.nextElementSibling;
+                if (!sub) return;
+                const isOpen = sub.classList.contains('open');
+                if (isOpen) {
+                    sub.classList.remove('open');
+                    btn.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+                } else {
+                    sub.classList.add('open');
+                    btn.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            }
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function toggleSidebar() {
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            function init() {
+                renderPanels();
+                renderTopMenu();
+                renderMenu();
+                renderExtraMenu();
+
+                // Event delegation untuk menu atas
+                topMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                menuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('menu-head')) {
+                        e.stopPropagation();
+                        toggleSection(target);
+                        return;
+                    }
+                    if (target.classList.contains('sub-link')) {
+                        e.preventDefault();
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                        return;
+                    }
+                });
+
+                extraMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                // Default: tampilkan kata pengantar
+                if (topMenuData.length > 0) {
+                    showPanel(topMenuData[0].id, false);
+                }
+
+                hamburger.addEventListener('click', toggleSidebar);
+                overlay.addEventListener('click', closeSidebar);
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 991) closeSidebar();
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+                });
+            }
+
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+        })();
+    </script>
+</body>
+</html>

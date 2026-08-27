@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sanitasi dalam Perspektif Hadis</title>
+    <base target="_self" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    <style>
+        /* ----- RESET & GLOBAL ----- */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f6f0;
+            color: #1e2b3a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ----- VARIABLES ----- */
+        :root {
+            --primary: #2b4f8c;
+            --primary-light: #3a6bb0;
+            --primary-dark: #1d3a66;
+            --gold: #c9a84c;
+            --gold-light: #e0c66e;
+            --gold-dark: #a8892f;
+            --bg-body: #f8f6f0;
+            --bg-card: #ffffff;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --sidebar-width: 320px;
+            --header-height: 72px;
+        }
+
+        /* ----- HEADER ----- */
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 2px 12px rgba(43, 79, 140, 0.25);
+        }
+        .app-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .app-header .brand img {
+            height: 44px;
+            width: auto;
+            border-radius: 6px;
+            background: #fff;
+            padding: 4px;
+            object-fit: contain;
+        }
+        .app-header .brand .title-group {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .app-header .brand .title-group h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .app-header .brand .title-group .author {
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+        .app-header .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px 4px;
+            border-radius: 6px;
+            transition: background var(--transition);
+        }
+        .app-header .hamburger:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .app-header .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: #fff;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        /* ----- LAYOUT ----- */
+        .app-layout {
+            display: flex;
+            flex: 1;
+            position: relative;
+        }
+
+        /* ----- SIDEBAR (kanan) ----- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            border-left: 1px solid rgba(43, 79, 140, 0.10);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.04);
+            height: calc(100vh - var(--header-height));
+            position: sticky;
+            top: var(--header-height);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 16px 10px 30px;
+            flex-shrink: 0;
+            transition: transform var(--transition);
+            z-index: 900;
+        }
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: #f0ede7;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 8px;
+        }
+
+        /* Level 1: Kategori */
+        .menu-category {
+            margin-bottom: 6px;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.08);
+        }
+        .menu-category:last-of-type {
+            border-bottom: none;
+        }
+        .menu-category .cat-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 14px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-align: left;
+        }
+        .menu-category .cat-head:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .menu-category .cat-head .icon {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .menu-category .cat-head .arrow {
+            margin-left: auto;
+            font-size: 0.65rem;
+            transition: transform var(--transition);
+            color: var(--gold-dark);
+        }
+        .menu-category .cat-head.open .arrow {
+            transform: rotate(90deg);
+        }
+
+        .subcat-container {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 6px 0;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+        .subcat-container.open {
+            max-height: 1200px;
+            opacity: 1;
+        }
+
+        /* Level 2: Sub-Kategori */
+        .subcat-item {
+            margin: 4px 0 4px 12px;
+            border-left: 2px solid rgba(43, 79, 140, 0.12);
+            padding-left: 6px;
+        }
+        .subcat-head {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            padding: 8px 10px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 550;
+            color: #2d3f54;
+            cursor: pointer;
+            transition: all var(--transition);
+            text-align: left;
+        }
+        .subcat-head:hover {
+            background: rgba(43, 79, 140, 0.06);
+            color: var(--primary);
+        }
+        .subcat-head .subcat-arrow {
+            margin-left: auto;
+            font-size: 0.55rem;
+            transition: transform var(--transition);
+            color: var(--gold-dark);
+        }
+        .subcat-head.open .subcat-arrow {
+            transform: rotate(90deg);
+        }
+
+        .items-container {
+            list-style: none;
+            padding: 0;
+            margin: 2px 0 6px 0;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.35s ease, opacity 0.25s ease;
+            opacity: 0;
+        }
+        .items-container.open {
+            max-height: 600px;
+            opacity: 1;
+        }
+
+        /* Level 3: Judul / Item Hadis */
+        .items-container li {
+            margin: 2px 0;
+        }
+        .items-container li .item-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 10px 7px 24px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 450;
+            color: #4a5a6a;
+            text-decoration: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .items-container li .item-link:hover {
+            background: rgba(43, 79, 140, 0.07);
+            color: var(--primary);
+        }
+        .items-container li .item-link.active {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .items-container li .item-link .item-icon {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+        .items-container li .item-link.active .item-icon {
+            opacity: 1;
+        }
+
+        /* ----- MAIN CONTENT ----- */
+        .main-content {
+            flex: 1;
+            padding: 32px 40px 60px;
+            min-width: 0;
+            background: var(--bg-body);
+        }
+
+        .content-panel {
+            display: none;
+            animation: fadeUp 0.35s ease;
+        }
+        .content-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-panel .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .content-panel .panel-sub {
+            font-size: 0.95rem;
+            color: #5e6f82;
+            margin-bottom: 24px;
+        }
+        .content-panel .hadith-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 18px 0 22px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--gold);
+        }
+        .content-panel .hadith-box .arabic {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #1e2b3a;
+            direction: rtl;
+            font-family: 'Times New Roman', 'Traditional Arabic', serif;
+            margin-bottom: 12px;
+            padding: 6px 0;
+            word-wrap: break-word;
+        }
+        .content-panel .hadith-box .translation {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #2d3f54;
+            border-top: 1px dashed rgba(43, 79, 140, 0.12);
+            padding-top: 12px;
+        }
+        .content-panel .hadith-box .source {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--gold-dark);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+        .content-panel .sub-section {
+            margin-top: 28px;
+        }
+        .content-panel .sub-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .content-panel .sub-section p {
+            line-height: 1.7;
+            color: #2d3f54;
+            margin-bottom: 10px;
+        }
+
+        /* daftar pustaka */
+        .bibliography {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--gold);
+        }
+        .bibliography h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 14px;
+        }
+        .bibliography ul {
+            list-style: none;
+            padding: 0;
+        }
+        .bibliography ul li {
+            padding: 8px 0 8px 20px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #2d3f54;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.05);
+            text-indent: -20px;
+            padding-left: 30px;
+        }
+        .bibliography ul li::before {
+            content: "•";
+            color: var(--gold);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+
+        /* ----- OVERLAY (mobile) ----- */
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 850;
+            backdrop-filter: blur(2px);
+            transition: opacity var(--transition);
+        }
+        .overlay.active {
+            display: block;
+        }
+
+        /* ----- RESPONSIVE ----- */
+        @media (max-width: 991px) {
+            .app-header .hamburger {
+                display: flex;
+            }
+            .sidebar {
+                position: fixed;
+                top: var(--header-height);
+                right: 0;
+                height: calc(100vh - var(--header-height));
+                transform: translateX(100%);
+                box-shadow: -8px 0 30px rgba(0, 0, 0, 0.10);
+                border-left: none;
+                width: 300px;
+                padding: 12px 8px 30px;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                padding: 20px 18px 40px;
+            }
+            .content-panel .panel-title {
+                font-size: 1.5rem;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 1rem;
+            }
+            .app-header .brand img {
+                height: 36px;
+            }
+            .content-panel .hadith-box {
+                padding: 16px 18px;
+            }
+            .content-panel .hadith-box .arabic {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            :root {
+                --header-height: 64px;
+            }
+            .app-header {
+                padding: 0 14px;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 0.85rem;
+            }
+            .app-header .brand .title-group .author {
+                font-size: 0.7rem;
+            }
+            .sidebar {
+                width: 275px;
+            }
+            .main-content {
+                padding: 14px 12px 30px;
+            }
+            .content-panel .panel-title {
+                font-size: 1.25rem;
+            }
+            .menu-category .cat-head {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+            .subcat-head {
+                padding: 7px 8px;
+                font-size: 0.83rem;
+            }
+            .items-container li .item-link {
+                padding: 6px 8px 6px 20px;
+                font-size: 0.78rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="app-header">
+        <div class="brand">
+            <img src="logo-pshd.jpg" alt="Logo" />
+            <div class="title-group">
+                <h1>Sanitasi dalam Perspektif Hadis</h1>
+                <span class="author">Penyusun: Ambarwati & Muhammad Alif</span>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <!-- ===== LAYOUT ===== -->
+    <div class="app-layout">
+
+        <!-- OVERLAY -->
+        <div class="overlay" id="overlay"></div>
+
+        <!-- ===== SIDEBAR ===== -->
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Daftar isi">
+            <!-- Menu akan diisi secara dinamis melalui JavaScript -->
+            <div id="menuContainer"></div>
+        </nav>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="main-content" id="mainContent">
+            <!-- Panel konten akan diisi secara dinamis melalui JavaScript -->
+            <div id="panelContainer"></div>
+        </main>
+
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // ---------- STRUKTUR DATA NESTED 3 LEVEL + DAFTAR PUSTAKA ----------
+            const menuData = [
+                {
+                    id: 'bab1',
+                    label: 'I. MANAJEMEN SANITASI',
+                    icon: '📖',
+                    subcategories: [
+                        {
+                            id: 'sub-a',
+                            label: 'A. Sumber Air Bersih',
+                            icon: '💧',
+                            items: [
+                                {
+                                    id: 'item-a1',
+                                    label: '1. Air Laut',
+                                    icon: '🌊',
+                                    content: `
+                                        <h2 class="panel-title">A. Sumber Air Bersih - Air Laut</h2>
+                                        <p class="panel-sub">Sumber-sumber air bersih dalam perspektif hadis.</p>
+                                        <div class="sub-section">
+                                          <h3>1. Air Laut</h3>
+                                          <div class="hadith-box">
+                                            <div class="arabic">حَدَّثَنَا هِشَامُ بْنُ عَمَّارٍ حَدَّثَنَا مَالِكُ بْنُ أَنَسٍ حَدَّثَنِي صَفْوَانُ بْنُ سُلَيْمٍ عَنْ سَعِيدِ بْنِ سَلَمَةَ — هُوَ مِنْ آلِ ابْنِ الْأَزْرَقِ — أَنَّ الْمُغِيرَةَ بْنَ أَبِي بُرْدَةَ وَهُوَ مِنْ بَنِي عَبْدِ الدَّارِ حَدَّثَهُ أَنَّهُ سَمِعَ أَبَا هُرَيْرَةَ يَقُولُ جَاءَ رَجُلٌ إِلَى رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فَقَالَ يَا رَسُولَ اللَّهِ إِنَّا نَرْكَبُ الْبَحْرَ وَنَحْمِلُ مَعَنَا الْقَلِيلَ مِنَ الْمَاءِ فَإِنْ تَوَضَّأْنَا بِهِ عَطِشْنَا أَفَنَتَوَضَّأُ مِنْ مَاءِ الْبَحْرِ فَقَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ هُوَ الطَّهُورُ مَاؤُهُ الْحِلُّ مَيْتَتُهُ</div>
+                                            <div class="translation">Telah menceritakan kepada kami Hisyam bin Ammar berkata, telah menceritakan kepada kami Malik bin Anas berkata, telah menceritakan kepadaku Shafwan bin Sulaim dari Sa'id bin Salamah dari keluarga Ibnu Al Azraq bahwa Al Mughirah bin Abu Burdah dari bani Abdu Ad Dar mendengar Abu Hurairah berkata, "Seorang laki-laki datang kepada Rasulullah ﷺ seraya bertanya, 'Wahai Rasulullah, kami berlayar di lautan dan kami hanya membawa sedikit air, jika kami berwudu dengannya maka kami akan kehausan. Bolehkah kami berwudu dengan air laut?' Rasulullah ﷺ menjawab, 'Laut itu suci airnya dan halal bangkainya.'"</div>
+                                            <span class="source">(Ibnu Majah no. 380)</span>
+                                          </div>
+                                        </div>
+                                    `
+                                },
+                                {
+                                    id: 'item-a2',
+                                    label: '2. Sumur / Mata Air',
+                                    icon: '🕳️',
+                                    content: `
+                                        <h2 class="panel-title">A. Sumber Air Bersih - Sumur / Mata Air</h2>
+                                        <p class="panel-sub">Sumber-sumber air bersih dalam perspektif hadis.</p>
+                                        <div class="sub-section">
+                                          <h3>2. Sumur / Mata Air</h3>
+                                          <div class="hadith-box">
+                                            <div class="arabic">حَدَّثَنَا مُحَمَّدُ بْنُ الْعَلَاءِ وَالْحَسَنُ بْنُ عَلِيٍّ وَمُحَمَّدُ بْنُ سُلَيْمَانَ الْأَنْبَارِيُّ قَالُوا حَدَّثَنَا أَبُو أُسَامَةَ عَنِ الْوَلِيدِ بْنِ كَثِيرٍ عَنْ مُحَمَّدِ بْنِ كَعْبٍ عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ بْنِ رَافِعِ بْنِ خَدِيجٍ عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ أَنَّهُ قِيلَ لِرَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ أَنَتَوَضَّأُ مِنْ بِئْرِ بُضَاعَةَ وَهِيَ بِئْرٌ يُطْرَحُ فِيهَا الْحِيَضُ وَلَحْمُ الْكِلَابِ وَالنَّتْنُ فَقَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ الْمَاءُ طَهُورٌ لَا يُنَجِّسُهُ شَيْءٌ</div>
+                                            <div class="translation">Telah menceritakan kepada kami Muhammad bin Al 'Ala dan Al Hasan bin Ali dan Muhammad bin Sulaiman Al Anbari mereka berkata, telah menceritakan kepada kami Abu Usamah dari Al Walid bin Katsir dari Muhammad bin Ka'b dari Ubaidillah bin Abdullah bin Rafi' bin Khadij dari Abu Sa'id Al Khudri bahwasanya pernah ditanyakan kepada Rasulullah ﷺ, "Bolehkah kita berwudu dari sumur Bidla'ah? Yaitu sumur yang dilemparkan ke dalamnya bekas kotoran haid, bangkai anjing, dan sesuatu yang berbau busuk." Rasulullah ﷺ menjawab, "Air itu suci, tidak ada sesuatu pun yang dapat menajiskannya."</div>
+                                            <span class="source">(Abu Dawud no. 60)</span>
+                                          </div>
+                                        </div>
+                                    `
+                                }
+                            ]
+                        },
+                        {
+                            id: 'sub-b',
+                            label: 'B. Pemeliharaan Sumber Air Bersih',
+                            icon: '🛠️',
+                            items: [
+                                {
+                                    id: 'item-b1',
+                                    label: '1. Waste Water Management',
+                                    icon: '♻️',
+                                    content: `
+                                        <h2 class="panel-title">B. Pemeliharaan Sumber Air Bersih - Waste Water Management</h2>
+                                        <p class="panel-sub">Pemeliharaan dan standarisasi air bersih dalam hadis.</p>
+                                        <div class="sub-section">
+                                          <h3>1. Waste Water Management</h3>
+                                          <div class="hadith-box">
+                                            <div class="arabic">حَدَّثَنَا أَحْمَدُ بْنُ يُونُسَ حَدَّثَنَا زُهَيْرٌ عَنْ دَاوُدَ بْنِ عَبْدِ اللَّهِ ح و حَدَّثَنَا مُسَدَّدٌ حَدَّثَنَا أَبُو عَوَانَةَ عَنْ دَاوُدَ بْنِ عَبْدِ اللَّهِ عَنْ حُمَيْدٍ الْحِمْيَرِيِّ قَالَ لَقِيتُ رَجُلًا صَحِبَ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ أَرْبَعَ سِنِينَ كَمَا صَحِبَهُ أَبُو هُرَيْرَةَ قَالَ نَهَى رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ أَنْ تَغْتَبِلَ الْمَرْأَةُ بِفَضْلِ الرَّجُلِ أَوْ يَغْتَبِلَ الرَّجُلُ بِفَضْلِ الْمَرْأَةِ — زَادَ مُسَدَّدٌ — وَلْيَغْتَرِفَا جَمِيعًا</div>
+                                            <div class="translation">Telah menceritakan kepada kami Ahmad bin Yunus telah menceritakan kepada kami Zuhair dari Dawud bin Abdullah, dan menurut jalur lain; telah menceritakan kepada kami Musaddad telah menceritakan kepada kami Abu 'Awanah dari Dawud bin Abdullah dari Humaid Al Himyari dia berkata; Saya pernah bertemu dengan seorang laki-laki yang pernah bersahabat dengan Nabi shallallahu 'alaihi wasallam empat tahun sebagaimana Abu Hurairah bersahabat dengan beliau, dia berkata; Rasulullah shallallahu 'alaihi wasallam melarang perempuan mandi dengan air sisa kaum lelaki dan melarang kaum lelaki mandi dengan air sisa perempuan. —Musaddad menambahkan— Dan hendaknya mereka berdua sama-sama menciduk air (ketika mandi).</div>
+                                            <span class="source">(Abu Dawud no. 74)</span>
+                                          </div>
+                                        </div>
+                                    `
+                                },
+                                {
+                                    id: 'item-b2',
+                                    label: '2. Standarisasi Air Bersih',
+                                    icon: '⚖️',
+                                    content: `
+                                        <h2 class="panel-title">B. Pemeliharaan Sumber Air Bersih - Standarisasi</h2>
+                                        <p class="panel-sub">Pemeliharaan dan standarisasi air bersih dalam hadis.</p>
+                                        <div class="sub-section">
+                                          <h3>2. Standarisasi Air Bersih</h3>
+                                          <div class="hadith-box">
+                                            <div class="arabic">حَدَّثَنَا أَبُو بَكْرِ بْنُ خَلَّادٍ الْبَاهِلِيُّ حَدَّثَنَا يَزِيدُ بْنُ هَارُونَ أَخْبَرَنَا مُحَمَّدُ بْنُ إِسْحَاقَ عَنْ مُحَمَّدِ بْنِ جَعْفَرِ بْنِ الزُّبَيْرِ عَنْ عُبَيْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ بْنِ عُمَرَ عَنْ أَبِيهِ قَالَ سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ سُئِلَ عَنِ الْمَاءِ يَكُونُ بِالْفَلَاةِ مِنَ الْأَرْضِ وَمَا يَنُوبُهُ مِنَ الدَّوَابِّ وَالسِّبَاعِ فَقَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ إِذَا بَلَغَ الْمَاءُ قُلَّتَيْنِ لَمْ يُنَجِّسْهُ شَيْءٌ</div>
+                                            <div class="translation">Telah menceritakan kepada kami Abu Bakr bin Khallad Al Bahili berkata, telah menceritakan kepada kami Yazid bin Harun berkata, telah memberitakan kepada kami Muhammad bin Ishaq dari Muhammad bin Ja'far bin Az Zubair dari Ubaidullah bin Abdullah bin Umar dari Bapaknya berkata; Aku mendengar Rasulullah shallallahu 'alaihi wasallam ditanya tentang hukum air yang berada di tanah lapang dan air yang dijilat oleh binatang melata dan binatang buas?" maka beliau pun menjawab: "Jika air itu mencapai dua qullah (tempayan besar) maka ia tidak akan najis karena sesuatu."</div>
+                                            <span class="source">(Ibnu Majah no. 510)</span>
+                                          </div>
+                                        </div>
+                                    `
+                                },
+                                {
+                                    id: 'item-b3',
+                                    label: '3. Menghindari Pencemaran Air',
+                                    icon: '🚫',
+                                    content: `
+                                        <h2 class="panel-title">B. Pemeliharaan Sumber Air Bersih - Pencegahan Pencemaran</h2>
+                                        <p class="panel-sub">Pemeliharaan dan standarisasi air bersih dalam hadis.</p>
+                                        <div class="sub-section">
+                                          <h3>3. Menghindari Pencemaran Air</h3>
+                                          <div class="hadith-box">
+                                            <div class="arabic">عَنْ جَابِرٍ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ غَطُّوا الْإِنَاءَ وَأَوْكُوا السِّقَاءَ وَأَغْلِفُوا الْأَبْوَابَ وَأَطْفِئُوا السِّرَاجَ فَإِنَّ الشَّيْطَانَ لَا يَحُلُّ سِقَاءً وَلَا يَفْتَحُ بَابًا وَلَا يَكْشِفُ إِنَاءً فَإِنْ لَمْ يَجِدْ أَحَدُكُمْ إِلَّا أَنْ يَعْرُضَ عَلَى إِنَائِهِ عُودًا وَيَذْكُرَ اسْمَ اللَّهِ فَلْيَفْعَلْ</div>
+                                            <div class="translation">Dari Jabir, ia berkata: Rasulullah shallallahu 'alaihi wasallam bersabda: "Tutuplah bejana, ikatlah tempat air, tutuplah pintu-pintu, dan matikanlah lampu. Sesungguhnya setan tidak akan membuka ikatan tempat air, tidak membuka pintu, dan tidak membuka tutup bejana. Jika salah seorang di antara kalian tidak mendapatkan kecuali hanya meletakkan sebatang kayu di atas bejananya dan menyebut nama Allah, maka lakukanlah."</div>
+                                            <span class="source">(HR. Muslim, Abu Dawud, dll.)</span>
+                                          </div>
+                                        </div>
+                                    `
+                                },
+                                {
+                                    id: 'item-b4',
+                                    label: '4. Mencuci Tangan',
+                                    icon: '🤲',
+                                    content: `
+                                        <h2 class="panel-title">B. Pemeliharaan Sumber Air Bersih - Mencuci Tangan</h2>
+                                        <p class="panel-sub">Pemeliharaan dan standarisasi air bersih dalam hadis.</p>
+                                        <div class="sub-section">
+                                          <h3>4. Mencuci Tangan</h3>
+                                          <div class="hadith-box">
+                                            <div class="arabic">عَنْ أَبِي هُرَيْرَةَ عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ إِذَا اسْتَيْقَظَ أَحَدُكُمْ مِنْ مَنَامِهِ فَلَا يَغْمِسْ يَدَهُ فِي الْإِنَاءِ حَتَّى يَغْسِلَهَا ثَلَاثًا فَإِنَّهُ لَا يَدْرِي أَيْنَ بَاتَتْ يَدُهُ</div>
+                                            <div class="translation">Dari Abu Hurairah dari Nabi shallallahu 'alaihi wasallam bersabda: "Apabila salah seorang di antara kalian bangun dari tidurnya, maka janganlah dia mencelupkan tangannya ke dalam bejana hingga dia membasuhnya tiga kali, karena dia tidak mengetahui di mana tangan itu menginap."</div>
+                                            <span class="source">(Shahih Muslim no. 416)</span>
+                                          </div>
+                                        </div>
+                                    `
+                                },
+                                {
+                                    id: 'item-b5',
+                                    label: '5. Buang Air Kecil di Air Tergenang',
+                                    icon: '💧',
+                                    content: `
+                                        <h2 class="panel-title">B. Pemeliharaan Sumber Air Bersih - Air Tergenang</h2>
+                                        <p class="panel-sub">Pemeliharaan dan standarisasi air bersih dalam hadis.</p>
+                                        <div class="sub-section">
+                                          <h3>5. Buang Air Kecil di Air Tergenang</h3>
+                                          <div class="hadith-box">
+                                            <div class="arabic">حَدَّثَنَا أَحْمَدُ بْنُ يُونُسَ حَدَّثَنَا زَائِدَةُ فِي حَدِيثِ هِشَامٍ عَنْ مُحَمَّدٍ عَنْ أَبِي هُرَيْرَةَ عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ لَا يَبُولَنَّ أَحَدُكُمْ فِي الْمَاءِ الدَّائِمِ ثُمَّ يَغْتَسِلُ مِنْهُ</div>
+                                            <div class="translation">Telah menceritakan kepada kami Ahmad bin Yunus telah menceritakan kepada kami Za'idah dalam hadits Hisyam dari Muhammad dari Abu Hurairah dari Nabi shallallahu 'alaihi wasallam, beliau bersabda: "Janganlah salah seorang dari kalian kencing di air yang mengenang kemudian mandi darinya."</div>
+                                            <span class="source">(Abu Dawud no. 63)</span>
+                                          </div>
+                                        </div>
+                                    `
+                                }
+                            ]
+                        },
+                        {
+                            id: 'sub-c',
+                            label: 'C. Air Pollution & Soil Conservation',
+                            icon: '🌍',
+                            items: [
+                                {
+                                    id: 'item-c1',
+                                    label: '1. Pengendalian Aroma Tidak Sedap',
+                                    icon: '💨',
+                                    content: `
+                                        <h2 class="panel-title">C. Air Pollution &amp; Soil Conservation - Aroma</h2>
+                                        <p class="panel-sub">Pengendalian pencemaran udara dan konservasi tanah.</p>
+                                        <div class="sub-section">
+                                          <h3>1. Pengendalian Aroma Tidak Sedap</h3>
+                                          <div class="hadith-box">
+                                            <div class="arabic">أَخْبَرَنَا إِسْحَاقُ بْنُ مَنْصُورٍ قَالَ حَدَّثَنَا يَحْيَى عَنِ ابْنِ جُرَيْجٍ قَالَ حَدَّثَنَا عَطَاءٌ عَنْ جَابِرٍ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَنْ أَكَلَ مِنْ هَذِهِ الشَّجَرَةِ — قَالَ أَوَّلَ يَوْمٍ — الثُّومَ ثُمَّ قَالَ الثُّومَ وَالْبَصَلَ وَالْكُرَّاثَ فَلَا يَقْرَبَنَّا فِي مَسَاجِدِنَا فَإِنَّ الْمَلَائِكَةَ تَتَأَذَّى مِمَّا يَتَأَذَّى مِنْهُ الْإِنْسُ</div>
+                                            <div class="translation">Telah mengabarkan kepada kami Ishaq bin Manshur dia berkata: telah menceritakan kepada kami Yahya dari Ibnu Juraij dia berkata: telah menceritakan kepada kami 'Atha dari Jabir dia berkata: Rasulullah shallallahu 'alaihi wa sallam bersabda: "Barangsiapa makan dari pohon ini..." —beliau bersabda pada pagi hari—: "bawang putih." Kemudian beliau bersabda: "Bawang putih, bawang merah, serta tumbuhan yang baunya sangat menyengat (seperti bawang), maka jangan mendekat ke masjid kami. Sesungguhnya malaikat merasa terganggu dari hal-hal yang manusia juga merasa terganggu karenanya."</div>
+                                            <span class="source">(Sunan Nasai no. 700)</span>
+                                          </div>
+                                        </div>
+                                    `
+                                },
+                                {
+                                    id: 'item-c2',
+                                    label: '2. Buang Hajat di Luar Rumah',
+                                    icon: '🏡',
+                                    content: `
+                                        <h2 class="panel-title">C. Air Pollution &amp; Soil Conservation - Buang Hajat</h2>
+                                        <p class="panel-sub">Pengendalian pencemaran udara dan konservasi tanah.</p>
+                                        <div class="sub-section">
+                                          <h3>2. Buang Hajat di Luar Rumah</h3>
+                                          <p>Anjuran untuk menjaga kebersihan dan tidak buang hajat di dalam rumah tanpa pengelolaan yang layak. Dalam hadis-hadis disebutkan agar umat menjaga kebersihan lingkungan dan tidak mencemari tempat tinggal.</p>
+                                        </div>
+                                    `
+                                },
+                                {
+                                    id: 'item-c3',
+                                    label: '3. Buang Hajat di Tempat Sepi',
+                                    icon: '🌳',
+                                    content: `
+                                        <h2 class="panel-title">C. Air Pollution &amp; Soil Conservation - Tempat Sepi</h2>
+                                        <p class="panel-sub">Pengendalian pencemaran udara dan konservasi tanah.</p>
+                                        <div class="sub-section">
+                                          <h3>3. Buang Hajat di Tempat Sepi</h3>
+                                          <p>Rasulullah ﷺ mengajarkan adab buang hajat dengan mencari tempat yang tersembunyi dan tidak mengganggu orang lain, sebagai bentuk penghormatan terhadap lingkungan sekitar.</p>
+                                        </div>
+                                    `
+                                },
+                                {
+                                    id: 'item-c4',
+                                    label: '4. Buang Hajat Sembarangan',
+                                    icon: '⚠️',
+                                    content: `
+                                        <h2 class="panel-title">C. Air Pollution &amp; Soil Conservation - Buang Hajat Sembarangan</h2>
+                                        <p class="panel-sub">Pengendalian pencemaran udara dan konservasi tanah.</p>
+                                        <div class="sub-section">
+                                          <h3>4. Buang Hajat Sembarangan</h3>
+                                          <div class="hadith-box">
+                                            <div class="arabic">حَدَّثَنَا يَحْيَى بْنُ أَيُّوبَ وَقُتَيْبَةُ وَابْنُ حُجْرٍ جَمِيعًا عَنْ إِسْمَعِيلَ بْنِ جَعْفَرٍ قَالَ ابْنُ أَيُّوبَ حَدَّثَنَا إِسْمَعِيلُ أَخْبَرَنِي الْعَلَاءُ عَنْ أَبِيهِ عَنْ أَبِي هُرَيْرَةَ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ اتَّقُوا اللَّعَّانَيْنِ قَالُوا وَمَا اللَّعَّانَانِ يَا رَسُولَ اللَّهِ قَالَ الَّذِي يَتَخَلَّى فِي طَرِيقِ النَّاسِ أَوْ فِي ظِلِّهِمْ</div>
+                                            <div class="translation">Telah menceritakan kepada kami Yahya bin Ayyub dan Qutaibah serta Ibnu Hujr semuanya dari Ismail bin Ja'far, Ibnu Ayyub berkata, telah menceritakan kepada kami Ismail telah mengabarkan kepadaku al-Ala' dari bapaknya dari Abu Hurairah bahwa Rasulullah shallallahu 'alaihi wasallam bersabda: "Jauhilah kalian dari La'anaini." Para sahabat bertanya, "Wahai Rasulullah, siapa La'anaini itu?" Beliau menjawab: "Orang yang buang hajat di jalan manusia atau di tempat berteduhnya mereka."</div>
+                                            <span class="source">(Shahih Muslim no. 397)</span>
+                                          </div>
+                                        </div>
+                                    `
+                                },
+                                {
+                                    id: 'item-c5',
+                                    label: '5. Konsentrasi Pembuangan Sampah',
+                                    icon: '🚮',
+                                    content: `
+                                        <h2 class="panel-title">C. Air Pollution &amp; Soil Conservation - Pembuangan Sampah</h2>
+                                        <p class="panel-sub">Pengendalian pencemaran udara dan konservasi tanah.</p>
+                                        <div class="sub-section">
+                                          <h3>5. Konsentrasi Pembuangan Sampah</h3>
+                                          <div class="hadith-box">
+                                            <div class="arabic">حَدَّثَنَا آدَمُ قَالَ حَدَّثَنَا شُعْبَةُ عَنِ الْأَعْمَشِ عَنْ أَبِي وَائِلٍ عَنْ حُذَيْفَةَ قَالَ أَتَى النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ سُبَاطَةَ قَوْمٍ فَبَالَ قَائِمًا ثُمَّ دَعَا بِمَاءٍ فَجِئْتُهُ بِمَاءٍ فَتَوَضَّأَ</div>
+                                            <div class="translation">Telah menceritakan kepada kami Adam telah menceritakan kepada kami Syu'bah dari Al A'masy dari Abu Wa'il dari Hudzaifah berkata, "Nabi shallallahu 'alaihi wasallam mendatangi tempat pembuangan sampah suatu kaum, beliau lalu kencing sambil berdiri. Kemudian beliau meminta air, maka aku pun datang dengan membawa air, kemudian beliau berwudhu."</div>
+                                            <span class="source">(Shahih Bukhari no. 217)</span>
+                                          </div>
+                                        </div>
+                                    `
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'bab2',
+                    label: 'II. HOUSEHOLD WASTE MANAGEMENT',
+                    icon: '🏠',
+                    subcategories: [
+                        {
+                            id: 'sub-d',
+                            label: 'A. IPAL',
+                            icon: '💧',
+                            items: [
+                                {
+                                    id: 'item-d1',
+                                    label: '1. Manajemen Sulit Air',
+                                    icon: '📉',
+                                    content: `
+                                        <h2 class="panel-title">A. IPAL - Manajemen Sulit Air</h2>
+                                        <p class="panel-sub">Manajemen air limbah dan penghematan air dalam perspektif hadis.</p>
+                                        <div class="sub-section">
+                                          <h3>1. Manajemen Sulit Air</h3>
+                                          <p>Dalam kondisi sulit air, Islam mengajarkan untuk tetap menjaga kebersihan dengan cara yang bijak. Air yang terbatas tetap harus digunakan secara efisien dan tidak dibuang secara sia-sia. Prinsip <em>al-ma'u thahurun</em> (air itu suci) tetap menjadi landasan, namun tetap memperhatikan ketersediaan.</p>
+                                        </div>
+                                    `
+                                },
+                                {
+                                    id: 'item-d2',
+                                    label: '2. Penghematan Air',
+                                    icon: '💡',
+                                    content: `
+                                        <h2 class="panel-title">A. IPAL - Penghematan Air</h2>
+                                        <p class="panel-sub">Manajemen air limbah dan penghematan air dalam perspektif hadis.</p>
+                                        <div class="sub-section">
+                                          <h3>2. Penghematan Air</h3>
+                                          <div class="hadith-box">
+                                            <div class="arabic">عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو قَالَ مَرَّ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ بِسَعْدٍ وَهُوَ يَتَوَضَّأُ فَقَالَ مَا هَذَا السَّرَفُ يَا سَعْدُ قَالَ أَفِي الْوُضُوءِ سَرَفٌ قَالَ نَعَمْ وَإِنْ كُنْتَ عَلَى نَهْرٍ جَارٍ</div>
+                                            <div class="translation">Dari Abdullah bin Amr, ia berkata: Nabi shallallahu 'alaihi wasallam melewati Sa'd yang sedang berwudu, maka beliau bersabda: "Apa ini pemborosan wahai Sa'd?" Sa'd bertanya: "Apakah dalam wudu ada pemborosan?" Beliau menjawab: "Ya, meskipun engkau berada di sungai yang mengalir."</div>
+                                            <span class="source">(HR. Ahmad, Ibnu Majah, dan dishahihkan)</span>
+                                          </div>
+                                          <p style="margin-top:12px;">Hadis ini menegaskan bahwa penghematan air tetap diperhatikan, bahkan dalam ibadah sekalipun. Ini menjadi dasar bagi pengelolaan air limbah dan konservasi sumber daya air.</p>
+                                        </div>
+                                    `
+                                }
+                            ]
+                        },
+                        {
+                            id: 'sub-e',
+                            label: 'B. Tempat Pembuangan Akhir (TPA)',
+                            icon: '🗑️',
+                            items: [
+                                {
+                                    id: 'item-e1',
+                                    label: '1. Pengelolaan TPA',
+                                    icon: '🏗️',
+                                    content: `
+                                        <h2 class="panel-title">B. Tempat Pembuangan Akhir (TPA)</h2>
+                                        <p class="panel-sub">Pengelolaan tempat pembuangan akhir sampah dan limbah.</p>
+                                        <p>Dalam Islam, pengelolaan sampah dan limbah harus dilakukan dengan cara yang tidak mencemari lingkungan dan tidak mengganggu orang lain. Tempat pembuangan akhir hendaknya ditempatkan jauh dari pemukiman dan sumber air bersih, serta dikelola dengan sistem yang sanitair.</p>
+                                        <p>Prinsip-prinsip yang diajarkan dalam hadis tentang larangan buang hajat di jalan dan tempat berteduh (HR. Muslim no. 397) serta perhatian terhadap kebersihan lingkungan menjadi dasar bahwa TPA harus direncanakan dengan baik agar tidak menjadi sumber penyakit dan pencemaran.</p>
+                                        <p>Pengelolaan TPA yang baik mencakup pemilahan sampah, pengolahan limbah, dan rehabilitasi lahan pasca-penutupan, sesuai dengan semangat <em>iḥsān</em> (berbuat baik) terhadap lingkungan.</p>
+                                    `
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'bab3',
+                    label: 'III. PENGENDALIAN BAKTERI & HEWAN',
+                    icon: '🦠',
+                    subcategories: [
+                        {
+                            id: 'sub-f',
+                            label: 'A. Antiseptic',
+                            icon: '🧴',
+                            items: [
+                                {
+                                    id: 'item-f1',
+                                    label: '1. Konsep Antiseptik',
+                                    icon: '🧼',
+                                    content: `
+                                        <h2 class="panel-title">A. Antiseptik</h2>
+                                          <div class="hadith-box">
+                                            <div class="arabic">حَدَّثَنَا أَحْمَدُ بْنُ حَنْبَلٍ حَدَّثَنَا بِشْرٌ — يَعْنِي ابْنَ الْمُفَضَّلِ — عَنِ ابْنِ عَجْلَانَ عَنْ سَعِيدٍ الْمَقْبُرِيِّ عَنْ أَبِي هُرَيْرَةَ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ إِذَا وَقَعَ الذُّبَابُ فِي إِنَاءِ أَحَدِكُمْ فَامْقُلُوهُ فَإِنَّ فِي أَحَدِ جَنَاحَيْهِ دَاءً وَفِي الْآخَرِ شِفَاءً وَإِنَّهُ يَتَّقِي بِجَنَاحِهِ الَّذِي فِيهِ الدَّاءُ فَلْيَغْمِسْهُ كُلَّهُ</div>
+                                            <div class="translation">Telah menceritakan kepada kami Ahmad bin Hanbal telah menceritakan kepada kami Bisyr bin Al Mufadldlal dari Ibnu 'Ajlan dari Sa'id Al Maqburi dari Abu Hurairah ia berkata, "Rasulullah shallallahu 'alaihi wasallam bersabda: 'Jika ada lalat jatuh ke dalam bejana salah seorang dari kalian maka celupkanlah lalat tersebut, karena sesungguhnya di dalam salah satu sayapnya terdapat penyakit dan pada sayap yang lain terdapat obat. Sesungguhnya lalat tersebut melindungi diri dengan sayap yang padanya terdapat penyakit, maka celupkanlah semuannya!'"</div>
+                                            <span class="source">(Abu Dawud no. 3346)</span>
+                                        <p class="panel-sub">Kebersihan dan penggunaan antiseptik dalam perspektif Islam.</p>
+                                        <p>Islam sangat menekankan kebersihan sebagai bagian dari iman. Konsep antiseptik dalam hadis tercermin dalam perintah mencuci tangan, membersihkan najis, dan menjaga kebersihan lingkungan.</p>
+                                        <p>Rasulullah ﷺ mengajarkan untuk mencuci tangan setelah bangun tidur (HR. Muslim no. 416) dan membersihkan diri dari kotoran. Penggunaan antiseptik alami seperti air, sabun, dan bahan-bahan yang dapat membunuh kuman sejalan dengan ajaran Islam tentang menjaga kesehatan dan kesucian.</p>
+                                        <p>Hadis tentang lalat (Abu Dawud no. 3346) juga mengisyaratkan bahwa pada hewan yang dianggap kotor sekalipun terdapat zat yang bermanfaat, yang menunjukkan pentingnya kebersihan dan pengendalian mikroba.</p>
+                                    `
+                                }
+                            ]
+                        },
+                        {
+                            id: 'sub-g',
+                            label: 'B. Pest Management',
+                            icon: '🐜',
+                            items: [
+                                {
+                                    id: 'item-g1',
+                                    label: '1. Anjing',
+                                    icon: '🐕',
+                                    content: `
+                                        <h2 class="panel-title">B. Pengendalian Hama - Anjing</h2>
+                                        <p class="panel-sub">Pengendalian hewan-hewan yang membawa penyakit.</p>
+                                        <div class="sub-section">
+                                          <h3>1. Anjing</h3>
+                                          <div class="hadith-box">
+                                            <div class="arabic">أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ أَمَرَ بِقَتْلِ الْكِلَابِ إِلَّا كَلْبَ صَيْدٍ أَوْ كَلْبَ غَنَمٍ أَوْ مَاشِيَةٍ</div>
+                                            <div class="translation">Bahwa Rasulullah memerintahkan untuk membunuh anjing kecuali anjing untuk berburu atau anjing untuk menjaga hewan ternak." (Shahih Muslim no. 2937)"</div>
+                                            <span class="source">(Abu Dawud no. 3346)</span>                                    
+                                          <p>Dalam hadis, anjing disebutkan dalam konteks kenajisan air liurnya dan aturan-aturan khusus tentang kebersihan. Air liur anjing dianggap najis berat, dan harus dibersihkan dengan tujuh kali basuhan, salah satunya dengan tanah. Hal ini menunjukkan bahwa pengendalian terhadap hewan yang berpotensi menularkan penyakit sangat diperhatikan.</p>
+                                          <p>Meskipun demikian, anjing juga diakui fungsinya sebagai penjaga dan pemburu, dengan ketentuan-ketentuan tertentu yang mengatur interaksi dengannya.</p>
+                                        </div>
+                                    `
+                                },
+                                {
+                                    id: 'item-g2',
+                                    label: '2. Lalat',
+                                    icon: '🪰',
+                                    content: `
+                                        <h2 class="panel-title">B. Pengendalian Hama - Lalat</h2>
+                                        <p class="panel-sub">Pengendalian hewan-hewan yang membawa penyakit.</p>
+                                        <div class="sub-section">
+                                          <h3>2. Lalat</h3>
+                                          <div class="hadith-box">
+                                            <div class="arabic">حَدَّثَنَا أَحْمَدُ بْنُ حَنْبَلٍ حَدَّثَنَا بِشْرٌ — يَعْنِي ابْنَ الْمُفَضَّلِ — عَنِ ابْنِ عَجْلَانَ عَنْ سَعِيدٍ الْمَقْبُرِيِّ عَنْ أَبِي هُرَيْرَةَ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ إِذَا وَقَعَ الذُّبَابُ فِي إِنَاءِ أَحَدِكُمْ فَامْقُلُوهُ فَإِنَّ فِي أَحَدِ جَنَاحَيْهِ دَاءً وَفِي الْآخَرِ شِفَاءً وَإِنَّهُ يَتَّقِي بِجَنَاحِهِ الَّذِي فِيهِ الدَّاءُ فَلْيَغْمِسْهُ كُلَّهُ</div>
+                                            <div class="translation">Telah menceritakan kepada kami Ahmad bin Hanbal telah menceritakan kepada kami Bisyr bin Al Mufadldlal dari Ibnu 'Ajlan dari Sa'id Al Maqburi dari Abu Hurairah ia berkata, "Rasulullah shallallahu 'alaihi wasallam bersabda: 'Jika ada lalat jatuh ke dalam bejana salah seorang dari kalian maka celupkanlah lalat tersebut, karena sesungguhnya di dalam salah satu sayapnya terdapat penyakit dan pada sayap yang lain terdapat obat. Sesungguhnya lalat tersebut melindungi diri dengan sayap yang padanya terdapat penyakit, maka celupkanlah semuannya!'"</div>
+                                            <span class="source">(Abu Dawud no. 3346)</span>
+                                          </div>
+                                          <p>Hadis ini mengajarkan bahwa pada makhluk yang tampak menjijikkan sekalipun terdapat manfaat, dan dalam konteks pengendalian hama, Islam memberikan solusi yang rasional dan proporsional.</p>
+                                        </div>
+                                    `
+                                },
+                                {
+                                    id: 'item-g3',
+                                    label: '3. Cicak',
+                                    icon: '🦎',
+                                    content: `
+                                        <h2 class="panel-title">B. Pengendalian Hama - Cicak</h2>
+                                        <p class="panel-sub">Pengendalian hewan-hewan yang membawa penyakit.</p>
+                                        <div class="sub-section">
+                                          <h3>3. Cicak</h3>
+                                          <div class="hadith-box">
+                                            <div class="arabic">وَحَدَّثَنَا يَحْيَى بْنُ يَحْيَى أَخْبَرَنَا خَالِدُ بْنُ عَبْدِ اللَّهِ عَنْ سُهَيْلٍ عَنْ أَبِيهِ عَنْ أَبِي هُرَيْرَةَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَنْ قَتَلَ وَزَغَةً فِي أَوَّلِ ضَرْبَةٍ فَلَهُ كَذَا وَكَذَا حَسَنَةً وَمَنْ قَتَلَهَا فِي الضَّرْبَةِ الثَّانِيَةِ فَلَهُ كَذَا وَكَذَا حَسَنَةً لِدُونِ الْأُولَى وَإِنْ قَتَلَهَا فِي الضَّرْبَةِ الثَّالِثَةِ فَلَهُ كَذَا وَكَذَا حَسَنَةً لِدُونِ الثَّانِيَةِ</div>
+                                            <div class="translation">Dan telah menceritakan kepada kami Yahya bin Yahya; Telah mengabarkan kepada kami Khalid bin 'Abdullah dari Suhail dari Bapaknya dari Abu Hurairah dia berkata; Rasulullah shallallahu 'alaihi wasallam bersabda: "Barang siapa yang membunuh cecak satu kali pukul, maka dituliskan baginya pahala sebanyak begini dan begini kebaikan. Dan barang siapa yang membunuhnya dua kali pukul, maka dituliskan baginya pahala sebanyak begini dan begini kebaikan berkurang dari pukulan pertama. Dan siapa yang membunuhnya tiga kali pukul, maka pahalanya kurang lagi dari itu."</div>
+                                            <span class="source">(Shahih Muslim no. 4156)</span>
+                                          </div>
+                                          <p>Hadis ini menunjukkan bahwa cicak termasuk hewan yang dianjurkan untuk dibasmi karena membawa mudarat. Dalam konteks pengendalian hama, Islam memberikan tuntunan untuk memberantas hewan-hewan yang berbahaya bagi kesehatan dan lingkungan.</p>
+                                        </div>
+                                    `
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'bab4',
+                    label: 'IV. DAFTAR PUSTAKA',
+                    icon: '📚',
+                    subcategories: [
+                        {
+                            id: 'sub-pustaka',
+                            label: 'Referensi Buku & Kitab',
+                            icon: '📖',
+                            items: [
+                                {
+                                    id: 'item-pustaka-1',
+                                    label: 'Daftar Pustaka Lengkap',
+                                    icon: '📌',
+                                    content: `
+                                        <h2 class="panel-title">Daftar Pustaka</h2>
+                                        <p class="panel-sub">Sumber referensi kitab dan literatur hadis.</p>
+                                        <div class="bibliography" style="margin-top: 15px;">
+                                            <h3>📚 Referensi Pustaka</h3>
+                                            <ul>
+                                              <li>Ibn Mājah Abū ‘Abdillāh Muḥammad ibn Yazīd Al-Qazwīnِيy, <em>Sunan Ibn Mājah</em>, ed. Syu‘aib al-Arna’ūt et. Al, Ḥalab: Dār al-Risālah al-‘Ālamiyyah, 2009.</li>
+                                              <li>Abū Dāwud Sulaimān ibn al-Asy‘aṡ ibn Isḥāq ibn Basyīr ibn Syidād ibn ‘Amru al-Azdiy Al-Sijistāniy, <em>Sunan Abī Dāwud</em>, ed. Syu‘aib Al-Arna’ūt, Beirut: Dār al-Risālah al-‘Ālamiyah, 2009.</li>
+                                              <li>Muslim ibn al-Ḥajjāj Abū al-Ḥasan al-Qusyairiy Al-Naisābūri, <em>Al-Musnad al-Ṣahīh al-Mukhtaṣar binaql al-‘Adl ‘an al-‘Adl ilā Rasūlillah Ṣallā Allāh ‘alaih wasallam</em>, ed. Muḥammad Fu’ād ‘Abd Al-Bāقī, Beirut: Dār Iḥyā’ al-Turāṡ al-‘Arabiy, 1424.</li>
+                                              <li>Abū ‘Abdillāh Muḥammad ibn Ismā‘īl ibn Ibrāhīm ibn al-Mugīrah al-Ju‘fiy Al-Bukhāriy, <em>Al-Jāmi‘ al-Musnad al-Ṣahīh al-Mukhtaṣar min Umūr Rasūlillah Ṣallā Allāh ‘alaih wasallam wa Sunanih wa Ayyāmih</em>, ed. Muḥammad Zuhair ibn Nāṣir Al-Nāṣir, Beirut: Dār Tauq al-Najāt, 1422.</li>
+                                              <li>Abū ‘Abd al-Raḥmān ibn Syu‘aib ibn ‘Aliy al-Khurrāsāniy Al-Nassā’iy, <em>Al-Mujtabā min al-Sunan (al-Sunan al-Ṣugrā li al-Nassā’iy)</em>, ed. ‘Abd al-Fattāḥ Abū Gudah, Ḥalab: Maktab al-Matbū‘āt al-Islāmīyyah, 1986.</li>
+                                              <li>Abū ‘Īsā Muḥammad ibn ‘Īsā ibn Saurah ibn Mūsā al-Daḥḥak Al-Tirmīziy, <em>Al-Jāmi‘ al-Kabīr wahuwa Sunan al-Tirmīziy</em>, ed. Basysyār ‘Awad Ma‘rūf, Beirut: Dār al-Garb al-Islāmīy, 1998.</li>
+                                            </ul>
+                                        </div>
+                                    `
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ];
+
+            // ---------- DOM REFS ----------
+            const menuContainer = document.getElementById('menuContainer');
+            const panelContainer = document.getElementById('panelContainer');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const hamburger = document.getElementById('hamburgerBtn');
+
+            // ---------- RENDER MENU 3 LEVEL ----------
+            function renderMenu() {
+                let html = '';
+                let firstItemId = null;
+
+                menuData.forEach((category, catIdx) => {
+                    const isFirstCat = (catIdx === 0);
+                    html += `<div class="menu-category">`;
+                    html += `<button class="cat-head ${isFirstCat ? 'open' : ''}" data-category="${category.id}" aria-expanded="${isFirstCat}">
+                        <span class="icon">${category.icon}</span>
+                        ${category.label}
+                        <span class="arrow">▶</span>
+                    </button>`;
+                    html += `<ul class="subcat-container ${isFirstCat ? 'open' : ''}">`;
+
+                    category.subcategories.forEach((subcat, subIdx) => {
+                        const isFirstSub = (isFirstCat && subIdx === 0);
+                        html += `<li class="subcat-item">`;
+                        html += `<button class="subcat-head ${isFirstSub ? 'open' : ''}" data-subcat="${subcat.id}" aria-expanded="${isFirstSub}">
+                            <span class="subcat-icon">${subcat.icon || '▸'}</span>
+                            ${subcat.label}
+                            <span class="subcat-arrow">▶</span>
+                        </button>`;
+                        html += `<ul class="items-container ${isFirstSub ? 'open' : ''}">`;
+
+                        subcat.items.forEach((item, itemIdx) => {
+                            if (isFirstCat && subIdx === 0 && itemIdx === 0) {
+                                firstItemId = item.id;
+                            }
+                            html += `<li><button class="item-link" data-item="${item.id}">
+                                <span class="item-icon">${item.icon || '•'}</span>
+                                ${item.label}
+                            </button></li>`;
+                        });
+
+                        html += `</ul></li>`;
+                    });
+
+                    html += `</ul></div>`;
+                });
+
+                menuContainer.innerHTML = html;
+                return firstItemId;
+            }
+
+            // ---------- RENDER PANELS ----------
+            function renderPanels() {
+                let html = '';
+                menuData.forEach(category => {
+                    category.subcategories.forEach(subcat => {
+                        subcat.items.forEach(item => {
+                            html += `<div class="content-panel" id="panel-${item.id}">
+                                ${item.content}
+                            </div>`;
+                        });
+                    });
+                });
+                panelContainer.innerHTML = html;
+            }
+
+            // ---------- NAVIGATION & ACTIVE STATES ----------
+            function showPanel(itemId, fromClick = true) {
+                // Sembunyikan semua panel
+                document.querySelectorAll('.content-panel').forEach(el => el.classList.remove('active'));
+                
+                // Tampilkan panel yang dituju
+                const panel = document.getElementById('panel-' + itemId);
+                if (panel) panel.classList.add('active');
+
+                // Perbarui kelas active pada tombol item level 3
+                document.querySelectorAll('.item-link').forEach(el => el.classList.remove('active'));
+                const activeLink = document.querySelector(`.item-link[data-item="${itemId}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                    
+                    // Pastikan kontainer parent (sub-kategori & kategori) terbuka jika belum
+                    const itemsContainer = activeLink.closest('.items-container');
+                    const subcatHead = itemsContainer ? itemsContainer.previousElementSibling : null;
+                    const subcatContainer = itemsContainer ? itemsContainer.closest('.subcat-container') : null;
+                    const catHead = subcatContainer ? subcatContainer.previousElementSibling : null;
+
+                    if (itemsContainer && !itemsContainer.classList.contains('open')) {
+                        itemsContainer.classList.add('open');
+                        if (subcatHead) {
+                            subcatHead.classList.add('open');
+                            subcatHead.setAttribute('aria-expanded', 'true');
+                        }
+                    }
+                    if (subcatContainer && !subcatContainer.classList.contains('open')) {
+                        subcatContainer.classList.add('open');
+                        if (catHead) {
+                            catHead.classList.add('open');
+                            catHead.setAttribute('aria-expanded', 'true');
+                        }
+                    }
+                }
+
+                // Tutup sidebar pada perangkat seluler setelah memilih item
+                if (window.innerWidth <= 991 && fromClick) {
+                    closeSidebar();
+                }
+            }
+
+            // ---------- ACCORDION TOGGLE (LEVEL 1 & LEVEL 2) ----------
+            function toggleAccordion(button, containerClass) {
+                const container = button.nextElementSibling;
+                if (!container || !container.classList.contains(containerClass)) return;
+                
+                const isOpen = container.classList.contains('open');
+                if (isOpen) {
+                    container.classList.remove('open');
+                    button.classList.remove('open');
+                    button.setAttribute('aria-expanded', 'false');
+                } else {
+                    container.classList.add('open');
+                    button.classList.add('open');
+                    button.setAttribute('aria-expanded', 'true');
+                }
+            }
+
+            // ---------- SIDEBAR TOGGLE (mobile) ----------
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function toggleSidebar() {
+                if (sidebar.classList.contains('open')) {
+                    closeSidebar();
+                } else {
+                    openSidebar();
+                }
+            }
+
+            // ---------- INISIALISASI ----------
+            function init() {
+                renderPanels();
+                const firstItemId = renderMenu();
+
+                // Event Delegation untuk Menu Sidebar
+                menuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+
+                    // Level 1: Kategori Head
+                    if (target.classList.contains('cat-head')) {
+                        e.stopPropagation();
+                        toggleAccordion(target, 'subcat-container');
+                        return;
+                    }
+
+                    // Level 2: Sub-Kategori Head
+                    if (target.classList.contains('subcat-head')) {
+                        e.stopPropagation();
+                        toggleAccordion(target, 'items-container');
+                        return;
+                    }
+
+                    // Level 3: Item Link (Konten)
+                    if (target.classList.contains('item-link')) {
+                        e.preventDefault();
+                        const itemId = target.dataset.item;
+                        if (itemId) {
+                            showPanel(itemId, true);
+                        }
+                        return;
+                    }
+                });
+
+                // Tampilkan panel pertama secara default
+                if (firstItemId) {
+                    showPanel(firstItemId, false);
+                } else if (menuData.length && menuData[0].subcategories.length && menuData[0].subcategories[0].items.length) {
+                    showPanel(menuData[0].subcategories[0].items[0].id, false);
+                }
+
+                // Event listener untuk tombol hamburger dan overlay
+                hamburger.addEventListener('click', toggleSidebar);
+                overlay.addEventListener('click', closeSidebar);
+
+                // Tutup sidebar jika ukuran layar berubah menjadi desktop
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 991) {
+                        closeSidebar();
+                    }
+                });
+
+                // Tutup sidebar saat tombol ESC ditekan
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                        closeSidebar();
+                    }
+                });
+            }
+
+            // Jalankan saat DOM siap
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+
+        })();
+    </script>
+
+</body>
+</html>

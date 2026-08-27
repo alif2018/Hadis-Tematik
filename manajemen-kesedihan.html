@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manajemen Kesedihan dalam Perspektif Hadis</title>
+    <base target="_self" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f6f0;
+            color: #1e2b3a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        :root {
+            --primary: #2b4f8c;
+            --primary-light: #3a6bb0;
+            --primary-dark: #1d3a66;
+            --gold: #c9a84c;
+            --gold-light: #e0c66e;
+            --gold-dark: #a8892f;
+            --bg-body: #f8f6f0;
+            --bg-card: #ffffff;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --sidebar-width: 300px;
+            --header-height: 72px;
+        }
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 2px 12px rgba(43, 79, 140, 0.25);
+        }
+        .app-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .app-header .brand img {
+            height: 44px;
+            width: auto;
+            border-radius: 6px;
+            background: #fff;
+            padding: 4px;
+            object-fit: contain;
+        }
+        .app-header .brand .title-group {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .app-header .brand .title-group h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .app-header .brand .title-group .author {
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+        .app-header .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px 4px;
+            border-radius: 6px;
+            transition: background var(--transition);
+        }
+        .app-header .hamburger:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .app-header .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: #fff;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        .app-layout {
+            display: flex;
+            flex: 1;
+            position: relative;
+        }
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            border-left: 1px solid rgba(43, 79, 140, 0.10);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.04);
+            height: calc(100vh - var(--header-height));
+            position: sticky;
+            top: var(--header-height);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 16px 10px 30px;
+            flex-shrink: 0;
+            transition: transform var(--transition);
+            z-index: 900;
+        }
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: #f0ede7;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 8px;
+        }
+        .menu-section {
+            margin-bottom: 4px;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.06);
+        }
+        .menu-section:last-of-type {
+            border-bottom: none;
+        }
+        .menu-section .menu-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 14px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-align: left;
+            position: relative;
+        }
+        .menu-section .menu-head:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .menu-section .menu-head .icon {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .menu-section .menu-head .arrow {
+            margin-left: auto;
+            font-size: 0.7rem;
+            transition: transform var(--transition);
+            color: var(--gold-dark);
+        }
+        .menu-section .menu-head.open .arrow {
+            transform: rotate(90deg);
+        }
+        .sub-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 6px 0;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.35s ease, opacity 0.25s ease;
+            opacity: 0;
+        }
+        .sub-menu.open {
+            max-height: 800px;
+            opacity: 1;
+        }
+        .sub-menu li {
+            margin: 0;
+        }
+        .sub-menu li .sub-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px 8px 38px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 450;
+            color: #2d3f54;
+            text-decoration: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .sub-menu li .sub-link:hover {
+            background: rgba(43, 79, 140, 0.07);
+            color: var(--primary);
+        }
+        .sub-menu li .sub-link.active {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .sub-menu li .sub-link .sub-icon {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+        .sub-menu li .sub-link.active .sub-icon {
+            opacity: 1;
+        }
+        .extra-menu {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 2px solid rgba(43, 79, 140, 0.08);
+        }
+        .extra-menu .extra-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .extra-menu .extra-link:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .extra-menu .extra-link.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .extra-menu .extra-link .icon {
+            font-size: 1.1rem;
+        }
+        .main-content {
+            flex: 1;
+            padding: 32px 40px 60px;
+            min-width: 0;
+            background: var(--bg-body);
+        }
+        .content-panel {
+            display: none;
+            animation: fadeUp 0.35s ease;
+        }
+        .content-panel.active {
+            display: block;
+        }
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .content-panel .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .content-panel .panel-sub {
+            font-size: 0.95rem;
+            color: #5e6f82;
+            margin-bottom: 24px;
+        }
+        .content-panel .hadith-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 18px 0 22px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--gold);
+        }
+        .content-panel .hadith-box .arabic {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #1e2b3a;
+            direction: rtl;
+            font-family: 'Times New Roman', 'Traditional Arabic', serif;
+            margin-bottom: 12px;
+            padding: 6px 0;
+            word-wrap: break-word;
+        }
+        .content-panel .hadith-box .translation {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #2d3f54;
+            border-top: 1px dashed rgba(43, 79, 140, 0.12);
+            padding-top: 12px;
+        }
+        .content-panel .hadith-box .source {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--gold-dark);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+        .content-panel .sub-section {
+            margin-top: 28px;
+        }
+        .content-panel .sub-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .content-panel .sub-section p {
+            line-height: 1.7;
+            color: #2d3f54;
+            margin-bottom: 10px;
+        }
+        .bibliography {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43, 79, 140, 0.10);
+        }
+        .bibliography h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 14px;
+        }
+        .bibliography ul {
+            list-style: none;
+            padding: 0;
+        }
+        .bibliography ul li {
+            padding: 6px 0 6px 20px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #2d3f54;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.05);
+            text-indent: -20px;
+            padding-left: 30px;
+        }
+        .bibliography ul li::before {
+            content: "•";
+            color: var(--gold);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        .profil-penulis {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43, 79, 140, 0.10);
+        }
+        .profil-penulis h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 14px;
+        }
+        .profil-penulis p {
+            line-height: 1.8;
+            color: #2d3f54;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .profil-penulis .penulis-nama {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 850;
+            backdrop-filter: blur(2px);
+            transition: opacity var(--transition);
+        }
+        .overlay.active {
+            display: block;
+        }
+        @media (max-width: 991px) {
+            .app-header .hamburger {
+                display: flex;
+            }
+            .sidebar {
+                position: fixed;
+                top: var(--header-height);
+                right: 0;
+                height: calc(100vh - var(--header-height));
+                transform: translateX(100%);
+                box-shadow: -8px 0 30px rgba(0, 0, 0, 0.10);
+                border-left: none;
+                width: 290px;
+                padding: 12px 8px 30px;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                padding: 20px 18px 40px;
+            }
+            .content-panel .panel-title {
+                font-size: 1.5rem;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 1rem;
+            }
+            .app-header .brand img {
+                height: 36px;
+            }
+            .content-panel .hadith-box {
+                padding: 16px 18px;
+            }
+            .content-panel .hadith-box .arabic {
+                font-size: 1rem;
+            }
+        }
+        @media (max-width: 480px) {
+            :root {
+                --header-height: 64px;
+            }
+            .app-header {
+                padding: 0 14px;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 0.85rem;
+            }
+            .app-header .brand .title-group .author {
+                font-size: 0.7rem;
+            }
+            .sidebar {
+                width: 265px;
+            }
+            .main-content {
+                padding: 14px 12px 30px;
+            }
+            .content-panel .panel-title {
+                font-size: 1.25rem;
+            }
+            .sub-menu li .sub-link {
+                padding: 7px 10px 7px 28px;
+                font-size: 0.8rem;
+            }
+            .menu-section .menu-head {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== HEADER BARU ===== -->
+    <header class="app-header">
+        <div class="brand">
+            <img src="logo-pshd.jpg" alt="Logo" />
+            <div class="title-group">
+                <h1>Hadis Tematik Manajemen Kesedihan</h1>
+                <span class="author">Penyusun: Febri Ferdiansyah &amp; Muhammad Alif</span>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <div class="app-layout">
+        <div class="overlay" id="overlay"></div>
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Daftar isi">
+            <div id="menuContainer"></div>
+            <div class="extra-menu" id="extraMenu"></div>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div id="panelContainer"></div>
+        </main>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // ----- DATA MENU (KONTEN MANAJEMEN KESEDIHAN) -----
+            const menuData = [{
+                id: 'babA',
+                label: 'A. Konsep Dasar Kesedihan',
+                icon: '📖',
+                children: [{
+                    id: 'A1',
+                    label: '1. Definisi Kesedihan',
+                    icon: '📌',
+                    content: `
+                <h2 class="panel-title">1. Definisi Kesedihan dalam Perspektif Hadis</h2>
+                <p class="panel-sub">Kesedihan sebagai bagian dari ujian manusia</p>
+                <div class="hadith-box">
+                  <div class="arabic">ﻣﺼﺤﻴﺢ ﺍﻟﺒﺨﺎﺭﻱ ٥٢١: ﺣﺪّﺛﻨﻲ ﻋﺒﺪ ﺍﻟﻠّﻪ ﺑﻦ ﻣﺤﻤﺪ ﺣﺪّﺛﻨﺎ ﻋﺒﺪ ﺍﻟﺒﺤﻠﻚ ﺑﻦ ﻋﻤﺮﻭ ﺣﺪّﺛﻨﺎ ﺯﻫﻴﺮ ﺑﻦ ﻣﺤﻤﺪ ﻋﻦ ﻣﺤﻤﺪ ﺑﻦ ﻋﻤﺮﻭ ﺑﻦ ﺣﻠﺤﻠﺔ ﻋﻦ ﻋﻄﺎﺀ ﺑﻦ ﻳﺴﺎﺭ ﻋﻦ ﺃﻳﻲ ﺳﻌﻴﺪ ﺍﻟﺨﺪﺭﻱ ﻭﻋﻦ ﺃﺑﻲ ﻫﺮﻳﺮﺓ ﻋﻦ ﺍﻟﻨّﺒﻲ ﺻﻠّﻰ ﺍﻟﻠّﻪ ﻋﻠﻴﻪ ﻭﺳﻠّﻢ ﻗﺎﻝ ﻣﺎ ﻳﺼﻴﺐ ﺍﻟﻤﺴﻠﻢ ﻣﻦ ﻧﺼﺐ ﻭﻻ ﻭﺻﺐ ﻭﻻ ﻫﻢ ﻭﻻ ﺣﺰﻥ ﻭﻻ ﺃﺫﻯ ﻭﻻ ﻏﻢ ﺣﺘّﻰ ﺍﻟﺸّﻮﻛﺔ ﻳﺸﺎﻛﻬﺎ ﺇﻻ ﻛﻔﺮ ﺍﻟﻠّﻪ ﺑﻬﺎ ﻣﻦ ﺧﻄﺎﻳﺎﻩ</div>
+                  <div class="translation">“Tidaklah seorang muslim tertimpa suatu penyakit dan keletihan, kehawatiran dan kesedihan, dan tidak juga gangguan dan kesusahan bahkan duri yang melukainya melainkan Allah akan menghapus kesalahan-kesalahannya.”</div>
+                  <span class="source">— Shahih Bukhari 5210</span>
+                </div>
+                <p>Hadis ini menegaskan bahwa kesedihan bukanlah sesuatu yang sia-sia. Setiap ujian, termasuk kesedihan, memiliki nilai spiritual yang dapat mengangkat derajat seorang Muslim di sisi Allah. Kesedihan menjadi bagian dari takdir yang menguji keimanan sekaligus menjadi sarana pembersihan dosa.</p>
+                <div class="sub-section">
+                  <h3>Dimensi Spiritual dalam Kesedihan</h3>
+                  <p>Dalam riwayat Muslim, Nabi <em>shallallahu 'alaihi wa sallam</em> mengajarkan bahwa kesedihan yang dialami dengan kesabaran akan mendatangkan kedekatan kepada Allah. Dimensi spiritual ini mengubah kesedihan dari sekadar beban emosional menjadi jalan untuk meraih cinta dan rahmat Ilahi.</p>
+                </div>
+              `
+                }, {
+                    id: 'A2',
+                    label: '2. Kesedihan sebagai Ujian',
+                    icon: '⚡',
+                    content: `
+                <h2 class="panel-title">2. Kesedihan sebagai Ujian Kehidupan</h2>
+                <p class="panel-sub">Ujian yang menghapus dosa</p>
+                <div class="hadith-box">
+                  <div class="arabic">ﻣﺼﺤﻴﺢ ﺍﻟﺒﺨﺎﺭﻱ ٥٢١٠ : ﺣﺪﱠﺛﻨﻲ ﻋﺒﺪ ﺍﻟﻠّﻪ ﺑﻦ ﻣﺤﻤﺪ ﺣﺪﱠﺛﻨﺎ ﻋﺒﺪ ﺍﻟﻤﻠﻚ ﺑﻦ ﻋﻤﺮﻭ ﺣﺪﱠﺛﻨﺎ ﺯﻫﻴﺮ ﺑﻦ ﻣﺤﻤﺪ ﻋﻦ ﻣﺤﻤﺪ ﺑﻦ ﻋﻤﺮﻭ ﺑﻦ ﺣﻠﺤﻠﺔ ﻋﻦ ﻋﻄﺎﺀ ﺑﻦ ﻳﺴﺎﺭ ﻋﻦ ﺃﻳﺒﻲ ﻣﻦ ﻧﺼﺐ ﻭﻻ ﻭﺻﺐ ﻭﻻ ﻫﻢ ﻭﻻ ﺣﺰﻥ ﻭﻻ ﺃﺫﻯ ﻭﻻ ﻏﻢ ﺣﺘّﻰ ﺍﻟﺸّﻮﻛﺔ ﻳﺸﺎﻛﻬﺎ ﺇﻻ ﻛﻔﺮ ﺍﻟﻠّﻪ ﺑﻬﺎ ﻣﻦ ﺧﻄﺎﻳﺎﺀ</div>
+                  <div class="translation">“Tidaklah seorang muslim tertimpa suatu penyakit dan keletihan, kehawatiran dan kesedihan, dan tidak juga gangguan dan kesusahan bahkan duri yang melukainya melainkan Allah akan menghapus kesalahan-kesalahannya.”</div>
+                  <span class="source">— Shahih Bukhari 5210</span>
+                </div>
+                <p>Kesedihan yang dirasakan oleh seorang Muslim merupakan bagian dari ujian kehidupan yang bertujuan untuk membersihkan dosa-dosa. Bahkan hal-hal kecil seperti tertusuk duri pun menjadi sebab pengampunan. Ini mengajarkan bahwa setiap kepedihan memiliki nilai ibadah jika dihadapi dengan kesabaran dan keimanan.</p>
+                <p>Nabi <em>shallallahu 'alaihi wa sallam</em> juga menyebutkan dalam hadis lain tentang tujuh golongan yang mendapat naungan Allah, di antaranya adalah orang yang berdzikir dengan mata yang basah karena kesedihan yang dihadapi dengan ketulusan.</p>
+              `
+                }, {
+                    id: 'A3',
+                    label: '3. Kesedihan & Penghapusan Dosa',
+                    icon: '🕊️',
+                    content: `
+                <h2 class="panel-title">3. Kesedihan dan Penghapusan Dosa</h2>
+                <p class="panel-sub">Dzikir sebagai penguat dalam kesedihan</p>
+                <p>Dalam Sunan Abu Daud disebutkan sebuah doa yang diajarkan Rasulullah untuk menghilangkan kesedihan dan hutang:</p>
+                <div class="hadith-box">
+                  <div class="arabic">اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْحِزْنِ وَأَعُوذُ بِكَ مِنَ الْعِجْرِ وَالْكَسَلِ وَأَعُوذُ بِكَ مِنَ الْجِبْنِ وَالْبِخْلِ وَأَعُوذُ بِكَ مِنَ غَلْبَةِ الدِّينِ وَقَهْرِ الرِّجَالِ</div>
+                  <div class="translation">“Ya Allah, aku berlindung kepada-Mu dari kegundahan dan kesedihan, dan aku berlindung kepada-Mu dari kelemahan dan kemalasan, dan aku berlindung kepada-Mu dari sifat penakut dan bakhil, dan aku berlindung kepada-Mu dari terlilit hutang dan pemaksaan dari orang lain.”</div>
+                  <span class="source">— Sunan Abu Daud 1330</span>
+                </div>
+                <p>Doa ini mengajarkan bahwa kesedihan tidak hanya diatasi dengan kesabaran pasif, tetapi juga dengan pengakuan ketergantungan total kepada Allah. Dzikir dan doa menjadi senjata spiritual yang mengubah kegundahan menjadi ketenangan.</p>
+                <p>Kesedihan yang dihadapi dengan dzikir akan menguatkan jiwa dan membuka pintu-pintu pertolongan Ilahi.</p>
+              `
+                }]
+            }, {
+                id: 'babB',
+                label: 'B. Ekspresi Kesedihan',
+                icon: '😢',
+                children: [{
+                    id: 'B1',
+                    label: '1. Respons Nabi terhadap Kesedihan',
+                    icon: '🌿',
+                    content: `
+                <h2 class="panel-title">1. Respons Nabi terhadap Kesedihan</h2>
+                <p class="panel-sub">Sikap Nabi dalam menghadapi kesedihan</p>
+                <div class="hadith-box">
+                  <div class="arabic">ﺻﺤﻴﺢ ﺍﻟﺒﺨﺎﺭﻱ ١٢٠٣ : ﺣﺪﱠﺛﻨﺎ ﺃﺩﻡ ﺣﺪﱠﺛﻨﺎ ﺷﻌﺒﺔ ﺣﺪﱠﺛﻨﺎ ﺛﺎﺑﺖ ﻋﻦ ﺃﻧﺲ ﺑﻦ ﻣﺎﻟﻚ ﺭﺿﻲ ﺍﻟﻠﱠﻪ ﻋﻨﻪ ﻗﺎﻝ ﻣﺮﱠ ﺍﻟﻨﱠﺒﻲ ﺻﻠﱠﻰ ﺍﻟﻠﱠﻪ ﻋﻠﻴﻪ ﻭﺳﻠﱠﻢ ﺑﺎﻣﺮﺃﱠﺓ ﺗﺒﻜﻲ ﻋﻨﺪ ﻗﺒﺮ ﻓﻘﺎﻝ ﺍﺋﺘﱠﻲ ﺍﻟﻠﱠﻪ ﻭﺍﺻﺒﺮﻱ ...</div>
+                  <div class="translation">Nabi <em>shallallahu 'alaihi wa sallam</em> pernah berjalan melewati seorang wanita yang sedang menangis di sisi kubur. Maka Beliau berkata: “Bertakwalah kepada Allah dan bersabarlah.” Wanita itu tidak mengetahui bahwa yang menasihati adalah Nabi. Ketika ia mengetahuinya, ia datang dan meminta maaf. Beliau bersabda: “Sesungguhnya sabar itu pada kesempatan pertama (saat datang musibah).”</div>
+                  <span class="source">— Shahih Bukhari 1203</span>
+                </div>
+                <p>Respons Nabi terhadap kesedihan bukanlah dengan melarang ekspresi kesedihan, tetapi mengarahkan kepada kesabaran dan ketakwaan. Beliau menunjukkan empati yang mendalam, namun tetap mengingatkan bahwa kesabaran yang paling utama adalah pada saat pertama kali musibah datang.</p>
+                <div class="hadith-box">
+                  <div class="arabic">ﺻﺤﻴﺢ ﺍﻟﺒﺨﺎﺭﻱ ٧٧١١ : ... ﻓﻘﺎﻝ ﺍﺋﻘﻲ ﺍﻟﻠﱠﻪ ﻭﺍﺻﺒﺮﻱ</div>
+                  <div class="translation">“Bertakwalah kamu kepada Allah dan bersabarlah.”</div>
+                  <span class="source">— Shahih Bukhari 1174</span>
+                </div>
+                <p>Nabi juga menunjukkan empati yang besar. Beliau tidak meremehkan kesedihan seseorang, tetapi justru mengingatkan bahwa Allah selalu bersama orang-orang yang sabar.</p>
+              `
+                }, {
+                    id: 'B2',
+                    label: '2. Batasan dalam Menunjukkan Kesedihan',
+                    icon: '⚖️',
+                    content: `
+                <h2 class="panel-title">2. Batasan dalam Menunjukkan Kesedihan</h2>
+                <p class="panel-sub">Batas wajar ekspresi kesedihan</p>
+                <p>Islam mengakui bahwa kesedihan adalah bagian dari fitrah manusia. Namun, ada batasan dalam mengekspresikannya. Nabi <em>shallallahu 'alaihi wa sallam</em> mengajarkan agar kesedihan tidak melampaui batas yang dapat merusak iman atau mengganggu orang lain.</p>
+                <div class="hadith-box">
+                  <div class="arabic">ﺻﺤﻴﺢ ﺍﻟﺒﺨﺎﺭﻱ ٦٨٥٦ : ... أﻧﺎ ﻋﻨﺪ ﻅﻦ ﻋﺒﺪﻱ ﺑﻲ ...</div>
+                  <div class="translation">“Aku berada dalam prasangka hamba-Ku, dan Aku selalu bersamanya jika ia mengingat-Ku...”</div>
+                  <span class="source">— Shahih Bukhari 6856</span>
+                </div>
+                <p>Hadis ini mengingatkan bahwa Allah selalu dekat dengan hamba-Nya yang mengingat-Nya, bahkan di tengah kesedihan. Ekspresi kesedihan yang wajar adalah yang tetap dalam koridor keimanan, tidak berputus asa, dan tidak melupakan dzikir kepada Allah.</p>
+                <div class="sub-section">
+                  <h3>Pengendalian Emosi dalam Kesedihan</h3>
+                  <p>Nabi juga mengajarkan bahwa kesedihan yang berlebihan hingga merusak diri atau mengabaikan kewajiban agama adalah terlarang. Sebaliknya, kesedihan yang membawa seseorang lebih dekat kepada Allah dan meningkatkan kepekaan sosial adalah yang dibenarkan.</p>
+                </div>
+              `
+                }, {
+                    id: 'B3',
+                    label: '3. Kesedihan yang Dibenarkan & Dilarang',
+                    icon: '📜',
+                    content: `
+                <h2 class="panel-title">3. Kesedihan yang Dibenarkan dan Dilarang</h2>
+                <p class="panel-sub">Kesedihan yang sesuai syariat</p>
+                <p>Dalam Sunan Tirmidzi, Rasulullah mengajarkan agar lidah senantiasa basah dengan dzikir, termasuk di saat-saat sulit:</p>
+                <div class="hadith-box">
+                  <div class="arabic">ﺳﻨﻦ اﻟﺘﺮﻣﺬي ٣٢٩٧ : ... ال يزال لسانك رطبا من ذكر الله</div>
+                  <div class="translation">“Hendaknya senantiasa lidahmu basah karena berdzikir kepada Allah.”</div>
+                  <span class="source">— Sunan Tirmidzi 3297</span>
+                </div>
+                <p>Kesedihan yang dibenarkan adalah yang tidak membuat seseorang melupakan Allah, justru menjadi pintu untuk lebih banyak berdzikir dan memohon pertolongan. Sedangkan kesedihan yang dilarang adalah yang melahirkan keputusasaan, keluh kesah yang berlebihan, atau sikap yang bertentangan dengan ketentuan Allah.</p>
+                <div class="hadith-box">
+                  <div class="arabic">سَنَنِ أَبِي دَاوُود ١٣٣٠ : ... اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ الْهَمِّ وَالْحَزَنِ ...</div>
+                  <div class="translation">“Ya Allah, aku berlindung kepada-Mu dari kegundahan dan kesedihan...”</div>
+                  <span class="source">— Sunan Abu Daud 1330</span>
+                </div>
+                <p>Doa ini mengajarkan bahwa kita diperbolehkan memohon perlindungan dari kesedihan yang berlebihan, namun tetap dengan kesadaran bahwa segala sesuatu terjadi dengan izin Allah.</p>
+              `
+                }]
+            }, {
+                id: 'babC',
+                label: 'C. Strategi Menghadapi Kesedihan',
+                icon: '🛡️',
+                children: [{
+                    id: 'C1',
+                    label: '1. Sabar sebagai Prinsip Utama',
+                    icon: '💪',
+                    content: `
+                <h2 class="panel-title">1. Sabar sebagai Prinsip Utama</h2>
+                <p class="panel-sub">Konsep sabar dalam menghadapi ujian</p>
+                <div class="hadith-box">
+                  <div class="arabic">ﺻﺤﻴﺢ ﺍﻟﺒﺨﺎﺭﻱ ١٢٠٣ : ... ﺇﻧّﻤﺎ ﺍﻟﺼﺒّﺮ ﻋﻨﺪ ﺍﻟﺼﺪﻣﺔ ﺍﻷﻭﻟﻰ</div>
+                  <div class="translation">“Sesungguhnya sabar itu pada kesempatan pertama (saat datang musibah).”</div>
+                  <span class="source">— Shahih Bukhari 1203</span>
+                </div>
+                <p>Sabar bukan berarti pasrah tanpa daya, melainkan sikap mental yang teguh dalam menghadapi ujian. Sabar yang paling utama adalah ketika musibah baru saja menimpa, sebagaimana diajarkan oleh Nabi <em>shallallahu 'alaihi wa sallam</em>.</p>
+                <div class="sub-section">
+                  <h3>Sabar sebagai Kekuatan Spiritual</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">ﺻﺤﻴﺢ ﺍﻟﺒﺨﺎﺭﻱ ٧٧١ : ... ﻓﻘﺎﻝ ﺍﺋّﻘﻲ ﺍﻟﻠﱠﻪ ﻭﺍﺻﺒﺮﻱ</div>
+                    <div class="translation">“Bertakwalah kamu kepada Allah dan bersabarlah.”</div>
+                    <span class="source">— Shahih Bukhari 1174</span>
+                  </div>
+                  <p>Sabar adalah kekuatan spiritual yang menghubungkan hati dengan Allah. Dengan sabar, seorang Muslim mampu melewati masa-masa sulit tanpa kehilangan harapan dan keimanan.</p>
+                </div>
+              `
+                }, {
+                    id: 'C2',
+                    label: '2. Doa sebagai Terapi Kesedihan',
+                    icon: '🤲',
+                    content: `
+                <h2 class="panel-title">2. Doa sebagai Terapi Kesedihan</h2>
+                <p class="panel-sub">Doa sebagai sarana pengaduan</p>
+                <div class="hadith-box">
+                  <div class="arabic">سَنَنِ أَبِي دَاوُود ١٣٣٠ : ... اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ الْهَمِّ وَالْحَزَنِ ...</div>
+                  <div class="translation">“Ya Allah, aku berlindung kepada-Mu dari kegundahan dan kesedihan...”</div>
+                  <span class="source">— Sunan Abu Daud 1330</span>
+                </div>
+                <p>Doa adalah sarana pengaduan yang paling utama bagi seorang Muslim. Dalam Sunan Abu Daud, Rasulullah mengajarkan doa untuk menghilangkan kegundahan dan kesedihan, sekaligus melunasi hutang dan mengatasi kelemahan.</p>
+                <div class="hadith-box">
+                  <div class="arabic">ﺳﻨﻦ اﻟﺘﺮﻣﺬي ٣٤٧٩ : ... إِنَّ اللَّهَ حَيِيٌّ كَرِيمٌ يَسْتَحْيِي إِذَا رَفَعَ الرَّجُلُ إِلَيْهِ يَدَيْهِ أَنْ يَرُدَّهُمَا صِفْرًا خَائِبَتَيْنِ</div>
+                  <div class="translation">“Sesungguhnya Allah Maha Hidup dan Maha Mulia, Dia merasa malu apabila seseorang mengangkat kedua tangannya kepada-Nya dan kembali dalam keadaan kosong tidak membawa hasil.”</div>
+                  <span class="source">— Sunan Tirmidzi 3479</span>
+                </div>
+                <p>Hadis ini mengajarkan bahwa doa adalah solusi spiritual yang efektif. Allah tidak akan mengecewakan hamba-Nya yang memohon dengan tulus.</p>
+              `
+                }, {
+                    id: 'C3',
+                    label: '3. Tawakal & Ketergantungan',
+                    icon: '🌟',
+                    content: `
+                <h2 class="panel-title">3. Tawakal dan Ketergantungan kepada Allah</h2>
+                <p class="panel-sub">Tawakal sebagai bentuk keimanan</p>
+                <div class="hadith-box">
+                  <div class="arabic">ﺻﺤﻴﺢ ﻣﺴﻠﻢ ٣٢٨ : ... وَالصَّبْرُ ضِيَاءٌ ...</div>
+                  <div class="translation">“... dan kesabaran adalah sinar ...”</div>
+                  <span class="source">— Shahih Muslim 328</span>
+                </div>
+                <p>Tawakal adalah puncak dari keimanan. Seseorang yang bertawakal sepenuhnya kepada Allah akan merasakan ketenangan meskipun berada dalam kesulitan. Dalam Shahih Muslim, Nabi mengajarkan bahwa kesabaran adalah sinar yang menerangi jalan keluar dari kesedihan.</p>
+                <div class="hadith-box">
+                  <div class="arabic">ﺻﺤﻴﺢ ﻣﺴﻠﻢ ٤٨١٦ : ... اﻟﻤﺆﻣﻦ اﻟﻘﻮي ﺧﻴﺮ وأﺣﺐ إﻟﻰ اﻟﻠﱠﻪ ﻣﻦ اﻟﻤﺆﻣﻦ اﻟﻀﱠﻌﻴﻒ ...</div>
+                  <div class="translation">“Orang mukmin yang kuat lebih baik dan lebih dicintai oleh Allah daripada orang mukmin yang lemah. Capailah dengan sungguh-sungguh apa yang berguna bagimu, mohonlah pertolongan kepada Allah dan janganlah kamu menjadi orang yang lemah.”</div>
+                  <span class="source">— Shahih Muslim 4816</span>
+                </div>
+                <p>Tawakal bukan berarti pasrah tanpa usaha, tetapi menggabungkan ikhtiar maksimal dengan ketergantungan penuh kepada Allah. Inilah kunci untuk menghadapi kesedihan dengan ketenangan jiwa.</p>
+              `
+                }]
+            }, {
+                id: 'babD',
+                label: 'D. Hikmah & Dampak Kesedihan',
+                icon: '💎',
+                children: [{
+                    id: 'D1',
+                    label: '1. Kesedihan sebagai Peningkatan Derajat',
+                    icon: '📈',
+                    content: `
+                <h2 class="panel-title">1. Kesedihan sebagai Peningkatan Derajat</h2>
+                <p class="panel-sub">Ujian sebagai peningkatan derajat</p>
+                <div class="hadith-box">
+                  <div class="arabic">ﻣﺴﻨﺪ أﺣﻤﺪ ٠٢٠ : ... ﻟﻮ أﻧﻜﻢ ﺗﺘﻮﻛﻠﻮن ﻋﻠﻰ اﻟﻠﱠﻪ ﺣﻖَ ﺗﻮﻛﻠﻪ ﻟﺮزﻗﻜﻢ ...</div>
+                  <div class="translation">“Jika kalian bertawakkal kepada Allah dengan sebenar-benarnya tawakkal, niscaya Dia akan memberikan rizqi kepada kalian, sebagaimana Dia memberikan rizqi kepada burung...”</div>
+                  <span class="source">— Musnad Ahmad 200</span>
+                </div>
+                <p>Kesedihan dan ujian yang dihadapi dengan tawakal akan mengangkat derajat seorang Muslim. Allah menjanjikan rizqi dan pertolongan bagi mereka yang bersungguh-sungguh dalam bertawakal.</p>
+                <div class="hadith-box">
+                  <div class="arabic">ﻣﺴﻨﺪ أﺣﻤﺪ ٨٥٢٣ : ... اللَّهُمَّ إِنِّي عَبْدُكَ ... أَنْ تَجْعَلَ الْقُرْآنَ رَبِيعَ قَلْبِي وَنُورَ صَدْرِي وَجَلَاءَ حُزْنِي وَذَهَابَ هَمِّي ...</div>
+                  <div class="translation">“Ya Allah, sesungguhnya aku adalah hamba-Mu... jadikanlah Al-Qur’an sebagai penyejuk hatiku, cahaya dadaku, penghilang kesedihanku, dan pelenyap kegundahanku.”</div>
+                  <span class="source">— Musnad Ahmad 3528</span>
+                </div>
+                <p>Doa ini mengajarkan bahwa Al-Qur'an adalah obat bagi kesedihan. Dengan merenungkan ayat-ayat-Nya, hati menjadi tenang dan kesedihan berubah menjadi ketenangan.</p>
+              `
+                }, {
+                    id: 'D2',
+                    label: '2. Dampak Psikologis & Spiritual',
+                    icon: '🧠',
+                    content: `
+                <h2 class="panel-title">2. Dampak Psikologis dan Spiritual Kesedihan</h2>
+                <p class="panel-sub">Dampak psikologis kesedihan</p>
+                <div class="hadith-box">
+                  <div class="arabic">ﺻﺤﻴﺢ ﺍﻟﺒﺨﺎﺭﻱ ٥٢٢٠ : ... إِنِّي أُصَابُ بِالصَّرْعِ وَإِنِّي أَتَكَشَّفُ فَادْعُ اللَّهَ لِي ...</div>
+                  <div class="translation">“Sesungguhnya aku menderita epilepsi dan auratku sering tersingkap, maka berdoalah kepada Allah untukku.” Beliau bersabda: “Jika kamu berkenan, bersabarlah maka bagimu surga...”</div>
+                  <span class="source">— Shahih Bukhari 5220</span>
+                </div>
+                <p>Kisah wanita yang menderita epilepsi ini menunjukkan bahwa kesedihan dan penderitaan fisik dapat dihadapi dengan kesabaran. Dampak psikologis dari kesedihan dapat diredakan dengan keyakinan bahwa Allah akan memberikan pahala yang besar bagi orang yang sabar.</p>
+                <div class="sub-section">
+                  <h3>Dampak Spiritual terhadap Iman</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">ﺻﺤﻴﺢ ﻣﺴﻠﻢ ٤٨١٦ : ... وَلاَ تَقُولَنَّ لَوْ أَنِّي فَعَلْتُ كَانَ كَذَا وَكَذَا وَلَكِنْ قُلْ قَدَّرَ اللَّهُ وَمَا شَاءَ فَعَلَ ...</div>
+                    <div class="translation">“... janganlah kamu mengatakan: ‘Seandainya tadi saya berbuat begini dan begitu,’ tetapi katakanlah: ‘Allah telah menakdirkan dan apa yang Dia kehendaki pasti terjadi.’”</div>
+                    <span class="source">— Shahih Muslim 4816</span>
+                  </div>
+                  <p>Kesedihan yang dihadapi dengan keyakinan akan takdir Allah akan memperkuat iman. Sikap ini mencegah penyesalan yang berlebihan dan membuka hati untuk menerima ketentuan-Nya dengan lapang dada.</p>
+                </div>
+              `
+                }, {
+                    id: 'D3',
+                    label: '3. Kesedihan & Harapan dalam Islam',
+                    icon: '🌅',
+                    content: `
+                <h2 class="panel-title">3. Kesedihan dan Harapan dalam Islam</h2>
+                <p class="panel-sub">Optimisme dalam menghadapi ujian</p>
+                <div class="hadith-box">
+                  <div class="arabic">ﺻﺤﻴﺢ ﻣﺴﻠﻢ ١٥٢٥ : ... إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ اللَّهُمَّ أْجُرْنِي فِي مُصِيبَتِي وَأَخْلِفْ لِي خَيْرًا مِنْهَا ...</div>
+                  <div class="translation">“Sesungguhnya kami adalah milik Allah dan akan kembali kepada Allah. Ya Allah, berilah kami pahala karena musibah ini dan tukarlah bagiku dengan yang lebih baik daripadanya.”</div>
+                  <span class="source">— Shahih Muslim 1525</span>
+                </div>
+                <p>Ummu Salamah <em>radliyallahu 'anha</em> mengucapkan doa ini ketika suaminya meninggal, dan Allah menggantikannya dengan Rasulullah <em>shallallahu 'alaihi wa sallam</em>. Ini adalah bukti bahwa di balik kesedihan, selalu ada harapan dan kebaikan yang lebih besar.</p>
+                <div class="hadith-box">
+                  <div class="arabic">ﺻﺤﻴﺢ ﻣﺴﻠﻢ ٥٢٥٦ : ... اﻟﺪُّﻧْﻴَا سِجْنُ الْمُؤْمِنِ وَجَنَّةُ الْكَافِرِ</div>
+                  <div class="translation">“Dunia adalah penjara orang mukmin dan surga orang kafir.”</div>
+                  <span class="source">— Shahih Muslim 5256</span>
+                </div>
+                <p>Hadis ini memberikan perspektif yang mendalam: kesedihan dan penderitaan di dunia adalah bagian dari 'penjara' yang akan berujung pada kebahagiaan abadi di akhirat. Inilah harapan yang selalu menyertai setiap kesedihan bagi seorang Muslim.</p>
+              `
+                }]
+            }];
+
+            const extraData = [{
+                id: 'kata-pengantar',
+                label: 'Kata Pengantar',
+                icon: '📜',
+                content: `
+                <h2 class="panel-title">Kata Pengantar</h2>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">Puji syukur ke hadirat Allah Subhanahu wa Ta‘ala atas rahmat dan karunia-Nya sehingga buku <strong>Manajemen Kesedihan dalam Perspektif Hadis</strong> dapat tersusun dengan baik. Buku ini membahas hadis-hadis tentang kesedihan, kesabaran, doa, dan pengendalian diri berdasarkan sumber-sumber hadis utama seperti <em>Shahih al-Bukhari, Shahih Muslim, Sunan Abu Dawud,</em> dan <em>Sunan at-Tirmidzi</em>.</p>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">Tema kesedihan menjadi persoalan yang dekat dengan kehidupan manusia. Karena itu, buku ini diharapkan dapat memberikan pemahaman bahwa Islam melalui hadis Nabi memberikan tuntunan dalam menghadapi kesedihan dengan sabar, doa, dzikir, dan tawakal kepada Allah.</p>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">Saya mengapresiasi penulis, <strong>Febri Ferdiansyah</strong>, mahasiswa Program Studi Ilmu Hadis Universitas Islam Negeri Sultan Maulana Hasanuddin Banten, yang telah berusaha menyusun kajian ini secara sistematis dan ilmiah. Semoga buku ini bermanfaat bagi mahasiswa, peneliti, dan masyarakat umum.</p>
+                <p style="text-align:right; font-style:italic; color:#5e6f82; margin-top:24px;">Serang, 2026</p>
+              `
+            }, {
+                id: 'daftar-pustaka',
+                label: 'Daftar Pustaka',
+                icon: '📚',
+                content: `
+                <h2 class="panel-title">Daftar Pustaka</h2>
+                <div class="bibliography">
+                  <ul>
+                    <li>Abū Dāwud, Sulaimān ibn al-Asyʻaṡ ibn Isḥāq ibn Basyīr ibn Syidād ibn ʻAmru al-Azdiy al-Sijistāniy. <em>Sunan Abī Dāwud</em>. Edited by Muḥammad Muḥyī al-Dīn ʻAbd al-Ḥamīd. 4 vols. Beirut: al-Maktabah al-ʻAṣriyyah, n.d.</li>
+                    <li>Abū Dāwud, Sulaimān ibn al-Asyʻaṡ. <em>Sunan Abī Dāwud</em>. Edited by Syuʻaib al-Arna'ūṭ and Muḥammad Kāmil Qurah Balaliy. 7 vols. n.p.: Dār al-Risālah al-ʻĀlamiyah, 2009.</li>
+                    <li>Bukhāriy, Abū ʻAbdillāh Muḥammad ibn Ismāʻīl al-. <em>Ṣaḥīḥ al-Bukhāriy</em>. Edited by Muṣṭafā Daib al-Bagā. 7 vols. Damaskus: Dār Ibn Kaṡīr, 1993.</li>
+                    <li>Bukhāriy, Abū ʻAbdillāh Muḥammad ibn Ismāʻīl al-. <em>Ṣaḥīḥ al-Bukhāriy</em>. Edited by Muḥammad Zuhair ibn Nāṣir al-Nāṣir. 9 vols. n.p.: Dār Ṭauq al-Najāt, 1422.</li>
+                    <li>Ibn Ḥanbal, Aḥmad. <em>Musnad al-Imām Aḥmad ibn Ḥanbal</em>. Edited by Aḥmad Muḥammad Syākir. 20 vols. Kairo: Dār al-Ḥadīṡ, 1995.</li>
+                    <li>Ibn Ḥanbal, Aḥmad. <em>Musnad al-Imām Aḥmad ibn Ḥanbal</em>. Edited by Syuʻaib al-Arnaʾūt and ʻĀdil Mursyid. 50 vols. n.p.: Muʾassasah al-Risālah, 2001.</li>
+                    <li>Ibn al-Ḥājjāj, Muslim. <em>Al-Jāmiʿ al-Ṣaḥīḥ (Ṣaḥīḥ Muslim)</em>. Edited by Muḥammad ibn Rifʻat ibn ʻUśmān Ḥilmiy et al. 8 vols. Beirut: Dār Ṭauq al-Najāt, 1433.</li>
+                    <li>Ibn al-Ḥājjāj, Muslim. <em>Ṣaḥīḥ Muslim</em>. Edited by Muḥammad Fuʾād ʻAbd al-Bāqī. 5 vols. n.p.: Dār Ḥiyāʾ al-Turāṣ al-ʻArabiy, 1955.</li>
+                    <li>Tirmiżiy, Abū ʻĪsā Muḥammad ibn ʻĪsā al-. <em>Sunan al-Tirmiżiy</em>. Edited by Aḥmad Muḥammad Syākir et al. 5 vols. Mesir: Muṣṭafā al-Bābī al-Ḥalabiy, 1975.</li>
+                  </ul>
+                </div>
+              `
+            }, {
+                id: 'profil-penulis',
+                label: 'Profil Penulis',
+                icon: '👤',
+                content: `
+                <h2 class="panel-title">Profil Penulis</h2>
+                <div class="profil-penulis">
+                  <p><span class="penulis-nama">Febri Ferdiansyah</span> — adalah mahasiswa Program Studi Ilmu Hadis di UIN Sultan Maulana Hasanuddin Banten, saat ini menempuh pendidikan strata satu (S1) pada semester 6 tahun 2026.</p>
+                  <p>Penulis memiliki ketertarikan dalam kajian hadis, khususnya pada bidang hadis tematik, studi pemaknaan hadis, serta kajian hadis yang berkaitan dengan persoalan sosial dan psikologis dalam kehidupan masyarakat.</p>
+                  <p>Selama menjalani perkuliahan, penulis aktif mempelajari metodologi penelitian hadis, takhrij hadis, kritik sanad dan matan, serta pendekatan tematik dalam memahami hadis Nabi <em>shallallahu 'alaihi wa sallam</em>.</p>
+                  <p>Ketertarikan tersebut mendorong penulis untuk mengembangkan penelitian yang berfokus pada tema manajemen kesedihan dalam perspektif hadis sebagai bentuk kontribusi akademik terhadap kajian hadis dan kesehatan mental Islami.</p>
+                  <p>Selain aktif dalam kegiatan akademik, penulis juga memiliki minat dalam penulisan karya ilmiah dan pengembangan literasi keislaman. Melalui karya ini, penulis berharap dapat memberikan pemahaman yang lebih sistematis mengenai konsep pengelolaan kesedihan berdasarkan nilai-nilai hadis Nabi <em>shallallahu 'alaihi wa sallam</em>.</p>
+                </div>
+              `
+            }];
+
+            // ----- RENDER FUNCTIONS -----
+            const menuContainer = document.getElementById('menuContainer');
+            const extraMenuContainer = document.getElementById('extraMenu');
+            const panelContainer = document.getElementById('panelContainer');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const hamburger = document.getElementById('hamburgerBtn');
+            let activePanelId = null;
+
+            function renderMenu() {
+                let html = '';
+                let firstSubId = null;
+                menuData.forEach((section, idx) => {
+                    const isFirst = (idx === 0);
+                    html += `<div class="menu-section">`;
+                    html += `<button class="menu-head ${isFirst ? 'open' : ''}" data-section="${section.id}" aria-expanded="${isFirst}">
+                        <span class="icon">${section.icon}</span> ${section.label}
+                        <span class="arrow">▶</span>
+                    </button>`;
+                    html += `<ul class="sub-menu ${isFirst ? 'open' : ''}">`;
+                    section.children.forEach((child, ci) => {
+                        if (isFirst && ci === 0) firstSubId = child.id;
+                        html += `<li><button class="sub-link" data-panel="${child.id}">
+                            <span class="sub-icon">${child.icon || '▸'}</span> ${child.label}
+                        </button></li>`;
+                    });
+                    html += `</ul></div>`;
+                });
+                menuContainer.innerHTML = html;
+                return firstSubId;
+            }
+
+            function renderExtraMenu() {
+                let html = '';
+                extraData.forEach(item => {
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                        <span class="icon">${item.icon}</span> ${item.label}
+                    </button>`;
+                });
+                extraMenuContainer.innerHTML = html;
+            }
+
+            function renderPanels() {
+                let html = '';
+                menuData.forEach(section => {
+                    section.children.forEach(child => {
+                        html += `<div class="content-panel" id="panel-${child.id}">${child.content}</div>`;
+                    });
+                });
+                extraData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+                panelContainer.innerHTML = html;
+            }
+
+            function showPanel(panelId, fromSubLink = true) {
+                document.querySelectorAll('.content-panel').forEach(el => el.classList.remove('active'));
+                const panel = document.getElementById('panel-' + panelId);
+                if (panel) panel.classList.add('active');
+                document.querySelectorAll('.sub-link').forEach(el => el.classList.remove('active'));
+                const activeLink = document.querySelector(`.sub-link[data-panel="${panelId}"]`);
+                if (activeLink) activeLink.classList.add('active');
+                document.querySelectorAll('.extra-link').forEach(el => el.classList.remove('active'));
+                const extraLink = document.querySelector(`.extra-link[data-panel="${panelId}"]`);
+                if (extraLink) extraLink.classList.add('active');
+                activePanelId = panelId;
+                if (window.innerWidth <= 991 && fromSubLink) closeSidebar();
+            }
+
+            function toggleSection(headBtn) {
+                const sub = headBtn.nextElementSibling;
+                const isOpen = sub.classList.contains('open');
+                if (isOpen) {
+                    sub.classList.remove('open');
+                    headBtn.classList.remove('open');
+                    headBtn.setAttribute('aria-expanded', 'false');
+                } else {
+                    sub.classList.add('open');
+                    headBtn.classList.add('open');
+                    headBtn.setAttribute('aria-expanded', 'true');
+                }
+            }
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function toggleSidebar() {
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            function init() {
+                renderPanels();
+                const firstSub = renderMenu();
+                renderExtraMenu();
+
+                menuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('menu-head')) {
+                        e.stopPropagation();
+                        toggleSection(target);
+                        return;
+                    }
+                    if (target.classList.contains('sub-link')) {
+                        e.preventDefault();
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                        return;
+                    }
+                });
+
+                extraMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                // Default: tampilkan Kata Pengantar
+                if (extraData.length > 0) {
+                    showPanel(extraData[0].id, false);
+                } else if (firstSub) {
+                    showPanel(firstSub, false);
+                } else if (menuData.length && menuData[0].children.length) {
+                    showPanel(menuData[0].children[0].id, false);
+                }
+
+                // Buka bab pertama secara default
+                const firstSection = document.querySelector('.menu-section:first-child .menu-head');
+                const firstSubMenu = firstSection ? firstSection.nextElementSibling : null;
+                if (firstSection && firstSubMenu && !firstSubMenu.classList.contains('open')) {
+                    firstSection.classList.add('open');
+                    firstSubMenu.classList.add('open');
+                    firstSection.setAttribute('aria-expanded', 'true');
+                }
+
+                hamburger.addEventListener('click', toggleSidebar);
+                overlay.addEventListener('click', closeSidebar);
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 991) closeSidebar();
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+                });
+            }
+
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+        })();
+    </script>
+</body>
+</html>

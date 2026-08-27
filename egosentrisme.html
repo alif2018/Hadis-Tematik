@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Egosentrisme dalam Perspektif Hadis</title>
+    <base target="_self" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f6f0;
+            color: #1e2b3a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        :root {
+            --primary: #2b4f8c;
+            --primary-light: #3a6bb0;
+            --primary-dark: #1d3a66;
+            --gold: #c9a84c;
+            --gold-light: #e0c66e;
+            --gold-dark: #a8892f;
+            --bg-body: #f8f6f0;
+            --bg-card: #ffffff;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --sidebar-width: 300px;
+            --header-height: 72px;
+        }
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 2px 12px rgba(43, 79, 140, 0.25);
+        }
+        .app-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .app-header .brand img {
+            height: 44px;
+            width: auto;
+            border-radius: 6px;
+            background: #fff;
+            padding: 4px;
+            object-fit: contain;
+        }
+        .app-header .brand .title-group {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .app-header .brand .title-group h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .app-header .brand .title-group .author {
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+        .app-header .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px 4px;
+            border-radius: 6px;
+            transition: background var(--transition);
+        }
+        .app-header .hamburger:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .app-header .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: #fff;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        .app-layout {
+            display: flex;
+            flex: 1;
+            position: relative;
+        }
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            border-left: 1px solid rgba(43, 79, 140, 0.10);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.04);
+            height: calc(100vh - var(--header-height));
+            position: sticky;
+            top: var(--header-height);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 16px 10px 30px;
+            flex-shrink: 0;
+            transition: transform var(--transition);
+            z-index: 900;
+        }
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: #f0ede7;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 8px;
+        }
+        .menu-section {
+            margin-bottom: 4px;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.06);
+        }
+        .menu-section:last-of-type {
+            border-bottom: none;
+        }
+        .menu-section .menu-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 14px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-align: left;
+            position: relative;
+        }
+        .menu-section .menu-head:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .menu-section .menu-head .icon {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .menu-section .menu-head .arrow {
+            margin-left: auto;
+            font-size: 0.7rem;
+            transition: transform var(--transition);
+            color: var(--gold-dark);
+        }
+        .menu-section .menu-head.open .arrow {
+            transform: rotate(90deg);
+        }
+        .sub-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 6px 0;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.35s ease, opacity 0.25s ease;
+            opacity: 0;
+        }
+        .sub-menu.open {
+            max-height: 800px;
+            opacity: 1;
+        }
+        .sub-menu li {
+            margin: 0;
+        }
+        .sub-menu li .sub-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px 8px 38px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 450;
+            color: #2d3f54;
+            text-decoration: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .sub-menu li .sub-link:hover {
+            background: rgba(43, 79, 140, 0.07);
+            color: var(--primary);
+        }
+        .sub-menu li .sub-link.active {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .sub-menu li .sub-link .sub-icon {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+        .sub-menu li .sub-link.active .sub-icon {
+            opacity: 1;
+        }
+        .extra-menu {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 2px solid rgba(43, 79, 140, 0.08);
+        }
+        .extra-menu .extra-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .extra-menu .extra-link:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .extra-menu .extra-link.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .extra-menu .extra-link .icon {
+            font-size: 1.1rem;
+        }
+        .main-content {
+            flex: 1;
+            padding: 32px 40px 60px;
+            min-width: 0;
+            background: var(--bg-body);
+        }
+        .content-panel {
+            display: none;
+            animation: fadeUp 0.35s ease;
+        }
+        .content-panel.active {
+            display: block;
+        }
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .content-panel .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .content-panel .panel-sub {
+            font-size: 0.95rem;
+            color: #5e6f82;
+            margin-bottom: 24px;
+        }
+        .content-panel .hadith-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 18px 0 22px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--gold);
+        }
+        .content-panel .hadith-box .arabic {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #1e2b3a;
+            direction: rtl;
+            font-family: 'Times New Roman', 'Traditional Arabic', serif;
+            margin-bottom: 12px;
+            padding: 6px 0;
+            word-wrap: break-word;
+        }
+        .content-panel .hadith-box .translation {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #2d3f54;
+            border-top: 1px dashed rgba(43, 79, 140, 0.12);
+            padding-top: 12px;
+        }
+        .content-panel .hadith-box .source {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--gold-dark);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+        .content-panel .sub-section {
+            margin-top: 28px;
+        }
+        .content-panel .sub-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .content-panel .sub-section p {
+            line-height: 1.7;
+            color: #2d3f54;
+            margin-bottom: 10px;
+        }
+        .bibliography {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43, 79, 140, 0.10);
+        }
+        .bibliography h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 14px;
+        }
+        .bibliography ul {
+            list-style: none;
+            padding: 0;
+        }
+        .bibliography ul li {
+            padding: 6px 0 6px 20px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #2d3f54;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.05);
+            text-indent: -20px;
+            padding-left: 30px;
+        }
+        .bibliography ul li::before {
+            content: "•";
+            color: var(--gold);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        .profil-penulis {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43, 79, 140, 0.10);
+        }
+        .profil-penulis h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 14px;
+        }
+        .profil-penulis p {
+            line-height: 1.8;
+            color: #2d3f54;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .profil-penulis .penulis-nama {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 850;
+            backdrop-filter: blur(2px);
+            transition: opacity var(--transition);
+        }
+        .overlay.active {
+            display: block;
+        }
+        @media (max-width: 991px) {
+            .app-header .hamburger {
+                display: flex;
+            }
+            .sidebar {
+                position: fixed;
+                top: var(--header-height);
+                right: 0;
+                height: calc(100vh - var(--header-height));
+                transform: translateX(100%);
+                box-shadow: -8px 0 30px rgba(0, 0, 0, 0.10);
+                border-left: none;
+                width: 290px;
+                padding: 12px 8px 30px;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                padding: 20px 18px 40px;
+            }
+            .content-panel .panel-title {
+                font-size: 1.5rem;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 1rem;
+            }
+            .app-header .brand img {
+                height: 36px;
+            }
+            .content-panel .hadith-box {
+                padding: 16px 18px;
+            }
+            .content-panel .hadith-box .arabic {
+                font-size: 1rem;
+            }
+        }
+        @media (max-width: 480px) {
+            :root {
+                --header-height: 64px;
+            }
+            .app-header {
+                padding: 0 14px;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 0.85rem;
+            }
+            .app-header .brand .title-group .author {
+                font-size: 0.7rem;
+            }
+            .sidebar {
+                width: 265px;
+            }
+            .main-content {
+                padding: 14px 12px 30px;
+            }
+            .content-panel .panel-title {
+                font-size: 1.25rem;
+            }
+            .sub-menu li .sub-link {
+                padding: 7px 10px 7px 28px;
+                font-size: 0.8rem;
+            }
+            .menu-section .menu-head {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="brand">
+            <img src="logo-pshd.jpg" alt="Logo" />
+            <div class="title-group">
+                <h1>Egosentrisme dalam Perspektif Hadis</h1>
+                <span class="author">Penyusun: Ismail dan Muhammad Alif</span>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+    <div class="app-layout">
+        <div class="overlay" id="overlay"></div>
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Daftar isi">
+            <div id="menuContainer"></div>
+            <div class="extra-menu" id="extraMenu"></div>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div id="panelContainer"></div>
+        </main>
+    </div>
+    <script>
+        (function() {
+            'use strict';
+
+            const menuData = [{
+                id: 'bab1',
+                label: 'BAB I — Bentuk-Bentuk Egosentrisme',
+                icon: '🔍',
+                children: [{
+                    id: '1a',
+                    label: 'A. Arogansi',
+                    icon: '💢',
+                    content: `
+                <h2 class="panel-title">A. Arogansi</h2>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا مُحَمَّدُ بْنُ الْمُثَنَّى وَمُحَمَّدُ بْنُ بَشَّارٍ وَإِبْرَاهِيمُ بْنُ دِينَارٍ جَمِيعًا عَنْ يَحْيَى بْنِ حَمَّادٍ قَالَ ابْنُ الْمُثَنَّى حَدَّثَنِي يَحْيَى بْنُ حَمَّادٍ أَخْبَرَنَا شُعْبَةُ عَنْ أَبَانَ بْنِ تَغْلِبَ عَنْ فُضَيْلِ الْفُقَيْمِيِّ عَنْ إِبْرَاهِيمَ النَّخَعِيِّ عَنْ عَلْقَمَةَ عَنْ عَبْدِ اللَّهِ بْنِ مَسْعُودٍ عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ لَا يَدْخُلُ الْجَنَّةَ مَنْ كَانَ فِي قَلْبِهِ مِثْقَالُ ذَرَّةٍ مِنْ كِبْرٍ قَالَ رَجُلٌ إِنَّ الرَّجُلَ يُحِبُّ أَنْ يَكُونَ ثَوْبُهُ حَسَنًا وَنَعْلُهُ حَسَنَةً قَالَ إِنَّ اللَّهَ جَمِيلٌ يُحِبُّ الْجَمَالَ الْكِبْرُ بَطَرُ الْحَقِّ وَغَمْطُ النَّاسِ</div>
+                  <div class="translation">“Tidak akan masuk surga orang yang di dalam hatinya terdapat seberat biji sawi dari kesombongan.” Seorang laki-laki bertanya: “Sesungguhnya seseorang menyukai apabila baju dan sandalnya bagus, apakah ini termasuk kesombongan?” Beliau menjawab: “Sesungguhnya Allah itu indah dan menyukai keindahan. Kesombongan itu adalah menolak kebenaran dan meremehkan manusia.”</div>
+                  <span class="source">(Sahih Muslim 91)</span>
+                </div>
+              `
+                }, {
+                    id: '1b',
+                    label: 'B. Gatekeeping',
+                    icon: '🚧',
+                    content: `
+                <h2 class="panel-title">B. Gatekeeping</h2>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا مُوسَى بْنُ إِسْمَاعِيلَ حَدَّثَنَا حَمَّادٌ أَخْبَرَنَا عَلِيُّ بْنُ الْحَكَمِ عَنْ عَطَاءِ عَنْ أَبِي هُرَيْرَةَ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَنْ سُئِلَ عَنْ عِلْمٍ فَكَتَمَهُ أَلْجَمَهُ اللَّهُ بِلِجَامٍ مِنْ نَارٍ يَوْمَ الْقِيَامَةِ</div>
+                  <div class="translation">“Barangsiapa ditanya mengenai suatu ilmu kemudian ia menyembunyikannya, maka Allah akan mencambuknya dengan cambuk dari api neraka pada hari kiamat.”</div>
+                  <span class="source">(Sunan Abi Dawud 3658)</span>
+                </div>
+              `
+                }, {
+                    id: '1c',
+                    label: 'C. Egosentrisme Sosial',
+                    icon: '🌐',
+                    content: `
+                <h2 class="panel-title">C. Egosentrisme Sosial</h2>
+                <div class="sub-section">
+                  <h3>1. Ekonomi ekstraktif</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا نَصْرُ بْنُ عَلِيٍّ أَخْبَرَنَا أَبُو أُسَامَةَ عَنِ ابْنِ جُرَيْجٍ عَنْ عُثْمَانَ بْنِ أَبِي سُلَيْمَانَ عَنْ سَعِيدِ بْنِ مُحَمَّدِ بْنِ جُبَيْرِ بْنِ مُطْعِمٍ عَنْ عَبْدِ اللَّهِ بْنِ حُبْشِيٍّ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَنْ قَطَعَ سِدْرَةً صَوَّبَ اللَّهُ رَأْسَهُ فِي النَّارِ</div>
+                    <div class="translation">"Barang siapa menebang pohon bidara, maka Allah akan membenamkan kepalanya ke dalam api neraka." (Abu Dawud menjelaskan: maksudnya menebang dengan sia-sia dan zalim, padahal pohon itu tempat berteduh bagi musafir dan hewan ternak)</div>
+                    <span class="source">(Sunan Abi Dawud 5239)</span>
+                  </div>
+                </div>
+                <div class="sub-section">
+                  <h3>2. Primordialisme</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا أَبُو نُعَيْمٍ حَدَّثَنَا زَكَرِيَّاءُ قَالَ سَمِعْتُ عَامِرًا يَقُولُ سَمِعْتُ النُّعْمَانَ بْنَ بَشِيرٍ رَضِيَ اللَّهُ عَنْهُمَا عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ مَثَلُ الْقَائِمِ عَلَى حُدُودِ اللَّهِ وَالْوَاقِعِ فِيهَا كَمَثَلِ قَوْمٍ اسْتَهَمُوا عَلَى سَفِينَةٍ فَأَصَابَ بَعْضُهُمْ أَعْلَاهَا وَبَعْضُهُمْ أَسْفَلَهَا...</div>
+                    <div class="translation">“Perumpamaan orang yang menegakkan ḥudūd Allāh dan orang yang diam terhadapnya seperti sekelompok orang yang berlayar dengan sebuah perahu, lalu sebagian dari mereka ada yang mendapat tempat di atas dan sebagian lagi di bagian bawah perahu...” (Jika yang di bawah melubangi perahu, semua akan binasa; jika dicegah, semua selamat).</div>
+                    <span class="source">(Sahih Bukhari 2493)</span>
+                  </div>
+                </div>
+                <div class="sub-section">
+                  <h3>3. Dominansi interaksi</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا خَلَّادُ بْنُ يَحْيَى، حَدَّثَنَا سُفْيَانُ، عَنْ عُبَيْدِ اللَّهِ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ أَنَّهُ نَهَى أَنْ يُقَامَ الرَّجُلُ مِنْ مَجْلِسِهِ وَيَجْلِسَ فِيهِ آخَرُ، وَلَكِنْ تَفَسَّحُوا وَتَوَسَّعُوا</div>
+                    <div class="translation">“Bahwa beliau melarang agar seseorang diangkat dari tempat duduknya agar orang lain duduk di situ. Beliau bersabda: ‘Tetapi buatlah ruang dan lapangkanlah (tempat duduk itu).’”</div>
+                    <span class="source">(Sahih Bukhari 6270)</span>
+                  </div>
+                </div>
+                <div class="sub-section">
+                  <h3>4. Self-prioritization</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: لَيْسَ بِالْمُؤْمِنِ الَّذِي يَبِيتُ شَبْعَانَ وَجَارُهُ جَائِعٌ إِلَى جَنْبِهِ</div>
+                    <div class="translation">“Tidaklah beriman kepadaku orang yang bermalam dalam keadaan kenyang, sementara tetangganya kelaparan di sampingnya, padahal ia mengetahuinya.”</div>
+                    <span class="source">(Al-Hakim 2166, dishahihkan)</span>
+                  </div>
+                </div>
+                <div class="sub-section">
+                  <h3>5. Individualisme ekonomi</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا مُسَدَّدٌ حَدَّثَنَا عَبْدُ الْأَعْلَى عَنْ مَعْمَرٍ عَنْ هَمَّامِ بْنِ مُنَبِّهٍ أَخِي وَهْبِ بْنِ مُنَبِّهٍ أَنَّهُ سَمِعَ أَبَا هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ يَقُولُ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَطْلُ الْغَنِيِّ ظُلْمٌ</div>
+                    <div class="translation">“Menunda pembayaran hutang bagi orang kaya adalah kezhaliman.”</div>
+                    <span class="source">(Sahih Bukhari 2400)</span>
+                  </div>
+                </div>
+                <div class="sub-section">
+                  <h3>6. Eksploitatif kapitalis</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ اللَّهُ تَعَالَى ثَلَاثَةٌ أَنَا خَصْمُهُمْ يَوْمَ الْقِيَامَةِ رَجُلٌ أَعْطَى بِي ثُمَّ غَدَرَ وَرَجُلٌ بَاعَ حُرًّا فَأَكَلَ ثَمَنَهُ وَرَجُلٌ اسْتَأْجَرَ أَجِيرًا فَاسْتَوْفَى مِنْهُ وَلَمْ يُعْطِهِ أَجْرَهُ</div>
+                    <div class="translation">“Allah Ta'ala berfirman: Ada tiga jenis orang yang Aku berperang melawan mereka pada hari kiamat: seseorang yang bersumpah atas nama-Ku lalu mengingkarinya, seseorang yang menjual orang merdeka lalu memakan (uang dari) harganya, dan seseorang yang memperkerjakan pekerja kemudian pekerja itu menyelesaikan pekerjaannya namun tidak dibayar upahnya.”</div>
+                    <span class="source">(Sahih Bukhari 2270)</span>
+                  </div>
+                </div>
+              `
+                }, {
+                    id: '1d',
+                    label: 'D. Egosentrisme Emosional',
+                    icon: '🔥',
+                    content: `
+                <h2 class="panel-title">D. Egosentrisme Emosional</h2>
+                <div class="sub-section">
+                  <h3>1. Narsisme destruktif</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">عَنْ عَلِيٍّ رَضِيَ اللَّهُ عَنْهُ قَالَ بَعَثَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ سَرِيَّةً وَأَمَّرَ عَلَيْهِمْ رَجُلًا مِنَ الْأَنْصَارِ وَأَمَرَهُمْ أَنْ يُطِيعُوهُ فَغَضِبَ عَلَيْهِمْ وَقَالَ أَلَيْسَ قَدْ أَمَرَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ أَنْ تُطِيعُونِي قَالُوا بَلَى قَالَ قَدْ عَزَمْتُ عَلَيْكُمْ لَمَا جَمَعْتُمْ حَطَبًا وَأَوْقَدْتُمْ نَارًا ثُمَّ دَخَلْتُمْ فِيهَا فَجَمَعُوا حَطَبًا فَأَوْقَدُوا نَارًا فَلَمَّا هَمُّوا بِالدُّخُولِ قَامَ يَنْظُرُ بَعْضُهُمْ إِلَى بَعْضٍ قَالُوا إِنَّا تَبِعْنَا النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فِرَارًا مِنَ النَّارِ أَفَنَدْخُلُهَا فَبَيْنَمَا هُمْ كَذَلِكَ إِذْ خَمَدَتِ النَّارُ وَسَكَنَ غَضَبُهُ فَذُكِرَ لِلنَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فَقَالَ لَوْ دَخَلُوهَا مَا خَرَجُوا مِنْهَا أَبَدًا إِنَّمَا الطَّاعَةُ فِي الْمَعْرُوفِ</div>
+                    <div class="translation">“Nabi mengutus sebuah ekspedisi dan mengangkat seorang sahabat Anṣār sebagai pemimpin, dan memerintahkan mereka untuk menaatinya. Pemimpin itu marah dan menyuruh mereka mengumpulkan kayu dan masuk ke dalam api. Mereka hampir melakukannya, tetapi saling menatap dan berkata: ‘Bukankah kita mengikuti Nabi untuk menjauhkan diri dari api?’ Maka api padam dan kemarahan reda. Nabi bersabda: ‘Kalau saja mereka memasukinya, niscaya mereka tidak akan bisa keluar selama-lamanya. Ketaatan itu hanya dalam hal yang ma’ruf.’”</div>
+                    <span class="source">(Sahih Bukhari 7145)</span>
+                  </div>
+                </div>
+                <div class="sub-section">
+                  <h3>2. Resentfule (Dendam & Permusuhan)</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا يَحْيَى بْنُ يَحْيَى قَالَ قَرَأْتُ عَلَى مَالِكٍ عَنِ ابْنِ شِهَابٍ عَنْ عَطَاءِ بْنِ يَزِيدَ اللَّيْثِيِّ عَنْ أَبِي أَيُّوبَ الْأَنْصَارِيِّ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ لَا يَحِلُّ لِمُسْلِمٍ أَنْ يَهْجُرَ أَخَاهُ فَوْقَ ثَلَاثِ لَيَالٍ يَلْتَقِيَانِ فَيُعْرِضُ هَذَا وَيُعْرِضُ هَذَا وَخَيْرُهُمَا الَّذِي يَبْدَأُ بِالسَّلَامِ</div>
+                    <div class="translation">“Tidak halal bagi seorang muslim tidak bersapaan dengan saudaranya lebih dari tiga malam. Keduanya saling bertemu, tetapi saling berpaling. Yang terbaik di antara keduanya ialah yang lebih dahulu memberi salam.”</div>
+                    <span class="source">(Sahih Muslim 2560)</span>
+                  </div>
+                  <div class="hadith-box">
+                    <div class="arabic">وَحَدَّثَنَا مُحَمَّدُ بْنُ الْمُثَنَّى حَدَّثَنَا أَبُو دَاوُدَ حَدَّثَنَا شُعْبَةُ عَنْ قَتَادَةَ عَنْ أَنَسٍ أَنَّ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ لَا تَحَاسَدُوا وَلَا تَبَاغَضُوا وَلَا تَقَاطَعُوا وَكُونُوا عِبَادَ اللَّهِ إِخْوَانًا</div>
+                    <div class="translation">“Janganlah kalian saling dengki, saling marah, dan jangan pula saling memutuskan hubungan satu sama lain. Tetapi jadilah kalian hamba Allah yang bersaudara.”</div>
+                    <span class="source">(Sahih Muslim 2563)</span>
+                  </div>
+                </div>
+                <div class="sub-section">
+                  <h3>3. Schadenfreude</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: لَا تَفْرَحُوا بِمُصِيبَةِ أَخِيكُمْ، فَرُبَّمَا يَرْحَمُهُ اللَّهُ وَيَبْتَلِيكُمْ</div>
+                    <div class="translation">“Janganlah kamu merasa senang atas bencana yang menimpa saudaramu, karena siapa tahu Allah kemudian hari memberinya rahmat dan sebaliknya mengujimu.”</div>
+                    <span class="source">(Sunan Tirmidzi 2506)</span>
+                  </div>
+                </div>
+              `
+                }]
+            }, {
+                id: 'bab2',
+                label: 'BAB II — Faktor-Faktor Egosentrisme',
+                icon: '🧬',
+                children: [{
+                    id: '2a',
+                    label: 'A. Pola asuh lalai',
+                    icon: '👶',
+                    content: `
+                <h2 class="panel-title">A. Pola asuh lalai</h2>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا أَبُو الْيَمَانِ أَخْبَرَنَا شُعَيْبٌ عَنِ الزُّهْرِيِّ حَدَّثَنَا أَبُو سَلَمَةَ بْنُ عَبْدِ الرَّحْمَنِ أَنَّ أَبَا هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ قَالَ قَبَّلَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ الْحَسَنَ بْنَ عَلِيٍّ وَعِنْدَهُ الْأَقْرَعُ بْنُ حَابِسٍ التَّمِيمِيُّ جَالِسًا فَقَالَ الْأَقْرَعُ إِنَّ لِي عَشَرَةً مِنَ الْوَلَدِ مَا قَبَّلْتُ مِنْهُمْ أَحَدًا فَنَظَرَ إِلَيْهِ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ ثُمَّ قَالَ مَنْ لَا يَرْحَمْ لَا يُرْحَمْ</div>
+                  <div class="translation">“Rasulullah pernah mencium Al-Hasan bin Ali, sedangkan di samping beliau ada Al-Aqra' bin Habis At-Tamimi sedang duduk. Aqra' berkata: ‘Sesungguhnya aku memiliki sepuluh orang anak, namun aku tidak pernah mencium mereka sekali pun.’ Maka Rasulullah memandangnya dan bersabda: ‘Barangsiapa tidak mengasihi maka ia tidak akan dikasihi.’”</div>
+                  <span class="source">(Sahih Bukhari 5997)</span>
+                </div>
+              `
+                }, {
+                    id: '2b',
+                    label: 'B. Materialistik parenting',
+                    icon: '💰',
+                    content: `
+                <h2 class="panel-title">B. Materialistik parenting</h2>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنِي يَحْيَى بْنُ يُوسُفَ أَخْبَرَنَا أَبُو بَكْرٍ عَنْ أَبِي حَصِينٍ عَنْ أَبِي صَالِحٍ عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ تَعِسَ عَبْدُ الدِّينَارِ وَالدِّرْهَمِ وَالْقَطِيفَةِ وَالْخَمِيصَةِ إِنَّ أُعْطِيَ رَضِيَ وَإِنَّ لَمْ يُعْطَ لَمْ يَرْضَ</div>
+                  <div class="translation">“Celakalah budak dinar, budak dirham, budak pakaian (sutra kasar) dan budak khamīṣah (campuran sutra). Jika diberi ia akan ridha dan jika tidak diberi maka ia tidak akan ridha.”</div>
+                  <span class="source">(Sahih Bukhari 6435)</span>
+                </div>
+              `
+                }, {
+                    id: '2c',
+                    label: 'C. Pola asuh permisif',
+                    icon: '🌀',
+                    content: `
+                <h2 class="panel-title">C. Pola asuh permisif</h2>
+                <div class="hadith-box">
+                  <div class="arabic">عَنْ عَلِيٍّ رَضِيَ اللَّهُ عَنْهُ قَالَ بَعَثَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ سَرِيَّةً وَأَمَّرَ عَلَيْهِمْ رَجُلًا مِنَ الْأَنْصَارِ وَأَمَرَهُمْ أَنْ يُطِيعُوهُ فَغَضِبَ عَلَيْهِمْ وَقَالَ أَلَيْسَ قَدْ أَمَرَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ أَنْ تُطِيعُونِي قَالُوا بَلَى قَالَ قَدْ عَزَمْتُ عَلَيْكُمْ لَمَا جَمَعْتُمْ حَطَبًا وَأَوْقَدْتُمْ نَارًا ثُمَّ دَخَلْتُمْ فِيهَا... فَقَالَ لَوْ دَخَلُوهَا مَا خَرَجُوا مِنْهَا أَبَدًا إِنَّمَا الطَّاعَةُ فِي الْمَعْرُوفِ</div>
+                  <div class="translation">“Nabi mengutus ekspedisi dan mengangkat pemimpin dari Anṣār. Pemimpin itu marah dan menyuruh mereka masuk api. Mereka hampir melakukannya, tetapi akhirnya tidak. Nabi bersabda: ‘Kalau mereka memasukinya, tidak akan keluar selama-lamanya. Ketaatan hanya dalam hal yang ma’ruf.’”</div>
+                  <span class="source">(Sahih Bukhari 6612 — riwayat serupa dengan hadis sebelumnya)</span>
+                </div>
+                <p style="margin-top:12px;">Hadis ini menunjukkan bahaya pola asuh permisif yang membiarkan anak atau bawahan melakukan kemungkaran, serta pentingnya menegakkan kebenaran meskipun harus menolak perintah yang zalim.</p>
+              `
+                }]
+            }, {
+                id: 'bab3',
+                label: 'BAB III — Dampak & Antisipasi',
+                icon: '⚡',
+                children: [{
+                    id: '3a',
+                    label: 'A. Dampak Egosentrisme',
+                    icon: '💥',
+                    content: `
+                <h2 class="panel-title">A. Dampak Egosentrisme</h2>
+                <div class="sub-section">
+                  <h3>1. Krisis tauhid personal</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">لَيْسَ بِالْمُؤْمِنِ الَّذِي يَبِيتُ شَبْعَانَ وَجَارُهُ جَائِعٌ إِلَى جَنْبِهِ</div>
+                    <div class="translation">“Tidaklah beriman kepadaku orang yang bermalam dalam keadaan kenyang, sementara tetangganya kelaparan di sampingnya, padahal ia mengetahuinya.”</div>
+                    <span class="source">(Al-Hakim 2166 — dari Abu Bakrah)</span>
+                  </div>
+                </div>
+                <div class="sub-section">
+                  <h3>2. Degradasi spiritual</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">لَا يَدْخُلُ الْجَنَّةَ مَنْ كَانَ فِي قَلْبِهِ مِثْقَالُ ذَرَّةٍ مِنْ كِبْرٍ</div>
+                    <div class="translation">“Tidak akan masuk surga orang yang di dalam hatinya terdapat seberat biji sawi dari kesombongan.”</div>
+                    <span class="source">(Sahih Muslim 91)</span>
+                  </div>
+                </div>
+                <div class="sub-section">
+                  <h3>3. Deplesi sumber daya</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">مَنْ قَطَعَ سِدْرَةً صَوَّبَ اللَّهُ رَأْسَهُ فِي النَّارِ</div>
+                    <div class="translation">“Barang siapa menebang pohon bidara (dengan sia-sia dan zalim), maka Allah akan membenamkan kepalanya ke dalam api neraka.”</div>
+                    <span class="source">(Sunan Abi Dawud 5239)</span>
+                  </div>
+                  <div class="hadith-box">
+                    <div class="arabic">مَثَلُ الْقَائِمِ عَلَى حُدُودِ اللَّهِ وَالْوَاقِعِ فِيهَا كَمَثَلِ قَوْمٍ اسْتَهَمُوا عَلَى سَفِينَةٍ...</div>
+                    <div class="translation">“Perumpamaan orang yang menegakkan ḥudūd Allāh dan orang yang diam terhadapnya seperti sekelompok orang yang berlayar dengan perahu...” (jika yang di bawah melubangi perahu, semua binasa).</div>
+                    <span class="source">(Sahih Bukhari 2493)</span>
+                  </div>
+                </div>
+              `
+                }, {
+                    id: '3b',
+                    label: 'B. Antisipasi Egosentrisme',
+                    icon: '🛡️',
+                    content: `
+                <h2 class="panel-title">B. Antisipasi Egosentrisme</h2>
+                <div class="sub-section">
+                  <h3>1. Tauhid based parenting</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">مُرُوا أَوْلَادَكُمْ بِالصَّلَاةِ وَهُمْ أَبْنَاءُ سَبْعِ سِنِينَ وَاضْرِبُوهُمْ عَلَيْهَا وَهُمْ أَبْنَاءُ عَشْرٍ وَفَرِّقُوا بَيْنَهُمْ فِي الْمَضَاجِعِ</div>
+                    <div class="translation">“Perintahkanlah anak-anak kalian untuk melaksanakan ṣalāt apabila sudah mencapai umur tujuh tahun, dan apabila sudah mencapai umur sepuluh tahun maka pukullah dia (jika tidak melaksanakannya), dan pisahkanlah mereka dalam tempat tidurnya.”</div>
+                    <span class="source">(Sunan Abi Dawud 495)</span>
+                  </div>
+                </div>
+                <div class="sub-section">
+                  <h3>2. Compassionate parenting</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لِأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ</div>
+                    <div class="translation">“Tidaklah beriman seseorang di antara kalian sehingga ia mencintai untuk saudaranya sebagaimana ia mencintai untuk dirinya sendiri.”</div>
+                    <span class="source">(Sahih Bukhari 13)</span>
+                  </div>
+                </div>
+                <div class="sub-section">
+                  <h3>3. Reflective humility</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ وَمَا زَادَ اللَّهُ عَبْدًا بِعَفْوٍ إِلَّا عِزًّا وَمَا تَوَاضَعَ أَحَدٌ لِلَّهِ إِلَّا رَفَعَهُ اللَّهُ</div>
+                    <div class="translation">“Ṣadaqah itu tidak akan mengurangi harta. Tidak ada seorang pun yang memberi maaf kepada orang lain, melainkan Allah akan menambah kemuliaannya. Dan tidak ada seorang pun yang merendahkan diri karena Allah, melainkan Allah akan mengangkat derajatnya.”</div>
+                    <span class="source">(Sahih Muslim 2588)</span>
+                  </div>
+                </div>
+                <div class="sub-section">
+                  <h3>4. Self-mastery</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">لَيْسَ الشَّدِيدُ بِالصُّرَعَةِ إِنَّمَا الشَّدِيدُ الَّذِي يَمْلِكُ نَفْسَهُ عِنْدَ الْغَضَبِ</div>
+                    <div class="translation">“Tidaklah orang yang kuat itu orang yang pandai bergulat, tetapi orang yang kuat adalah orang yang dapat menahan nafsunya ketika ia marah.”</div>
+                    <span class="source">(Sahih Bukhari 6114)</span>
+                  </div>
+                </div>
+                <div class="sub-section">
+                  <h3>5. Conscious restraint</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">لَا ضَرَرَ وَلَا ضِرَارَ</div>
+                    <div class="translation">“Tidak boleh berbuat mudharat dan tidak boleh (pula) saling membahayakan.”</div>
+                    <span class="source">(Sunan Ibn Majah 2341)</span>
+                  </div>
+                </div>
+                <div class="sub-section">
+                  <h3>6. Mindful tolerance</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">إِنَّكُمْ سَتَلْقُونَ بَعْدِي أَثَرَةً فَاصْبِرُوا حَتَّى تَلْقَوْنِي عَلَى الْحَوْضِ</div>
+                    <div class="translation">“Sesungguhnya sepeninggalku kelak, kalian akan menjumpai (para penguasa) yang mementingkan diri sendiri. Maka bersabarlah hingga kalian berjumpa denganku di telaga.”</div>
+                    <span class="source">(Sahih Muslim 1845)</span>
+                  </div>
+                </div>
+              `
+                }]
+            }];
+
+            const extraData = [{
+                id: 'kata-pengantar',
+                label: 'Kata Pengantar',
+                icon: '📖',
+                content: `
+                <h2 class="panel-title">Kata Pengantar</h2>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">Puji syukur kehadirat Allah SWT yang telah melimpahkan rahmat, taufik, dan hidayah-Nya sehingga penulis dapat menyelesaikan e-book berjudul “Egosentrisme dalam Perspektif Hadis”. Shalawat serta salam semoga senantiasa tercurah kepada junjungan Nabi Muhammad SAW, suri teladan bagi seluruh umat manusia, yang melalui sunnah dan sabdanya memberikan tuntunan bagi setiap aspek kehidupan, termasuk dalam mengendalikan ego dan memperhalus akhlak.</p>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">E-book ini hadir sebagai upaya reflektif dan ilmiah untuk menelaah fenomena egosentrisme, yakni kecenderungan menempatkan diri sebagai pusat segalanya, melalui kacamata hadis Nabi SAW. Dalam konteks modern yang ditandai oleh individualisme, persaingan, dan kemerosotan nilai sosial, pembahasan ini menjadi semakin relevan. Hadis Nabi tidak hanya menjadi pedoman moral, tetapi juga sumber kebijaksanaan psikologis dan sosial yang menuntun manusia menuju keseimbangan antara kepentingan diri dan kepentingan bersama.</p>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">Penulis berusaha menggali pesan-pesan Rasulullah SAW yang mengajarkan pentingnya keikhlasan, kerendahan hati, dan empati, sebagai antitesis dari sifat egosentris. Dengan pendekatan analisis tematik terhadap hadis-hadis terkait, e-book ini diharapkan mampu memberikan pemahaman baru bahwa ajaran Islam senantiasa menyeru kepada pembersihan jiwa dari penyakit ego yang menghalangi hubungan harmonis antara manusia dengan Tuhannya serta sesama makhluk.</p>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">Ucapan terima kasih penulis sampaikan kepada para dosen, sahabat, dan keluarga yang telah memberikan dukungan moral dan spiritual dalam proses penyusunan karya ini. Semoga e-book ini dapat menjadi bahan renungan dan inspirasi bagi para pembaca dalam membangun kesadaran diri yang lebih baik berdasarkan nilai-nilai yang diajarkan Rasulullah SAW.</p>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">Akhir kata, penulis menyadari bahwa karya ini masih jauh dari sempurna. Oleh karena itu, segala kritik dan saran yang membangun sangat penulis harapkan demi penyempurnaan karya di masa mendatang. Semoga e-book ini membawa manfaat dan menjadi amal jariyah bagi kita semua.</p>
+              `
+            }, {
+                id: 'daftar-pustaka',
+                label: 'Daftar Pustaka',
+                icon: '📚',
+                content: `
+                <h2 class="panel-title">Daftar Pustaka</h2>
+                <div class="bibliography">
+                  <ul>
+                    <li>Abû Dāwud, Sulaimān ibn al-Asyʿaś ibn Ishāq ibn Basyīr ibn Syidād ibn ʿAmru al-Azdiy al-Sijistāniy. <em>Sunan Abī Dāwud</em>. Edited by Syuʿaib al-Arnaʿūt and Muḥammad Kāmil Qurah Balaliy. Dār al-Risālah al-ʿĀlamiyah, 2009.</li>
+                    <li>Bukhāriy, Abū ʿAbdillāh Muḥammad ibn Ismāʿīl ibn Ibrāhīm ibn al-Muġīrah al-Juʿfiy al-. <em>Al-Jāmiʿ Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Min Umūr Rasūl Allāh Ṣallā Allāh ʿalaih Wasallam Wa Sunanih Wa Ayyāmih</em>. Edited by Muḥammad Zuhair ibn Nāṣir al-Nāṣir. Dār Tauq al-Najāt, 1422.</li>
+                    <li>Hākim, Abū ʿAbd Allāh Muḥammad ibn ʿAbd Allāh al-. <em>Al-Mustadrak ʿalā Al-Ṣaḥīḥain</em>. Edited by Muṣtafā ʿAbd al-Qādīr ʿAtā. Dār al-Kutub al-ʿIlmiyyah, 1990.</li>
+                    <li>Ibn al-Hajjāj, Muslim. <em>Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Bi Naql Al-ʿAdl ʿan Al-ʿAdl Ilā Rasūl Allāh Ṣallā Allāh ʿalaih Wasallam</em>. Edited by Muḥammad Fuʿād ʿAbd al-Bāqī. Dār Iḥyāʿ al-Turās al-ʿArabiy, 1955.</li>
+                    <li>Ibn Mājah, Abū ʿAbdillāh Muḥammad ibn Yazīd. <em>Sunan Ibn Mājah</em>. Edited by Syuʿaib al-Arnaʿūt, ʿĀdil Mursyid, and ʿAbd al-Laṭīf Haraz Allāh. Dār al-Risālah al-ʿālamiyyah, 2009.</li>
+                    <li>Tirmīziy, Abū ʿĪsā Muḥammad ibn ʿĪsā ibn Saurah ibn Mūsā al-Daḥḥak al-. <em>Al-Jāmiʿ Al-Kabīr (Sunan Al-Tirmīziy)</em>. Edited by Basysyār ʿAwad Maʿrūf. Dār al-Garb al-Islāmiy PP - Beirut, 1996.</li>
+                  </ul>
+                </div>
+              `
+            }];
+
+            const menuContainer = document.getElementById('menuContainer');
+            const extraMenuContainer = document.getElementById('extraMenu');
+            const panelContainer = document.getElementById('panelContainer');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const hamburger = document.getElementById('hamburgerBtn');
+            let activePanelId = null;
+
+            function renderMenu() {
+                let html = '';
+                let firstSubId = null;
+                menuData.forEach((section, idx) => {
+                    const isFirst = (idx === 0);
+                    html += `<div class="menu-section">`;
+                    html += `<button class="menu-head ${isFirst ? 'open' : ''}" data-section="${section.id}" aria-expanded="${isFirst}">
+                        <span class="icon">${section.icon}</span> ${section.label}
+                        <span class="arrow">▶</span>
+                    </button>`;
+                    html += `<ul class="sub-menu ${isFirst ? 'open' : ''}">`;
+                    section.children.forEach((child, ci) => {
+                        if (isFirst && ci === 0) firstSubId = child.id;
+                        html += `<li><button class="sub-link" data-panel="${child.id}">
+                            <span class="sub-icon">${child.icon || '▸'}</span> ${child.label}
+                        </button></li>`;
+                    });
+                    html += `</ul></div>`;
+                });
+                menuContainer.innerHTML = html;
+                return firstSubId;
+            }
+
+            function renderExtraMenu() {
+                let html = '';
+                extraData.forEach(item => {
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                        <span class="icon">${item.icon}</span> ${item.label}
+                    </button>`;
+                });
+                extraMenuContainer.innerHTML = html;
+            }
+
+            function renderPanels() {
+                let html = '';
+                menuData.forEach(section => {
+                    section.children.forEach(child => {
+                        html += `<div class="content-panel" id="panel-${child.id}">${child.content}</div>`;
+                    });
+                });
+                extraData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+                panelContainer.innerHTML = html;
+            }
+
+            function showPanel(panelId, fromSubLink = true) {
+                document.querySelectorAll('.content-panel').forEach(el => el.classList.remove('active'));
+                const panel = document.getElementById('panel-' + panelId);
+                if (panel) panel.classList.add('active');
+                document.querySelectorAll('.sub-link').forEach(el => el.classList.remove('active'));
+                const activeLink = document.querySelector(`.sub-link[data-panel="${panelId}"]`);
+                if (activeLink) activeLink.classList.add('active');
+                document.querySelectorAll('.extra-link').forEach(el => el.classList.remove('active'));
+                const extraLink = document.querySelector(`.extra-link[data-panel="${panelId}"]`);
+                if (extraLink) extraLink.classList.add('active');
+                activePanelId = panelId;
+                if (window.innerWidth <= 991 && fromSubLink) closeSidebar();
+            }
+
+            function toggleSection(headBtn) {
+                const sub = headBtn.nextElementSibling;
+                const isOpen = sub.classList.contains('open');
+                if (isOpen) {
+                    sub.classList.remove('open');
+                    headBtn.classList.remove('open');
+                    headBtn.setAttribute('aria-expanded', 'false');
+                } else {
+                    sub.classList.add('open');
+                    headBtn.classList.add('open');
+                    headBtn.setAttribute('aria-expanded', 'true');
+                }
+            }
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function toggleSidebar() {
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            function init() {
+                renderPanels();
+                const firstSub = renderMenu();
+                renderExtraMenu();
+
+                menuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('menu-head')) {
+                        e.stopPropagation();
+                        toggleSection(target);
+                        return;
+                    }
+                    if (target.classList.contains('sub-link')) {
+                        e.preventDefault();
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                        return;
+                    }
+                });
+
+                extraMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                if (extraData.length > 0) {
+                    showPanel(extraData[0].id, false);
+                } else if (firstSub) {
+                    showPanel(firstSub, false);
+                } else if (menuData.length && menuData[0].children.length) {
+                    showPanel(menuData[0].children[0].id, false);
+                }
+
+                const firstSection = document.querySelector('.menu-section:first-child .menu-head');
+                const firstSubMenu = firstSection ? firstSection.nextElementSibling : null;
+                if (firstSection && firstSubMenu && !firstSubMenu.classList.contains('open')) {
+                    firstSection.classList.add('open');
+                    firstSubMenu.classList.add('open');
+                    firstSection.setAttribute('aria-expanded', 'true');
+                }
+
+                hamburger.addEventListener('click', toggleSidebar);
+                overlay.addEventListener('click', closeSidebar);
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 991) closeSidebar();
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+                });
+            }
+
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+        })();
+    </script>
+</body>
+</html>

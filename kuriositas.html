@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hadis Tematik tentang Kuriositas</title>
+    <base target="_self" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f6f0;
+            color: #1e2b3a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        :root {
+            --primary: #2b4f8c;
+            --primary-light: #3a6bb0;
+            --primary-dark: #1d3a66;
+            --gold: #c9a84c;
+            --gold-light: #e0c66e;
+            --gold-dark: #a8892f;
+            --bg-body: #f8f6f0;
+            --bg-card: #ffffff;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --sidebar-width: 300px;
+            --header-height: 72px;
+        }
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 2px 12px rgba(43, 79, 140, 0.25);
+        }
+        .app-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .app-header .brand img {
+            height: 44px;
+            width: auto;
+            border-radius: 6px;
+            background: #fff;
+            padding: 4px;
+            object-fit: contain;
+        }
+        .app-header .brand .title-group {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .app-header .brand .title-group h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .app-header .brand .title-group .author {
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+        .app-header .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px 4px;
+            border-radius: 6px;
+            transition: background var(--transition);
+        }
+        .app-header .hamburger:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .app-header .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: #fff;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        .app-layout {
+            display: flex;
+            flex: 1;
+            position: relative;
+        }
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            border-left: 1px solid rgba(43, 79, 140, 0.10);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.04);
+            height: calc(100vh - var(--header-height));
+            position: sticky;
+            top: var(--header-height);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 16px 10px 30px;
+            flex-shrink: 0;
+            transition: transform var(--transition);
+            z-index: 900;
+        }
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: #f0ede7;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 8px;
+        }
+        .menu-section {
+            margin-bottom: 4px;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.06);
+        }
+        .menu-section:last-of-type {
+            border-bottom: none;
+        }
+        .menu-section .menu-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 14px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-align: left;
+            position: relative;
+        }
+        .menu-section .menu-head:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .menu-section .menu-head .icon {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .menu-section .menu-head .arrow {
+            margin-left: auto;
+            font-size: 0.7rem;
+            transition: transform var(--transition);
+            color: var(--gold-dark);
+        }
+        .menu-section .menu-head.open .arrow {
+            transform: rotate(90deg);
+        }
+        .sub-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 6px 0;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.35s ease, opacity 0.25s ease;
+            opacity: 0;
+        }
+        .sub-menu.open {
+            max-height: 800px;
+            opacity: 1;
+        }
+        .sub-menu li {
+            margin: 0;
+        }
+        .sub-menu li .sub-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px 8px 38px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 450;
+            color: #2d3f54;
+            text-decoration: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .sub-menu li .sub-link:hover {
+            background: rgba(43, 79, 140, 0.07);
+            color: var(--primary);
+        }
+        .sub-menu li .sub-link.active {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .sub-menu li .sub-link .sub-icon {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+        .sub-menu li .sub-link.active .sub-icon {
+            opacity: 1;
+        }
+        .extra-menu {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 2px solid rgba(43, 79, 140, 0.08);
+        }
+        .extra-menu .extra-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .extra-menu .extra-link:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .extra-menu .extra-link.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .extra-menu .extra-link .icon {
+            font-size: 1.1rem;
+        }
+        .main-content {
+            flex: 1;
+            padding: 32px 40px 60px;
+            min-width: 0;
+            background: var(--bg-body);
+        }
+        .content-panel {
+            display: none;
+            animation: fadeUp 0.35s ease;
+        }
+        .content-panel.active {
+            display: block;
+        }
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .content-panel .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .content-panel .panel-sub {
+            font-size: 0.95rem;
+            color: #5e6f82;
+            margin-bottom: 24px;
+        }
+        .content-panel .hadith-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 18px 0 22px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--gold);
+        }
+        .content-panel .hadith-box .arabic {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #1e2b3a;
+            direction: rtl;
+            font-family: 'Times New Roman', 'Traditional Arabic', serif;
+            margin-bottom: 12px;
+            padding: 6px 0;
+            word-wrap: break-word;
+        }
+        .content-panel .hadith-box .translation {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #2d3f54;
+            border-top: 1px dashed rgba(43, 79, 140, 0.12);
+            padding-top: 12px;
+        }
+        .content-panel .hadith-box .source {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--gold-dark);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+        .content-panel .sub-section {
+            margin-top: 28px;
+        }
+        .content-panel .sub-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .content-panel .sub-section p {
+            line-height: 1.7;
+            color: #2d3f54;
+            margin-bottom: 10px;
+        }
+        .bibliography {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43, 79, 140, 0.10);
+        }
+        .bibliography h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 14px;
+        }
+        .bibliography ul {
+            list-style: none;
+            padding: 0;
+        }
+        .bibliography ul li {
+            padding: 6px 0 6px 20px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #2d3f54;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.05);
+            text-indent: -20px;
+            padding-left: 30px;
+        }
+        .bibliography ul li::before {
+            content: "•";
+            color: var(--gold);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        .profil-penulis {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43, 79, 140, 0.10);
+        }
+        .profil-penulis h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 14px;
+        }
+        .profil-penulis p {
+            line-height: 1.8;
+            color: #2d3f54;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .profil-penulis .penulis-nama {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 850;
+            backdrop-filter: blur(2px);
+            transition: opacity var(--transition);
+        }
+        .overlay.active {
+            display: block;
+        }
+        @media (max-width: 991px) {
+            .app-header .hamburger {
+                display: flex;
+            }
+            .sidebar {
+                position: fixed;
+                top: var(--header-height);
+                right: 0;
+                height: calc(100vh - var(--header-height));
+                transform: translateX(100%);
+                box-shadow: -8px 0 30px rgba(0, 0, 0, 0.10);
+                border-left: none;
+                width: 290px;
+                padding: 12px 8px 30px;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                padding: 20px 18px 40px;
+            }
+            .content-panel .panel-title {
+                font-size: 1.5rem;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 1rem;
+            }
+            .app-header .brand img {
+                height: 36px;
+            }
+            .content-panel .hadith-box {
+                padding: 16px 18px;
+            }
+            .content-panel .hadith-box .arabic {
+                font-size: 1rem;
+            }
+        }
+        @media (max-width: 480px) {
+            :root {
+                --header-height: 64px;
+            }
+            .app-header {
+                padding: 0 14px;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 0.85rem;
+            }
+            .app-header .brand .title-group .author {
+                font-size: 0.7rem;
+            }
+            .sidebar {
+                width: 265px;
+            }
+            .main-content {
+                padding: 14px 12px 30px;
+            }
+            .content-panel .panel-title {
+                font-size: 1.25rem;
+            }
+            .sub-menu li .sub-link {
+                padding: 7px 10px 7px 28px;
+                font-size: 0.8rem;
+            }
+            .menu-section .menu-head {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="brand">
+            <img src="logo-pshd.jpg" alt="Logo" />
+            <div class="title-group">
+                <h1>Hadis Tematik tentang Kuriositas</h1>
+                <span class="author">Penyusun: Dea & Muhammad Alif</span>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+    <div class="app-layout">
+        <div class="overlay" id="overlay"></div>
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Daftar isi">
+            <div id="menuContainer"></div>
+            <div class="extra-menu" id="extraMenu"></div>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div id="panelContainer"></div>
+        </main>
+    </div>
+    <script>
+        (function() {
+            'use strict';
+
+            const menuData = [{
+                id: 'bab1',
+                label: 'A. Pengertian dan Urgensi Kuriositas',
+                icon: '🔍',
+                children: [{
+                    id: '1a',
+                    label: '1. Pengertian Kuriositas',
+                    icon: '📖',
+                    content: `
+                <h2 class="panel-title">1. Pengertian Kuriositas</h2>
+                <p class="panel-sub">Potensi, menghilangkan keraguan, dan dorongan belajar.</p>
+
+                <div class="sub-section">
+                  <h3>a. Potensi kuriositas</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا زُهَيْرُ بْنُ حَرْبٍ حَدَّثَنَا جَرِيرٌ عَنِ الْأَعْمَشِ عَنْ أَبِي صَالِحٍ عَنْ أَبِي هُرَيْرَةَ قَالَ : رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فَقَالَ: مَا مِنْ مَوْلُودٍ إِلَّا يُولَدُ عَلَى الْفِطْرَةِ فَأَبَوَاهُ يُهَوِّدَانِهِ وَيُنَصِّرَانِهِ وَيُشْرِكَانِهِ فَقَالَ رَجُلٌ يَا رَسُولَ اللَّهِ أَرَأَيْتَ لَوْ مَاتَ قَبْلَ ذَلِكَ قَالَ اللَّهُ أَعْلَمُ بِمَا كَانُوا عَامِلِينَ</div>
+                    <div class="translation">“Tidaklah seorang bayi yang dilahirkan melainkan dalam keadaan fitrah, maka bapaknyalah yang menjadikannya Yahudi, atau Nasrani atau Musyrik”. Lalu seseorang bertanya kepada beliau: “Wahai Rasulullah, bagaimana pendapatmu jika bayi itu meninggal sebelum itu?” Maka beliau bersabda: “Allah lebih tahu dengan apa yang mereka kerjakan”.</div>
+                    <span class="source">(Shahih Muslim 2658)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>b. Menghilangkan keraguan menuju kepastian</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">عَنْ أَبِي مُحَمَّدٍ الْحَسَنِ بْنِ عَلِيٍّ بْنِ أَبِي طَالِبٍ سَبْطِ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ وَرَيْحَانَتِهِ رَضِيَ اللَّهُ عَنْهُمَا قَالَ: حَفِظْتُ مِنْ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَا يَرِيبُكَ إِلَى مَا لَا يَرِيبُكَ</div>
+                    <div class="translation">“Tinggalkanlah yang meragukanmu lalu ambillah yang tidak meragukanmu”.</div>
+                    <span class="source">(Sunan At-Tirmidzi 2518)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>c. Kuriositas mendorong belajar otodidak/berguru</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">وَقَالَ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: وَمَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا، سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ وَإِنَّ الْمَلَائِكَةَ لَتَضَعُ أَجْنِحَتَهَا رِضًا لِطَالِبِ الْعِلْمِ وَإِنَّ طَالِبَ الْعِلْمِ يَسْتَغْفِرُ لَهُ مَنْ فِي السَّمَاءِ وَالْأَرْضِ حَتَّى الْحِيتَانِ فِي الْمَاءِ وَإِنَّ فَضْلَ الْعَالِمِ عَلَى الْعَابِدِ كَفَضْلِ الْقَمَرِ عَلَى سَائِرِ الْكَوَاكِبِ إِنَّ الْعُلَمَاءَ هُمْ وَرَثَةُ الْأَنْبِيَاءِ إِنَّ الْأَنْبِيَاءَ لَمْ يُوَرِّثُوا دِينَارًا وَلَا دِرْهَمًا إِنَّمَا وَرَّثُوا الْعِلْمَ فَمَنْ أَخَذَهُ أَخَذَ بِحَظٍّ وَافِرٍ</div>
+                    <div class="translation">“Barangsiapa menempuh jalan untuk mencari ilmu, Allah akan memudahkan baginya jalan menuju surga. Sesungguhnya malaikat meletakkan sayap-sayapnya karena ridha kepada penuntut ilmu. Dan sesungguhnya penuntut ilmu akan dimintakan ampun oleh semua yang di langit dan di bumi, bahkan ikan-ikan di dalam air. Keutamaan seorang alim atas seorang abid seperti keutamaan bulan atas seluruh bintang. Para ulama adalah pewaris para nabi. Para nabi tidak mewariskan dinar atau dirham, mereka hanya mewariskan ilmu. Maka barangsiapa mengambilnya, ia telah mengambil bagian yang banyak.”</div>
+                    <span class="source">(Sunan Ibnu Majah 219)</span>
+                  </div>
+                </div>
+              `
+                }, {
+                    id: '1b',
+                    label: '2. Urgensi Kuriositas',
+                    icon: '⭐',
+                    content: `
+                <h2 class="panel-title">2. Urgensi Kuriositas</h2>
+                <p class="panel-sub">Anti kuriositas, celaan, dan antisipasi masa depan.</p>
+
+                <div class="sub-section">
+                  <h3>a. Anti kuriositas: tidak memverifikasi informasi</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">وَعَنِ الْمُغِيرَةِ بْنِ شُعْبَةَ رَضِيَ اللَّهُ عَنْهُ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ إِنَّ اللَّهَ كَرِهَ لَكُمْ ثَلَاثًا وَرَضِيَ لَكُمْ ثَلَاثًا رَضِيَ لَكُمْ أَنْ تَعْبُدُوهُ وَلَا تُشْرِكُوا بِهِ شَيْئًا وَأَنْ تَعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا وَأَنْ تَنْصَحُوا لِإِذَاءِ الْأَمْرِ وَكَرِهَ لَكُمْ قِيلَ وَقَالَ وَإِضَاعَةَ الْمَالِ وَكُثْرَةَ السُّؤَالِ</div>
+                    <div class="translation">“Sesungguhnya Allah meridhai tiga hal pada kalian dan membenci tiga hal dari kalian: kalian sembah Allah dan tidak menyekutukan-Nya dengan sesuatu, kalian berpegang teguh dengan tali Allah semuanya, dan Allah suka jika kalian menasehati para pemimpin. Dan Allah membenci dari kalian: adu domba, menyia-nyiakan harta dan banyak tanya.”</div>
+                    <span class="source">(HR. Bukhari 5975)</span>
+                  </div>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا يَحْيَى بْنُ بُكَيْرٍ، حَدَّثَنَا اللَّيْثُ عَنْ جَعْفَرِ بْنِ رَبِيعَةَ عَنِ الْأَعْرَجِ قَالَ: قَالَ أَبُو هُرَيْرَةَ يَثُورُ عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «إِيَّاكُمْ وَالظَّنَّ فَإِنَّ الظَّنَّ أَكْذَبُ الْحَدِيثِ. وَلَا تَحَسَّسُوا، وَلَا تَجَسَّسُوا، وَلَا تَبَاغَضُوا، وَكُونُوا إِخْوَانًا</div>
+                    <div class="translation">“Berhati-hatilah kalian dari tindakan berprasangka buruk, karena prasangka buruk adalah sedusta-dusta ucapan. Janganlah kalian saling mencari berita kejelekan orang lain, saling memata-matai, saling mendengki, saling membelakangi dan saling membenci. Jadilah kalian hamba yang bersaudara.”</div>
+                    <span class="source">(HR. Bukhari 5143)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>b. Celaan terhadap kuriositas</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا عَلِيُّ بْنُ عَبْدِ اللَّهِ، حَدَّثَنَا سُفْيَانُ، عَنْ أَيُّوبَ، عَنْ عِكْرِمَةَ، عَنِ ابْنِ عَبَّاسٍ، عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «مَنْ تَحَلَّمَ بِحُلْمٍ لَمْ يَرَهُ كُلِّفَ أَنْ يَعْقِدَ بَيْنَ شَعِيرَتَيْنِ، وَلَنْ يَفْعَلَ، وَمَنِ اسْتَمَعَ إِلَى حَدِيثِ قَوْمٍ وَهُمْ لَهُ كَارِهُونَ، أَوْ يَفِرُّونَ مِنْهُ، صُبَّ فِي أُذُنِهِ الْأُنْكُ يَوْمَ الْقِيَامَةِ، وَمَنْ صَوَّرَ صُورَةً عُذِّبَ، وَكُلِّفَ أَنْ يَنْفُخَ</div>
+                    <div class="translation">“Dan barangsiapa menyatakan diri bermimpi padahal tidak, ia dipaksa untuk menyatukan dua biji gandum dan ia tak akan bisa melakukannya, dan barangsiapa mencuri dengar pembicaraan suatu kaum padahal mereka tidak menyukai atau telah menyingkir untuk menghindarinya, maka telinganya akan dialiri cairan tembaga pada hari kiamat, barang siapa menggambar ia akan disiksa dan dipaksa untuk menghidupkannya padahal tidak mampu”.</div>
+                    <span class="source">(Shahih Bukhari 7042)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>c. Kuriositas untuk antisipasi masa depan</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا مُسَدَّدٌ حَدَّثَنَا أَبُو عَوَانَةَ عَنْ قَتَادَةَ عَنْ نَصْرِ بْنِ عَاصِمٍ عَنْ سُبَيْعِ بْنِ خَالِدٍ قَالَ أَتَيْتُ الْكُوفَةَ فِي زَمَنِ فُتِحَتْ تُسْتَرُ أَجْلُبُ مِنْهَا بِغَالًا فَدَخَلْتُ الْمَسْجِدَ فَإِذَا صَدْعٌ مِنَ الرِّجَالِ وَإِذَا رَجُلٌ جَالِسٌ تَعْرِفُ إِذَا رَأَيْتَهُ أَنَّهُ مِنْ رِجَالِ أَهْلِ الْحِجَازِ ... فَقَالَ حُذَيْفَةُ إِنَّ النَّاسَ كَانُوا يَسْأَلُونَ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ عَنِ الْخَيْرِ وَكُنْتُ أَسْأَلُهُ عَنِ الشَّرِّ ... ثُمَّ ذَكَرَ الْحَدِيثَ بِطُولِهِ</div>
+                    <div class="translation">“Hudzaifah berkata: Orang-orang banyak bertanya Rasulullah tentang kebaikan, sementara aku bertanya kepada beliau tentang keburukan... Aku bertanya: 'Wahai Rasulullah, apakah setelah kebaikan yang Allah berikan kepada kita ini, akan muncul keburukan setelahnya?' Beliau menjawab: 'Benar.' ... Aku bertanya lagi: 'Lalu apa yang akan terjadi?' beliau menjawab: 'Akan muncul Dajjal...' Aku bertanya lagi: 'Lalu apa lagi?' beliau menjawab: 'Kiamat akan datang'.”</div>
+                    <span class="source">(Sunan Abu Dawud 4244 — ringkasan)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>d. Dampak ideal kuriositas</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">ابن عباس رضي الله عنه: بم أدركت العلم؟ قال: "أدركت العلم بلسان سئول وقلب عقول، وبدن غير ملول"، "لسان سئول" حتى إنه رضي الله عنه يأتي إلى الرجل من أصحاب النبي صلى الله عليه وسلم يبلغه أن عنده حديثًا عن الرسول صلى الله عليه وسلم فيأتيه في القائلة فيضع رداءه على عتبة الباب وينام حتى يقوم صاحب البيت فيسأله عن الحديث، هل منا أحد يفعل ذلك؟ حتى إن الرجل يقول: يا ابن عم رسول الله، كيف تفعل هذا؟ فيقول: أنا طالب العلم، وطالب العلم يدل نفسه لا للعالم لأنه عالم، ولكن لأجل العلم، الصحابة كانوا يسألون الرسول صلى الله عليه وسلم ولكن هل سؤالهم مجرد العلم أو للعلم الذي يراد به التطبيق؟ الثاني، وهذه هي ثمرة العلم، ثمرة العلم أن نطبق.</div>
+                    <div class="translation">“Ibnu Abbas radiyallahu ‘anhu ditanya: 'Bagaimana engkau meraih ilmu?' Ia menjawab: 'Aku memperoleh ilmu dengan lidah yang bertanya, hati yang berakal, dan tubuh yang tidak bosan.' ... Beliau mendatangi sahabat Nabi yang memiliki hadits, lalu menunggu hingga tuan rumah bangun dan bertanya. Beliau berkata: 'Aku adalah penuntut ilmu, penuntut ilmu merendahkan dirinya bukan karena orang yang berilmu itu alim, tetapi karena ilmu itu sendiri.' Para sahabat bertanya kepada Rasulullah, namun pertanyaan mereka bukan sekadar ilmu, tetapi untuk aplikasi. Inilah buah ilmu: mengamalkannya.”</div>
+                    <span class="source">(Shahih Ibnu Khuzaimah 793 — riwayat)</span>
+                  </div>
+                </div>
+              `
+                }]
+            }, {
+                id: 'bab2',
+                label: 'B. Macam-macam Kuriositas Negatif',
+                icon: '⚠️',
+                children: [{
+                    id: '2a',
+                    label: 'a. Kuriositas instan (tanpa belajar)',
+                    icon: '⚡',
+                    content: `
+                <h2 class="panel-title">a. Kuriositas dengan cara instan (tanpa belajar)</h2>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنِي حَرْمَلَةُ بْنُ يَحْيَى التُّجِيبِيُّ: أَخْبَرَنَا ابْنُ وَهْبٍ: أَخْبَرَنِي يُونُسُ عَنِ ابْنِ شِهَابٍ: أَخْبَرَنِي أَبُو سَلَمَةَ بْنُ عَبْدِ الرَّحْمَنِ وَسَعِيدُ بْنُ الْمُسَيَّبِ كِلَاهُمَا قَالَ: أَبُو هُرَيْرَةَ يُحَدِّثُ أَنَّهُ سَمِعَ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: “مَا نَهَيْتُكُمْ عَنْهُ فَاجْتَنِبُوهُ وَمَا أَمَرْتُكُمْ بِهِ فَافْعَلُوا مِنْهُ مَا اسْتَطَعْتُمْ فَإِنَّمَا أَهْلَكَ الَّذِينَ مِنْ قَبْلِكُمْ كَثْرَةُ مَسَائِلِهِمْ وَاخْتِلَافُهُمْ عَلَى أَنْبِيَائِهِمْ</div>
+                  <div class="translation">“Apa yang telah aku larang untukmu maka jauhilah. Dan apa yang aku perintahkan kepadamu, maka kerjakanlah dengan sekuat tenaga kalian. Sesungguhnya umat sebelum kalian binasa karena mereka banyak tanya dan sering berselisih dengan para nabi mereka.”</div>
+                  <span class="source">(Shahih Muslim 1337)</span>
+                </div>
+                <p style="margin-top:12px;">Hadis ini menunjukkan bahwa bertanya secara berlebihan tanpa niat mengamalkan dapat menjadi penyebab kehancuran. Kuriositas yang instan dan tidak proporsional justru merugikan.</p>
+              `
+                }, {
+                    id: '2b',
+                    label: 'b. Mencari tahu aib orang / memata-matai',
+                    icon: '👀',
+                    content: `
+                <h2 class="panel-title">b. Mencari tahu aib orang / memata-matai</h2>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا أَبُو مُعَاوِيَةَ، عَنِ الْأَعْمَشِ، عَنْ زَيْدِ بْنِ وَهْبٍ، قَالَ : أُتِيَ ابْنُ مَسْعُودٍ فَقِيلَ هَذَا فُلَانٌ تَقْطُرُ لِحْيَتُهُ خَمْرًا، فَقَالَ عَبْدُ اللَّهِ: إِنَّا قَدْ نُهِينَا عَنِ التَّجَسُّسِ وَلَكِنْ إِنْ يَظْهَرْ لَنَا شَيْءٌ نَأْخُذْ بِهِ</div>
+                  <div class="translation">“Ibnu Mas’ud didatangi oleh seseorang, lalu dikatakan kepadanya, ‘Orang ini jenggotnya bertetesan khamr.’ Ibnu Mas’ud pun berkata, ‘Kami memang telah dilarang untuk tajassus (mencari-cari kesalahan orang lain). Tapi jika tampak sesuatu bagi kami, kami akan menindaknya.’”</div>
+                  <span class="source">(Sunan Abu Dawud 4890)</span>
+                </div>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا يَحْيَى بْنُ أَكْثَمَ، وَالْجَارُودُ بْنُ مُعَاذٍ، قَالَا: حَدَّثَنَا الْفَضْلُ بْنُ مُوسَى، حَدَّثَنَا الْحُسَيْنُ بْنُ وَاقِدٍ، عَنْ أَوْفَى بْنِ دَلْهَمٍ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، قَالَ: رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فَقَالَ: مَنْ نَفَّسَ عَنْ مُسْلِمٍ كُرْبَةً مِنْ كُرَبِ الدُّنْيَا نَفَّسَ اللَّهُ عَنْهُ كُرْبَةً مِنْ كُرَبِ يَوْمِ الْقِيَامَةِ وَمَنْ يَسَّرَ عَلَى مُعْسِرٍ فِي الدُّنْيَا يَسَّرَ اللَّهُ عَلَيْهِ فِي الدُّنْيَا وَالْآخِرَةِ وَمَنْ سَتَرَ عَلَى مُسْلِمٍ فِي الدُّنْيَا سَتَرَ اللَّهُ عَلَيْهِ فِي الدُّنْيَا وَالْآخِرَةِ وَاللَّهُ فِي عَوْنِ الْعَبْدِ مَا كَانَ الْعَبْدُ فِي عَوْنِ أَخِيهِ</div>
+                  <div class="translation">“Barangsiapa yang meringankan kesulitan seorang muslim, Allah akan meringankan kesulitannya di akhirat. Barangsiapa yang memberikan kemudahan bagi orang yang kesulitan, Allah akan memudahkan urusannya di dunia dan akhirat. Dan barangsiapa yang menutupi aib seorang muslim, Allah akan menutup aibnya di dunia dan akhirat. Sesungguhnya Allah akan senantiasa menolong seorang hamba selama ia menolong saudaranya.”</div>
+                  <span class="source">(Shahih Muslim 7810)</span>
+                </div>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا عِيسَى بْنُ مُحَمَّدٍ الرَّمْلِيُّ، وَابْنُ عَوْفٍ، قَالَا: حَدَّثَنَا الْفِرْيَابِيُّ، عَنْ سُفْيَانَ، عَنْ ثَوْرٍ، عَنْ رَاشِدِ بْنِ سَعْدٍ، عَنْ مُعَاوِيَةَ، قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: "إِنَّكُمْ إِنِ اتَّبَعْتُمْ عَوْرَاتِ النَّاسِ أَفْسَدْتُمُوهُمْ أَوْ كِدْتُمْ أَنْ تُفْسِدُوهُمْ</div>
+                  <div class="translation">“Sungguh jika kalian berusaha mencari-cari kesalahan manusia, maka sesungguhnya kalian telah merusak atau membinasakan mereka atau hampir-hampir saja kalian merusak mereka.”</div>
+                  <span class="source">(Sunan Abu Dawud 4888)</span>
+                </div>
+              `
+                }, {
+                    id: '2c',
+                    label: 'c. Dampak ketiadaan kuriositas',
+                    icon: '🚫',
+                    content: `
+                <h2 class="panel-title">c. Dampak ketiadaan kuriositas</h2>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا مُوسَى بْنُ عَبْدِ الرَّحْمَنِ الْأَنْطَاكِيُّ، حَدَّثَنَا مُحَمَّدُ بْنُ سَلَمَةَ، عَنِ الزُّبَيْرِ بْنِ خُرَيْقٍ، عَنْ عَطَاءٍ، عَنْ جَابِرٍ قَالَ: خَرَجْنَا فِي سَفَرٍ فَأَصَابَ رَجُلًا مِنَّا حَجَرٌ فَشَجَّهُ فِي رَأْسِهِ، ثُمَّ احْتَلَمَ فَسَأَلَ أَصْحَابَهُ فَقَالَ: هَلْ تَجِدُونَ لِي رُخْصَةً فِي التَّيَمُّمِ؟ فَقَالُوا: مَا نَجِدُ لَكَ رُخْصَةً وَأَنْتَ تَقْدِرُ عَلَى الْمَاءِ فَاغْتَسَلَ فَمَاتَ، فَلَمَّا قَدِمْنَا عَلَى النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ أُخْبِرَ بِذَلِكَ فَقَالَ: «قَتَلُوهُ قَتَلَهُمُ اللَّهُ أَلَا سَأَلُوا إِذْ لَمْ يَعْلَمُوا فَإِنَّمَا شِفَاءُ الْعِيِّ السُّؤَالُ، إِنَّمَا كَانَ يَكْفِيهِ أَنْ يَتَيَمَّمَ وَيَعْصِرَ أَوْ» يَعْصِبَ «شَكَّ مُوسَى» عَلَى جُرْحِهِ خِرْقَةً، ثُمَّ يَمْسَحَ عَلَيْهَا وَيَغْسِلَ سَائِرَ جَسَدِهِ</div>
+                  <div class="translation">“Kami pernah keluar dalam sebuah perjalanan, lalu salah seorang di antara kami terkena batu pada kepalanya yang membuatnya terluka serius. Kemudian dia bermimpi junub, maka dia bertanya kepada para sahabatnya; Apakah ada keringanan untukku agar saya bertayammum saja? Mereka menjawab; Kami tidak mendapatkan keringanan untukmu sementara kamu mampu untuk menggunakan air, maka orang tersebut mandi dan langsung meninggal. Ketika kami sampai kepada Nabi, beliau diberitahukan tentang kejadian tersebut, maka beliau bersabda: “Mereka telah membunuhnya, semoga Allah membunuh mereka! Tidakkah mereka bertanya apabila mereka tidak mengetahui, karena obat dari kebodohan adalah bertanya! Sesungguhnya cukuplah baginya untuk bertayammum dan meneteskan air pada lukanya atau mengikat lukanya (Musa ragu) kemudian mengusapnya saja dan mandi untuk selain itu pada seluruh tubuhnya yang lain”.”</div>
+                  <span class="source">(Sunan Abu Dawud 336)</span>
+                </div>
+                <p style="margin-top:12px;">Hadis ini menunjukkan bahwa sikap tidak mau bertanya ketika tidak tahu dapat berakibat fatal. Kuriositas yang sehat adalah obat bagi kebodohan.</p>
+              `
+                }]
+            }, {
+                id: 'bab3',
+                label: 'C. Etika Kuriositas',
+                icon: '📏',
+                children: [{
+                    id: '3a',
+                    label: '1. Tidak bertanya kecuali benar-benar paham',
+                    icon: '🧠',
+                    content: `
+                <h2 class="panel-title">1. Tidak bertanya kecuali benar-benar sudah paham</h2>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا سَعِيدُ بْنُ أَبِي مَرْيَمَ قَالَ: أَخْبَرَنَا نَافِعُ بْنُ عُمَرَ قَالَ: حَدَّثَنِي ابْنُ أَبِي مُلَيْكَةَ: أَنَّ عَائِشَةَ زَوْجَ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ كَانَتْ لَا تَسْمَعُ شَيْئًا لَا تَعْرِفُهُ إِلَّا رَاجَعَتْ فِيهِ حَتَّى تَعْرِفَهُ، وَأَنَّ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «مَنْ حُوسِبَ عُذِّبَ». قَالَتْ عَائِشَةُ: فَقُلْتُ: أَوَلَيْسَ يَقُولُ اللَّهُ تَعَالَى: {فَسَوْفَ يُحَاسَبُ حِسَابًا يَسِيرًا} قَالَتْ فَقَالَ: إِنَّمَا ذَلِكِ الْعَرْضُ، وَلَكِنْ مَنْ نُوقِشَ الْحِسَابَ يَهْلِكْ</div>
+                  <div class="translation">“Aisyah istri Nabi shallallahu 'alaihi wasallam tidaklah ia mendengar sesuatu yang tidak dia mengerti kecuali menanyakannya kepada Nabi sampai dia mengerti. Dan Nabi pernah bersabda: “Siapa yang dihisab berarti dia disiksa.” Aisyah berkata: maka aku bertanya: “Bukankah Allah Ta'ala berfirman: {Kelak dia akan dihisab dengan hisab yang ringan}?” Maka Nabi bersabda: “Sesungguhnya yang dimaksud itu adalah pemaparan (amalan). Akan tetapi barangsiapa yang didebat hisabnya pasti celaka”.”</div>
+                  <span class="source">(Shahih Bukhari 103)</span>
+                </div>
+              `
+                }, {
+                    id: '3b',
+                    label: '2. Anjuran memakai logika & pertanyaan sepele',
+                    icon: '💡',
+                    content: `
+                <h2 class="panel-title">2. Anjuran memakai logika & pertanyaan sepele</h2>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا أَبُو الْمُغِيرَةِ حَدَّثَنَا مُعَانُ بْنُ رِفَاعَةَ حَدَّثَنِي عَلِيُّ بْنُ يَزِيدَ حَدَّثَنِي الْقَاسِمُ مَوْلَى بَنِي يَزِيدَ عَنْ أَبِي أُمَامَةَ الْبَاهِلِيِّ قَالَ لَمَّا كَانَ فِي حَجَّةِ الْوَدَاعِ قَامَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ ... فَقَالَ: يَا أَيُّهَا النَّاسُ خُذُوا مِنَ الْعِلْمِ قَبْلَ أَنْ يُقْبَضَ الْعِلْمُ وَقَبْلَ أَنْ يُرْفَعَ الْعِلْمُ ... ثُمَّ ذَكَرَ الْحَدِيثَ وَفِيهِ قِصَّةُ الْأَعْرَابِيِّ الَّذِي سَأَلَ عَنْ رَفْعِ الْعِلْمِ</div>
+                  <div class="translation">“Ketika dalam haji wada', Rasulullah berdiri dan bersabda: 'Wahai manusia, ambillah ilmu sebelum ilmu diangkat dan sebelum ilmu dicabut.' ... Kemudian seorang Arab badui bertanya tentang bagaimana ilmu akan diangkat, dan Rasulullah menjawab dengan memberikan penjelasan tentang pentingnya bertanya dengan cara yang benar.”</div>
+                  <span class="source">(Musnad Ahmad 9222 — ringkasan)</span>
+                </div>
+                <p style="margin-top:12px;">Hadis ini mengajarkan agar kita tidak ragu bertanya tentang hal-hal yang tidak kita pahami, namun dengan cara yang sopan dan logis.</p>
+              `
+                }, {
+                    id: '3c',
+                    label: '3. Tidak mempertanyakan rincian yang global',
+                    icon: '🌍',
+                    content: `
+                <h2 class="panel-title">3. Tidak mempertanyakan rincian yang Allah dan Rasul-Nya ingin hal yang global</h2>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ اللَّهِ بْنِ الْمُبَارَكِ الْمَخْزُومِيُّ، قَالَ: حَدَّثَنَا أَبُو هِشَامٍ الْمُغِيرَةُ بْنُ سَلَمَةَ، قَالَ: حَدَّثَنَا الرَّبِيعُ بْنُ مُسْلِمٍ، قَالَ: حَدَّثَنَا مُحَمَّدُ بْنُ زِيَادٍ عَنْ أَبِي هُرَيْرَةَ، قَالَ: خَطَبَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ النَّاسَ ثُمَّ قَالَ: «إِنَّ اللَّهَ عَزَّ وَجَلَّ قَدْ فَرَضَ عَلَيْكُمُ الْحَجَّ». فَقَالَ رَجُلٌ: أَكُلَّ عَامٍ؟ فَسَكَتَ حَتَّى أَعَادَهَا ثَلَاثًا، فَقَالَ: «لَوْ قُلْتُ نَعَمْ لَوَجَبَتْ، وَلَوْ وَجَبَتْ لَمَا اسْتَطَعْتُمْ. ذَرُونِي مَا تَرَكْتُكُمْ، إِنَّمَا هَلَكَ مَنْ كَانَ قَبْلَكُمْ بِكَثْرَةِ سُؤَالِهِمْ وَاخْتِلَافِهِمْ عَلَى أَنْبِيَائِهِمْ فَإِذَا أَمَرْتُكُمْ بِشَيْءٍ فَخُذُوا بِهِ مَا اسْتَطَعْتُمْ وَإِذَا نَهَيْتُكُمْ عَنْ شَيْءٍ فَاجْتَنِبُوهُ</div>
+                  <div class="translation">“Rasulullah berkhutbah kepada manusia kemudian beliau bersabda: ‘Sesungguhnya Allah Azza wa Jalla telah mewajibkan kepada kalian untuk melakukan haji’. Lalu terdapat seorang laki-laki yang bertanya: apakah setiap tahun? Maka beliau terdiam hingga orang tersebut mengulangnya sebanyak tiga kali. Lalu beliau bersabda: ‘Jika saya katakan 'ya', niscaya akan menjadi wajib, dan jika telah wajib maka kalian tidak mampu melakukannya. Biarkan saya, tidaklah saya meninggalkan kalian, sesungguhnya orang-orang sebelum kalian binasa karena banyak bertanya, dan sering menyelisihi para nabi. Maka apabila saya perintahkan sesuatu kepada kalian, lakukanlah sesuai dengan kemampuan kalian, dan jika saya melarang kalian dari sesuatu maka jauhilah’.”</div>
+                  <span class="source">(Sunan Nasa'i 2619)</span>
+                </div>
+              `
+                }, {
+                    id: '3d',
+                    label: '4. Tidak dengan motivasi yang dilarang',
+                    icon: '🚷',
+                    content: `
+                <h2 class="panel-title">4. Tidak dengan motivasi yang dilarang</h2>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنِي زُهَيْرُ بْنُ حَرْبٍ، حَدَّثَنَا جَرِيرٌ، عَنْ سُهَيْلٍ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: مَنِ اطَّلَعَ فِي بَيْتِ قَوْمٍ بِغَيْرِ إِذْنِهِمْ، فَقَدْ حَلَّ لَهُمْ أَنْ يَفْقَئُوا عَيْنَهُ</div>
+                  <div class="translation">“Barangsiapa yang mengintip ke dalam rumah suatu kaum tanpa izin mereka, maka boleh bagi mereka untuk mencongkel matanya.”</div>
+                  <span class="source">(Shahih Muslim 2158)</span>
+                </div>
+                <p style="margin-top:12px;">Hadis ini menegaskan bahwa kuriositas yang dilakukan dengan cara melanggar hak privasi orang lain adalah perbuatan yang dilarang dan dapat berakibat fatal.</p>
+              `
+                }, {
+                    id: '3e',
+                    label: '5. Obyek kuriositas bukan dzat Allah',
+                    icon: '✨',
+                    content: `
+                <h2 class="panel-title">5. Obyek kuriositas bukan dzat Allah</h2>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا هَارُونُ بْنُ مَعْرُوفٍ وَمُحَمَّدُ بْنُ عَبَّادٍ (وَاللَّفْظُ لِهَارُونَ) قَالَا حَدَّثَنَا سُفْيَانُ، عَنْ هِشَامٍ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "لَا يَزَالُ النَّاسُ يَتَسَاءَلُونَ، حَتَّى يُقَالَ: هَذَا خَلَقَ اللَّهُ الْخَلْقَ، فَمَنْ خَلَقَ اللَّهَ؟ فَمَنْ وَجَدَ مِنْ ذَلِكَ شَيْئًا فَلْيَقُلْ: آمَنْتُ بِاللَّهِ</div>
+                  <div class="translation">“Orang-orang akan ada saja yang bertanya-tanya, hingga akhirnya akan ditanyakan, ‘Allah yang menciptakan makhluk, lalu siapa yang menciptakan Allah?’ Siapa yang mendapati hal tersebut, maka ucapkanlah, ‘Aku beriman kepada Allah’.”</div>
+                  <span class="source">(Shahih Muslim 134)</span>
+                </div>
+                <p style="margin-top:12px;">Hadis ini mengajarkan batasan kuriositas: kita tidak boleh mempertanyakan hakikat dzat Allah, karena hal itu di luar jangkauan akal manusia. Cukup beriman kepada-Nya.</p>
+              `
+                }]
+            }];
+
+            const extraData = [{
+                id: 'daftar-pustaka',
+                label: 'Daftar Pustaka',
+                icon: '📚',
+                content: `
+                <h2 class="panel-title">Daftar Pustaka</h2>
+                <div class="bibliography">
+                  <ul>
+                    <li>Abū Dāwud, Sulaimān ibn al-Asy‘aṡ ibn Isḥāq ibn Basyīr ibn Syidād ibn ‘Amru al-Azdiy al-Sijistāniy. <em>Sunan Abī Dāwud</em>. Edited by Muḥammad Muḥyī al-Dīn Abd al-Ḥamīd. al-Maktabah al-‘Asriyyah, n.d.</li>
+                    <li>al-Bukhāriy, Abū ‘Abdillāh Muḥammad ibn Ismā‘īl ibn Ibrāhīm ibn al-Mugīrah al-Ju‘fiy. <em>Al-Jāmi‘ Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Min Umūr Rasūlillah Ṣallā Allāh ‘alaih Wasallam Wa Sunanih Wa Ayyāmih</em>. Edited by Muḥammad Zuhair ibn Nāṣir al-Nāṣir. Dār Tauq al-Najāt, 1422.</li>
+                    <li>Ibn al-Ḥājjāj, Muslim. <em>Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Binaql Al-‘Adl ‘an Al-‘Adl Ilā Rasūlillah Ṣallā Allāh ‘alaih Wasallam</em>. Edited by Muḥammad Fu'ād Abd al-Bāqī. Vol. 1–3. Dār Iḥyā' al-Turās al-‘Arabiy, 1424.</li>
+                    <li>Ibn Mājah, Abū ‘Abdillāh Muḥammad ibn Yazīd. <em>Sunan Ibn Mājah</em>. Edited by Syu‘aib al-Arn''ūt, ‘Ādil Mursyid, and ‘Abd al-Laṭīf Haraz Allāh. Dār al-Risālah al-‘Ālamiyyah, 2009.</li>
+                    <li>al-Tirmiżiy, Abū ‘Īsā Muḥammad ibn ‘Īsā ibn Saurah ibn Mūsā al-Daḥḥak. <em>Al-Jāmi‘ Al-Kabīr Wahuwa Sunan Al-Tirmiżiy</em>. Edited by Basysyār ‘Awad Ma‘rūf. Dār al-Garb al-Islāmiy, 1998.</li>
+                    <li>al-Nasā'iy, Abū ‘Abd al-Raḥmān Aḥmad ibn Syu‘ayb. <em>Sunan al-Nasā'iy</em>. Edited by ‘Abd al-Fattāḥ Abū Gudah. Ḥalab: Maktab al-Maṭbū‘āt al-Islāmiyyah, 1986.</li>
+                  </ul>
+                </div>
+              `
+            }];
+
+            const menuContainer = document.getElementById('menuContainer');
+            const extraMenuContainer = document.getElementById('extraMenu');
+            const panelContainer = document.getElementById('panelContainer');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const hamburger = document.getElementById('hamburgerBtn');
+            let activePanelId = null;
+
+            function renderMenu() {
+                let html = '';
+                let firstSubId = null;
+                menuData.forEach((section, idx) => {
+                    const isFirst = (idx === 0);
+                    html += `<div class="menu-section">`;
+                    html += `<button class="menu-head ${isFirst ? 'open' : ''}" data-section="${section.id}" aria-expanded="${isFirst}">
+                        <span class="icon">${section.icon}</span> ${section.label}
+                        <span class="arrow">▶</span>
+                    </button>`;
+                    html += `<ul class="sub-menu ${isFirst ? 'open' : ''}">`;
+                    section.children.forEach((child, ci) => {
+                        if (isFirst && ci === 0) firstSubId = child.id;
+                        html += `<li><button class="sub-link" data-panel="${child.id}">
+                            <span class="sub-icon">${child.icon || '▸'}</span> ${child.label}
+                        </button></li>`;
+                    });
+                    html += `</ul></div>`;
+                });
+                menuContainer.innerHTML = html;
+                return firstSubId;
+            }
+
+            function renderExtraMenu() {
+                let html = '';
+                extraData.forEach(item => {
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                        <span class="icon">${item.icon}</span> ${item.label}
+                    </button>`;
+                });
+                extraMenuContainer.innerHTML = html;
+            }
+
+            function renderPanels() {
+                let html = '';
+                menuData.forEach(section => {
+                    section.children.forEach(child => {
+                        html += `<div class="content-panel" id="panel-${child.id}">${child.content}</div>`;
+                    });
+                });
+                extraData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+                panelContainer.innerHTML = html;
+            }
+
+            function showPanel(panelId, fromSubLink = true) {
+                document.querySelectorAll('.content-panel').forEach(el => el.classList.remove('active'));
+                const panel = document.getElementById('panel-' + panelId);
+                if (panel) panel.classList.add('active');
+                document.querySelectorAll('.sub-link').forEach(el => el.classList.remove('active'));
+                const activeLink = document.querySelector(`.sub-link[data-panel="${panelId}"]`);
+                if (activeLink) activeLink.classList.add('active');
+                document.querySelectorAll('.extra-link').forEach(el => el.classList.remove('active'));
+                const extraLink = document.querySelector(`.extra-link[data-panel="${panelId}"]`);
+                if (extraLink) extraLink.classList.add('active');
+                activePanelId = panelId;
+                if (window.innerWidth <= 991 && fromSubLink) closeSidebar();
+            }
+
+            function toggleSection(headBtn) {
+                const sub = headBtn.nextElementSibling;
+                const isOpen = sub.classList.contains('open');
+                if (isOpen) {
+                    sub.classList.remove('open');
+                    headBtn.classList.remove('open');
+                    headBtn.setAttribute('aria-expanded', 'false');
+                } else {
+                    sub.classList.add('open');
+                    headBtn.classList.add('open');
+                    headBtn.setAttribute('aria-expanded', 'true');
+                }
+            }
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function toggleSidebar() {
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            function init() {
+                renderPanels();
+                const firstSub = renderMenu();
+                renderExtraMenu();
+
+                menuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('menu-head')) {
+                        e.stopPropagation();
+                        toggleSection(target);
+                        return;
+                    }
+                    if (target.classList.contains('sub-link')) {
+                        e.preventDefault();
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                        return;
+                    }
+                });
+
+                extraMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                if (extraData.length > 0) {
+                    showPanel(extraData[0].id, false);
+                } else if (firstSub) {
+                    showPanel(firstSub, false);
+                } else if (menuData.length && menuData[0].children.length) {
+                    showPanel(menuData[0].children[0].id, false);
+                }
+
+                const firstSection = document.querySelector('.menu-section:first-child .menu-head');
+                const firstSubMenu = firstSection ? firstSection.nextElementSibling : null;
+                if (firstSection && firstSubMenu && !firstSubMenu.classList.contains('open')) {
+                    firstSection.classList.add('open');
+                    firstSubMenu.classList.add('open');
+                    firstSection.setAttribute('aria-expanded', 'true');
+                }
+
+                hamburger.addEventListener('click', toggleSidebar);
+                overlay.addEventListener('click', closeSidebar);
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 991) closeSidebar();
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+                });
+            }
+
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+        })();
+    </script>
+</body>
+</html>

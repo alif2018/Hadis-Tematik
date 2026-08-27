@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hadis Tematik: Urgensi Silaturahmi</title>
+    <base target="_self" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f6f0;
+            color: #1e2b3a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        :root {
+            --primary: #2b4f8c;
+            --primary-light: #3a6bb0;
+            --primary-dark: #1d3a66;
+            --gold: #c9a84c;
+            --gold-light: #e0c66e;
+            --gold-dark: #a8892f;
+            --bg-body: #f8f6f0;
+            --bg-card: #ffffff;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --sidebar-width: 300px;
+            --header-height: 72px;
+        }
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 2px 12px rgba(43, 79, 140, 0.25);
+        }
+        .app-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .app-header .brand img {
+            height: 44px;
+            width: auto;
+            border-radius: 6px;
+            background: #fff;
+            padding: 4px;
+            object-fit: contain;
+        }
+        .app-header .brand .title-group {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .app-header .brand .title-group h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .app-header .brand .title-group .author {
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+        .app-header .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px 4px;
+            border-radius: 6px;
+            transition: background var(--transition);
+        }
+        .app-header .hamburger:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .app-header .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: #fff;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        .app-layout {
+            display: flex;
+            flex: 1;
+            position: relative;
+        }
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            border-left: 1px solid rgba(43, 79, 140, 0.10);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.04);
+            height: calc(100vh - var(--header-height));
+            position: sticky;
+            top: var(--header-height);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 16px 10px 30px;
+            flex-shrink: 0;
+            transition: transform var(--transition);
+            z-index: 900;
+        }
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: #f0ede7;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 8px;
+        }
+        .menu-section {
+            margin-bottom: 4px;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.06);
+        }
+        .menu-section:last-of-type {
+            border-bottom: none;
+        }
+        .menu-section .menu-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 14px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-align: left;
+            position: relative;
+        }
+        .menu-section .menu-head:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .menu-section .menu-head .icon {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .menu-section .menu-head .arrow {
+            margin-left: auto;
+            font-size: 0.7rem;
+            transition: transform var(--transition);
+            color: var(--gold-dark);
+        }
+        .menu-section .menu-head.open .arrow {
+            transform: rotate(90deg);
+        }
+        .sub-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 6px 0;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.35s ease, opacity 0.25s ease;
+            opacity: 0;
+        }
+        .sub-menu.open {
+            max-height: 800px;
+            opacity: 1;
+        }
+        .sub-menu li {
+            margin: 0;
+        }
+        .sub-menu li .sub-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px 8px 38px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 450;
+            color: #2d3f54;
+            text-decoration: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .sub-menu li .sub-link:hover {
+            background: rgba(43, 79, 140, 0.07);
+            color: var(--primary);
+        }
+        .sub-menu li .sub-link.active {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .sub-menu li .sub-link .sub-icon {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+        .sub-menu li .sub-link.active .sub-icon {
+            opacity: 1;
+        }
+        .extra-menu {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 2px solid rgba(43, 79, 140, 0.08);
+        }
+        .extra-menu .extra-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .extra-menu .extra-link:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .extra-menu .extra-link.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .extra-menu .extra-link .icon {
+            font-size: 1.1rem;
+        }
+        .main-content {
+            flex: 1;
+            padding: 32px 40px 60px;
+            min-width: 0;
+            background: var(--bg-body);
+        }
+        .content-panel {
+            display: none;
+            animation: fadeUp 0.35s ease;
+        }
+        .content-panel.active {
+            display: block;
+        }
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .content-panel .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .content-panel .panel-sub {
+            font-size: 0.95rem;
+            color: #5e6f82;
+            margin-bottom: 24px;
+        }
+        .content-panel .hadith-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 18px 0 22px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--gold);
+        }
+        .content-panel .hadith-box .arabic {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #1e2b3a;
+            direction: rtl;
+            font-family: 'Times New Roman', 'Traditional Arabic', serif;
+            margin-bottom: 12px;
+            padding: 6px 0;
+            word-wrap: break-word;
+        }
+        .content-panel .hadith-box .translation {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #2d3f54;
+            border-top: 1px dashed rgba(43, 79, 140, 0.12);
+            padding-top: 12px;
+        }
+        .content-panel .hadith-box .source {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--gold-dark);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+        .content-panel .sub-section {
+            margin-top: 28px;
+        }
+        .content-panel .sub-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .content-panel .sub-section p {
+            line-height: 1.7;
+            color: #2d3f54;
+            margin-bottom: 10px;
+        }
+        .bibliography {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43, 79, 140, 0.10);
+        }
+        .bibliography h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 14px;
+        }
+        .bibliography ul {
+            list-style: none;
+            padding: 0;
+        }
+        .bibliography ul li {
+            padding: 6px 0 6px 20px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #2d3f54;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.05);
+            text-indent: -20px;
+            padding-left: 30px;
+        }
+        .bibliography ul li::before {
+            content: "•";
+            color: var(--gold);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        .profil-penulis {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43, 79, 140, 0.10);
+        }
+        .profil-penulis h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 14px;
+        }
+        .profil-penulis p {
+            line-height: 1.8;
+            color: #2d3f54;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .profil-penulis .penulis-nama {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 850;
+            backdrop-filter: blur(2px);
+            transition: opacity var(--transition);
+        }
+        .overlay.active {
+            display: block;
+        }
+        @media (max-width: 991px) {
+            .app-header .hamburger {
+                display: flex;
+            }
+            .sidebar {
+                position: fixed;
+                top: var(--header-height);
+                right: 0;
+                height: calc(100vh - var(--header-height));
+                transform: translateX(100%);
+                box-shadow: -8px 0 30px rgba(0, 0, 0, 0.10);
+                border-left: none;
+                width: 290px;
+                padding: 12px 8px 30px;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                padding: 20px 18px 40px;
+            }
+            .content-panel .panel-title {
+                font-size: 1.5rem;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 1rem;
+            }
+            .app-header .brand img {
+                height: 36px;
+            }
+            .content-panel .hadith-box {
+                padding: 16px 18px;
+            }
+            .content-panel .hadith-box .arabic {
+                font-size: 1rem;
+            }
+        }
+        @media (max-width: 480px) {
+            :root {
+                --header-height: 64px;
+            }
+            .app-header {
+                padding: 0 14px;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 0.85rem;
+            }
+            .app-header .brand .title-group .author {
+                font-size: 0.7rem;
+            }
+            .sidebar {
+                width: 265px;
+            }
+            .main-content {
+                padding: 14px 12px 30px;
+            }
+            .content-panel .panel-title {
+                font-size: 1.25rem;
+            }
+            .sub-menu li .sub-link {
+                padding: 7px 10px 7px 28px;
+                font-size: 0.8rem;
+            }
+            .menu-section .menu-head {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="brand">
+            <img src="logo-pshd.jpg" alt="Logo" />
+            <div class="title-group">
+                <h1>Hadis Tematik: Urgensi Silaturahmi</h1>
+                <span class="author">Penyusun: Diyanna dan Muhammad Alif</span>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+    <div class="app-layout">
+        <div class="overlay" id="overlay"></div>
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Daftar isi">
+            <div id="menuContainer"></div>
+            <div class="extra-menu" id="extraMenu"></div>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div id="panelContainer"></div>
+        </main>
+    </div>
+    <script>
+        (function() {
+            'use strict';
+
+            const menuData = [{
+                id: 'bab1',
+                label: 'BAB I — Pengertian & Urgensi Silaturahmi',
+                icon: '📖',
+                children: [{
+                    id: '1a',
+                    label: 'Pengertian Silaturahmi',
+                    icon: '🔗',
+                    content: `
+                <h2 class="panel-title">Pengertian Silaturahmi</h2>
+                <p class="panel-sub">Makna dan hakikat silaturahmi dalam perspektif hadis.</p>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا خَالِدُ بْنُ مَخْلَدٍ: حَدَّثَنَا سُلَيْمَانُ: حَدَّثَنَا عَبْدُ اللَّهِ بْنُ دِينَارٍ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: إِنَّ الرَّحِمَ شِجْنَةٌ مِنَ الرَّحْمَنِ فَقَالَ اللَّهُ: مَنْ وَصَلَكِ وَصَلْتُهُ وَمَنْ قَطَعَكِ قَطَعْتُهُ</div>
+                  <div class="translation">“Sesungguhnya penamaan rahim itu diambil dari nama Allah: Ar-Rahman. Allah berfirman: Barangsiapa menyambungmu maka Akupun menyambungnya dan barangsiapa memutuskanmu maka Akupun akan memutuskannya.”</div>
+                  <span class="source">(HR. Bukhari No. 5988)</span>
+                </div>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا مُحَمَّدُ بْنُ كَثِيرٍ : أَخْبَرَنَا سُفْيَانُ، عَنِ الْأَعْمَشِ وَالْحَسَنِ بْنِ عَمْرٍو وَفِطْرٍ، عَنْ مُجَاهِدٍ، عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو قَالَ سُفْيَانُ لَمْ يَرْفَعْهُ الْأَعْمَشُ إِلَى النَّبِيِّ وَرَفَعَهُ حَسَنٌ وَفِطْرٌ عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «لَيْسَ الْوَاصِلُ بِالْمُكَافِئِ، وَلَكِنِ الْوَاصِلُ الَّذِي إِذَا قُطِعَتْ رَحِمُهُ وَصَلَهَا</div>
+                  <div class="translation">“Orang yang menyambung (silaturrahim) bukanlah orang yang membalas kebaikan secara setimpal. Namun orang yang menyambung (silaturrahim) adalah orang yang menyambung hubungan kekerabatan setelah terputus.”</div>
+                  <span class="source">(HR. Bukhari No. 5991)</span>
+                </div>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا قُتَيْبَةُ بْنُ سَعِيدِ بْنِ جَمِيلِ بْنِ طَرِيفِ بْنِ عَبْدِ اللَّهِ الثَّقَفِيُّ وَمُحَمَّدُ بْنُ عَبَّادٍ. قَالَ: حَدَّثَنَا حَاتِمٌ (وَهُوَ ابْنُ إِسْمَاعِيلَ) عَنْ مُعَاوِيَةَ (وَهُوَ ابْنُ أَبِي مُزَرِّدٍ، مَوْلَى بَنِي هَاشِمٍ). حَدَّثَنِي عَمِّي، أَبُو الْحُبَابِ، سَعِيدِ بْنِ يَسَارٍ عَنْ أَبِي هُرَيْرَةَ، قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ "أَنَّ اللَّهَ خَلَقَ الْخَلْقَ حَتَّى إِذَا فَرَغَ مِنْهُمْ قَامَتِ الرَّحِمُ فَقَالَتْ: هَذَا مَقَامُ الْعَائِذِ مِنَ الْقَطِيعَةِ. قَالَ: نَعَمْ. أَمَا تَرْضَيْنَ أَنْ أَصِلَ مَنْ وَصَلَكِ وَأَقْطَعَ مَنْ قَطَعَكِ؟ قَالَتْ: بَلَى. قَالَ: فَذَاكَ لَكِ". ثُمَّ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ "اقْرَءُوا إِنْ شِئْتُمْ}: فَهَلْ عَسَيْتُمْ إِنْ تَوَلَّيْتُمْ أَنْ تُفْسِدُوا فِي الْأَرْضِ وَتُقَطِّعُوا أَرْحَامَكُمْ. أُولَئِكَ الَّذِينَ لَعَنَهُمُ اللَّهُ فَأَصَمَّهُمْ وَأَعْمَى أَبْصَارَهُمْ. أَفَلَا يَتَدَبَّرُونَ الْقُرْآنَ أَمْ عَلَى قُلُوبٍ أَقْفَالُهَا"{</div>
+                  <div class="translation">“Setelah Allah menciptakan semua makhluk, maka rahim pun berdiri sambil berkata, ‘Inikah tempat bagi yang berlindung dari terputusnya silaturahim.’ Allah menjawab, ‘Benar. Tidakkah kamu rela bahwasanya Aku akan menyambung orang yang menyambungmu dan memutuskan yang memutuskanmu?’ Rahim menjawab, ‘Tentu.’ Allah berfirman, ‘Itulah yang kamu miliki.’ Setelah itu Rasulullah bersabda, ‘Jika kamu mau, maka bacalah ayat ...’”</div>
+                  <span class="source">(HR. Muslim No. 2554)</span>
+                </div>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا عَلِيُّ بْنُ عَبْدِ اللَّهِ حَدَّثَنَا سُفْيَانُ عَنِ الزُّهْرِيِّ عَنْ عَطَاءِ بْنِ يَزِيدَ اللَّيْثِيِّ عَنْ أَبِي أَيُّوبَ رَضِيَ اللَّهُ عَنْهُ عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «لَا يَحِلُّ لِمُسْلِمٍ أَنْ يَهْجُرَ أَخَاهُ فَوْقَ ثَلَاثٍ، يَلْتَقِيَانِ فَيَصُدُّ هَذَا وَيَصُدُّ هَذَا، وَخَيْرُهُمَا الَّذِي يَبْدَأُ بِالسَّلَامِ</div>
+                  <div class="translation">“Tidak halal bagi seorang muslim tidak bersapaan dengan saudaranya lebih dari tiga malam. Keduanya saling bertemu, tetapi saling berpaling. Yang terbaik di antara keduanya ialah yang lebih dahulu memberi salam.”</div>
+                  <span class="source">(HR. Bukhari No. 6237 & Muslim No. 2560)</span>
+                </div>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مُحَمَّدٍ حَدَّثَنَا هِشَامٌ أَخْبَرَنَا مَعْمَرٌ عَنِ الزُّهْرِيِّ عَنْ أَبِي سَلَمَةَ عَنْ أَبِي هُرَيْرَةَ عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيُكْرِمْ ضَيْفَهُ، وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيَصِلْ رَحِمَهُ، وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ</div>
+                  <div class="translation">“Barangsiapa beriman kepada Allah dan hari Akhir, hendaknya ia memuliakan tamunya, dan barangsiapa beriman kepada Allah dan hari Akhir, hendaknya ia menyambung tali silaturrahmi, dan barangsiapa beriman kepada Allah dan hari Akhir, hendaknya ia berkata baik atau diam.”</div>
+                  <span class="source">(HR. Bukhari No. 6138)</span>
+                </div>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا سُفْيَانُ عَنْ عَمْرٍو عَنْ أَبِي قَابُوسَ عَنْ عَبْدِ اللَّهِ بْنِ عَمْرِو بْنِ الْعَاصِ، يُثْبِتُ بِهِ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، قَالَ: "الرَّاحِمُونَ يَرْحَمُهُمُ الرَّحْمَنُ، ارْحَمُوا أَهْلَ الْأَرْضِ يَرْحَمْكُمْ أَهْلُ السَّمَاءِ، وَالرَّحِمُ شِجْنَةٌ مِنَ الرَّحْمَنِ، مَنْ وَصَلَهَا وَصَلَتْهُ، وَمَنْ قَطِعَهَا بَتَّتْهُ"</div>
+                  <div class="translation">“Orang-orang yang penyayang disayangi oleh Tuhan Yang Maha Pemurah. Sayangilah penduduk bumi, niscaya kalian akan disayangi oleh penduduk langit. Rahim itu adalah bagian dari kata Rahman, (Allah berfirman).”Barang siapa yang menghubungkannya, maka Aku berhubungan dengannya. Dan barang siapa yang memutuskannya, Aku putuskan dia.”</div>
+                  <span class="source">(HR. Ahmad No. 6494)</span>
+                </div>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا سُفْيَانُ بْنُ وَكِيعٍ، وَإِسْحَاقُ بْنُ مَنْصُورٍ، قَالَا: حَدَّثَنَا عَبْدُ اللَّهِ بْنُ نُمَيْرٍ، عَنِ الْأَجْلَحِ، عَنْ أَبِي إِسْحَاقَ، عَنِ الْبَرَاءِ بْنِ عَازِبٍ، قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "الرَّاحِمُونَ يَرْحَمُهُمُ الرَّحْمَنُ، ارْحَمُوا مَنْ فِي الْأَرْضِ يَرْحَمْكُمْ مَنْ فِي السَّمَاءِ، وَالرَّحِمُ شُجْنَةٌ مِنَ الرَّحْمَنِ، فَمَنْ وَصَلَهَا وَصَلَهُ اللَّهُ، وَمَنْ قَطَعَهَا قَطَعَهُ اللَّهُ"</div>
+                  <div class="translation">“Orang-orang yang penyayang akan disayangi oleh Allah. Sayangilah penduduk bumi, niscaya penduduk langit akan menyayangi kalian. Rahim adalah cabang dari Rahman, barangsiapa menyambungnya, Allah menyambungnya, dan barangsiapa memutuskannya, Allah memutuskannya.”</div>
+                  <span class="source">(HR. Tirmidzi No. 2727, hadits hasan)</span>
+                </div>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا يَحْيَى بْنُ بُكَيْرٍ: حَدَّثَنَا اللَّيْثُ، عَنْ عُقَيْلٍ، عَنِ ابْنِ شِهَابٍ: أَنَّ مُحَمَّدَ بْنَ جُبَيْرٍ بْنِ مُطْعِمٍ قَالَ: إِنَّ جُبَيْرَ بْنَ مُطْعِمٍ أُخْبِرَهُ أَنَّهُ سَمِعَ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: «لَا يَدْخُلُ الْجَنَّةَ قَاطِعٌ»</div>
+                  <div class="translation">“Tidak akan masuk surga orang yang memutus silaturahmi.”</div>
+                  <span class="source">(HR. Bukhari No. 5984 & Muslim No. 2556)</span>
+                </div>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنِي مُحَمَّدُ بْنُ الْمُثَنَّى وَمُحَمَّدُ بْنُ بَشَّارٍ وَاللَّفْظُ لِابْنِ الْمُثَنَّى قَالَا حَدَّثَنَا مُحَمَّدُ بْنُ جَعْفَرٍ حَدَّثَنَا شُعْبَةُ قَالَ سَمِعْتُ الْعَلَاءَ بْنَ عَبْدِ الرَّحْمَنِ يُحَدِّثُنِي عَنْ أَبِيهِ عَنْ أَبِي هُرَيْرَةَ أَنَّ رَجُلًا قَالَ يَا رَسُولَ اللَّهِ إِنَّ لِي قَرَابَةً أَصِلُهُمْ وَيَقْطَعُونِي وَأُحْسِنُ إِلَيْهِمْ وَيُسِيئُونَ إِلَيَّ وَأَحْلُمُ عَنْهُمْ وَيَجْهَلُونَ عَلَيَّ فَقَالَ لَئِنْ كُنْتَ كَمَا قُلْتَ فَكَأَنَّمَا تُسِفُّهُمُ الْمَلَّ وَلَا يَزَالُ مَعَكَ مِنَ اللَّهِ ظَهِيرٌ عَلَيْهِمْ مَا دُمْتَ عَلَى ذَلِكَ</div>
+                  <div class="translation">“Seorang laki-laki berkata: ‘Ya Rasulullah, saya mempunyai kerabat. Saya selalu berupaya untuk menyambung silaturahim kepada mereka, tetapi mereka memutuskannya. Saya selalu berupaya untuk berbuat baik kepada mereka, tetapi mereka menyakiti saya.’ Lalu Rasulullah bersabda: ‘Jika benar seperti apa yang kamu katakan, maka kamu seperti memberi makan mereka debu yang panas, dan selama kamu berbuat demikian maka pertolongan Allah akan selalu bersamamu.’”</div>
+                  <span class="source">(HR. Muslim No. 2558)</span>
+                </div>
+              `
+                }, {
+                    id: '1b',
+                    label: 'Urgensi Silaturahmi',
+                    icon: '⭐',
+                    content: `
+                <h2 class="panel-title">Urgensi Silaturahmi</h2>
+                <p class="panel-sub">Keutamaan dan manfaat silaturahmi dalam kehidupan.</p>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا عَلِيُّ بْنُ عَبْدِ اللَّهِ: حَدَّثَنَا سُفْيَانُ، عَنِ الزُّهْرِيِّ، عَنْ عَطَاءِ بْنِ يَزِيدَ اللَّيْثِيِّ، عَنْ أَبِي أَيُّوبَ رَضِيَ اللَّهُ عَنْهُ عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «لَا يَحِلُّ لِمُسْلِمٍ أَنْ يَهْجُرَ أَخَاهُ فَوْقَ ثَلَاثٍ، يَلْتَقِيَانِ فَيَصُدُّ هَذَا وَيَصُدُّ هَذَا، وَخَيْرُهُمَا الَّذِي يَبْدَأُ بِالسَّلَامِ</div>
+                  <div class="translation">“Tidak halal bagi seorang muslim tidak bersapaan dengan saudaranya lebih dari tiga malam. Keduanya saling bertemu, tetapi saling berpaling. Yang terbaik di antara keduanya ialah yang lebih dahulu memberi salam.”</div>
+                  <span class="source">(HR. Bukhari No. 6237 & Muslim No. 2560)</span>
+                </div>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مُحَمَّدٍ حَدَّثَنَا هِشَامٌ أَخْبَرَنَا مَعْمَرٌ عَنِ الزُّهْرِيِّ عَنْ أَبِي سَلَمَةَ عَنْ أَبِي هُرَيْرَةَ عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيُكْرِمْ ضَيْفَهُ، وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيَصِلْ رَحِمَهُ، وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ</div>
+                  <div class="translation">“Barangsiapa beriman kepada Allah dan hari Akhir, hendaknya ia memuliakan tamunya, dan barangsiapa beriman kepada Allah dan hari Akhir, hendaknya ia menyambung tali silaturrahmi, dan barangsiapa beriman kepada Allah dan hari Akhir, hendaknya ia berkata baik atau diam.”</div>
+                  <span class="source">(HR. Bukhari No. 6138)</span>
+                </div>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا سُفْيَانُ عَنْ عَمْرٍو عَنْ أَبِي قَابُوسَ عَنْ عَبْدِ اللَّهِ بْنِ عَمْرِو بْنِ الْعَاصِ، يُثْبِتُ بِهِ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، قَالَ: "الرَّاحِمُونَ يَرْحَمُهُمُ الرَّحْمَنُ، ارْحَمُوا أَهْلَ الْأَرْضِ يَرْحَمْكُمْ أَهْلُ السَّمَاءِ، وَالرَّحِمُ شِجْنَةٌ مِنَ الرَّحْمَنِ، مَنْ وَصَلَهَا وَصَلَتْهُ، وَمَنْ قَطِعَهَا بَتَّتْهُ"</div>
+                  <div class="translation">“Orang-orang yang penyayang disayangi oleh Tuhan Yang Maha Pemurah. Sayangilah penduduk bumi, niscaya kalian akan disayangi oleh penduduk langit. Rahim itu adalah bagian dari kata Rahman, (Allah berfirman).”Barang siapa yang menghubungkannya, maka Aku berhubungan dengannya. Dan barang siapa yang memutuskannya, Aku putuskan dia.”</div>
+                  <span class="source">(HR. Ahmad No. 6494)</span>
+                </div>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا سُفْيَانُ بْنُ وَكِيعٍ، وَإِسْحَاقُ بْنُ مَنْصُورٍ، قَالَا: حَدَّثَنَا عَبْدُ اللَّهِ بْنُ نُمَيْرٍ، عَنِ الْأَجْلَحِ، عَنْ أَبِي إِسْحَاقَ، عَنِ الْبَرَاءِ بْنِ عَازِبٍ، قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "الرَّاحِمُونَ يَرْحَمُهُمُ الرَّحْمَنُ، ارْحَمُوا مَنْ فِي الْأَرْضِ يَرْحَمْكُمْ مَنْ فِي السَّمَاءِ، وَالرَّحِمُ شُجْنَةٌ مِنَ الرَّحْمَنِ، فَمَنْ وَصَلَهَا وَصَلَهُ اللَّهُ، وَمَنْ قَطَعَهَا قَطَعَهُ اللَّهُ"</div>
+                  <div class="translation">“Orang-orang yang penyayang akan disayangi oleh Allah. Sayangilah penduduk bumi, niscaya penduduk langit akan menyayangi kalian. Rahim adalah cabang dari Rahman, barangsiapa menyambungnya, Allah menyambungnya, dan barangsiapa memutuskannya, Allah memutuskannya.”</div>
+                  <span class="source">(HR. Tirmidzi No. 2727, hadits hasan)</span>
+                </div>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنِي مُحَمَّدُ بْنُ الْمُثَنَّى وَمُحَمَّدُ بْنُ بَشَّارٍ وَاللَّفْظُ لِابْنِ الْمُثَنَّى قَالَا حَدَّثَنَا مُحَمَّدُ بْنُ جَعْفَرٍ حَدَّثَنَا شُعْبَةُ قَالَ سَمِعْتُ الْعَلَاءَ بْنَ عَبْدِ الرَّحْمَنِ يُحَدِّثُنِي عَنْ أَبِيهِ عَنْ أَبِي هُرَيْرَةَ أَنَّ رَجُلًا قَالَ يَا رَسُولَ اللَّهِ إِنَّ لِي قَرَابَةً أَصِلُهُمْ وَيَقْطَعُونِي وَأُحْسِنُ إِلَيْهِمْ وَيُسِيئُونَ إِلَيَّ وَأَحْلُمُ عَنْهُمْ وَيَجْهَلُونَ عَلَيَّ فَقَالَ لَئِنْ كُنْتَ كَمَا قُلْتَ فَكَأَنَّمَا تُسِفُّهُمُ الْمَلَّ وَلَا يَزَالُ مَعَكَ مِنَ اللَّهِ ظَهِيرٌ عَلَيْهِمْ مَا دُمْتَ عَلَى ذَلِكَ</div>
+                  <div class="translation">“Seorang laki-laki berkata: ‘Ya Rasulullah, saya mempunyai kerabat. Saya selalu berupaya untuk menyambung silaturahim kepada mereka, tetapi mereka memutuskannya. Saya selalu berupaya untuk berbuat baik kepada mereka, tetapi mereka menyakiti saya.’ Lalu Rasulullah bersabda: ‘Jika benar seperti apa yang kamu katakan, maka kamu seperti memberi makan mereka debu yang panas, dan selama kamu berbuat demikian maka pertolongan Allah akan selalu bersamamu.’”</div>
+                  <span class="source">(HR. Muslim No. 2558)</span>
+                </div>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا زُهَيْرُ بْنُ حَرْبٍ. حَدَّثَنَا كَثِيرُ بْنُ هِشَامٍ. حَدَّثَنَا جَعْفَرُ بْنُ بُرْقَانَ. حَدَّثَنَا يَزِيدُ بْنُ الْأَصَمِّ عَنْ أَبِي هُرَيْرَةَ. بِحَدِيثٍ يَرْفَعُهُ. قَالَ "النَّاسُ مَعَادِنُ كَمَعَادِنِ الْفِضَّةِ وَالذَّهَبِ. خِيَارُهُمْ فِي الْجَاهِلِيَّةِ خِيَارُهُمْ فِي الْإِسْلَامِ إِذَا فَقِهُوا. وَالْأَرْوَاحُ جُنُودٌ مُجَنَّدَةٌ. فَمَا تَعَارَفَ مِنْهَا ائْتَلَفَ. وَمَا تَنَاكَرَ مِنْهَا اخْتَلَفَ"</div>
+                  <div class="translation">“Manusia adalah logam seperti logam perak dan emas. Pilihan mereka di masa Jahiliyah adalah pilihan mereka dalam Islam jika mereka memahami agama. Roh-roh itu adalah pasukan yang berkumpul. Maka yang saling mengenal akan bersatu, dan yang saling mengingkari akan berselisih.”</div>
+                  <span class="source">(HR. Muslim No. 5986)</span>
+                </div>
+              `
+                }]
+            }, {
+                id: 'bab2',
+                label: 'BAB II — Macam-macam Silaturahmi',
+                icon: '🌿',
+                children: [{
+                    id: '2a',
+                    label: 'Silaturahmi untuk berbakti pada orang tua',
+                    icon: '👨‍👧',
+                    content: `
+                <h2 class="panel-title">Silaturahmi untuk berbakti pada orang tua</h2>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا أَحْمَدُ بْنُ مَنِيعٍ، حَدَّثَنَا أَبُو النَّضْرِ، حَدَّثَنَا اللَّيْثُ بْنُ سَعْدٍ، عَنْ يَزِيدَ بْنِ عَبْدِ اللَّهِ بْنِ أُسَامَةَ بْنِ الْهَادِ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنِ ابْنِ عُمَرَ، قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «إِنَّ أَبَرَّ الْبِرِّ صِلَةُ الْمَرْءِ أَهْلَ وُدِّ أَبِيهِ، بَعْدَ أَنْ يُوَلِّيَ</div>
+                  <div class="translation">“Sesungguhnya sebaik-baik bakti adalah seseorang menyambung tali silaturahmi kepada orang-orang yang dicintai oleh bapaknya sepeninggalnya.”</div>
+                  <span class="source">(HR. Abu Daud No. 5143)</span>
+                </div>
+              `
+                }, {
+                    id: '2b',
+                    label: 'Silaturahmi untuk menjaga kerukunan',
+                    icon: '🤝',
+                    content: `
+                <h2 class="panel-title">Silaturahmi untuk menjaga kerukunan</h2>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنِي زُهَيْرُ بْنُ حَرْبٍ. حَدَّثَنَا كَثِيرُ بْنُ هِشَامٍ. حَدَّثَنَا جَعْفَرُ بْنُ بُرْقَانَ. حَدَّثَنَا يَزِيدُ بْنُ الْأَصَمِّ عَنْ أَبِي هُرَيْرَةَ. بِحَدِيثٍ يَرْفَعُهُ. قَالَ "النَّاسُ مَعَادِنُ كَمَعَادِنِ الْفِضَّةِ وَالذَّهَبِ. خِيَارُهُمْ فِي الْجَاهِلِيَّةِ خِيَارُهُمْ فِي الْإِسْلَامِ إِذَا فَقِهُوا. وَالْأَرْوَاحُ جُنُودٌ مُجَنَّدَةٌ. فَمَا تَعَارَفَ مِنْهَا ائْتَلَفَ. وَمَا تَنَاكَرَ مِنْهَا اخْتَلَفَ"</div>
+                  <div class="translation">“Manusia adalah logam seperti logam perak dan emas. Pilihan mereka di masa Jahiliyah adalah pilihan mereka dalam Islam jika mereka memahami agama. Roh-roh itu adalah pasukan yang berkumpul. Maka yang saling mengenal akan bersatu, dan yang saling mengingkari akan berselisih.”</div>
+                  <span class="source">(HR. Muslim No. 5986)</span>
+                </div>
+              `
+                }, {
+                    id: '2c',
+                    label: 'Silaturahmi karena kebutuhan',
+                    icon: '💡',
+                    content: `
+                <h2 class="panel-title">Silaturahmi karena kebutuhan</h2>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا يَعْلَى حَدَّثَنَا فِطْرٌ عَنْ مُجَاهِدٍ عَنْ عَبْدِ اللَّهِ بْنِ عَمْرُو قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ إِنَّ الرَّحْمَ مُمَلَّقَةٌ بِالْعَرْشِ وَلَيْسَ الْوَاصِلُ بِالْمُكَافِئِ وَلَكِنَّ الْوَاصِلَ الَّذِي إِذَا انْقَطَعَتْ رَحْمُهُ وَصَلَهَا</div>
+                  <div class="translation">“Sesungguhnya kasih sayang (hubungan silaturahim) itu bergantungan dengan Arsy. Dan Al Washil (orang yang menyambungnya) bukanlah mereka yang memenuhi (kebutuhan) akan tetapi Al Washil itu ialah siapa yang menyambungnya ketika (hubungan silaturahim itu) terputus.”</div>
+                  <span class="source">(HR. Ahmad No. 6524)</span>
+                </div>
+              `
+                }]
+            }, {
+                id: 'bab3',
+                label: 'BAB III — Dampak Memutus Silaturahmi',
+                icon: '⚠️',
+                children: [{
+                    id: '3a',
+                    label: 'Terputusnya hubungan dengan Allah',
+                    icon: '💔',
+                    content: `
+                <h2 class="panel-title">Terputusnya hubungan dengan Allah</h2>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا مُسَدَّدٌ، وَأَبُو بَكْرٍ بْنُ أَبِي شَيْبَةَ، قَالَ: حَدَّثَنَا سُفْيَانُ، عَنِ الزُّهْرِيِّ، عَنْ أَبِي سَلَمَةَ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ عَوْفٍ، قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ " : قَالَ اللَّهُ: أَنَا الرَّحْمَنُ وَهِيَ الرَّحِمُ، شَقَقْتُ لَهَا اسْمًا مِنَ اسْمِي، مَنْ وَصَلَهَا وَصَلْتُهُ، وَمَنْ قَطَعَهَا بَتَتْهُ"</div>
+                  <div class="translation">“Tuhan berfirman: Aku adalah Yang Maha Pemurah, dan Aku membuat ikatan persaudaraan dan memberinya nama untuk itu dari nama-Ku. Siapa pun yang bergabung, Aku akan bergabung dengannya, dan Aku akan memutus hubungan dengan siapa saja yang memutus silaturahmi.”</div>
+                  <span class="source">(HR. Abu Daud No. 1694)</span>
+                </div>
+              `
+                }, {
+                    id: '3b',
+                    label: 'Mempercepat siksaan',
+                    icon: '🔥',
+                    content: `
+                <h2 class="panel-title">Mempercepat siksaan</h2>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا عَلِيُّ بْنُ حُجَّرٍ قَالَ: أَخْبَرَنَا إِسْمَاعِيلُ بْنُ إِبْرَاهِيمَ، عَنْ عُيَيْنَةَ بْنِ عَبْدِ الرَّحْمَنِ، عَنْ أَبِيهِ، عَنْ أَبِي بَكْرَةَ، قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «مَا مِنْ ذَنْبٍ أَجْدَرُ أَنْ يُعَجِّلَ اللَّهُ لِصَاحِبِهِ الْعُقُوبَةَ فِي الدُّنْيَا مَعَ مَا يَدَّخِرُ لَهُ فِي الْآخِرَةِ مِنَ الْبَغْيِ وَقَطِيعَةِ الرَّحِمِ»</div>
+                  <div class="translation">“Tidak ada dosa yang Allah lebih percepat siksaan kepada pelakunya di dunia, serta yang Dia sediakan untuknya di akhirat, daripada perbuatan zalim dan memutus silaturahmi.”</div>
+                  <span class="source">(HR. Tirmidzi No. 2511, hasan sahih)</span>
+                </div>
+              `
+                }, {
+                    id: '3c',
+                    label: 'Tidak masuk surga',
+                    icon: '🚫',
+                    content: `
+                <h2 class="panel-title">Tidak masuk surga</h2>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا يَحْيَى بْنُ بُكَيْرٍ: حَدَّثَنَا اللَّيْثُ، عَنْ عُقَيْلٍ، عَنِ ابْنِ شِهَابٍ: أَنَّ مُحَمَّدَ بْنَ جُبَيْرٍ بْنِ مُطْعِمٍ قَالَ: إِنَّ جُبَيْرَ بْنَ مُطْعِمٍ أُخْبِرَهُ أَنَّهُ سَمِعَ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: «لَا يَدْخُلُ الْجَنَّةَ قَاطِعٌ»</div>
+                  <div class="translation">“Tidak akan masuk surga orang yang memutus silaturahmi.”</div>
+                  <span class="source">(HR. Bukhari No. 5984)</span>
+                </div>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنِي عَبْدُ اللَّهِ بْنُ مُحَمَّدِ بْنِ أَسْمَاءَ الضُّبَعِيُّ. حَدَّثَنَا جُوَيْرِيَةُ عَنْ مَالِكٍ، عَنِ الزُّهْرِيِّ؛ أَنَّ مُحَمَّدَ بْنَ جُبَيْرِ بْنِ مُطْعِمٍ أَخْبَرَهُ؛ أَنَّ أَبَاهُ أَخْبَرَهُ؛ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ "لَا يَدْخُلُ الْجَنَّةَ قَاطِعُ رَحِمٍ"</div>
+                  <div class="translation">“Dia yang memutuskan hubungan kekerabatan tidak akan masuk surga.”</div>
+                  <span class="source">(HR. Muslim No. 2556)</span>
+                </div>
+              `
+                }]
+            }];
+
+            const extraData = [{
+                id: 'kata-pengantar',
+                label: 'Kata Pengantar',
+                icon: '📖',
+                content: `
+                <h2 class="panel-title">Kata Pengantar</h2>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">Assalamualaikum Wr. Wb.</p>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">Kepada para pembaca yang terhormat, semoga keberkahan dan rahmat Allah senantiasa menyertai kita semua. Melalui kesempatan ini, saya dengan tulus menghadirkan sebuah ebook yang mengangkat tema yang sangat penting dalam kehidupan kita, yaitu "Hadis Tematik: Urgensi Silaturahmi dalam Perspektif Hadis."</p>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">Silaturahmi, dalam bahasa Arab, berasal dari kata "sila" yang berarti menghubungkan atau menjalin, dan "rahim" yang berarti hubungan kekeluargaan. Dalam agama Islam, silaturahmi adalah salah satu nilai luhur yang diajarkan oleh Rasulullah Muhammad ﷺ dan ditegaskan dalam Al-Qur'an dan hadis-hadisnya. Silaturahmi adalah ikatan yang menghubungkan satu dengan yang lain, baik dalam lingkup keluarga, tetangga, maupun masyarakat secara luas. Hadis-hadis Rasulullah ﷺ memberikan pengajaran yang jelas mengenai pentingnya menjaga silaturahmi. Salah satu hadis yang menggambarkan urgensi silaturahmi adalah hadis riwayat Abu Hurairah yang diriwayatkan oleh Imam Bukhari, di mana Rasulullah ﷺ bersabda, "Barangsiapa yang ingin diluaskan rizkinya dan dipanjangkan umurnya, hendaklah ia menyambung tali silaturahmi."</p>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">Dalam perspektif hadis, urgensi silaturahmi menunjukkan sejumlah manfaat dan hikmah yang tak terhingga. Melalui silaturahmi, kita dapat mempererat hubungan kekeluargaan, menguatkan jalinan persaudaraan, serta menjaga keharmonisan dalam masyarakat. Dalam silaturahmi, terdapat berkah dan rahmat yang melimpah, karena dengan bersilaturahmi kita berbagi kasih sayang, saling memberikan nasehat, serta saling membantu dalam kebaikan dan kesulitan. Namun, dalam dinamika kehidupan modern saat ini, silaturahmi sering kali terabaikan dan terlupakan. Padatnya aktivitas sehari-hari, kemajuan teknologi, serta jarak geografis sering kali menjadi alasan untuk mengabaikan pentingnya menjaga silaturahmi. Oleh karena itu, ebook ini hadir untuk mengingatkan kita akan urgensi dan keutamaan silaturahmi dalam perspektif hadis, agar kita kembali merasakan manfaatnya dan berupaya menjaganya dengan sebaik-baiknya.</p>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">Dalam ebook ini, penulis akan menjelajahi beberapa hadis terkait silaturahmi, memperjelas makna dan keutamaan yang terkandung di dalamnya, serta memberikan contoh dari dampak memutus silaturahmi dan jenis-jenisnya. Kami berharap ebook ini akan menjadi sumber inspirasi dan panduan praktis bagi kita semua dalam menjalankan silaturahmi dengan sepenuh hati dan kesadaran yang tinggi.</p>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">Terakhir, penulis mengucapkan terima kasih yang sebesar-besarnya kepada Allah Subhanahu wa Ta'ala yang telah memberikan kemampuan dan hidayah-Nya sehingga penulis bisa menulis ebook ini.</p>
+                <p style="text-align:right; font-style:italic; color:#5e6f82;">Juni, 2023</p>
+                <p style="text-align:right; font-weight:600; color:var(--primary);">Penulis</p>
+              `
+            }, {
+                id: 'daftar-pustaka',
+                label: 'Daftar Pustaka',
+                icon: '📚',
+                content: `
+                <h2 class="panel-title">Daftar Pustaka</h2>
+                <div class="bibliography">
+                  <ul>
+                    <li>Abū Dāwud, Sulaimān ibn al-Asy‘as ibn Ishāq ibn Basyīr ibn Syidād ibn ‘Amru al-Azdiy al-Sijistāniy. <em>Sunan Abī Dāwud</em>. Edited by Muḥammad Muḥyī al-Dīn Abd al-Ḥamīd. al-Maktabah al-‘Asriyyah, n.d.</li>
+                    <li>al-Bukhāriy, Abū ‘Abdillāh Muḥammad ibn Ismā‘īl ibn Ibrāhīm ibn al-Mugīrah al-Ju‘fiy. <em>Al-Jāmi‘ Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Min Umūr Rasūlillah Ṣallā Allāh ‘alaih Wasallam Wa Sunanih Wa Ayyāmih</em>. Edited by Muḥammad Zuhair ibn Nāṣir al-Nāṣir. Dār Tauq al-Najāt, 1422.</li>
+                    <li>al-Bukhāriy, Abū ‘Abdillāh Muḥammad ibn Ismā‘īl ibn Ibrāhīm ibn al-Mugīrah al-Ju‘fiy. <em>Al-Adab Al-Mufrad</em>. Edited by Muhammad Fouad Abd Al-Baqi. 2nd ed. Kairo: Dar Al-Bashir Al-Islamiyyah, 1379.</li>
+                    <li>al-Tirmiżiy, Abū ‘Îsā Muḥammad ibn ‘Îsā ibn Saurah ibn Mūsā al-Daḥḥak. <em>Al-Jāmi‘ Al-Kabīr Wahuwa Sunan Al-Tirmiżiy</em>. Edited by Basysyār ‘Awad Ma‘rūf. Dār al-Garb al-Islāmiy, 1998.</li>
+                    <li>Ibn al-Ḥājjāj, Muslim. <em>Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Binaql Al-‘Adl ‘an Al-‘Adl Ilā Rasūlillah Ṣallā Allāh ‘alaih Wasallam</em>. Edited by Muḥammad Fu'ād Abd al-Bāqī. Vol. 1–3. Dār Iḥyā' al-Turās al-‘Arabiy, 1424.</li>
+                    <li>Ibn Hanbal, Ahmad. <em>Musnad Al-Imām Ahmad Ibn Hanbal</em>. Edited by Ahmad Muḥammad Syākir. Dār al-Ḥadīs, 1995.</li>
+                  </ul>
+                </div>
+              `
+            }, {
+                id: 'profil-penulis',
+                label: 'Profil Penulis',
+                icon: '👤',
+                content: `
+                <h2 class="panel-title">Profil Penulis</h2>
+                <div class="profil-penulis">
+                  <p><span class="penulis-nama">Diyanna</span> — nama lengkapnya adalah Diyanna, seorang mahasiswa UIN Sultan Maulana Hasanuddin Banten Fakultas Ushuluddin dan Adab Prodi Ilmu Hadis. Lahir di Tangerang, 06 Agustus 2002. Sekarang berdomisili di Kabupaten Tangerang.</p>
+                  <p><strong>Riwayat pendidikan:</strong></p>
+                  <ul style="list-style: none; padding-left: 0; line-height: 1.8; color: #2d3f54;">
+                    <li>• SD di SDN Gerendeng 3 Karawaci (2008-2010) dan di SDN Ranca Buaya 1 (2010-2014).</li>
+                    <li>• SMP di SMPN 1 Jambe (2014-2017).</li>
+                    <li>• SMA di SMAN 10 Kab. Tangerang (2017-2020).</li>
+                  </ul>
+                </div>
+              `
+            }];
+
+            const menuContainer = document.getElementById('menuContainer');
+            const extraMenuContainer = document.getElementById('extraMenu');
+            const panelContainer = document.getElementById('panelContainer');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const hamburger = document.getElementById('hamburgerBtn');
+            let activePanelId = null;
+
+            function renderMenu() {
+                let html = '';
+                let firstSubId = null;
+                menuData.forEach((section, idx) => {
+                    const isFirst = (idx === 0);
+                    html += `<div class="menu-section">`;
+                    html += `<button class="menu-head ${isFirst ? 'open' : ''}" data-section="${section.id}" aria-expanded="${isFirst}">
+                        <span class="icon">${section.icon}</span> ${section.label}
+                        <span class="arrow">▶</span>
+                    </button>`;
+                    html += `<ul class="sub-menu ${isFirst ? 'open' : ''}">`;
+                    section.children.forEach((child, ci) => {
+                        if (isFirst && ci === 0) firstSubId = child.id;
+                        html += `<li><button class="sub-link" data-panel="${child.id}">
+                            <span class="sub-icon">${child.icon || '▸'}</span> ${child.label}
+                        </button></li>`;
+                    });
+                    html += `</ul></div>`;
+                });
+                menuContainer.innerHTML = html;
+                return firstSubId;
+            }
+
+            function renderExtraMenu() {
+                let html = '';
+                extraData.forEach(item => {
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                        <span class="icon">${item.icon}</span> ${item.label}
+                    </button>`;
+                });
+                extraMenuContainer.innerHTML = html;
+            }
+
+            function renderPanels() {
+                let html = '';
+                menuData.forEach(section => {
+                    section.children.forEach(child => {
+                        html += `<div class="content-panel" id="panel-${child.id}">${child.content}</div>`;
+                    });
+                });
+                extraData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+                panelContainer.innerHTML = html;
+            }
+
+            function showPanel(panelId, fromSubLink = true) {
+                document.querySelectorAll('.content-panel').forEach(el => el.classList.remove('active'));
+                const panel = document.getElementById('panel-' + panelId);
+                if (panel) panel.classList.add('active');
+                document.querySelectorAll('.sub-link').forEach(el => el.classList.remove('active'));
+                const activeLink = document.querySelector(`.sub-link[data-panel="${panelId}"]`);
+                if (activeLink) activeLink.classList.add('active');
+                document.querySelectorAll('.extra-link').forEach(el => el.classList.remove('active'));
+                const extraLink = document.querySelector(`.extra-link[data-panel="${panelId}"]`);
+                if (extraLink) extraLink.classList.add('active');
+                activePanelId = panelId;
+                if (window.innerWidth <= 991 && fromSubLink) closeSidebar();
+            }
+
+            function toggleSection(headBtn) {
+                const sub = headBtn.nextElementSibling;
+                const isOpen = sub.classList.contains('open');
+                if (isOpen) {
+                    sub.classList.remove('open');
+                    headBtn.classList.remove('open');
+                    headBtn.setAttribute('aria-expanded', 'false');
+                } else {
+                    sub.classList.add('open');
+                    headBtn.classList.add('open');
+                    headBtn.setAttribute('aria-expanded', 'true');
+                }
+            }
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function toggleSidebar() {
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            function init() {
+                renderPanels();
+                const firstSub = renderMenu();
+                renderExtraMenu();
+
+                menuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('menu-head')) {
+                        e.stopPropagation();
+                        toggleSection(target);
+                        return;
+                    }
+                    if (target.classList.contains('sub-link')) {
+                        e.preventDefault();
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                        return;
+                    }
+                });
+
+                extraMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                if (extraData.length > 0) {
+                    showPanel(extraData[0].id, false);
+                } else if (firstSub) {
+                    showPanel(firstSub, false);
+                } else if (menuData.length && menuData[0].children.length) {
+                    showPanel(menuData[0].children[0].id, false);
+                }
+
+                const firstSection = document.querySelector('.menu-section:first-child .menu-head');
+                const firstSubMenu = firstSection ? firstSection.nextElementSibling : null;
+                if (firstSection && firstSubMenu && !firstSubMenu.classList.contains('open')) {
+                    firstSection.classList.add('open');
+                    firstSubMenu.classList.add('open');
+                    firstSection.setAttribute('aria-expanded', 'true');
+                }
+
+                hamburger.addEventListener('click', toggleSidebar);
+                overlay.addEventListener('click', closeSidebar);
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 991) closeSidebar();
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+                });
+            }
+
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+        })();
+    </script>
+</body>
+</html>

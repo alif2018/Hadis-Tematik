@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hadis Tematik Altruisme Religius</title>
+    <base target="_self" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    <style>
+        /* ----- RESET & GLOBAL ----- */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f6f0;
+            color: #1e2b3a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ----- VARIABLES ----- */
+        :root {
+            --primary: #2b4f8c;
+            --primary-light: #3a6bb0;
+            --primary-dark: #1d3a66;
+            --gold: #c9a84c;
+            --gold-light: #e0c66e;
+            --gold-dark: #a8892f;
+            --bg-body: #f8f6f0;
+            --bg-card: #ffffff;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --sidebar-width: 300px;
+            --header-height: 72px;
+        }
+
+        /* ----- HEADER ----- */
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 2px 12px rgba(43, 79, 140, 0.25);
+        }
+        .app-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .app-header .brand img {
+            height: 44px;
+            width: auto;
+            border-radius: 6px;
+            background: #fff;
+            padding: 4px;
+            object-fit: contain;
+        }
+        .app-header .brand .title-group {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .app-header .brand .title-group h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .app-header .brand .title-group .author {
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+        .app-header .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px 4px;
+            border-radius: 6px;
+            transition: background var(--transition);
+        }
+        .app-header .hamburger:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .app-header .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: #fff;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        /* ----- LAYOUT ----- */
+        .app-layout {
+            display: flex;
+            flex: 1;
+            position: relative;
+        }
+
+        /* ----- SIDEBAR (kanan) ----- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            border-left: 1px solid rgba(43, 79, 140, 0.10);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.04);
+            height: calc(100vh - var(--header-height));
+            position: sticky;
+            top: var(--header-height);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 16px 10px 30px;
+            flex-shrink: 0;
+            transition: transform var(--transition);
+            z-index: 900;
+        }
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: #f0ede7;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 8px;
+        }
+
+        /* menu items */
+        .menu-section {
+            margin-bottom: 4px;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.06);
+        }
+        .menu-section:last-of-type {
+            border-bottom: none;
+        }
+        .menu-section .menu-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 14px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-align: left;
+            position: relative;
+        }
+        .menu-section .menu-head:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .menu-section .menu-head .icon {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .menu-section .menu-head .arrow {
+            margin-left: auto;
+            font-size: 0.7rem;
+            transition: transform var(--transition);
+            color: var(--gold-dark);
+        }
+        .menu-section .menu-head.open .arrow {
+            transform: rotate(90deg);
+        }
+
+        .sub-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 6px 0;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.35s ease, opacity 0.25s ease;
+            opacity: 0;
+        }
+        .sub-menu.open {
+            max-height: 800px;
+            opacity: 1;
+        }
+        .sub-menu li {
+            margin: 0;
+        }
+        .sub-menu li .sub-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px 8px 38px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 450;
+            color: #2d3f54;
+            text-decoration: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .sub-menu li .sub-link:hover {
+            background: rgba(43, 79, 140, 0.07);
+            color: var(--primary);
+        }
+        .sub-menu li .sub-link.active {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .sub-menu li .sub-link .sub-icon {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+        .sub-menu li .sub-link.active .sub-icon {
+            opacity: 1;
+        }
+
+        /* menu tambahan (kata pengantar, daftar pustaka, penulis) */
+        .extra-menu {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 2px solid rgba(43, 79, 140, 0.08);
+        }
+        .extra-menu .extra-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .extra-menu .extra-link:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .extra-menu .extra-link.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .extra-menu .extra-link .icon {
+            font-size: 1.1rem;
+        }
+
+        /* ----- MAIN CONTENT ----- */
+        .main-content {
+            flex: 1;
+            padding: 32px 40px 60px;
+            min-width: 0;
+            background: var(--bg-body);
+        }
+
+        .content-panel {
+            display: none;
+            animation: fadeUp 0.35s ease;
+        }
+        .content-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-panel .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .content-panel .panel-sub {
+            font-size: 0.95rem;
+            color: #5e6f82;
+            margin-bottom: 24px;
+        }
+        .content-panel .hadith-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 18px 0 22px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--gold);
+        }
+        .content-panel .hadith-box .arabic {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #1e2b3a;
+            direction: rtl;
+            font-family: 'Times New Roman', 'Traditional Arabic', serif;
+            margin-bottom: 12px;
+            padding: 6px 0;
+            word-wrap: break-word;
+        }
+        .content-panel .hadith-box .translation {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #2d3f54;
+            border-top: 1px dashed rgba(43, 79, 140, 0.12);
+            padding-top: 12px;
+        }
+        .content-panel .hadith-box .source {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--gold-dark);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+        .content-panel .sub-section {
+            margin-top: 28px;
+        }
+        .content-panel .sub-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .content-panel .sub-section p {
+            line-height: 1.7;
+            color: #2d3f54;
+            margin-bottom: 10px;
+        }
+
+        /* daftar pustaka & profil penulis di dalam panel */
+        .bibliography {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43, 79, 140, 0.10);
+        }
+        .bibliography h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 14px;
+        }
+        .bibliography ul {
+            list-style: none;
+            padding: 0;
+        }
+        .bibliography ul li {
+            padding: 6px 0 6px 20px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #2d3f54;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.05);
+            text-indent: -20px;
+            padding-left: 30px;
+        }
+        .bibliography ul li::before {
+            content: "•";
+            color: var(--gold);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+
+        .profil-penulis {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43, 79, 140, 0.10);
+        }
+        .profil-penulis h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 14px;
+        }
+        .profil-penulis p {
+            line-height: 1.8;
+            color: #2d3f54;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .profil-penulis .penulis-nama {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        /* ----- OVERLAY (mobile) ----- */
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 850;
+            backdrop-filter: blur(2px);
+            transition: opacity var(--transition);
+        }
+        .overlay.active {
+            display: block;
+        }
+
+        /* ----- RESPONSIVE ----- */
+        @media (max-width: 991px) {
+            .app-header .hamburger {
+                display: flex;
+            }
+            .sidebar {
+                position: fixed;
+                top: var(--header-height);
+                right: 0;
+                height: calc(100vh - var(--header-height));
+                transform: translateX(100%);
+                box-shadow: -8px 0 30px rgba(0, 0, 0, 0.10);
+                border-left: none;
+                width: 290px;
+                padding: 12px 8px 30px;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                padding: 20px 18px 40px;
+            }
+            .content-panel .panel-title {
+                font-size: 1.5rem;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 1rem;
+            }
+            .app-header .brand img {
+                height: 36px;
+            }
+            .content-panel .hadith-box {
+                padding: 16px 18px;
+            }
+            .content-panel .hadith-box .arabic {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            :root {
+                --header-height: 64px;
+            }
+            .app-header {
+                padding: 0 14px;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 0.85rem;
+            }
+            .app-header .brand .title-group .author {
+                font-size: 0.7rem;
+            }
+            .sidebar {
+                width: 265px;
+            }
+            .main-content {
+                padding: 14px 12px 30px;
+            }
+            .content-panel .panel-title {
+                font-size: 1.25rem;
+            }
+            .sub-menu li .sub-link {
+                padding: 7px 10px 7px 28px;
+                font-size: 0.8rem;
+            }
+            .menu-section .menu-head {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="app-header">
+        <div class="brand">
+            <img src="logo-pshd.jpg" alt="Logo" />
+            <div class="title-group">
+                <h1>Hadis Tematik Altruisme Religius</h1>
+                <span class="author">Penyusun: Atikah Khoerunnisa & M. Alif</span>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <!-- ===== LAYOUT ===== -->
+    <div class="app-layout">
+
+        <!-- OVERLAY -->
+        <div class="overlay" id="overlay"></div>
+
+        <!-- ===== SIDEBAR ===== -->
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Daftar isi">
+            <div id="menuContainer"></div>
+            <div class="extra-menu" id="extraMenu"></div>
+        </nav>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="main-content" id="mainContent">
+            <div id="panelContainer"></div>
+        </main>
+
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // ---------- DATA KONTEN ----------
+            // struktur: setiap heading1 memiliki heading2 → panel
+            const menuData = [{
+                id: 'bab1',
+                label: 'BAB I — Motiv-Motiv Altruisme',
+                icon: '🌟',
+                children: [{
+                    id: '1a',
+                    label: 'A. Empati',
+                    icon: '❤️',
+                    content: `
+                <h2 class="panel-title">A. Empati</h2>
+                <p class="panel-sub">Landasan altruisme dalam hadis: ketulusan dan kasih sayang.</p>
+
+                <div class="sub-section">
+                  <h3>1. Ketulusan tanpa pamrih</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">عَنْ يَزِيدَ بْنِ الْأَصَمِّ ، عَنْ أَبِي هُرَيْرَةَ . قَالَ : قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ "إِنَّ اللَّهَ لَا يَنظُرُ إِلَى صُوَرِكُم وَأَمْوَالِكُم . وَلَكِن يَنظُرُ إِلَى قُلُوبِكُم وَأَعْمَالِكُم</div>
+                    <div class="translation">“Allah tidak melihat pada rupa dan harta kalian, akan tetapi Dia melihat pada hati dan amal kalian.”</div>
+                    <span class="source">(Sahih Muslim 2564)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>2. Kasih sayang sesama muslim</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ اللَّهِ بْنِ مُبَرِّ . حَدَّثَنَا أَبِي . حَدَّثَنَا رَّكِيرَاءُ عَنْ الشَّعْيِ ، عَنِ النُّعْمَانِ بْنِ بَشِيرِ . قَالَ : قَالَ رَسُولُ اللَّهِ صلى اللَّهِ عليه وسلم "مثل المؤمنين في توادهم وتراحهم وتعاطفهم، مثل الجسد. إذا اشتكى منه عضو تداعى له سائر الجسد بالسهر والحمى</div>
+                    <div class="translation">“Perumpamaan orang-orang beriman dalam hal saling mencintai, mengasihi, dan menyayangi bagaikan satu tubuh. Apabila salah satu anggotanya sakit, maka seluruh tubuh akan merasakan demam dan tidak bisa tidur.”</div>
+                    <span class="source">(Sahih Muslim, dari Nu'man bin Basyir)</span>
+                  </div>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا مُحَمَّدُ بْنُ الْعَلَاءِ: حَدَّثَنَا أَبُو أُسَامَةَ عَنْ بُرَيْدٍ عَنْ أَبِي بُرْدَةَ عَنْ أَبِي مُوسَى رَضِيَ اللَّهُ عَنْهُ عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «الْمُؤْمِنُ لِلْمُؤْمِنِ كَالْبُنْيَانِ يَشُدُّ بَعْضُهُ بَعْضًا» وَشَبَّكَ بَيْنَ أَصَابِعِهِ</div>
+                    <div class="translation">“Seorang mukmin bagi mukmin lainnya ibarat satu bangunan, sebagian menguatkan sebagian yang lain.” Beliau menyatukan jari-jarinya.</div>
+                    <span class="source">(Sahih Bukhari 2446)</span>
+                  </div>
+                </div>
+              `
+                }, {
+                    id: '1b',
+                    label: 'B. Norma Sosial',
+                    icon: '🤝',
+                    content: `
+                <h2 class="panel-title">B. Norma Sosial</h2>
+                <p class="panel-sub">Solidaritas, mencegah kezaliman, balas budi, dan kesadaran moral.</p>
+
+                <div class="sub-section">
+                  <h3>1. Solidaritas sosial</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا يَحْيَى بْنُ يَحْيَى التَّمِيمِيُّ وَأَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ وَمُحَمَّدُ بْنُ الْعَلَاءِ الْمَدَائِنِيُّ وَاللَّفْظُ لِيَحْيَى قَالَ يَحْيَى: أَخْبَرَنَا. وَقَالَ الْآخَرَان: حَدَّثَنَا (أَبُو مُعَاوِيَةَ عَنِ الْأَعْمَشِ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ. قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ "مَنْ نَفَّسَ عَنْ مُؤْمِنٍ كُرْبَةً مِنْ كُرَبِ الدُّنْيَا، نَفَّسَ اللَّهُ عَنْهُ كُرْبَةً مِنْ كُرَبِ يَوْمِ الْقِيَامَةِ. وَمَنْ يَسَّرَ عَلَى مُعْسِرٍ، يَسَّرَ اللَّهُ عَلَيْهِ فِي الدُّنْيَا وَالْآخِرَةِ. وَمَنْ سَتَرَ مُسْلِمًا، سَتَرَهُ اللَّهُ فِي الدُّنْيَا وَالْآخِرَةِ. وَاللَّهُ فِي عَوْنِ الْعَبْدِ مَا كَانَ الْعَبْدُ فِي عَوْنِ أَخِيهِ. وَمَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا، سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ. وَمَا اجْتَمَعَ قَوْمٌ فِي بَيْتٍ مِنْ بُيُوتِ اللَّهِ، يَتْلُونَ كِتَابَ اللَّهِ، وَيَتَدَارَسُونَهُ بَيْنَهُمْ، إِلَّا نَزَلَتْ عَلَيْهِمُ السَّكِينَةُ، وَغَشِيَتْهُمُ الرَّحْمَةُ، وَحَفَّتْهُمُ الْمَلَائِكَةُ، وَذَكَرَهُمُ اللَّهُ فِيمَنْ عِنْدَهُ. وَمَنْ بَطَّأَ بِهِ عَمَلُهُ، لَمْ يُسْرِعْ بِهِ نَسَبُهُ</div>
+                    <div class="translation">“Barang siapa menghilangkan satu kesusahan dari seorang mukmin di dunia, Allah akan menghilangkan satu kesusahan darinya di hari kiamat. Barang siapa memudahkan urusan orang yang kesulitan, Allah akan memudahkan urusannya di dunia dan akhirat. Barang siapa menutupi aib seorang muslim, Allah akan menutupi aibnya di dunia dan akhirat. Dan Allah senantiasa menolong hamba-Nya selama hamba itu menolong saudaranya. Barang siapa menempuh jalan untuk mencari ilmu, Allah akan memudahkan baginya jalan menuju surga. Tidaklah suatu kaum berkumpul di salah satu rumah Allah (masjid), mereka membaca Kitab Allah dan saling mempelajarinya di antara mereka, melainkan akan turun kepada mereka ketenangan, diliputi oleh rahmat, dikelilingi oleh para malaikat, dan Allah menyebut-nyebut mereka di hadapan (para malaikat) yang ada di sisi-Nya. Dan barang siapa yang lambat amalnya, maka nasabnya tidak akan mempercepat (derajatnya).”</div>
+                    <span class="source">(Sahih Muslim 2699)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>2. Mencegah kezaliman</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا مُّسَدَّدٌ: حَدَّثَنَا مُعْتَمِرٌ، عَنْ حُمَيْدٍ، عَنْ أَنَسٍ قَالَ: قَالَ رَسُولُ اللهِ ﷺ: «انْصُرْ أَخَاكَ ظَالِمًا أَوْ مَظْلُومًا، قَالُوا: يَا رَسُولَ اللهِ، هَذَا نَنْصُرُهُ مَظْلُومًا، فَكَيْفَ نَنْصُرُهُ ظَالِمًا؟ قَالَ: تَأْخُذُ فَوْقَ يَدَيْهِ»</div>
+                    <div class="translation">“Tolonglah saudaramu, yang berbuat zalim maupun yang dizalimi.” Para sahabat bertanya, “Ya Rasulullah, ini (kami paham) menolong orang yang dizalimi. Tetapi, bagaimana menolong orang yang justru menzalimi?” Rasulullah SAW menjawab, “Ambil tangannya (agar tidak berbuat zalim lagi).”</div>
+                    <span class="source">(Sahih Bukhari 2444)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>3. Altruisme balas budi</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا عُثْمَانُ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا جَرِيرٌ، عَنِ الْأَعْمَشِ، عَنْ مُجَاهِدٍ عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو، قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "مَنِ اسْتَعَاذَ بِاللَّهِ فَأَعِيذُوهُ، وَمَنْ سَأَلَ بِاللَّهِ فَأَعْطُوهُ، وَمَنْ دَعَاكُمْ فَأَجِيبُوهُ، وَمَنْ صَنَعَ إِلَيْكُمْ مَعْرُوفًا فَكَافِئُوهُ فَإِنْ لَمْ تَجِدُوا مَا تُكَافِئُونَهُ فَادْعُوا لَهُ حَتَّى تَرَوْا أَنَّكُمْ قَدْ كَافَأْتُمُوهُ"</div>
+                    <div class="translation">“Barang siapa berlindung kepada Allah, maka lindungilah ia. Barang siapa meminta dengan (menyebut nama) Allah, maka berikanlah kepadanya. Barang siapa mengundang kalian, maka penuhilah undangannya. Dan barang siapa berbuat baik kepada kalian, maka balaslah kebaikannya. Jika kalian tidak menemukan sesuatu untuk membalasnya, maka doakanlah ia hingga kalian merasa telah membalasnya.”</div>
+                    <span class="source">(Sunan Abi Dawud 1672)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>4. Kesadaran moral</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا يَحْيَى بْنُ أَيُّوبَ وَقُتَيْبَةُ وَابْنُ حُجْرٍ . قَالُوا : حَدَّثَنَا إِسْمَاعِيلُ (وَهُوَ ابْنُ جَعْفَرٍ) عَنِ الْعَلَاءِ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ؛ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ "حَقُّ الْمُسْلِمِ عَلَى الْمُسْلِمِ سِتٌّ" قِيلَ : مَا هُنَّ؟ يَا رَسُولَ اللَّهِ ! قَالَ "إِذَا لَقِيتَهُ فَسَلِّمْ عَلَيْهِ . وَإِذَا دَعَاكَ فَأَجِبْهُ . وَإِذَا اسْتَنْصَحَكَ فَانْصَحْ لَهُ . وَإِذَا عَطَسَ فَحَمِدَ اللَّهَ فَسَمِّتْهُ وَإِذَا مَرِضَ فَعُدْهُ . وَإِذَا مَاتَ فَاتَّبِعْهُ</div>
+                    <div class="translation">“Hak seorang muslim atas muslim lainnya ada enam.” Ditanyakan: “Apa saja itu, wahai Rasulullah?” Beliau bersabda: “Apabila engkau bertemu dengannya, maka berilah salam kepadanya. Apabila ia mengundangmu, maka penuhilah undangannya. Apabila ia meminta nasihat kepadamu, maka nasihatilah dia. Apabila ia bersin lalu memuji Allah (mengucapkan ‘Alhamdulillah’), maka doakanlah ia (dengan mengucapka Yarhamukallah). Apabila ia sakit, maka jenguklah ia. Dan apabila ia meninggal dunia, maka ikutilah jenazahnya.”</div>
+                    <span class="source">(Sahih Muslim 2162)</span>
+                  </div>
+                </div>
+              `
+                }, {
+                    id: '1c',
+                    label: 'C. Penghargaan Internal',
+                    icon: '🏅',
+                    content: `
+                <h2 class="panel-title">C. Penghargaan Internal</h2>
+                <p class="panel-sub">Penghargaan diri, integritas, realisasi nilai, dan kepuasan batin.</p>
+
+                <div class="sub-section">
+                  <h3>1. Penghargaan diri</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا مُّسَدَّدٌ قَالَ: حَدَّثَنَا يَحْيَى، عَنْ شُعْبَةَ، عَنْ قَتَادَةَ، عَنْ أَنَسٍ عَنِ النَّبِيِّ ﷺ قَالَ: «لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لِلْآخِيهِ مَا يُحِبُّ لِنَفْسِهِ»</div>
+                    <div class="translation">“Tidak sempurna keimanan seseorang dari kalian, sebelum ia mencintai saudaranya (sesama muslim) sebagaimana ia mencintai dirinya sendiri.”</div>
+                    <span class="source">(Sahih Bukhari 13)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>2. Integritas diri</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا الْحُسَيْنُ بْنُ عَرْفَةَ، قَالَ: حَدَّثَنَا سَعِيدُ بْنُ مُحَمَّدٍ الْوَرَّاقُ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنِ الْأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «السَّخِيُّ قَرِيبٌ مِنَ اللَّهِ، قَرِيبٌ مِنَ الْجَنَّةِ، قَرِيبٌ مِنَ النَّاسِ، بَعِيدٌ مِنَ النَّارِ، وَالْبَخِيلُ بَعِيدٌ مِنَ اللَّهِ، بَعِيدٌ مِنَ الْجَنَّةِ، بَعِيدٌ مِنَ النَّاسِ، قَرِيبٌ مِنَ النَّارِ، وَالْجَاهِلُ السَّخِيُّ أَحَبُّ إِلَى اللَّهِ عَزَّ وَجَلَّ مِنْ عَابِدٍ بَخِيلٍ»</div>
+                    <div class="translation">“Orang yang dermawan dekat dengan Allah, dekat dengan surga, dekat dengan manusia, jauh dari neraka. Dan orang yang kikir jauh dari Allah, jauh dari surga, jauh dari manusia, dekat dengan neraka. Sungguh, orang bodoh yang dermawan lebih dicintai oleh Allah 'azza wa jalla daripada ahli ibadah yang kikir.”</div>
+                    <span class="source">(Sunan Tirmidzi 1961)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>3. Realisasi nilai-nilai pribadi</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا مُسْلِمُ بْنُ إِبْرَاهِيمَ: حَدَّثَنَا شُعْبَةُ: حَدَّثَنَا سَعِيدُ بْنُ أَبِي بُرْدَةَ، عَنْ أَبِيهِ، عَنْ جَدِّهِ، عَنِ النَّبِيِّ ﷺ قَالَ: عَلَى كُلِّ مُسْلِمٍ صَدَقَةٌ. فَقَالُوا: يَا نَبِيَّ اللَّهِ، فَمَنْ لَمْ يَجِدْ؟ قَالَ: يَعْمَلُ بِيَدِهِ، فَيَنْفَعُ نَفْسَهُ وَيَتَصَدَّقُ. قَالُوا: فَإِنْ لَمْ يَجِدْ؟ قَالَ: يُعِينُ ذَا الْحَاجَةِ الْمَلْهُوفَ. قَالُوا: فَإِنْ لَمْ يَجِدْ؟ قَالَ: فَلْيَعْمَلْ بِالْمَعْرُوفِ، وَلْيَكُفَّ عَنِ الشَّرِّ، فَإِنَّمَا لَهُ صَدَقَةٌ</div>
+                    <div class="translation">“Setiap Muslim wajib bersedekah.” Maka mereka (para sahabat) bertanya: “Wahai Nabi Allah, bagaimana jika seseorang tidak memiliki (sesuatu untuk disedekahkan)?” Beliau menjawab: “Hendaklah ia bekerja dengan tangannya, sehingga ia memberi manfaat kepada dirinya sendiri dan bersedekah (dari hasil kerjanya).” Mereka bertanya lagi: “Bagaimana jika ia tidak mampu (melakukan itu)?” Beliau menjawab: “Hendaklah ia membantu orang yang membutuhkan lagi kesusahan.” Mereka bertanya lagi: “Bagaimana jika ia tidak mampu (melakukan itu)?” Beliau menjawab: “Maka hendaklah ia berbuat kebaikan dan menahan diri dari keburukan, karena sesungguhnya itu adalah sedekah baginya.”</div>
+                    <span class="source">(Sahih Bukhari 1445)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>4. Kepuasan batin</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا يَحْيَى بْنُ يَحْيَى التَّمِيمِيُّ وَأَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ وَمُحَمَّدُ بْنُ الْعَلَاءِ الْهَمْدَانِيُّ وَاللَّفْظُ لِيَحْيَى قَالَ يَحْيَى: أَخْبَرَنَا. وَقَالَ الْآخَرَان: حَدَّثَنَا (أَبُو مُعَاوِيَةَ عَنِ الْأَعْمَشِ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ. قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ "مَنْ نَفَّسَ عَنْ مُؤْمِنٍ كُرْبَةً مِنْ كُرَبِ الدُّنْيَا، نَفَّسَ اللَّهُ عَنْهُ كُرْبَةً مِنْ كُرَبِ يَوْمِ الْقِيَامَةِ. وَمَنْ يَسَّرَ عَلَى مُعْسِرٍ، يَسَّرَ اللَّهُ عَلَيْهِ فِي الدُّنْيَا وَالْآخِرَةِ. وَمَنْ سَتَرَ مُسْلِمًا، سَتَرَهُ اللَّهُ فِي الدُّنْيَا وَالْآخِرَةِ. وَاللَّهُ فِي عَوْنِ الْعَبْدِ مَا كَانَ الْعَبْدُ فِي عَوْنِ أَخِيهِ. وَمَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا، سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ. وَمَا اجْتَمَعَ قَوْمٌ فِي بَيْتٍ مِنْ بُيُوتِ اللَّهِ، يَتْلُونَ كِتَابَ اللَّهِ، وَيَتَدَارَسُونَهُ بَيْنَهُمْ، إِلَّا نَزَلَتْ عَلَيْهِمُ السَّكِينَةُ، وَغَشِيَتْهُمُ الرَّحْمَةُ، وَحَفَّتْهُمُ الْمَلَائِكَةُ، وَذَكَرَهُمُ اللَّهُ فِيمَنْ عِنْدَهُ. وَمَنْ بَطَّأَ بِهِ عَمَلُهُ، لَمْ يُسْرِعْ بِهِ نَسَبُهُ</div>
+                    <div class="translation">“Barang siapa menghilangkan satu kesusahan dari seorang mukmin di dunia, Allah akan menghilangkan satu kesusahan darinya di hari kiamat. Barang siapa memudahkan urusan orang yang kesulitan, Allah akan memudahkan urusannya di dunia dan akhirat. Barang siapa menutupi aib seorang muslim, Allah akan menutupi aibnya di dunia dan akhirat. Dan Allah senantiasa menolong hamba-Nya selama hamba itu menolong saudaranya. Barang siapa menempuh jalan untuk mencari ilmu, Allah akan memudahkan baginya jalan menuju surga. Tidaklah suatu kaum berkumpul di salah satu rumah Allah (masjid), mereka membaca Kitab Allah dan saling mempelajarinya di antara mereka, melainkan akan turun kepada mereka ketenangan, diliputi oleh rahmat, dikelilingi oleh para malaikat, dan Allah menyebut-nyebut mereka di hadapan (para malaikat) yang ada di sisi-Nya. Dan barang siapa yang lambat amalnya, maka nasabnya tidak akan mempercepat (derajatnya).”</div>
+                    <span class="source">(Sahih Muslim 2699 — bagian dari hadis yang sama)</span>
+                  </div>
+                </div>
+              `
+                }, {
+                    id: '1d',
+                    label: 'D. Pendidikan & Pembelajaran Sosial',
+                    icon: '📚',
+                    content: `
+                <h2 class="panel-title">D. Pendidikan dan Pembelajaran Sosial</h2>
+                <p class="panel-sub">Pengajaran sedekah setiap pagi, bagi orang tak dikenal, wanita, dan keluarga.</p>
+
+                <div class="sub-section">
+                  <h3>1. Pengajaran untuk sedekah setiap pagi</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">وَحَدَّثَنِي الْقَاسِمُ بْنُ زَكَرِيَّا. حَدَّثَنَا خَالِدُ بْنُ مَخْلَدٍ. حَدَّثَنِي سُلَيْمَانُ (وَهُوَ ابْنُ بِلَالٍ) حَدَّثَنِي مُعَاوِيَةُ بْنُ أَبِي مُزَرِّدٍ عَنْ سَعِيدِ بْنِ يَسَارٍ، عَنْ أَبِي هُرَيْرَةَ. قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: مَا مِنْ يَوْمٍ يُصْبِحُ الْعِبَادُ فِيهِ، إِلَّا مَلَكَانِ يَنْزِلَانِ. فَيَقُولُ أَحَدُهُمَا: اللَّهُمَّ! أَعْطِ مُنْفِقًا خَلَفًا. وَيَقُولُ الْآخِرُ: اللَّهُمَّ! أَعْطِ مُمْسِكًا تَلَفًا</div>
+                    <div class="translation">“Tidaklah ada satu hari pun di mana para hamba berpagi-pagi di dalamnya, melainkan ada dua malaikat yang turun. Salah satunya berkata: Ya Allah! Berikanlah ganti kepada orang yang berinfak. Dan yang lain berkata: Ya Allah! Berikanlah kebinasaan kepada orang yang menahan (hartanya).”</div>
+                    <span class="source">(Sahih Muslim 1010)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>2. Pengajaran sedekah bagi orang tak dikenal</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا ابْنُ أَبِي مَرْيَمَ: أَخْبَرَنَا مُحَمَّدُ بْنُ جَعْفَرٍ قَالَ: أَخْبَرَنِي زَيْدٌ، عَنْ عِيَاضِ بْنِ عَبْدِ اللَّهِ، عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ: خَرَجَ رَسُولُ اللَّهِ ﷺ فِي أَضْحَى أَوْ فِطْرٍ إِلَى الْمُصَلَّى، ثُمَّ انْصَرَفَ، فَوَعَظَ النَّاسَ وَأَمَرَهُمْ بِالصَّدَقَةِ، فَقَالَ: «أَيُّهَا النَّاسُ، تَصَدَّقُوا» فَمَرَّ عَلَى النِّسَاءِ فَقَالَ: «يَا مَعْشَرَ النِّسَاءِ تَصَدَّقْنَ، فَإِنِّي رَأَيْتُكُنَّ أَكْثَرَ أَهْلِ النَّارِ» فَقُلْنَ: وَمَا ذَلِكَ يَا رَسُولَ اللَّهِ؟ قَالَ: «تُكْثِرْنَ اللَّعْنَ، وَتَكْفُرْنَ الْعَشِيرَ، مَا رَأَيْتُ مِنْ نَاقِصَاتِ عَقْلٍ وَدِينٍ، أَذْهَبَ لِلُبِّ الرَّجُلِ الْحَازِمِ، مِنْ إِحْدَاكُنَّ، يَا مَعْشَرَ النِّسَاءِ.» ثُمَّ انْصَرَفَ، فَلَمَّا صَارَ إِلَى مَنْزِلِهِ، جَاءَتْ زَيْنَبُ، امْرَأَةُ ابْنِ مَسْعُودٍ، تَسْتَأْذِنُ عَلَيْهِ، فَقِيلَ: يَا رَسُولَ اللَّهِ، هَذِهِ زَيْنَبُ، فَقَالَ: «أَيُّ الزَّيَانِبِ؟» فَقِيلَ: امْرَأَةُ ابْنِ مَسْعُودٍ، قَالَ: «نَعَمْ، ائْذَنُوا لَهَا» فَأَذِنَ لَهَا، قَالَتْ: يَا نَبِيَّ اللَّهِ، إِنَّكَ أَمَرْتَ الْيَوْمَ بِالصَّدَقَةِ، وَكَانَ عِنْدِي حُلِيٌّ لِي، فَأَرَدْتُ أَنْ أَتَصَدَّقَ بِهِ، فَزَعَمَ ابْنُ مَسْعُودٍ أَنَّهُ وَوَلَدَهُ أَحَقُّ مَنْ تَصَدَّقْتُ بِهِ عَلَيْهِمْ، فَقَالَ النَّبِيُّ ﷺ: «صَدَقَ ابْنُ مَسْعُودٍ، زَوْجُكَ وَوَلَدُكَ أَحَقُّ مَنْ تَصَدَّقْتِ بِهِ عَلَيْهِمْ»</div>
+                    <div class="translation">Rasulullah keluar pada hari Idul adha atau Idul fitri menuju mushalla, lalu memberi nasihat dan memerintahkan sedekah. Beliau bersabda, “Wahai manusia, bersedekahlah!” Lalu beliau berjalan melewati para wanita dan bersabda, “Wahai kaum wanita, bersedekahlah! Karena sesungguhnya aku melihat kalian adalah penghuni neraka yang paling banyak.” Mereka bertanya, “Mengapa demikian, wahai Rasulullah?” Beliau menjawab, “Kalian banyak melaknat dan mengingkari kebaikan suami. Aku tidak pernah melihat orang yang kurang akal dan agamanya, yang lebih mampu menghilangkan akal seorang laki-laki yang teguh daripada salah seorang di antara kalian, wahai kaum wanita!” Kemudian beliau kembali. Setelah sampai di rumah, Zainab, istri Ibnu Mas’ud, datang meminta izin. Ia berkata, “Wahai Nabi Allah, engkau memerintahkan sedekah, dan aku mempunyai perhiasan, aku ingin menyedekahkannya, tetapi Ibnu Mas’ud mengira bahwa dia dan anak-anaknya lebih berhak.” Nabi bersabda, “Benar Ibnu Mas’ud. Suamimu dan anak-anakmu lebih berhak untuk diberi sedekah darimu.”</div>
+                    <span class="source">(Sahih Bukhari 1393)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>3. Pengajaran sedekah bagi Wanita</h3>
+                  <p>Hadis yang sama dengan di atas (Sahih Bukhari 1393) menunjukkan bahwa sedekah harus diberikan dengan prioritas kepada keluarga terdekat, namun tetap mendorong wanita untuk bersedekah sebagai bentuk altruisme yang diajarkan Nabi.</p>
+                </div>
+
+                <div class="sub-section">
+                  <h3>4. Pengajaran sedekah untuk keluarga</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا أَبُو بَكْرٍ بْنُ أَبِي شَيْبَةَ وَزُهَيْرُ بْنُ حَرْبٍ وَأَبُو كُرَيْبٍ (وَاللَّفْظُ لِأَبِي كُرَيْبٍ) قَالُوا: حَدَّثَنَا وَكِيعٌ عَنْ سُفْيَانَ، عَنْ مُزَاحِمِ بْنِ زُفَرَ، عَنْ مُجَاهِدٍ، عَنْ أَبِي هُرَيْرَةَ؛ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: دِينَارٌ أَنْفَقْتَهُ فِي سَبِيلِ اللَّهِ. وَدِينَارٌ أَنْفَقْتَهُ فِي رَقَبَةٍ. وَدِينَارٌ تَصَدَّقْتَ بِهِ عَلَى مِسْكِينٍ. وَدِينَارٌ أَنْفَقْتَهُ عَلَى أَهْلِكَ. أَعْظَمُهَا أَجْرًا الَّذِي أَنْفَقْتَهُ عَلَى أَهْلِكَ</div>
+                    <div class="translation">“Satu dinar yang kalian infakkan di jalan Allah. Satu dinar yang engkau infakkan untuk memerdekakan budak. Satu dinar yang Anda sumbangkan kepada orang miskin. Satu dinar yang engkau belanjakan untuk keluargamu. Pahala yang paling besar adalah yang engkau nafkahkan untuk keluargamu.”</div>
+                    <span class="source">(Sahih Muslim 995)</span>
+                  </div>
+                </div>
+              `
+                }]
+            }, {
+                id: 'bab2',
+                label: 'BAB II — Bentuk-Bentuk Altruisme',
+                icon: '📦',
+                children: [{
+                    id: '2a',
+                    label: 'A. Altruisme Financial',
+                    icon: '💰',
+                    content: `
+                <h2 class="panel-title">A. Altruisme Financial</h2>
+                <p class="panel-sub">Wakaf, zakat, sedekah, hibah, dan hadiah.</p>
+
+                <div class="sub-section">
+                  <h3>1. Wakaf</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا يَحْيَى بْنُ سُلَيْمَانَ: حَدَّثَنِي ابْنُ وَهْبٍ أَخْبَرَنِي عَمْرُو: أَنَّ بُكَيْرًا حَدَّثَهُ: أَنَّ عَاصِمَ بْنَ عُمَرَ بْنِ قَتَادَةَ حَدَّثَهُ: أَنَّهُ سَمِعَ عُبَيْدَ اللَّهِ الْخَوْلَانِيَّ أَنَّهُ سَمِعَ عُثْمَانَ بْنَ عَفَّانَ يَقُولُ، عِنْدَ قَوْلِ النَّاسِ فِيهِ حِينَ بَنَى مَسْجِدَ الرَّسُولِ ﷺ: إِنَّكُمْ أَكْثَرْتُمْ، وَإِنِّي سَمِعْتُ النَّبِيَّ ﷺ يَقُولُ: مَنْ بَنَى مَسْجِدًا — قَالَ بُكَيْرٌ: حَسِبْتُ أَنَّهُ قَالَ — يَبْتَغِي بِهِ وَجْهَ اللَّهِ، بَنَى اللَّهُ لَهُ مِثْلَهُ</div>
+                    <div class="translation">“Barang siapa membangun masjid, mengharap dengannya wajah Allah, maka Allah akan membangunkan baginya yang serupa dengannya (di surga).”</div>
+                    <span class="source">(Sahih Bukhari 450)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>2. Zakat</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ وَأَبُو كُرَيْبٍ وَإِسْحَاقُ بْنُ إِبْرَاهِيمَ، جَمِيعًا عَنْ وَكِيعٍ. قَالَ أَبُو بَكْرٍ: حَدَّثَنَا وَكِيعٌ عَنْ زَكَرِيَّاءَ بْنِ إِسْحَاقَ. قَالَ: حَدَّثَنِي يَحْيَى بْنُ عَبْدِ اللَّهِ بْنِ صَيْفِيٍّ عَنِ ابْنِ مَعْبَدٍ، عَنِ ابْنِ عَبَّاسٍ، عَنْ مُعَاذِ بْنِ جَبَلٍ. قَالَ: بَعَثَنِي رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ. قَالَ: إِنَّكَ تَأْتِي قَوْمًا مِنْ أَهْلِ الْكِتَابِ. فَادْعُهُمْ إِلَى شَهَادَةِ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَأَنِّي رَسُولُ اللَّهِ. فَإِنْ هُمْ أَطَاعُوا لِذَلِكَ. فَأَعْلِمْهُمْ أَنَّ اللَّهَ افْتَرَضَ عَلَيْهِمْ صَدَقَةً تُؤْخَذُ مِنْ أَغْنِيَائِهِمْ فَتُرَدُّ فِي فُقَرَائِهِمْ. فَإِنْ هُمْ أَطَاعُوا لِذَلِكَ. فَإِيَّاكَ وَكَرَائِمَ أَمْوَالِهِمْ. وَاتَّقِ دَعْوَةَ الْمَظْلُومِ فَإِنَّهُ لَيْسَ بَيْنَهَا وَبَيْنَ اللَّهِ حِجَابٌ</div>
+                    <div class="translation">“Sesungguhnya engkau akan mendatangi kaum dari Ahli Kitab. Maka ajaklah mereka untuk bersaksi bahwa tidak ada ilah (yang berhak disembah) selain Allah dan bahwa aku adalah utusan Allah. Jika mereka menaatimu dalam hal itu, maka beritahukanlah kepada mereka bahwa Allah mewajibkan atas mereka sedekah (zakat) yang diambil dari orang-orang kaya mereka dan diberikan kepada orang-orang fakir mereka. Jika mereka menaatimu dalam hal itu, maka jauhkanlah dirimu dari harta-harta pilihan (terbaik) mereka. Dan takutlah terhadap doa orang yang terzalimi, karena sesungguhnya tidak ada penghalang antara doanya dengan Allah.”</div>
+                    <span class="source">(Sahih Muslim 19)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>3. Sedekah</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">وَحَدَّثَنَا قُتَيْبَةُ بْنُ سَعِيدٍ. حَدَّثَنَا لَيْثٌ عَنْ سَعِيدِ بْنِ أَبِي سَعِيدٍ، عَنْ سَعِيدِ بْنِ يَسَارٍ؛ أَنَّهُ سَمِعَ أَبَا هُرَيْرَةَ يَقُولُ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: مَا تَصَدَّقَ أَحَدٌ بِصَدَقَةٍ مِنْ طَيِّبٍ، وَلَا يَقْبَلُ اللَّهُ إِلَّا الطَّيِّبَ، إِلَّا أَخَذَهَا الرَّحْمَنُ بِيَمِينِهِ. وَإِنْ كَانَتْ تَمْرَةً. فَتَرْبُو فِي كَفِّ الرَّحْمَنِ حَتَّى تَكُونَ أَعْظَمَ مِنَ الْجَبَلِ. كَمَا يُرَبِّي أَحَدُكُمْ فَلُوَّهُ أَوْ فَصِيلَهُ</div>
+                    <div class="translation">“Tidak ada seorang pun yang bersedekah dengan sedekah dari harta yang baik, dan Allah tidak menerima kecuali yang baik, melainkan Ar-Rahman (Allah) akan mengambilnya dengan tangan kanan-Nya. Meskipun sedekah itu hanya sebutir kurma. Maka ia akan tumbuh (berkembang) di telapak tangan Ar-Rahman hingga menjadi lebih besar dari gunung. Sebagaimana salah seorang dari kalian membesarkan anak kudanya atau anak untanya.”</div>
+                    <span class="source">(Sahih Muslim 1014)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>4. Hibah</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا يَحْيَى بْنُ بُكَيْرٍ حَدَّثَنَا اللَّيْثُ عَنْ عُقَيْلٍ عَنِ ابْنِ شِهَابٍ عَنْ حُمَيْدِ بْنِ عَبْدِ الرَّحْمَنِ عَنْ مُحَمَّدِ بْنِ النُّعْمَانِ بْنِ بَشِيرٍ يُحَدِّثُ أَنَّ أَبَاهُ النُّعْمَانَ بْنَ بَشِيرٍ حَدَّثَهُ عَنِ النُّعْمَانِ بْنِ بَشِيرٍ رَضِيَ اللَّهُ عَنْهُ قَالَ: "أَعْطَانِي أَبِي عَطِيَّةً فَقَالَتْ أُمِّي عَمْرَةُ بِنْتُ رَوَاحَةَ: لَا أَرْضَى حَتَّى تُشْهِدَ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، فَأَتَى رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، فَقَالَ: إِنِّي أَعْطَيْتُ ابْنِي عَطِيَّةً فَقَالَتْ عَمْرَةُ: لَا أَرْضَى حَتَّى تُشْهِدَ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، فَقَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "أَكُلَّ وَلَدِكَ أَعْطَيْتَ مِثْلَ هَذَا؟" قَالَ: لَا، قَالَ: "فَاتَّقُوا اللَّهَ وَاعْدِلُوا بَيْنَ أَوْلَادِكُمْ". فَرَجَعَ فَرَدَّ عَطِيَّتَهُ</div>
+                    <div class="translation">“Ayahku memberiku suatu pemberian. Lalu ibuku, ‘Amrah binti Rawahah, berkata: Aku tidak akan rela sampai engkau mempersaksikan Rasulullah saw. Maka ayahku mendatangi Rasulullah dan berkata: Sesungguhnya aku telah memberikan suatu pemberian kepada anakku ini. Lalu ‘Amrah berkata: Aku tidak rela sampai engkau mempersaksikan Rasulullah. Maka Rasulullah bersabda: “Apakah semua anakmu telah engkau beri seperti ini (pemberian ini)?” Ayahku menjawab: Tidak. Beliau bersabda: “Bertakwalah kepada Allah dan berlaku adillah di antara anak-anak kalian.” Maka ayahku kembali dan mengembalikan pemberian itu (tidak jadi memberikannya kepadaku).”</div>
+                    <span class="source">(Sahih Muslim 1623)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>5. Hadiah</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا سَهْلُ بْنُ بَكَّارٍ : حَدَّثَنَا وَهَيْبُ، عَنْ عَمْرِو بْنِ يَحْيَى، عَنْ عَبَّاسٍ السَّاعِدِيِّ، عَنْ أَبِي حُمَيْدٍ السَّاعِدِيِّ قَالَ: «غَزَوْنَا مَعَ النَّبِيِّ ﷺ تَبُوكَ وَأَهْدَى مَلِكُ أَيْلَةَ لِلنَّبِيِّ ﷺ بَغْلَةً بَيْضَاءَ، وَكَسَاءُ بُرْدًا، وَكَتَبَ لَهُ بِبَحْرِهِمْ»</div>
+                    <div class="translation">“Kami berperang bersama Nabi saw ke Tabuk, dan Raja ‘Ailah menghadiahni Nabi saw seekor bagal putih, dan ia mengenakan kepada beliau kain burdah, serta menuliskan (perjanjian) untuk beliau mengenai laut mereka.”</div>
+                    <span class="source">(Sahih Bukhari 3161)</span>
+                  </div>
+                </div>
+              `
+                }, {
+                    id: '2b',
+                    label: 'B. Altruisme Non Financial',
+                    icon: '🤲',
+                    content: `
+                <h2 class="panel-title">B. Altruisme Non Financial</h2>
+                <p class="panel-sub">Menolong dengan perbuatan dan kesukarelaan.</p>
+
+                <div class="sub-section">
+                  <h3>1. Menolong dengan perbuatan</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا مُسْلِمُ بْنُ إِبْرَاهِيمَ : حَدَّثَنَا شُعْبَةُ : حَدَّثَنَا سَعِيدُ بْنُ أَبِي بُرْدَةَ، عَنْ أَبِيهِ، عَنْ جَدِّهِ، عَنِ النَّبِيِّ ﷺ قَالَ : عَلَى كُلِّ مُسْلِمٍ صَدَقَةٌ. فَقَالُوا: يَا نَبِيَ اللَّهِ، فَمَنْ لَمْ يَجِدْ؟ قَالَ: يَعْمَلُ بِيَدِهِ، فَيَنْفَعُ نَفْسَهُ وَيَتَصَدَّقُ. قَالُوا: فَإِنْ لَمْ يَجِدْ؟ قَالَ: يُعِينُ ذَا الْحَاجَةِ الْمَلْهُوفَ. قَالُوا: فَإِنْ لَمْ يَجِدْ؟ قَالَ: فَلْيَعْمَلُ بِالْمَعْرُوفِ، وَلَيْسَكَ عَنِ الشَّرِّ، فَإِنَّمَا لَهُ صَدَقَةٌ</div>
+                    <div class="translation">“Setiap Muslim wajib bersedekah.” Maka mereka bertanya: “Wahai Nabi Allah, bagaimana jika seseorang tidak memiliki (sesuatu untuk disedekahkan)?” Beliau menjawab: “Hendaklah ia bekerja dengan tangannya, sehingga ia memberi manfaat kepada dirinya sendiri dan bersedekah (dari hasil kerjanya).” Mereka bertanya lagi: “Bagaimana jika ia tidak mampu (melakukan itu)?” Beliau menjawab: “Hendaklah ia membantu orang yang membutuhkan lagi kesusahan.” Mereka bertanya lagi: “Bagaimana jika ia tidak mampu (melakukan itu)?” Beliau menjawab: “Maka hendaklah ia berbuat kebaikan dan menahan diri dari keburukan, karena sesungguhnya itu adalah sedekah baginya.”</div>
+                    <span class="source">(Sahih Bukhari 1445)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>2. Kesukarelaan</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">وَحَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ وَأَبُو كُرَيْبٍ وَابْنُ أَبِي عُمَرَ (وَاللَّفْظُ لِأَبِي كُرَيْبٍ) قَالُوا: حَدَّثَنَا أَبُو مُعَاوِيَةَ عَنِ الْأَعْمَشِ، عَنْ أَبِي عَمْرٍو الشَّيْبَانِيِّ، عَنْ أَبِي مَسْعُودٍ الْأَنْصَارِيِّ. قَالَ: جَاءَ رَجُلٌ إِلَى النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فَقَالَ: إِنِّي أُبْدِعَ بِي فَاحْمِلْنِي. فَقَالَ (مَا عِنْدِي) فَقَالَ رَجُلٌ: يَا رَسُولَ اللَّهِ! أَنَا أَدُلُّهُ عَلَى مَنْ يَحْمِلُهُ. فَقَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ (مَنْ دَلَّ عَلَى خَيْرٍ فَلَهُ مِثْلُ أَجْرِ فَاعِلِهِ)</div>
+                    <div class="translation">“Seorang laki-laki datang kepada Nabi ﷺ lalu berkata: ‘Kendaraanku tidak mampu lagi membawaku, maka berikanlah aku kendaraan.’ Beliau bersabda: ‘(Aku tidak punya).’ Lalu seorang laki-laki berkata: ‘Wahai Rasulullah! Aku akan menunjukkan kepadanya orang yang dapat memberinya kendaraan.’ Maka Rasulullah ﷺ bersabda: ‘(Barang siapa menunjukkan kepada kebaikan, maka baginya pahala seperti pahala orang yang mengerjakannya).’”</div>
+                    <span class="source">(Sahih Muslim 1893)</span>
+                  </div>
+                </div>
+              `
+                }]
+            }, {
+                id: 'bab3',
+                label: 'BAB III — Bias-Bias Altruisme & Dampaknya',
+                icon: '⚖️',
+                children: [{
+                    id: '3a',
+                    label: 'A. Bias Altruisme',
+                    icon: '🧩',
+                    content: `
+                <h2 class="panel-title">A. Bias Altruisme</h2>
+                <p class="panel-sub">Mengabaikan hak diri & keluarga, pencitraan, dan pamrih.</p>
+
+                <div class="sub-section">
+                  <h3>1. Mengabaikan hak diri dan keluarga</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا هَارُونُ بْنُ عَبْدِ اللَّهِ الْبَزَّازُ الْبَغْدَادِيُّ، قَالَ: حَدَّثَنَا الْفَضْلُ بْنُ دُكَيْنٍ، قَالَ: حَدَّثَنَا هِشَامُ بْنُ سَعْدٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ أَبِيهِ قَالَ: سَمِعْتُ عُمَرَ بْنَ الْخَطَّابِ يَقُولُ: أَمَرَنَا رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ أَنْ نَتَصَدَّقَ، فَوَافَقَ ذَلِكَ عِنْدِي مَالًا، فَقُلْتُ: الْيَوْمَ أَسْبِقُ أَبَا بَكْرٍ إِنْ سَبَقْتُهُ يَوْمًا، قَالَ: فَجِئْتُ بِنِصْفِ مَالِي، فَقَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: مَا أَبْقَيْتَ لِأَهْلِكَ؟ قُلْتُ: مِثْلَهُ. وَأَتَى أَبُو بَكْرٍ بِكُلِّ مَا عِنْدَهُ، فَقَالَ: يَا أَبَا بَكْرٍ، مَا أَبْقَيْتَ لِأَهْلِكَ؟ قَالَ: أَبْقَيْتُ لَهُمُ اللَّهُ وَرَسُولَهُ، قُلْتُ: وَاللَّهِ لَا أَسْبِقُهُ إِلَى شَيْءٍ أَبَدًا</div>
+                    <div class="translation">“Rasulullah menyuruh kami bersedekah, dan saya memiliki harta yang banyak, maka saya berkata, “Hari ini saya datang mendahului Abu Bakar jika suatu hari nanti.” Aku datang dengan membawa separuh hartaku, lalu Rasulullah bersabda, “Apa yang engkau tinggalkan untuk keluargamu?” kataku: yang sama. Abu Bakar datang dengan membawa seluruh hartanya, Rasulullah bertanya, “Wahai Abu Bakar, apa yang engkau tinggalkan untuk keluargamu?” Ia menjawab, “Aku tinggalkan untuk mereka Allah dan Rasul-Nya.” Aku berkata, “Demi Allah, aku tidak akan mendahuluinya dalam hal apa pun.”</div>
+                    <span class="source">(Sunan Tirmidzi 3675)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>2. Pencitraan kepada orang lain</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، وَعَمْرُو بْنُ الْمُثَنَّى، وَابْنُ بَشَّارٍ، قَالُوا: حَدَّثَنَا مُحَمَّدُ بْنُ جَعْفَرٍ، عَنْ شُعْبَةَ، عَنْ عَلِيِّ بْنِ مُدْرِكٍ، عَنْ أَبِي زُرْعَةَ، عَنْ خَرَشَةَ بْنِ الْحُرِّ، عَنْ أَبِي ذَرٍّ، عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «ثَلَاثَةٌ لَا يُكَلِّمُهُمُ اللَّهُ يَوْمَ الْقِيَامَةِ، وَلَا يَنْظُرُ إِلَيْهِمْ، وَلَا يُزَكِّيهِمْ، وَلَهُمْ عَذَابٌ أَلِيمٌ» قَالَ: فَقَرَأَهَا رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ ثَلَاثَ مَرَّاتٍ. قَالَ أَبُو ذَرٍّ: خَابُوا وَخَسِرُوا. مَنْ هُمْ يَا رَسُولَ اللَّهِ؟ قَالَ: «الْمُسْبِلُ، وَالْمَنَّانُ، وَالْمُنَفِّقُ سِلْعَتَهُ بِالْحَلِفِ الْكَاذِبِ»</div>
+                    <div class="translation">“Ada tiga golongan yang tidak akan diajak bicara oleh Allah pada hari kiamat, tidak akan dilihat oleh-Nya, dan tidak akan disucikan (dibersihkan dosa-dosanya) oleh-Nya, dan bagi mereka azab yang pedih.” Abu Dzar berkata: Rasulullah membacakan (ucapan ini) tiga kali. Abu Dzar berkata: “Sungguh rugi dan celaka mereka! Siapakah mereka, wahai Rasulullah?” Beliau bersabda: “Orang yang menjulurkan pakaiannya (karena sombong), orang yang mengungkit-ungkit pemberiannya (al-mannan), dan orang yang menjual barang dagangannya dengan sumpah palsu.”</div>
+                    <span class="source">(Sahih Muslim 106)</span>
+                  </div>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا مُسَدَّدٌ : حَدَّثَنَا يَحْيَى، عَنْ سُفْيَانَ : حَدَّثَنِي سَلَمَةُ بْنُ كُهَيْلٍ وَحَدَّثَنَا أَبُو نُعَيْمٍ : حَدَّثَنَا سُفْيَانُ، عَنْ سَلَمَةَ قَالَ : سَمِعْتُ جُنْدَبًا يَقُولُ: قَالَ النَّبِيُّ ﷺ: «مَنْ سَمَّعَ سَمَّعَ اللَّهُ بِهِ، وَمَنْ يُرَائِي يُرَائِي اللَّهُ بِهِ»</div>
+                    <div class="translation">“Barangsiapa memperdengarkan (amalnya kepada manusia), niscaya Allah akan memperdengarkan (aibnya). Dan barangsiapa berbuat riya’, niscaya Allah akan memperlihatkan (aibnya).”</div>
+                    <span class="source">(Sahih Bukhari 6499)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>3. Pamrih</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا يَحْيَى بْنُ حَبِيبٍ الْحَارِثِيُّ. حَدَّثَنَا خَالِدُ بْنُ الْحَارِثِ. حَدَّثَنَا ابْنُ جُرَيْجٍ. حَدَّثَنِي يُونُسُ بْنُ يُوسُفَ عَنْ سُلَيْمَانَ بْنِ يَسَارٍ. قَالَ: تَفَرَّقَ النَّاسُ عَنْ أَبِي هُرَيْرَةَ. فَقَالَ لَهُ نَاتِلُ أَهْلِ الشَّامِ: أَيُّهَا الشَّيْخُ حَدِّثْنَا حَدِيثًا سَمِعْتَهُ مِنْ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ. قَالَ: نَعَمْ سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: إِنَّ أَوَّلَ النَّاسِ يُقْضَى يَوْمَ الْقِيَامَةِ عَلَيْهِ ... ثُمَّ ذَكَرَ الْحَدِيثَ بِطُولِهِ، وَفِيهِ: رَجُلٌ اسْتُشْهِدَ، وَرَجُلٌ تَعَلَّمَ الْعِلْمَ وَعَلَّمَهُ وَقَرَأَ الْقُرْآنَ، وَرَجُلٌ وُسِّعَ عَلَيْهِ وَأُعْطِيَ مِنْ أَصْنَافِ الْمَالِ كُلِّهِ، فَكُلُّهُمْ يُؤْتَى بِهِ وَيُعَرَّفُ نِعَمَهُ ثُمَّ يَسْأَلُهُ اللَّهُ فَيَقُولُونَ فِعْلُنَا لِلَّهِ فَيَقُولُ اللَّهُ كَذَبْتُمْ إِنَّمَا فَعَلْتُمْ لِيُقَالَ، ثُمَّ يُؤْمَرُ بِهِمْ إِلَى النَّارِ</div>
+                    <div class="translation">“Sesungguhnya manusia pertama yang diadili pada hari kiamat adalah orang yang mati syahid di jalan Allah... kemudian orang yang menuntut ilmu dan mengajarkannya serta membaca al-Qur’an... kemudian orang yang diberikan kelapangan rezeki... Masing-masing didatangkan dan diperlihatkan kenikmatannya, lalu Allah bertanya, dan mereka menjawab bahwa mereka beramal karena Allah. Allah berfirman: Engkau dusta! Engkau berbuat supaya dikatakan (gagah berani, alim, dermawan), dan memang itulah yang telah dikatakan. Kemudian mereka dilemparkan ke neraka.”</div>
+                    <span class="source">(Sahih Muslim 1905 — ringkasan)</span>
+                  </div>
+                </div>
+              `
+                }, {
+                    id: '3b',
+                    label: 'B. Dampak Altruisme',
+                    icon: '📉',
+                    content: `
+                <h2 class="panel-title">B. Dampak Altruisme</h2>
+                <p class="panel-sub">Deplesi sumber daya, erosi kredibilitas sosial, dan ketiadaan imbalan teologis.</p>
+
+                <div class="sub-section">
+                  <h3>1. Deplesi sumber daya</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">وَحَدَّثَنِي الْقَاسِمُ بْنُ زَكَرِيَّا. حَدَّثَنَا خَالِدُ بْنُ مَخْلَدٍ. حَدَّثَنِي سُلَيْمَانُ (وَهُوَ ابْنُ بِلَالٍ) حَدَّثَنِي مُعَاوِيَةُ بْنُ أَبِي مُزَرِّدٍ عَنْ سَعِيدِ بْنِ يَسَارٍ، عَنْ أَبِي هُرَيْرَةَ. قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: مَا مِنْ يَوْمٍ يُصْبِحُ الْعِبَادُ فِيهِ، إِلَّا مَلَكَانِ يَنْزِلَانِ. فَيَقُولُ أَحَدُهُمَا: اللَّهُمَّ! أَعْطِ مُنْفِقًا خَلَفًا. وَيَقُولُ الْآخِرُ: اللَّهُمَّ! أَعْطِ مُمْسِكًا تَلَفًا</div>
+                    <div class="translation">“Tidaklah ada satu hari pun di mana para hamba berpagi-pagi di dalamnya, melainkan ada dua malaikat yang turun. Salah satunya berkata: Ya Allah! Berikanlah ganti kepada orang yang berinfak. Dan yang lain berkata: Ya Allah! Berikanlah kebinasaan kepada orang yang menahan (hartanya).”</div>
+                    <span class="source">(Sahih Muslim 1010)</span>
+                  </div>
+                  <p>Hadis ini menunjukkan bahwa orang yang berinfak akan mendapatkan ganti (tidak mengalami deplesi sumber daya), sedangkan orang yang menahan harta justru akan mendapatkan kebinasaan. Ini menunjukkan bahwa altruisme yang benar justru mendatangkan keberkahan, bukan deplesi.</p>
+                </div>
+
+                <div class="sub-section">
+                  <h3>2. Erosi kredibilitas sosial</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا أَبُو عَبْدِ الرَّحْمَنِ الْمُقْرِئُ عَبْدُ اللَّهِ بْنُ يَزِيدَ، حَدَّثَنَا حَيْوَةُ، حَدَّثَنَا أَبُو صَخْرٍ، أَنَّهُ سَمِعَ مَكْحُولًا يَقُولُ: حَدَّثَنِي أَبُو هِنْدٍ الدَّارِيُّ، أَنَّهُ سَمِعَ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: " مَنْ قَامَ مَقَامَ رِيَاءٍ وَسُمْعَةٍ رَاءَى اللَّهُ بِهِ يَوْمَ الْقِيَامَةِ وَسَمَّعَ "</div>
+                    <div class="translation">“Barangsiapa yang berdiri (melakukan suatu perbuatan) karena riya’ (ingin dilihat orang) dan sum’ah (ingin didengar orang), maka Allah akan memperlihatkan (aibnya) pada Hari Kiamat dan memperdengarkan (aibnya) kepada manusia.”</div>
+                    <span class="source">(Musnad Ahmad 22322)</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>3. Ketiadaan imbalan teologis</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا يَزِيدُ أَخْبَرَنَا يَحْيَى بْنُ سَعِيدٍ أَنَّ مُحَمَّدَ بْنَ إِبْرَاهِيمَ أَخْبَرَهُ أَنَّهُ سَمِعَ عَلْقَمَةَ بْنَ وَقَّاصٍ اللَّيْثِيَّ يَقُولُ: إِنَّهُ سَمِعَ عُمَرَ بْنَ الْخَطَّابِ وَهُوَ يَخْطُبُ النَّاسَ وَهُوَ يَقُولُ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: "إِنَّمَا الْأَعْمَالُ بِالنِّيَّةِ، وَإِنَّمَا لِامْرِئٍ مَا نَوَى. فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى اللَّهِ وَإِلَى رَسُولِهِ فَهِجْرَتُهُ إِلَى اللَّهِ وَإِلَى رَسُولِهِ. وَمَنْ كَانَتْ هِجْرَتُهُ لِدُنْيَا يُصِيبُهَا أَوِ امْرَأَةٍ يَتَزَوَّجُهَا فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ</div>
+                    <div class="translation">“Sesungguhnya setiap perbuatan itu tergantung pada niatnya, dan sesungguhnya setiap orang akan mendapatkan apa yang ia niatkan. Maka barangsiapa yang hijrahnya karena Allah dan Rasul-Nya, maka hijrahnya itu kepada Allah dan Rasul-Nya. Dan barangsiapa yang hijrahnya karena dunia yang ingin ia dapatkan atau wanita yang ingin ia nikahi, maka hijrahnya itu kepada apa yang ia hijrah kepadanya.”</div>
+                    <span class="source">(Musnad Ahmad 300)</span>
+                  </div>
+                  <p>Hadis ini menegaskan bahwa jika altruisme dilakukan dengan niat yang salah (pamrih duniawi), maka ia tidak akan mendapatkan imbalan teologis (pahala) di akhirat.</p>
+                </div>
+              `
+                }]
+            }];
+
+            // ---------- DATA EKSTRA (Kata Pengantar, Daftar Pustaka, Penulis) ----------
+            const extraData = [{
+                id: 'kata-pengantar',
+                label: 'Kata Pengantar',
+                icon: '📖',
+                content: `
+                <h2 class="panel-title">Kata Pengantar</h2>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">
+                Segala puji bagi Allah, Tuhan semesta alam. Shalawat dan salam semoga senantiasa tercurah kepada junjungan kita, Nabi Muhammad shallallahu ‘alaihi wasallam, beserta keluarga, sahabat, dan para pengikut beliau yang setia hingga akhir zaman.
+                </p>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">
+                Altruisme dalam hadis mengajarkan bahwa seorang muslim yang baik ialah yang mempunyai rasa cinta dan kepedulian kepada saudaranya, sama seperti ia mencintai dirinya. Sebaliknya altruisme yang sering ditemukan di tengah masyarakat ialah berbuat baik dengan niat terselubung. Banyaknya hadis tentang altruisme menjadi acuan bahwasannya Nabi saw berbuat kebaikan terhadap siapa saja bahkan dengan musuhnya, meskipun beliau tidak diperlukankan baik oleh musuhnya.
+                </p>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">
+                E-book ini hadir sebagai upaya untuk menelusuri dan memahami budaya kontemporer altruisme melalui lensa hadis-hadis Nabi Muhammad saw. Hadis, sebagai sumber kedua ajaran Islam setelah al-Qur’an, menyimpan hikmah dan petunjuk yang tak ternilai harganya dalam menghadapi berbagai persoalan hidup, termasuk dalam konteks altruisme.
+                </p>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">
+                Melalui kajian terhadap sejumlah hadis pilihan, E-book hadir dengan berisikan hadis-hadis yang bersangkutan dengan altruisme religius, motiv-motiv altruisme, bentuk-bentuk altruisme, serta bias-bias altruisme dan dampaknya.
+                </p>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">
+                Semoga dengan adanya E-book hadis ini dapat membantu Mahasiswa Ilmu Hadis dalam mencari serangkaian hadis-hadis altruisme.
+                </p>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">
+                Penulis menyadari sepenuhnya bahwa upaya ini masih jauh dari kata sempurna. Namun, dengan kerendahan hati, Penulis berharap buku ini dapat memberikan kontribusi yang berarti bagi para aktivis hadis, para pelajar ilmu agama, serta seluruh umat Islam yang memiliki kepedulian terhadap pembentukan karakter manusia dalam berbuat altruisme. Semoga pemahaman yang mendalam terhadap Nabi saw dapat menjadi bekal berharga dalam menjalankan misi dakwah dengan lebih bijak, efektif, dan penuh hikmah.
+                </p>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">
+                Akhir kata, penulis mengucapkan terima kasih yang sebesar-besarnya kepada semua pihak yang telah berkontribusi dalam penyusunan buku ini. Semoga Allah swt senantiasa memberikan taufik dan hidayah-Nya kepada kita semua.
+                </p>
+                <p style="text-align:right; font-style:italic; color:#5e6f82;">Serang, 29 Mei 2025</p>
+                <p style="text-align:right; font-weight:600; color:var(--primary);">Penulis</p>
+              `
+            }, {
+                id: 'daftar-pustaka',
+                label: 'Daftar Pustaka',
+                icon: '📚',
+                content: `
+                <h2 class="panel-title">Daftar Pustaka</h2>
+                <div class="bibliography">
+                  <ul>
+                    <li>Abû Dāwud, Sulaimān ibn al-Asy‘aš ibn Ishāq ibn Basyār ibn Syidād ibn ‘Amru al-Azdiy al-Sijistāniy. <em>Sunan Abī Dāwud</em>. Edited by Syu‘aib al-Arna‘ūt and Muḥammad Kāmil Qurah Balaliy. Vol. 1–7. Dār al-Risālah al-‘Ālamiyah, 2009.</li>
+                    <li>Aḥmad bin Muḥammad Ibn Ḥanbal. <em>Musnad Al-Imām Aḥmad Ibn Hanbal</em>. Ed. Aḥmad. Kairo: Dār al-Hadīš, 1995, 1416.</li>
+                    <li>Bukhāriy, Abū ‘Abdillāh Muḥammad ibn Ismā‘īl ibn Ibrāhīm ibn al-Muǧaḥ al-Ju‘fiy al- <em>Al-Jāmi‘ Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Min Umūr Rasūl Allāh Ṣalla Allāh ‘alaiḥ Wasallam Wa Sunanib Wa Ayyamib</em>. Edited by Muḥammad Zuhair ibn Nāṣir al-Nāṣir. Vol. 1–9. Dār Ṭauq al-Najāt, 1422. https://shamela.ws/book/1681.</li>
+                    <li>Ibn al-Hajjāj, Muslim. <em>Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Bi Naql Al-‘Adl ‘an Al-‘Adl Ilā Rasūl Allāh Ṣalla Allāh ‘alaiḥ Wasallam</em>. Edited by Muḥammad ibn Rīfat ibn ‘Ušmān Hilmiy, Muḥammad ‘Izzat ibn ‘Ušmān al-Za‘farān, and Abū Ni‘mah Allāh Muḥammad Syukriy. Vol. 1–8. Dār Ṭauq al-Najāt PP - Beirut, 1433.</li>
+                    <li>Ibn al-Hajjāj, Muslim. <em>Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Bi Naql Al-‘Adl ‘an Al-‘Adl Ilā Rasūl Allāh Ṣalla Allāh ‘alaiḥ Wasallam</em>. Edited by Muḥammad Fu‘ād ‘Abd al-Bāqī. Vol. 1–5. Dār Iḥyā’ al-Turāš al-‘Arabiy, 1955.</li>
+                    <li>Tirmīziy, Abū ‘Īsā Muḥammad ibn ‘Īsā ibn Saurah ibn Mūsā al-Daḥhak al- <em>Al-Jāmi‘ Al-Kabīr (Sunan Al-Tirmīziy)</em>. Edited by Basysyār ‘Awad Ma‘rūf. Vol. 1–6. Dār al-Garb al-Islāmiy PP - Beirut, 1996. https://shamela.ws/book/7895.</li>
+                  </ul>
+                </div>
+              `
+            }, {
+                id: 'tentang-penulis',
+                label: 'Tentang Penulis',
+                icon: '👤',
+                content: `
+                <h2 class="panel-title">Tentang Penulis</h2>
+                <div class="profil-penulis">
+                  <p><span class="penulis-nama">Atikah Khoerunnisa</span>, biasa dipanggil Atikah. Lahir di Tangerang, 26 November 2002. Ia adalah anak pertama dari lima bersaudara, terlahir dari keluarga yang sederhana. Sejak kecil ia selalu dinasehati dan dijaga oleh bapak dan ibunya untuk selalu jujur dan taat kepada Allah serta patuh kepada orang tua.</p>
+                  <p>Ia memulai Pendidikan di PAUD Melati Tangerang, lalu melanjutkan ke SD Dewi Kunti Tigaraksa Tangerang (lulus 2014). Kemudian menempuh pendidikan di MTs Al-Kamil Jatiuwung, Tangerang, dan melanjutkan ke MA Al-Kamil Jatiuwung. Enam tahun menempuh pendidikan di pondok pesantren Al-Kamil dan lulus tahun 2020. Setelah lulus, ia mengabdi di SDIT Awwabin Sepatan, Tangerang selama satu tahun penuh. Kemudian melanjutkan studi di Universitas Islam Negeri (UIN) Sultan Maulana Hasanuddin Banten.</p>
+                  <p style="margin-top:12px; font-style:italic; color:#5e6f82;">— Penulis buku "Hadis Tematik Altruisme Religius" —</p>
+                </div>
+              `
+            }];
+
+            // ---------- DOM REFS ----------
+            const menuContainer = document.getElementById('menuContainer');
+            const extraMenuContainer = document.getElementById('extraMenu');
+            const panelContainer = document.getElementById('panelContainer');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const hamburger = document.getElementById('hamburgerBtn');
+
+            let activePanelId = null;
+
+            // ---------- RENDER MENU ----------
+            function renderMenu() {
+                let html = '';
+                let firstSubId = null;
+
+                menuData.forEach((section, idx) => {
+                    const sectionId = section.id;
+                    const isFirst = (idx === 0);
+                    html += `<div class="menu-section">`;
+                    html += `<button class="menu-head ${isFirst ? 'open' : ''}" data-section="${sectionId}" aria-expanded="${isFirst}">
+                        <span class="icon">${section.icon}</span>
+                        ${section.label}
+                        <span class="arrow">▶</span>
+                    </button>`;
+                    html += `<ul class="sub-menu ${isFirst ? 'open' : ''}">`;
+
+                    section.children.forEach((child, ci) => {
+                        const subId = child.id;
+                        if (isFirst && ci === 0) firstSubId = subId;
+                        html += `<li><button class="sub-link" data-panel="${subId}">
+                            <span class="sub-icon">${child.icon || '▸'}</span>
+                            ${child.label}
+                        </button></li>`;
+                    });
+
+                    html += `</ul></div>`;
+                });
+
+                menuContainer.innerHTML = html;
+                return firstSubId;
+            }
+
+            // ---------- RENDER EXTRA MENU ----------
+            function renderExtraMenu() {
+                let html = '';
+                extraData.forEach((item) => {
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                        <span class="icon">${item.icon}</span>
+                        ${item.label}
+                    </button>`;
+                });
+                extraMenuContainer.innerHTML = html;
+            }
+
+            // ---------- RENDER PANELS ----------
+            function renderPanels() {
+                let html = '';
+                // panels dari menuData
+                menuData.forEach(section => {
+                    section.children.forEach(child => {
+                        html += `<div class="content-panel" id="panel-${child.id}">
+                            ${child.content}
+                        </div>`;
+                    });
+                });
+                // panels ekstra
+                extraData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">
+                        ${item.content}
+                    </div>`;
+                });
+                panelContainer.innerHTML = html;
+            }
+
+            // ---------- NAVIGATION ----------
+            function showPanel(panelId, fromSubLink = true) {
+                // hide all panels
+                document.querySelectorAll('.content-panel').forEach(el => el.classList.remove('active'));
+                // show target
+                const panel = document.getElementById('panel-' + panelId);
+                if (panel) panel.classList.add('active');
+
+                // update active class on sub-links (menuData)
+                document.querySelectorAll('.sub-link').forEach(el => el.classList.remove('active'));
+                const activeLink = document.querySelector(`.sub-link[data-panel="${panelId}"]`);
+                if (activeLink) activeLink.classList.add('active');
+
+                // update active class on extra links
+                document.querySelectorAll('.extra-link').forEach(el => el.classList.remove('active'));
+                const extraLink = document.querySelector(`.extra-link[data-panel="${panelId}"]`);
+                if (extraLink) extraLink.classList.add('active');
+
+                activePanelId = panelId;
+
+                // close sidebar on mobile
+                if (window.innerWidth <= 991 && fromSubLink) {
+                    closeSidebar();
+                }
+            }
+
+            // ---------- ACCORDION TOGGLE ----------
+            function toggleSection(headBtn) {
+                const sub = headBtn.nextElementSibling;
+                const isOpen = sub.classList.contains('open');
+                if (isOpen) {
+                    sub.classList.remove('open');
+                    headBtn.classList.remove('open');
+                    headBtn.setAttribute('aria-expanded', 'false');
+                } else {
+                    sub.classList.add('open');
+                    headBtn.classList.add('open');
+                    headBtn.setAttribute('aria-expanded', 'true');
+                }
+            }
+
+            // ---------- SIDEBAR TOGGLE (mobile) ----------
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function toggleSidebar() {
+                if (sidebar.classList.contains('open')) {
+                    closeSidebar();
+                } else {
+                    openSidebar();
+                }
+            }
+
+            // ---------- INIT ----------
+            function init() {
+                renderPanels();
+                const firstSub = renderMenu();
+                renderExtraMenu();
+
+                // event delegation: menu clicks (menuData)
+                menuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+
+                    if (target.classList.contains('menu-head')) {
+                        e.stopPropagation();
+                        toggleSection(target);
+                        return;
+                    }
+
+                    if (target.classList.contains('sub-link')) {
+                        e.preventDefault();
+                        const panelId = target.dataset.panel;
+                        if (panelId) {
+                            showPanel(panelId, true);
+                        }
+                        return;
+                    }
+                });
+
+                // event delegation: extra menu
+                extraMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) {
+                            showPanel(panelId, true);
+                        }
+                    }
+                });
+
+                // show first panel (kata pengantar atau sub pertama)
+                // default: tampilkan kata pengantar jika ada, atau sub pertama
+                if (extraData.length > 0) {
+                    showPanel(extraData[0].id, false);
+                } else if (firstSub) {
+                    showPanel(firstSub, false);
+                } else {
+                    // fallback
+                    if (menuData.length && menuData[0].children.length) {
+                        showPanel(menuData[0].children[0].id, false);
+                    }
+                }
+
+                // open first section if needed
+                const firstSection = document.querySelector('.menu-section:first-child .menu-head');
+                const firstSubMenu = firstSection ? firstSection.nextElementSibling : null;
+                if (firstSection && firstSubMenu && !firstSubMenu.classList.contains('open')) {
+                    firstSection.classList.add('open');
+                    firstSubMenu.classList.add('open');
+                    firstSection.setAttribute('aria-expanded', 'true');
+                }
+
+                // hamburger
+                hamburger.addEventListener('click', toggleSidebar);
+
+                // overlay click closes sidebar
+                overlay.addEventListener('click', closeSidebar);
+
+                // close sidebar on resize to desktop
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 991) {
+                        closeSidebar();
+                    }
+                });
+
+                // keyboard: escape closes sidebar
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                        closeSidebar();
+                    }
+                });
+            }
+
+            // run when DOM ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+
+        })();
+    </script>
+
+</body>
+</html>

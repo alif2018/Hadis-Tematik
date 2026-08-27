@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hadis tentang Surga</title>
+    <base target="_self" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f6f0;
+            color: #1e2b3a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        :root {
+            --primary: #2b4f8c;
+            --primary-light: #3a6bb0;
+            --primary-dark: #1d3a66;
+            --gold: #c9a84c;
+            --gold-light: #e0c66e;
+            --gold-dark: #a8892f;
+            --bg-body: #f8f6f0;
+            --bg-card: #ffffff;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --sidebar-width: 300px;
+            --header-height: 72px;
+        }
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 2px 12px rgba(43, 79, 140, 0.25);
+        }
+        .app-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .app-header .brand img {
+            height: 44px;
+            width: auto;
+            border-radius: 6px;
+            background: #fff;
+            padding: 4px;
+            object-fit: contain;
+        }
+        .app-header .brand .title-group {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .app-header .brand .title-group h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .app-header .brand .title-group .author {
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+        .app-header .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px 4px;
+            border-radius: 6px;
+            transition: background var(--transition);
+        }
+        .app-header .hamburger:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .app-header .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: #fff;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        .app-layout {
+            display: flex;
+            flex: 1;
+            position: relative;
+        }
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            border-left: 1px solid rgba(43, 79, 140, 0.10);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.04);
+            height: calc(100vh - var(--header-height));
+            position: sticky;
+            top: var(--header-height);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 16px 10px 30px;
+            flex-shrink: 0;
+            transition: transform var(--transition);
+            z-index: 900;
+        }
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: #f0ede7;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 8px;
+        }
+        .menu-section {
+            margin-bottom: 4px;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.06);
+        }
+        .menu-section:last-of-type {
+            border-bottom: none;
+        }
+        .menu-section .menu-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 14px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-align: left;
+            position: relative;
+        }
+        .menu-section .menu-head:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .menu-section .menu-head .icon {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .menu-section .menu-head .arrow {
+            margin-left: auto;
+            font-size: 0.7rem;
+            transition: transform var(--transition);
+            color: var(--gold-dark);
+        }
+        .menu-section .menu-head.open .arrow {
+            transform: rotate(90deg);
+        }
+        .sub-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 6px 0;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.35s ease, opacity 0.25s ease;
+            opacity: 0;
+        }
+        .sub-menu.open {
+            max-height: 800px;
+            opacity: 1;
+        }
+        .sub-menu li {
+            margin: 0;
+        }
+        .sub-menu li .sub-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px 8px 38px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 450;
+            color: #2d3f54;
+            text-decoration: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .sub-menu li .sub-link:hover {
+            background: rgba(43, 79, 140, 0.07);
+            color: var(--primary);
+        }
+        .sub-menu li .sub-link.active {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .sub-menu li .sub-link .sub-icon {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+        .sub-menu li .sub-link.active .sub-icon {
+            opacity: 1;
+        }
+        .extra-menu {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 2px solid rgba(43, 79, 140, 0.08);
+        }
+        .extra-menu .extra-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .extra-menu .extra-link:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .extra-menu .extra-link.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .extra-menu .extra-link .icon {
+            font-size: 1.1rem;
+        }
+        .main-content {
+            flex: 1;
+            padding: 32px 40px 60px;
+            min-width: 0;
+            background: var(--bg-body);
+        }
+        .content-panel {
+            display: none;
+            animation: fadeUp 0.35s ease;
+        }
+        .content-panel.active {
+            display: block;
+        }
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .content-panel .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .content-panel .panel-sub {
+            font-size: 0.95rem;
+            color: #5e6f82;
+            margin-bottom: 24px;
+        }
+        .content-panel .hadith-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 18px 0 22px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--gold);
+        }
+        .content-panel .hadith-box .arabic {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #1e2b3a;
+            direction: rtl;
+            font-family: 'Times New Roman', 'Traditional Arabic', serif;
+            margin-bottom: 12px;
+            padding: 6px 0;
+            word-wrap: break-word;
+        }
+        .content-panel .hadith-box .translation {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #2d3f54;
+            border-top: 1px dashed rgba(43, 79, 140, 0.12);
+            padding-top: 12px;
+        }
+        .content-panel .hadith-box .source {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--gold-dark);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+        .content-panel .sub-section {
+            margin-top: 28px;
+        }
+        .content-panel .sub-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .content-panel .sub-section p {
+            line-height: 1.7;
+            color: #2d3f54;
+            margin-bottom: 10px;
+        }
+        .bibliography {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43, 79, 140, 0.10);
+        }
+        .bibliography h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 14px;
+        }
+        .bibliography ul {
+            list-style: none;
+            padding: 0;
+        }
+        .bibliography ul li {
+            padding: 6px 0 6px 20px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #2d3f54;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.05);
+            text-indent: -20px;
+            padding-left: 30px;
+        }
+        .bibliography ul li::before {
+            content: "•";
+            color: var(--gold);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        .profil-penulis {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43, 79, 140, 0.10);
+        }
+        .profil-penulis h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 14px;
+        }
+        .profil-penulis p {
+            line-height: 1.8;
+            color: #2d3f54;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .profil-penulis .penulis-nama {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 850;
+            backdrop-filter: blur(2px);
+            transition: opacity var(--transition);
+        }
+        .overlay.active {
+            display: block;
+        }
+        @media (max-width: 991px) {
+            .app-header .hamburger {
+                display: flex;
+            }
+            .sidebar {
+                position: fixed;
+                top: var(--header-height);
+                right: 0;
+                height: calc(100vh - var(--header-height));
+                transform: translateX(100%);
+                box-shadow: -8px 0 30px rgba(0, 0, 0, 0.10);
+                border-left: none;
+                width: 290px;
+                padding: 12px 8px 30px;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                padding: 20px 18px 40px;
+            }
+            .content-panel .panel-title {
+                font-size: 1.5rem;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 1rem;
+            }
+            .app-header .brand img {
+                height: 36px;
+            }
+            .content-panel .hadith-box {
+                padding: 16px 18px;
+            }
+            .content-panel .hadith-box .arabic {
+                font-size: 1rem;
+            }
+        }
+        @media (max-width: 480px) {
+            :root {
+                --header-height: 64px;
+            }
+            .app-header {
+                padding: 0 14px;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 0.85rem;
+            }
+            .app-header .brand .title-group .author {
+                font-size: 0.7rem;
+            }
+            .sidebar {
+                width: 265px;
+            }
+            .main-content {
+                padding: 14px 12px 30px;
+            }
+            .content-panel .panel-title {
+                font-size: 1.25rem;
+            }
+            .sub-menu li .sub-link {
+                padding: 7px 10px 7px 28px;
+                font-size: 0.8rem;
+            }
+            .menu-section .menu-head {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+        }
+        .hadith-box .arabic + .translation {
+            border-top: 1px dashed rgba(43, 79, 140, 0.12);
+            padding-top: 12px;
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="brand">
+            <img src="logo-pshd.jpg" alt="Logo" />
+            <div class="title-group">
+                <h1>Hadis tentang Vibes Surga</h1>
+                <span class="author">Penyusun: Fadla Sukma & Muhammad Alif</span>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+    <div class="app-layout">
+        <div class="overlay" id="overlay"></div>
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Daftar isi">
+            <div id="menuContainer"></div>
+            <div class="extra-menu" id="extraMenu"></div>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div id="panelContainer"></div>
+        </main>
+    </div>
+    <script>
+        (function() {
+            'use strict';
+
+            // ===== DATA MENU =====
+            const menuData = [{
+                id: 'babA',
+                label: 'A. Pengertian, Fungsi dan Jenis Surga',
+                icon: '🌟',
+                children: [{
+                    id: 'A1',
+                    label: '1. Pengertian Surga',
+                    icon: '📖',
+                    content: `
+                <h2 class="panel-title">1. Pengertian Surga</h2>
+                <p class="panel-sub">Pengertian surga dalam perspektif hadis</p>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ وَأَبُو كُرَيْبٍ قَالَا حَدَّثَنَا أَبُو مُعَاوِيَةَ ح و حَدَّثَنَا ابْنُ نُمَيْرٍ وَاللَّفْظُ لَهُ حَدَّثَنَا أَبِي حَدَّثَنَا الْأَعْمَشُ عَنْ أَبِي صَالِحٍ عَنْ أَبِي هُرَيْرَةَ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ اللَّهُ عَزَّ وَجَلَّ أَعْدَدْتُ لِعِبَادِيَ الصَّالِحِينَ¹ مَا لَا عَيْنٌ رَأَتْ وَلَا أُذُنٌ سَمِعَتْ وَلَا خَطَرَ عَلَى قَلْبِ بَشَرٍ ذُخْرًا² بَلْهَ مَا أَطْلَعَكُمْ اللَّهُ عَلَيْهِ ثُمَّ قَرَأَ { فَلَا تَعْلَمُ نَفْسٌ مَا أُخْفِيَ لَهُمْ مِنْ قُرَّةِ أَعْيُنٍ }</div>
+                  <div class="translation">Telah menceritakan kepada kami Abu Bakr bin Abu Syaibah dan Abu Kuraib keduanya berkata: Telah menceritakan kepada kami Abu Mu'awiyah. Telah menceritakan kepada kami Ibnu Numair, teks miliknya, telah menceritakan kepada kami ayahku telah menceritakan kepada kami Al A'masy dari Abu Shalih dari Abu Hurairah berkata: Rasulullah Shallallahu 'alaihi wa Salam bersabda: "Allah 'azza wajalla berfirman: 'Aku telah menyiapkan sesuatu yang belum pernah dilihat mata, belum pernah didengar telinga dan tidak pernah terlintas dibenak manusia untuk hamba-hambaKu yang shalih.' Sebagai simpanan, biarkan apa yang diperlihatkan Allah pada kalian." Setelah itu beliau membaca: "Tak seorangpun mengetahui berbagai nikmat yang menanti, yang indah dipandang." (As Sajdah: 17)</div>
+                  <span class="source">— Shahih Muslim-2824</span>
+                </div>
+                <p>Hadis ini menjelaskan bahwa surga adalah tempat yang penuh dengan kenikmatan yang tidak pernah terbayangkan oleh manusia. Allah menyiapkannya khusus untuk hamba-hamba-Nya yang saleh. Kenikmatan surga melampaui segala apa yang pernah dilihat mata, didengar telinga, atau terlintas dalam hati manusia.</p>
+              `
+                }, {
+                    id: 'A2',
+                    label: '2. Fungsi Surga',
+                    icon: '🏛️',
+                    content: `
+                <h2 class="panel-title">2. Fungsi Surga</h2>
+                <p class="panel-sub">Fungsi surga sebagai balasan bagi orang-orang beriman</p>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا مُعَاذُ بْنُ أَسَدٍ أَخْبَرَنَا عَبْدُ اللَّهِ أَخْبَرَنَا مَالِكُ بْنُ أَنَسٍ عَنْ زَيْدِ بْنِ أَسْلَمَ عَنْ عَطَاءِ بْنِ يَسَارٍ عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ إِنَّ اللَّهَ تَبَارَكَ وَتَعَالَى يَقُولُ لِأَهْلِ الْجَنَّةِ يَا أَهْلَ الْجَنَّةِ فَيَقُولُونَ لَبَّيْكَ رَبَّنَا وَسَعْدَيْكَ فَيَقُولُ هَلْ رَضِيتُمْ فَيَقُولُونَ وَمَا لَنَا لَا نَرْضَى وَقَدْ أَعْطَيْتَنَا مَا لَمْ تُعْطِ أَحَدًا مِنْ خَلْقِكَ فَيَقُولُ أَنَا أُعْطِيكُمْ أَفْضَلَ مِنْ ذَلِكَ قَالُوا يَا رَبِّ وَأَيُّ شَيْءٍ أَفْضَلُ مِنْ ذَلِكَ فَيَقُولُ أُحِلُّ عَلَيْكُمْ رِضْوَانِي فَلَا أَسْخَطُ عَلَيْكُمْ بَعْدَهُ أَبَدًا</div>
+                  <div class="translation">Telah menceritakan kepada kami Mu'adz bin Asad telah mengabarkan kepada kami Abdullah telah mengabarkan kepada kami Malik bin Anas dari Zaid bin Aslam dari 'Atho' bin yasar dari Abu Said Al Khudzri mengatakan, Rasulullah Shallallahu'alaihi wasalalm bersabda: "Allah tabaraka wata'ala berfirman kepada penghuni surga; 'Wahai penghuni surga! ' 'Baik, dan kami penuhi panggilan-Mu, ' Jawab penghuni surga. Allah berfirman; 'telah puaskah kalian? ' mereka menjawab; 'Bagaimana mungkin kami tidak puas, sementara Engkau telah memberi kami yang belum pernah Engkau berikan kepada seorang pun dari makhluk-Mu.' Maka Allah berfirman; 'Sekarang Aku beri kalian suatu yang lebih utama daripada itu.' Penghuni surga bertanya; 'Wahai rabbi, apa yang lebih utama dari kesemuanya? ' Allah berfirman; 'Kuhalalkan keridhaan-Ku untuk kalian, dan Aku tidak murka kepada kalian selama-lamanya.'"</div>
+                  <span class="source">— Bukhari No.7518</span>
+                </div>
+                <p>Surga berfungsi sebagai balasan tertinggi bagi orang-orang beriman. Namun nikmat terbesar di surga bukanlah istana, sungai, atau bidadari, melainkan ridha Allah yang kekal. Inilah puncak kebahagiaan yang tidak dapat dibandingkan dengan nikmat lainnya.</p>
+              `
+                }, {
+                    id: 'A3',
+                    label: '3. Jenis Surga',
+                    icon: '🌺',
+                    content: `
+                <h2 class="panel-title">3. Jenis Surga</h2>
+                <p class="panel-sub">Nama-nama, tingkatan, dan pintu-pintu surga</p>
+
+                <div class="sub-section">
+                  <h3>a. Nama-Nama Surga</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنِي عَبْدُ اللَّهِ بْنُ مُحَمَّدٍ حَدَّثَنَا مُعَاوِيَةُ بْنُ عَمْرٍو حَدَّثَنَا أَبُو إِسْحَاقَ عَنْ حُمَيْدٍ قَالَ سَمِعْتُ أَنَسًا يَقُولُ أُصِيبَ حَارِثَةُ يَوْمَ بَدْرٍ وَهُوَ غُلَامٌ فَجَاءَتْ أُمُّهُ إِلَى النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فَقَالَتْ يَا رَسُولَ اللَّهِ قَدْ عَرَفْتَ مَنْزِلَةَ حَارِثَةَ مِنِّي فَإِنْ يَكُ فِي الْجَنَّةِ أَصْبِرْ وَأَحْتَسِبْ وَإِنْ تَكُنْ الْأُخْرَى تَرَى مَا أَصْنَعُ فَقَالَ وَيْحَكِ أَوَهَبِلْتِ أَوَجَنَّةٌ وَاحِدَةٌ هِيَ¹  إِنَّهَا جِنَانٌ كَثِيرَةٌ وَإِنَّهُ لَفِي² جَنَّةِ الْفِرْدَوْسِ</div>
+                    <div class="translation">Telah menceritakan kepadaku Abdullah bin Muhammad telah menceritakan kepada kami Mu'awiyah bin Amru dan telah menceritakan kepada kami Abu Ishaq dari Humaid mengatakan, aku mendengar Anas mengatakan; Haritsah gugur di perang Badar sedang ia masih berusia muda. Kemudian ibunya mendatangi Nabi Shallallahu'alaihiwasallam dan berujar; "Ya Rasulullah, engkau telah tahu tempat tinggal Haritsah daripada aku, kalaulah dia di surga, maka aku akan bersabar dan mengharap pahala, dan jikalau ditempat lain, akan kau lihat apa yang kulakukan". Maka Nabi bersabda: "apakah kamu mengira bahwa surga hanyalah satu tingkatan, 1 sungguh surga mempunyai sekian banyak tingkatan, dan sungguh dia berada 2 di surga Firdaus."</div>
+                    <span class="source">— Bukhari-3982</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا عَلِيُّ بْنُ عَبْدِ اللَّهِ حَدَّثَنَا عَبْدُ الْعَزِيزِ بْنُ عَبْدِ الصَّمَدِ عَنْ أَبِي عِمْرَانَ عَنْ أَبِي بَكْرِ بْنِ عَبْدِ اللَّهِ بْنِ قَيْسٍ عَنْ أَبِيهِ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ جَنَّتَانِ مِنْ فِضَّةٍ آنِيَتُهُمَا وَمَا فِيهِمَا وَجَنَّتَانِ مِنْ ذَهَبٍ آنِيَتُهُمَا وَمَا فِيهِمَا وَمَا بَيْنَ الْقَوْمِ وَبَيْنَ أَنْ يَنْظُرُوا إِلَى رَبِّهِمْ إِلَّا رِدَاءُ الْكِبْرِ عَلَى وَجْهِهِ فِي جَنَّةِ عَدْنٍ</div>
+                    <div class="translation">Telah menceritakan kepada kami 'Ali bin Abdullah telah menceritakan kepada kami Abdul Aziz bin Abd shamad dari Abu Imran dari Abu Bakar bin Abdullah bin Qais dari Ayahnya dari Nabi shallallahu 'alaihi wasallam, beliau bersabda: "Ada dua surga dari perak, baik bejananya maupun isinya, dan ada dua surga terbuat dari emas, baik bejananya maupun isinya, dan tidak ada yang menghalangi sebuah kaum untuk melihat Rabb mereka selain selendang kesombongan di wajahnya di surga Adn."</div>
+                    <span class="source">— Bukhari-7444</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>b. Tingkatan Surga</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا عَبَّاسٌ الْعَنْبَرِيُّ حَدَّثَنَا يَزِيدُ بْنُ هَارُونَ أَخْبَرَنَا شَرِيكٌ عَنْ مُحَمَّدِ بْنِ جُحَادَةَ عَنْ عَطَاءٍ عَنْ أَبِي هُرَيْرَةَ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فِي الْجَنَّةِ مِائَةُ دَرَجَةٍ مَا بَيْنَ كُلِّ دَرَجَتَيْنِ مِائَةُ عَامٍ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ غَرِيبٌ</div>
+                    <div class="translation">Telah menceritakan kepada kami Abbas Al Anbari telah bercerita kepada kami Yazid bin Harun telah bercerita kepada kami Syarik dari Muhammad bin Juhadah dari 'Atho' dari Abu Hurairah berkata: Rasululla Shallallahu 'alaihi wa Salam bersabda: "Di dalam syurga ada seratus tingkatan, jarak di antara satu tingkatan dengan yang lain adalah seratus tahun." Abu Isa berkata: Hadits ini hasan gharib.</div>
+                    <span class="source">— Sunan at-Tirmidzi No.2529</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>c. Pintu-Pintu Surga</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا إِسْحَقُ بْنُ مُوسَى الْأَنْصَارِيُّ حَدَّثَنَا مَعْنٌ حَدَّثَنَا مَالِكُ بْنُ أَنَسٍ عَنْ الزُّهْرِيِّ عَنْ حُمَيْدِ بْنِ عَبْدِ الرَّحْمَنِ عَنْ أَبِي هُرَيْرَةَ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ مَنْ أَنْفَقَ زَوْجَيْنِ فِي سَبِيلِ اللَّهِ نُودِيَ فِي الْجَنَّةِ يَا عَبْدَ اللَّهِ هَذَا خَيْرٌ فَمَنْ كَانَ مِنْ أَهْلِ الصَّلَاةِ دُعِيَ مِنْ بَابِ الصَّلَاةِ وَمَنْ كَانَ مِنْ أَهْلِ الْجِهَادِ دُعِيَ مِنْ بَابِ الْجِهَادِ وَمَنْ كَانَ مِنْ أَهْلِ الصَّدَقَةِ دُعِيَ مِنْ بَابِ الصَّدَقَةِ وَمَنْ كَانَ مِنْ أَهْلِ الصِّيَامِ دُعِيَ مِنْ بَابِ الرَّيَّانِ فَقَالَ أَبُو بَكْرٍ بِأَبِي أَنْتَ وَأُمِّي مَا عَلَى مَنْ دُعِيَ مِنْ هَذِهِ الْأَبْوَابِ مِنْ ضَرُورَةٍ فَهَلْ يُدْعَى أَحَدٌ مِنْ تِلْكَ الْأَبْوَابِ كُلِّهَا قَالَ نَعَمْ وَأَرْجُو أَنْ تَكُونَ مِنْهُمْ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ</div>
+                    <div class="translation">Telah menceritakan kepada kami Ishaq bin Musa Al Anshari telah menceritakan kepada kami Ma'n telah menceritakan kepada kami Malik bin Anas dari Az Zuhri dari Humaid bin Abdurrahman dari Abu Hurairah bahwa Rasulullah shallallahu 'alaihi wasallam bersabda; "Barang siapa yang menginfakkan satu pasang di jalan Allah, ia akan diseru di Surga; wahai hamba Allah, ini lebih baik. Barang siapa yang merupakan ahli shalat, ia diseru dari pintu shalat, dan barang siapa yang merupakan ahli jihad maka ia diseru dari pintu jihad, dan barang siapa yang merupakan ahli shadaqah maka ia diseru dari pintu shadaqah, dan barang siapa yang merupakan ahli puasa ia akan diseru dari pintu Ar Rayyan." Kemudian Abu Bakar berkata; "Demi ayah dan ibuku yang aku menebus keduanya untukmu, tidak ada ruginya orang yang diseru dari seluruh pintu-pintu tersebut. Apakah ada seseorang yang diseru dari seluruh pintu-pintu tersebut? Beliau menjawab: "Ya, dan saya berharap kamu termasuk diantara mereka."</div>
+                    <span class="source">— Sunan at-Tirmidzi No.3674</span>
+                  </div>
+                </div>
+              `
+                }]
+            }, {
+                id: 'babB',
+                label: 'B. Keadaan dan Aktifitas di Surga',
+                icon: '🌴',
+                children: [{
+                    id: 'B1',
+                    label: '1. Keadaan Surga',
+                    icon: '🏝️',
+                    content: `
+                <h2 class="panel-title">1. Keadaan Surga</h2>
+                <p class="panel-sub">Alam, bangunan, tempat, wangi, dan suasana surga</p>
+
+                <div class="sub-section">
+                  <h3>a. Alam Surga</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا مُحَمَّدُ بْنُ بَشَّارٍ حَدَّثَنَا يَزِيدُ بْنُ هَارُونَ أَخْبَرَنَا الْجُرَيْرِيُّ عَنْ حَكِيمِ بْنِ مُعَاوِيَةَ عَنْ أَبِيهِ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ إِنَّ فِي الْجَنَّةِ بَحْرَ الْمَاءِ وَبَحْرَ الْعَسَلِ وَبَحْرَ اللَّبَنِ وَبَحْرَ الْخَمْرِ ثُمَّ تُشَقَّقُ الْأَنْهَارُ بَعْدُ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ</div>
+                    <div class="translation">Telah menceritakan kepada kami Muhammad bin Basyar telah menceritakan kepada kami Yazid bin Harun telah mengkhabarkan kepada kami Al Jurairi dari Hakim bin Mu'awiyah dari ayahnya dari nabi Shallallahu 'alaihi wa Salam bersabda: "Sesungguhnya di surga ada samudera air, samudera madu, samudera susu dan samudera khamar, selanjutnya sungai-sungai menyabang kemana-mana."</div>
+                    <span class="source">— Sunan at-Tirmidzi-2571</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">و حَدَّثَنَا دَاوُدُ بْنُ عَمْرٍو الضَّبِّيُّ حَدَّثَنَا نَافِعُ بْنُ عُمَرَ الْجُمَحِيُّ عَنْ ابْنِ أَبِي مُلَيْكَةَ قَالَ قَالَ عَبْدُ اللَّهِ بْنُ عَمْرِو بْنِ الْعَاصِ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ حَوْضِي مَسِيرَةُ شَهْرٍ وَزَوَايَاهُ سَوَاءٌ وَمَاؤُهُ أَبْيَضُ مِنْ الْوَرِقِ وَرِيحُهُ أَطْيَبُ مِنْ الْمِسْكِ وَكِيزَانُهُ كَنُجُومِ السَّمَاءِ فَمَنْ شَرِبَ مِنْهُ فَلَا يَظْمَأُ بَعْدَهُ أَبَدًا</div>
+                    <div class="translation">Dan telah menceritakan kepada kami Daud bin Amru Adhubay Telah menceritakan kepada kami Nafi' bin Umar Al Jumahi dari Ibnu Abu Mulaikah dia berkata; Abdullah bin 'Amr bin Ash, Rasulullah shallallahu 'alaihi wasallam bersabda: "Luas telagaku sejauh sebulan perjalanan. Setiap sisinya sama panjangnya. Airnya lebih putih dari perak, Baunya lebih harum dari kesturi. Gemerlapan cahayanya bagaikan sinar bintang di langit. Siapa yang minum dari telaga itu tidak akan haus selama-lamanya sesudah itu."</div>
+                    <span class="source">— Shahih Muslim-2292</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا عَبْدُ بْنُ حُمَيْدٍ أَخْبَرَنَا عَبْدُ اللَّهِ بْنُ مَسْلَمَةَ عَنْ مُحَمَّدِ بْنِ عَبْدِ اللَّهِ بْنِ مُسْلِمٍ عَنْ أَبِيهِ عَنْ أَنَسِ بْنِ مَالِكٍ قَالَ سُئِلَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ¹ مَا الْكَوْثَرُ قَالَ ذَاكَ نَهْرٌ أَعْطَانِيهِ اللَّهُ يَعْنِي فِي الْجَنَّةِ أَشَدُّ بَيَاضًا مِنْ اللَّبَنِ وَأَحْلَى مِنْ الْعَسَلِ² فِيهَا طَيْرٌ أَعْنَاقُهَا كَأَعْنَاقِ الْجُزُرِ قَالَ عُمَرُ إِنَّ هَذِهِ لَنَاعِمَةٌ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ أَكَلَتُهَا أَحْسَنُ مِنْهَا</div>
+                    <div class="translation">Telah menceritakan kepada kami Abd bin Humaid telah mengkhabarkan kepada kami Abdullah bin Maslamah dari Muhammad bin Abdullah bin Muslim dari bapaknya dari Anas bin Malik berkata: Suatu ketika Rasulullah Shallallahu 'alaihi wa Salam ditanya: Apa artinya KAUTSAR? beliau menjawab: ¹Itu adalah sungai yang Allah berikan kepadaku, yaitu di surga, warnanya lebih putih dari air susu dan rasanya lebih manis dari madu, ²di dalamnya ada burung yang lehernya seperti leher onta." Umar berkata: Sesungguhnya ini adalah benar benar kenikmatan, Rasulullah Shallallahu 'alaihi wa Salam bersabda: Aku telah memakan yang lebih baik darinya.</div>
+                    <span class="source">— Sunan At-Tirmidzi-2542</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>b. Bangunan Surga</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا سُلَيْمَانُ بْنُ دَاوُدَ وَهُوَ أَبُو دَاوُدَ الطَّيَالِسِيُّ حَدَّثَنَا عِمْرَانُ عَنْ قَتَادَةَ عَنِ الْعَلَاءِ بْنِ زِيَادٍ الْعَدَوِيِّ عَنْ أَبِي هُرَيْرَةَ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ بِنَاءُ الْجَنَّةِ لَبِنَةٌ مِنْ ذَهَبٍ وَلَبِنَةٌ مِنْ فِضَّةٍ</div>
+                    <div class="translation">Telah menceritakan kepada kami [Sulaiman bin Dawud] -yaitu Abu Dawud Ath Thoyalisi berkata: telah menceritakan kepada kami ['Imron] dari [Qatadah] dari [Al 'Ala' bin Ziyad Al 'Adawi] dari [Abu Hurairah] dari Nabi shallallahu 'alaihi wa sallam, beliau bersabda: "Bangunan surga, batu batanya dari emas dan perak."</div>
+                    <span class="source">— Musnad Ahmad-8732</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا عَبْدُ الرَّحْمَنِ بْنُ إِبْرَاهِيمَ الدِّمَشْقِيُّ وَهَارُونُ بْنُ إِسْحَقَ قَالَا حَدَّثَنَا ابْنُ أَبِي فُدَيْكٍ عَنْ سَلَمَةَ بْنِ وَرْدَانَ عَنْ أَنَسِ بْنِ مَالِكٍ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَنْ تَرَكَ الْكَذِبَ وَهُوَ بَاطِلٌ بُنِيَ لَهُ قَصْرٌ فِي رَبَضِ الْجَنَّةِ وَمَنْ تَرَكَ الْمِرَاءَ وَهُوَ مُحِقٌّ بُنِيَ لَهُ فِي وَسَطِهَا وَمَنْ حَسَّنَ خُلُقَةُ بُنِيَ لَهُ فِي أَعْلَاهَا</div>
+                    <div class="translation">Telah menceritakan kepada kami [Abdurrahman bin Ibrahim Ad Dimasyqi] dan [Harun bin Ishaq], keduanya berkata: telah menceritakan kepada kami [Ibnu Abu Fudaik] dari [Salamah bin Wardan] dari [Anas bin Malik] ia berkata: Rasulullah shallallahu 'alaihi wa sallam bersabda: 1 "Barangsiapa meninggalkan dusta, sementara dia bathil, maka akan dibangunkan baginya 2 istana di tepian surga. Barangsiapa meninggalkan debat meskipun ia benar, maka akan dibangunkan baginya istana di tengah surga. Barangsiapa memperbaiki akhlaknya maka baginya akan dibangunkan istana di surga yang paling tinggi."</div>
+                    <span class="source">— Sunan Ibnu Majah-51</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>c. Tempat di Surga</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا عَبْدُ الْعَزِيزِ بْنُ عَبْدِ اللَّهِ قَالَ حَدَّثَنِي مَالِكُ بْنُ أَنَسٍ عَنْ صَفْوَانَ بْنِ سُلَيْمٍ عَنْ عَطَاءِ بْنِ يَسَارٍ عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ رَضِيَ اللَّهُ عَنْهُ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ إِنَّ أَهْلَ الْجَنَّةِ يَتَرَاءَوْنَ أَهْلَ الْغُرَفِ مِنْ فَوْقِهِمْ كَمَا يَتَرَاءَوْنَ الْكَوْكَبَ الدُّرِّيَّ الْغَابِرَ فِي الْأُفُقِ مِنْ الْمَشْرِقِ أَوْ الْمَغْرِبِ لِتَفَاضُلِ مَا بَيْنَهُمْ قَالُوا يَا رَسُولَ اللَّهِ تِلْكَ مَنَازِلُ الْأَنْبِيَاءِ لَا يَبْلُغُهَا غَيْرُهُمْ قَالَ بَلَى وَالَّذِي نَفْسِي بِيَدِهِ رِجَالٌ آمَنُوا بِاللَّهِ وَصَدَّقُوا الْمُرْسَلِينَ</div>
+                    <div class="translation">Telah bercerita kepada kami 'Abdul 'Aziz bin 'Abdullah berkata telah bercerita kepadaku Malik bin Anas dari Shafwan bin Sulaim dari 'Atah' bin Yasar dari Abu Sa'id Al Khudriy radliallahu 'anhu dari Nabi shallallahu 'alaihi wasallam bersabda: "Penghuni surga memandang penghuni kamar-kamar dari atas mereka sebagaimana mereka memandang bintang kejora yang terbit di ufuk timur atau barat disebabkan keutamaan di antara mereka". Para sahabat bertanya; "Wahai Rasulullah, apakah itu tempat tinggal para Nabi yang tidak akan dimasuki oleh orang selain mereka?. Beliau bersabda: "Benar, demi Dzat yang jiwaku berada di tangan-Nya, (tetapi juga menjadi tempat tinggal) orang-orang yang beriman kepada Allah dan membenarkan para Rasul".</div>
+                    <span class="source">— Bukhari-3256</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا عَلِيُّ بْنُ حُجْرٍ حَدَّثَنَا عَلِيُّ بْنُ مُسْهِرٍ عَنْ عَبْدِ الرَّحْمَنِ بْنِ إِسْحَقَ عَنْ النُّعْمَانِ بْنِ سَعْدٍ عَنْ عَلِيٍّ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ إِنَّ فِي الْجَنَّةِ لَغُرَفًا يُرَى ظُهُورُهَا مِنْ بُطُونِهَا وَبُطُونُهَا مِنْ ظُهُورِهَا فَقَامَ إِلَيْهِ أَعْرَابِيٌّ فَقَالَ لِمَنْ هِيَ يَا رَسُولَ اللَّهِ قَالَ هِيَ لِمَنْ أَطَابَ الْكَلَامَ وَأَطْعَمَ الطَّعَامَ وَأَدَامَ الصِّيَامَ وَصَلَّى لِلَّهِ بِاللَّيْلِ وَالنَّاسُ نِيَامٌ</div>
+                    <div class="translation">Telah menceritakan kepada kami Ali bin Hujr telah menceritakan kepada kami Ali bin Mashir dari Abdurrahman bin Ishaq dari An Nu'man bin Sa'ad dari Ali berkata: Rasulullah Shallallahu 'alaihi wa Salam bersabda: "Sesungguhnya di surga ada kamar-kamar, luarnya terlihat dari dalam dan dalamnya terlihat dari luar." Seorang badui menghampiri beliau, ia bertanya: Itu untuk siapa, wahai Rasulullah? Beliau menjawab: "Bagi yang membiasakan ucapannya baik, memberi makan, puasa secara kontinyu, shalat malam untuk Allah saat orang-orang tidur."</div>
+                    <span class="source">— Sunan at-Tirmidzi-2527</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا مُحَمَّدُ بْنُ الْمُثَنَّى قَالَ حَدَّثَنِي عَبْدُ الْعَزِيزِ بْنُ عَبْدِ الصَّمَدِ حَدَّثَنَا أَبُو عِمْرَانَ الْجَوْنِيُّ عَنْ أَبِي بَكْرِ بْنِ عَبْدِ اللَّهِ بْنِ قَيْسٍ عَنْ أَبِيهِ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ إِنَّ فِي الْجَنَّةِ خَيْمَةً مِنْ لُؤْلُؤَةٍ مُجَوَّفَةٍ عَرْضُهَا سِتُّونَ مِيلًا فِي كُلِّ زَاوِيَةٍ مِنْهَا أَهْلٌ مَا يَرَوْنَ الْآخَرِينَ يَطُوفُ عَلَيْهِمْ الْمُؤْمِنُونَ وَجَنَّتَانِ مِنْ فِضَّةٍ آنِيَتُهُمَا وَمَا فِيهِمَا وَجَنَّتَانِ مِنْ كَذَا آنِيَتُهُمَا وَمَا فِيهِمَا وَمَا بَيْنَ الْقَوْمِ وَبَيْنَ أَنْ يَنْظُرُوا إِلَى رَبِّهِمْ إِلَّا رِدَاءُ الْكِبْرِ عَلَى وَجْهِهِ فِي جَنَّةِ عَدْنٍ</div>
+                    <div class="translation">Telah menceritakan kepada kami Muhammad bin Al Mutsanna Telah menceritakan kepadaku Abdul Aziz bin Abdush Shamad Telah menceritakan kepada kami Abu Imran Al Jauni dari Abu Bakr bin Abdullah bin Qais dari bapaknya bahwa Rasulullah shallallahu 'alaihi wasallam bersabda: "Dalam surga terdapat kemah yang terbuat dari permata yang berongga dengan luas enam puluh mil. Pada setiap sudutnya terdapat penghuni, namun mereka tidak dapat melihat yang lain, orang-orang mukmin mengelilingi mereka. Dan (di dalam surga juga terdapat) dua kebun yang gelas-gelas, serta segala sesuatu yang berada di dalamnya terbuat dari perak. Tidak ada lagi yang menghalangi antara suatu kaum untuk melihat Rabb mereka kecuali pakaian kesombongan yang melekat di wajah-Nya di dalam Jannah Aden."</div>
+                    <span class="source">— Bukhari-4879</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>d. Wangi Surga</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنِي زُهَيْرُ بْنُ حَرْبٍ حَدَّثَنَا جَرِيرٌ عَنْ سُهَيْلٍ عَنْ أَبِيهِ عَنْ أَبِي هُرَيْرَةَ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ صِنْفَانِ مِنْ أَهْلِ النَّارِ لَمْ أَرَهُمَا قَوْمٌ مَعَهُمْ سِيَاطٌ كَأَذْنَابِ الْبَقَرِ يَضْرِبُونَ بِهَا النَّاسَ وَنِسَاءٌ كَاسِيَاتٌ عَارِيَاتٌ مُمِيلَاتٌ مَائِلَاتٌ رُءُوسُهُنَّ كَأَسْنِمَةِ الْبُخْتِ الْمَائِلَةِ لَا يَدْخُلْنَ الْجَنَّةَ وَلَا يَجِدْنَ رِيحَهَا وَإِنَّ رِيحَهَا لَيُوجَدُ مِنْ مَسِيرَةِ كَذَا وَكَذَا</div>
+                    <div class="translation">Telah menceritakan kepadaku Zuhair bin Harb telah menceritakan kepada kami Jurair dari Suhail dari ayahnya dari Abu Hurairah berkata: Rasulullah Shallallahu 'alaihi wa Salam bersabda: "Dua golongan penghuni neraka yang belum pernah aku lihat; kaum membawa cambuk seperti ekor sapi, dengannya ia memukuli orang dan wanita-wanita yang berpakaian (tapi) telanjang, mereka berlenggak-lenggok dan condong (dari ketaatan), rambut mereka seperti punuk unta yang miring, mereka tidak masuk surga dan tidak akan mencium baunya, padahal sesungguhnya bau surga itu tercium dari perjalanan sejauh ini dan ini."</div>
+                    <span class="source">— Shahih Muslim-2128</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>e. Suasana Surga</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا إِسْمَاعِيلُ قَالَ حَدَّثَنِي مَالِكٌ عَنْ أَبِي الزِّنَادِ عَنْ الْأَعْرَجِ عَنْ أَبِي هُرَيْرَةَ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ حُجِبَتْ النَّارُ بِالشَّهَوَاتِ وَحُجِبَتْ الْجَنَّةُ بِالْمَكَارِهِ</div>
+                    <div class="translation">Telah menceritakan kepada kami [Ismail] mengatakan, telah menceritakan kepadaku [Malik] dari [Abu Az Zanad] dari [Al A'raj] dari [Abu Hurairah] radliallahu 'anhu, bahwasanya Rasulullah shallallahu 'alaihi wa sallam bersabda: "Neraka dikelilingi dengan syahwat (hal-hal yang menyenangkan nafsu), sedang surga dikelilingi hal-hal yang tidak disenangi (nafsu)."</div>
+                    <span class="source">— Bukhari-6487</span>
+                  </div>
+                </div>
+              `
+                }, {
+                    id: 'B2',
+                    label: '2. Aktifitas di Surga',
+                    icon: '🎉',
+                    content: `
+                <h2 class="panel-title">2. Aktifitas di Surga</h2>
+                <p class="panel-sub">Kesenangan dan aktivitas yang dilakukan penghuni surga</p>
+
+                <div class="sub-section">
+                  <h3>1. Kesenangan di Surga</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا مُحَمَّدُ بْنُ بَشَّارٍ حَدَّثَنَا مُعَاذُ بْنُ هِشَامٍ حَدَّثَنَا أَبِي عَنْ عَامِرٍ الْأَحْوَلِ عَنْ أَبِي الصِّدِّيقِ النَّاجِيِّ عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ الْمُؤْمِنُ إِذَا اشْتَهَى الْوَلَدَ فِي الْجَنَّةِ كَانَ حَمْلُهُ وَوَضْعُهُ فِي سَاعَةٍ وَاحِدَةٍ كَمَا يَشْتَهِي</div>
+                    <div class="translation">Telah menceritakan kepada kami Muhammad bin Basyar telah menceritakan kepada kami Mu'adz bin Hisyam telah menceritakan kepada kami ayahku dari 'Amir Al Ahwal dari Abu As Shidiq An Naji dari Abu Sa'id Al Khudri dia berkata; Rasulullah shallallahu 'alaihi wasallam bersabda: "Didalam surga, jika seorang mukmin ingin memiliki anak, maka ia akan menghamili dan melahirkannya dalam satu jam, sebagaimana yang ia inginkan."</div>
+                    <span class="source">— Sunan Ibnu Majah-4338</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا مُحَمَّدُ بْنُ بَشَّارٍ وَمَحْمُودُ بْنُ غَيْلَانَ قَالَا حَدَّثَنَا أَبُو دَاوُدَ الطَّيَالِسِيُّ عَنْ عِمْرَانَ الْقَطَّانِ عَنْ قَتَادَةَ عَنْ أَنَسٍ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ يُعْطَى الْمُؤْمِنُ فِي الْجَنَّةِ قُوَّةَ كَذَا وَكَذَا مِنْ الْجِمَاعِ قِيلَ يَا رَسُولَ اللَّهِ أَوَ يُطِيقُ ذَلِكَ قَالَ يُعْطَى قُوَّةَ مِائَةٍ</div>
+                    <div class="translation">Telah menceritakan kepada kami Muhammad bin Basyar dan Mahmud bin Ghailan keduanya berkata: telah menceritakan kepada kami Abu Daud Ath Thayalisi dari 'Imran Al Qattan dari Qatadah dari Anas dari Nabi Shallallahu 'alaihi wa Salam beliau bersabda: "Orang beriman kelak di syurga diberi kekuatan bersetubuh seperti ini dan seperti ini, " ada yang bertanya: Wahai Rasulullah apakah mampu seperti itu? beliau menjawab: "Mereka diberi kekuatan jima' sampai seratus kali lipat."</div>
+                    <span class="source">— Sunan at-Tirmidzi 2536</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>2. Destinasi Resreshing Weekend di Surga</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا أَبُو عُثْمَانَ سَعِيدُ بْنُ عَبْدِ الْجَبَّارِ الْبَصْرِيُّ حَدَّثَنَا حَمَّادُ بْنُ سَلَمَةَ عَنْ ثَابِتٍ الْبُنَانِيِّ عَنْ أَنَسِ بْنِ مَالِكٍ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ إِنَّ فِي الْجَنَّةِ لَسُوقًا يَأْتُونَهَا كُلَّ جُمُعَةٍ فَتَهُبُّ رِيحُ الشَّمَالِ فَتَحْثُو فِي وُجُوهِهِمْ وَثِيَابِهِمْ فَيَزْدَادُونَ حُسْنًا وَجَمَالًا فَيَرْجِعُونَ إِلَى أَهْلِيهِمْ وَقَدْ ازْدَادُوا حُسْنًا وَجَمَالًا فَيَقُولُ لَهُمْ أَهْلُوهُمْ وَاللَّهِ لَقَدْ ازْدَدْتُمْ بَعْدَنَا حُسْنًا وَجَمَالًا فَيَقُولُونَ وَأَنْتُمْ وَاللَّهِ لَقَدْ ازْدَدْتُمْ بَعْدَنَا حُسْنًا وَجَمَالًا</div>
+                    <div class="translation">Telah menceritakan kepada kami Abu Utsman Sa'id bin Abdul jabbar Al Bashri telah menceritakan kepada kami Hammad bin Salamah dari Tsabit Al Bunani dari Anas bin Malik Rasulullah Shallallahu 'alaihi wa Salam bersabda: "Sesungguhnya ¹di surga ada pasar, mereka mendatanginya setiap hari jum'at, ²angin dari utara berhembus lalu menerpa wajah-wajah mereka dan pakaian-pakaian mereka hingga mereka semakin indah dan menawan. Mereka kembali ke keluarga mereka dengan penampilan yang lebih indah dan menawan, keluarga-keluarga mereka berkata pada mereka: 'Demi Allah, kau semakin indah dan menawan setelah kami.' mereka berkata: 'Kalian juga, demi Allah, lebih indah dan menawan setelah kami."</div>
+                    <span class="source">— Shahih Muslim No.2833</span>
+                  </div>
+                </div>
+              `
+                }]
+            }, {
+                id: 'babC',
+                label: 'C. Penghuni Surga',
+                icon: '👥',
+                children: [{
+                    id: 'C1',
+                    label: '1. Manusia',
+                    icon: '🧑',
+                    content: `
+                <h2 class="panel-title">1. Manusia di Surga</h2>
+                <p class="panel-sub">Kriteria, keadaan, jenis, dan tingkat kedudukan manusia di surga</p>
+
+                <div class="sub-section">
+                  <h3>a. Kriteria Calon Penghuni Surga</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا سَعِيدُ بْنُ أَبِي مَرْيَمَ حَدَّثَنَا مُحَمَّدُ بْنُ مُطَرِّفٍ قَالَ حَدَّثَنِي أَبُو حَازِمٍ عَنْ سَهْلِ بْنِ سَعْدٍ رَضِيَ اللَّهُ عَنْهُ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ فِي الْجَنَّةِ ثَمَانِيَةُ أَبْوَابٍ¹ فِيهَا بَابٌ يُسَمَّى الرَّيَّانَ² لَا يَدْخُلُهُ إِلَّا الصَّائِمُونَ</div>
+                    <div class="translation">Telah bercerita kepada kami Sa'id bin Abu Maryam telah bercerita kepada kami Muhammad bin Mutharrif berkata telah bercerita kepadaku Abu Hazim dari Sahal bin Sa'ad radliallahu 'anhu dari Nabi shallallahu 'alaihi wasallam bersabda: "Di surga ada delapan pintu, diantaranya ada yang dinamakan pintu ar-Rayyan yang tidak akan memasukinya kecuali orang-orang yang berpuasa".</div>
+                    <span class="source">— Bukhari-3257</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا أَبُو الْيَمَانِ أَخْبَرَنَا شُعَيْبٌ حَدَّثَنَا أَبُو الزِّنَادِ عَنْ الْأَعْرَجِ عَنْ أَبِي هُرَيْرَةَ قَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ لَا يَدْخُلُ أَحَدٌ الْجَنَّةَ إِلَّا أُرِيَ مَقْعَدَهُ مِنْ النَّارِ لَوْ أَسَاءَ لِيَزْدَادَ شُكْرًا وَلَا يَدْخُلُ النَّارَ أَحَدٌ إِلَّا أُرِيَ مَقْعَدَهُ مِنْ الْجَنَّةِ لَوْ أَحْسَنَ لِيَكُونَ عَلَيْهِ حَسْرَةً</div>
+                    <div class="translation">Telah menceritakan kepada kami Abul Yaman Telah mengabarkan kepada kami Syu'aib telah menceritakan kepada kami Abu Az Zanad dari Al A'raj dari Abu Hurairah, Nabi shallallahu 'alaihi wasallam bersabda: "seseorang tidak akan masuk kedalam surga sehingga di perlihatkan kepadanya tempat duduknya di neraka, agar kalau dia berbuat buruk dapat menambah rasa syukurnya. Dan seseorang tidak akan masuk neraka sehingga di perlihatkan kepadanya tempat duduknya di surga, agar kalau dia berbuat baik menjadi satu kerugian baginya."</div>
+                    <span class="source">— Bukhari-6569</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا عَاصِمُ بْنُ النَّضْرِ التَّيْمِيُّ حَدَّثَنَا مُعْتَمِرٌ قَالَ سَمِعْتُ أَبِي حَدَّثَنَا قَتَادَةُ عَنْ أَنَسِ بْنِ مَالِكٍ أَنَّهُ حَدَّثَ عَنْ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ إِنَّ الْكَافِرَ إِذَا عَمِلَ حَسَنَةً أُطْعِمَ بِهَا طُعْمَةً مِنْ الدُّنْيَا وَأَمَّا الْمُؤْمِنُ فَإِنَّ اللَّهَ يَدَّخِرُ لَهُ حَسَنَاتِهِ فِي الْآخِرَةِ وَيُعْقِبُهُ رِزْقًا فِي الدُّنْيَا عَلَى طَاعَتِهِ</div>
+                    <div class="translation">Telah menceritakan kepada kami Ashim bin An Nadhr At Taimi telah menceritakan kepada kami Mu'tamir berkata: Aku mendengar ayahku telah menceritakan kepada kami Qatadah dari Anas bin Malik ia menceritakan dari Rasulullah Shallallahu 'alaihi wa Salam, bila orang kafir mengerjakan suatu kebaikan, dengan kebaikan itu ia diberi sesuap makanan dari dunia, sedangkan orang mu'min itu kebaikan-kebaikannya disimpan oleh Allah diakhirat dan ia diberi rizki di dunia karena ketaatannya.</div>
+                    <span class="source">— Shahih Muslim No. 2808</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">و حَدَّثَنِي أَبُو أَيُّوبَ الْغَيْلَانِيُّ سُلَيْمَانُ بْنُ عَبْدِ اللَّهِ وَحَجَّاجُ بْنُ الشَّاعِرِ قَالَا حَدَّثَنَا عَبْدُ الْمَلِكِ بْنُ عَمْرٍو حَدَّثَنَا قُرَّةُ عَنْ أَبِي الزُّبَيْرِ حَدَّثَنَا جَابِرُ بْنُ عَبْدِ اللَّهِ قَالَ سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ مَنْ لَقِيَ اللَّهَ لَا يُشْرِكُ بِهِ شَيْئًا دَخَلَ الْجَنَّةَ وَمَنْ لَقِيَهُ يُشْرِكُ بِهِ دَخَلَ النَّارَ</div>
+                    <div class="translation">Dan telah menceritakan kepadaku [Abu Ayyub al-Ghailani Sulaiman bin Abdullah] dan [Hajjaj bin asy-Sya'ir] keduanya berkata: telah menceritakan kepada kami [Abdul Malik bin Amru] telah menceritakan kepada kami [Qurrah] dari [Abu az-Zubair] telah menceritakan kepada kami [Jabir bin Abdullah] dia berkata: "Saya mendengar Rasulullah shallallahu 'alaihi wa sallam bersabda: "Orang yang meninggal menemui Allah dalam keadaan tidak mensyirikkan Allah dengan sesuatu apapun pasti masuk surga, dan orang yang meninggal (menemui Allah) dalam keadaan mensyirikkan Allah dengan sesuatu pasti masuk neraka."</div>
+                    <span class="source">— Shahih Muslim-93</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا أَحْمَدُ بْنُ مَنِيعٍ حَدَّثَنَا إِسْمَعِيلُ بْنُ إِبْرَاهِيمَ حَدَّثَنَا أَيُّوبُ عَنْ أَبِي رَجَاءٍ الْعُطَارِدِيِّ قَال سَمِعْتُ ابْنَ عَبَّاسٍ يَقُولُ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ اطَّلَعْتُ فِي الْجَنَّةِ فَرَأَيْتُ أَكْثَرَ أَهْلِهَا الْفُقَرَاءَ وَاطَّلَعْتُ فِي النَّارِ فَرَأَيْتُ أَكْثَرَ أَهْلِهَا النِّسَاءَ</div>
+                    <div class="translation">Telah menceritakan kepada kami Ahmad bin Mani' telah menceritakan kepada kami Ismail bin Ibrahim telah menceritakan kepada kami Ayyub dari Abu Raja' al Utharidi, dia berkata, aku mendengar Ibnu Abbas berkata, Rasulullah shallallahu 'alaihi wasallam bersabda: "Saya memperhatikan surga, maka saya melihat mayoritas penduduknya adalah kaum fakir, dan saya memeriksa neraka, maka saya melihat mayoritas penduduknya adalah kaum wanita."</div>
+                    <span class="source">— Sunan at-Tirmidzi-2602</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا عُبَيْدُ اللَّهِ بْنُ مُعَاذٍ الْعَنْبَرِيُّ حَدَّثَنَا أَبِي حَدَّثَنَا شُعْبَةُ حَدَّثَنِي مَعْبَدُ بْنُ خَالِدٍ أَنَّهُ سَمِعَ حَارِثَةَ بْنَ وَهْبٍ أَنَّهُ سَمِعَ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ أَلَا أُخْبِرُكُمْ بِأَهْلِ الْجَنَّةِ قَالُوا بَلَى قَالَ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ كُلُّ ضَعِيفٍ مُتَضَعِّفٍ لَوْ أَقْسَمَ عَلَى اللَّهِ لَأَبَرَّهُ ثُمَّ قَالَ أَلَا أُخْبِرُكُمْ بِأَهْلِ النَّارِ قَالُوا بَلَى قَالَ كُلُّ عُتُلٍّ جَوَّاظٍ مُسْتَكْبِرٍ</div>
+                    <div class="translation">Telah menceritakan kepada kami Ubaidullah bin Mu'adz Al Ambari telah menceritakan kepada kami ayahku telah menceritakan kepada kami Syu'bah telah menceritakan kepadaku Ma'bad bin Khalid ia mendengar Haritsah bin Wahab mendengar nabi Shallallahu 'alaihi wa Salam bertanya: "Maukah kalian aku beritahu penghuni surga?" mereka menjawab: Ya. Beliau bersabda: "Setiap orang lemah dan diperlemah. Andai ia telah bersumpah atas nama Allah pasti Allah akan menunaikannya." Setelah itu beliau bertanya: "Maukah kalian aku beritahu penghuni neraka?" mereka menjawab: Ya. Beliau bersabda: "Setiap orang keras, congkak dan sombong."</div>
+                    <span class="source">— Shahih Muslim-2853</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا قُتَيْبَةُ بْنُ سَعِيدٍ حَدَّثَنَا يَعْقُوبُ يَعْنِي ابْنَ عَبْدِ الرَّحْمَنِ عَنْ سُهَيْلٍ عَنْ أَبِيهِ عَنْ أَبِي هُرَيْرَةَ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ مِنْ أَشَدِّ أُمَّتِي لِي حُبًّا نَاسٌ يَكُونُونَ بَعْدِي يَوَدُّ أَحَدُهُمْ لَوْ رَآنِي بِأَهْلِهِ وَمَالِهِ</div>
+                    <div class="translation">Telah menceritakan kepada kami Qutaibah bin Sa'id telah menceritakan kepada kami Ya'qub bin Abdurrahman dari Suhail dari ayahnya dari Abu Hurairah Rasulullah Shallallahu 'alaihi wa Salam bersabda: "Diantara ummatku yang sangat mencintaiku adalah orang-orang sepeninggalku, salah seorang diantara mereka ingin melihatku dengan (mengorbankan) keluarganya dan hartanya."</div>
+                    <span class="source">— Shahih Muslim-2832</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا هِشَامُ بْنُ عَمَّارٍ حَدَّثَنَا زَكَرِيَّا بْنُ مَنْظُورٍ حَدَّثَنَا أَبُو حَازِمٍ عَنْ سَهْلِ بْنِ سَعْدٍ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَوْضِعُ سَوْطٍ فِي الْجَنَّةِ خَيْرٌ مِنْ الدُّنْيَا وَمَا فِيهَا</div>
+                    <div class="translation">Telah menceritakan kepada kami Hisyam bin 'Ammar telah menceritakan kepada kami Zakariya' bin Mandzur telah menceritakan kepada kami Abu Hazim dari Sahl bin Sa'd dia berkata; Rasulullah shallallahu 'alaihi wasallam bersabda: "Tempat cambuk di surga, lebih baik daripada dunia seisinya."</div>
+                    <span class="source">— Sunan Ibnu Majah-4329</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا يَعْقُوبُ بْنُ إِبْرَاهِيمَ حَدَّثَنَا ابْنُ عُلَيَّةَ حَدَّثَنَا عَبْدُ الْعَزِيزِ بْنُ صُهَيْبٍ عَنْ أَنَسِ بْنِ مَالِكٍ رَضِيَ اللَّهُ عَنْهُ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَا مِنْ النَّاسِ مُسْلِمٌ يَمُوتُ لَهُ ثَلَاثَةٌ مِنْ الْوَلَدِ لَمْ يَبْلُغُوا الْحِنْثَ إِلَّا أَدْخَلَهُ اللَّهُ الْجَنَّةَ بِفَضْلِ رَحْمَتِهِ إِيَّاهُمْ</div>
+                    <div class="translation">Telah menceritakan kepada kami [Ya'qub bin Ibrahim] telah menceritakan kepada kami [Ibnu 'Ulayyah] telah menceritakan kepada kami ['Abdul 'Aziz bin Shuhaib] dari Anas bin Malik radliyallahu 'anhu berkata: Nabi shallallahu 'alaihi wa sallam telah bersabda: "Tidak seorang muslimpun yang ditinggal wafat oleh tiga orang anaknya yang belum baligh kecuali Allah memasukkannya ke dalam surga karena limpahan rahmatNya kepada mereka".</div>
+                    <span class="source">— Bukhari-1381</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا مُسَدَّدٌ حَدَّثَنَا يَزِيدُ بْنُ زُرَيْعٍ حَدَّثَنَا عَوْفٌ حَدَّثَتْنَا حَسْنَاءُ بِنْتُ مُعَاوِيَةَ الصَّرِيمِيَّةُ قَالَتْ حَدَّثَنَا عَمِّي قَالَ قُلْتُ لِلنَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَنْ فِي الْجَنَّةِ قَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فِي الْجَنَّةِ وَالشَّهِيدُ فِي الْجَنَّةِ وَالْمَوْلُودُ فِي الْجَنَّةِ وَالْوَئِيدُ فِي الْجَنَّةِ</div>
+                    <div class="translation">Telah menceritakan kepada kami [Musaddad], telah menceritakan kepada kami [Yazid bin Zurai'], telah menceritakan kepada kami ['Auf], telah menceritakan kepada kami [Hasna' binti Mu'awiyah Ash Sharimiyyah], ia berkata: telah menceritakan kepada kami [pamanku], ia berkata: Aku berkata kepada Nabi shallallahu 'alaihi wa sallam: "Siapakah yang ada di dalam Surga?" Beliau berkata: "Nabi shallallahu 'alaihi wa sallam berada di Surga, orang yang syahid berada di Surga, orang yang terlahir berada di Surga, dan orang yang dikubur hidup-hidup berada di Surga."</div>
+                    <span class="source">— Sunan Abu Daud-2521</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>b. Keadaan Manusia di Surga</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا مُحَمَّدُ بْنُ سِنَانٍ حَدَّثَنَا فُلَيْحٌ حَدَّثَنَا هِلَالٌ عَنْ عَطَاءِ بْنِ يَسَارٍ عَنْ أَبِي هُرَيْرَةَ أَنَّ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ كَانَ يَوْمًا يُحَدِّثُ وَعِنْدَهُ رَجُلٌ مِنْ أَهْلِ الْبَادِيَةِ أَنَّ رَجُلًا مِنْ أَهْلِ الْجَنَّةِ اسْتَأْذَنَ رَبَّهُ فِي الزَّرْعِ فَقَالَ لَهُ أَوَلَسْتَ فِيمَا شِئْتَ قَالَ بَلَى وَلَكِنِّي أُحِبُّ أَنْ أَزْرَعَ فَأَسْرَعَ وَبَذَرَ فَتَبَادَرَ الطَّرْفَ نَبَاتُهُ وَاسْتِوَاؤُهُ وَاسْتِحْصَادُهُ وَتَكْوِيرُهُ أَمْثَالَ الْجِبَالِ فَيَقُولُ اللَّهُ تَعَالَى دُونَكَ يَا ابْنَ آدَمَ فَإِنَّهُ لَا يُشْبِعُكَ شَيْءٌ فَقَالَ الْأَعْرَابِيُّ يَا رَسُولَ اللَّهِ لَا تَجِدُ هَذَا إِلَّا قُرَشِيًّا أَوْ أَنْصَارِيًّا فَإِنَّهُمْ أَصْحَابُ زَرْعٍ فَأَمَّا نَحْنُ فَلَسْنَا بِأَصْحَابِ زَرْعٍ فَضَحِكَ رَسُولُ اللَّهِ</div>
+                    <div class="translation">Telah menceritakan kepada kami Muhammad bin Sinan telah menceritakan kepada kami Fulaih telah menceritakan kepada kami Hilal dari 'Atha' bin Yasar dari Abu Hurairah, bahwa Nabi shallallahu 'alaihi wasallam suatu hari menyampaikan hadis sedang di sisinya ada seorang arab badui: "Ada seorang penduduk surga meminta ijin Tuhannya untuk menanam. Allah berujar, 'Bukankah engkau diperkenankan sekehendakmu! ' Orang tersebut menjawab, 'Memang, namun aku ingin menanam! ' Orang itu kemudian bergegas menabur benih, dan ujung-ujung tanamannya sedemikian cepat tumbuh, juga perkembangbiakannya, sehingga ia juga cepat memanen, yang himpunan panenannya sebesar gunung. Kemudian Allah berfirman, 'Silahkan kau ambil hai Anak adam, sungguh tak ada sesuatu yang menjadikanmu puas! ' Maka si arab badui berkata, 'Wahai Rasulullah, (jika demikian) tidak akan engkau temukan seperti orang ini selain dari Quraisy atau orang anshar, sebab mereka hobi bercocok tanam, adapun kami, tidak suka bercocok tanam! Rasulullah pun menjadi tertawa."</div>
+                    <span class="source">— Bukhari-7519</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا مَحْمُودُ بْنُ غَيْلَانَ وَغَيْرُ وَاحِدٍ قَالُوا حَدَّثَنَا عَبْدُ الرَّزَّاقِ أَخْبَرَنَا الثَّوْرِيُّ أَخْبَرَنِي أَبُو إِسْحَقَ أَنَّ الْأَغَرَّ أَبَا مُسْلِمٍ حَدَّثَهُ عَنْ أَبِي سَعِيدٍ وَأَبِي هُرَيْرَةَ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ يُنَادِي مُنَادٍ1 إِنَّ لَكُمْ أَنْ تَحْيَوْا فَلَا تَمُوتُوا أَبَدًا وَإِنَّ لَكُمْ أَنْ تَصِحُّوا فَلَا تَسْقَمُوا أَبَدًا وَإِنَّ لَكُمْ أَنْ تَشِبُّوا فَلَا تَهْرَمُوا أَبَدًا وَإِنَّ لَكُمْ أَنْ تَنْعَمُوا فَلَا تَبْأَسُوا أَبَدًا فَذَلِكَ قَوْلُهُ تَعَالَى 2 { وَتِلْكَ الْجَنَّةُ الَّتِي أُورِثْتُمُوهَا بِمَا كُنْتُمْ تَعْمَلُونَ }</div>
+                    <div class="translation">Telah menceritakan kepada kami Mahmud bin Ghailan dan lainnya, mereka berkata: Telah menceritakan kepada kami Abdurrazzaq telah mengkhabarkan kepada kami Ats Tsauri telah mengkhabarkan kepadaku Abu Ishaq bahwa Al Aghar Abu Muslim telah menceritakan kepadanya dari Abu Sa'id dan Abu Hurairah dari nabi Shallallahu 'alaihi wa Salam, beliau bersabda: "Penyeru menyerukan: Sesungguhnya kalian hidup dan tidak mati selamanya, kalian sehat dan tidak sakit selamanya, kalian muda dan tidak tua selamanya, kalian bersenang-senang dan tidak akan bersedih selamanya. Itulah firman-Nya: "Dan Itulah surga yang diwariskan kepada kamu disebabkan amal-amal yang dahulu kamu kerjakan." (Az Zukhruuf: 72)</div>
+                    <span class="source">— Sunan at-Tirmidzi-3246</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنِي زُهَيْرُ بْنُ حَرْبٍ حَدَّثَنَا عَبْدُ الرَّحْمَنِ بْنُ مَهْدِيٍّ حَدَّثَنَا حَمَّادُ بْنُ سَلَمَةَ عَنْ ثَابِتٍ عَنْ أَبِي رَافِعٍ عَنْ أَبِي هُرَيْرَةَ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ مَنْ يَدْخُلُ الْجَنَّةَ يَنْعَمُ لَا يَبْأَسُ لَا تَبْلَى ثِيَابُهُ وَلَا يَفْنَى شَبَابُهُ</div>
+                    <div class="translation">Telah menceritakan kepadaku Zuhair bin Harb telah menceritakan kepada kami Abdurrahman bin Mahdi telah menceritakan kepada kami Hammad bin Salamah dari Tsabit bin Abu Rafi' dari Abu Rafi' dari Abu Hurairah dari nabi Shallallahu 'alaihi wa Salam bersabda: "Barangsiapa masuk surga, ia bersenang-senang dan tidak bersedih, pakaiannya tidak usang dan kemudaannya tidak lenyap."</div>
+                    <span class="source">— Shahih Muslim-2836</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا عُثْمَانُ بْنُ أَبِي شَيْبَةَ وَإِسْحَقُ بْنُ إِبْرَاهِيمَ وَاللَّفْظُ لِعُثْمَانَ قَالَ عُثْمَانُ حَدَّثَنَا و قَالَ إِسْحَقُ أَخْبَرَنَا جَرِيرٌ عَنْ الْأَعْمَشِ عَنْ أَبِي سُفْيَانَ عَنْ جَابِرٍ قَالَ سَمِعْتُ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ إِنَّ أَهْلَ الْجَنَّةِ يَأْكُلُونَ فِيهَا وَيَشْرَبُونَ وَلَا يَتْفُلُونَ وَلَا يَبُولُونَ وَلَا يَتَغَوَّطُونَ وَلَا يَمْتَخِطُونَ قَالُوا فَمَا بَالُ الطَّعَامِ قَالَ جُشَاءٌ وَرَشْحٌ كَرَشْحِ الْمِسْكِ يُلْهَمُونَ التَّسْبِيحَ وَالتَّحْمِيدَ كَمَا تُلْهَمُونَ النَّفَسَ</div>
+                    <div class="translation">Telah menceritakan kepada kami Utsman bin Abu Syaibah dan Ishaq bin Ibrahim, teks milik Utsman. Berkata Utsman: telah menceritakan kepada kami, sedangkan Ishaq berkata: Telah mengkhabarkan kepada kami Jarir dari Al A'masy dari Abu Sufyan dari Jabir berkata: Aku mendengar nabi Shallallahu 'alaihi wa Salam bersabda: "Sesungguhnya penghuni surga makan dan minum didalamnya, mereka tidak meludah, tidak kencing, tidak berak dan tidak ingusan." Mereka bertanya: Bagaimana dengan makanannya? Beliau menjawab: "Sendawa dan keringat seperti keringat minyak kesturi, mereka diilhami tasbih dan tahmid seperti kalian diilhami nafas."</div>
+                    <span class="source">— Shahih Muslim-2835</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>c. Jenis dan Jumlah Penghuni Surga</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا سَعِيدُ بْنُ أَبِي مَرْيَمَ حَدَّثَنَا أَبُو غَسَّانَ قَالَ حَدَّثَنِي أَبُو حَازِمٍ عَنْ سَهْلِ بْنِ سَعْدٍ قَالَ قَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ لَيَدْخُلَنَّ الْجَنَّةَ مِنْ أُمَّتِي سَبْعُونَ أَلْفًا أَوْ سَبْعُ مِائَةِ أَلْفٍ شَكَّ فِي أَحَدِهِمَا مُتَمَاسِكِينَ آخِذٌ بَعْضُهُمْ بِبَعْضٍ حَتَّى يَدْخُلَ أَوَّلُهُمْ وَآخِرُهُمْ الْجَنَّةَ وَوُجُوهُهُمْ عَلَى ضَوْءِ الْقَمَرِ لَيْلَةَ الْبَدْرِ</div>
+                    <div class="translation">Telah menceritakan kepada kami Sa'id bin Abu Maryam telah menceritakan kepada kami Abu Ghassan mengatakan, telah menceritakan kepadaku Abu Hazim dari Sahal bin Sa'd mengatakan; Nabi Shallallahu'alaihiwasallam bersabda: "Diantara umatku ada tujuh puluh ribu orang" atau "tujuh ratus ribu orang -Sahal ragu kepastiannya-"masuk surga dengan tanpa hisab, mereka saling berhimpitan, satu sama lain saling bergandengan, dari yang pertama-tama hingga yang terakhir masuk surga, wajah mereka bercahaya bulan di malam purnama.</div>
+                    <span class="source">— Bukhari-6543</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا عَبْدُ اللَّهِ بْنُ إِسْحَقَ الْجَوْهَرِيُّ حَدَّثَنَا حُسَيْنُ بْنُ حَفْصٍ الْأَصْبَهَانِيُّ حَدَّثَنَا سُفْيَانُ عَنْ عَلْقَمَةَ بْنِ مَرْثَدٍ عَنْ سُلَيْمَانَ بْنِ بُرَيْدَةَ عَنْ أَبِيهِ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ أَهْلُ الْجَنَّةِ عِشْرُونَ وَمِائَةُ صَفٍّ ثَمَانُونَ مِنْ هَذِهِ الْأُمَّةِ وَأَرْبَعُونَ مِنْ سَائِرِ الْأُمَمِ</div>
+                    <div class="translation">Telah menceritakan kepada kami Abdullah bin Ishaq Al Jauhari telah menceritakan kepada kami Husain bin Haffh Al Ashbahani telah menceritakan kepada kami Sufyan dari 'Alqamah bin Martsad dari Sulaiman bin Buraidah dari ayahnya dari Nabi shallallahu 'alaihi wasallam beliau bersabda: "Penduduk surga berjumlah seratus dua puluh baris, sembilan puluh baris terdiri dari ummat ini dan yang empat puluh dari berbagai ummat."</div>
+                    <span class="source">— Sunan Ibnu Majah-4289</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا سُفْيَانُ بْنُ وَكِيعٍ حَدَّثَنَا أَبِي عَنْ فُضَيْلِ بْنِ مَرْزُوقٍ عَنْ عَطِيَّةَ عَنْ أَبِي سَعِيدٍ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ إِنَّ أَوَّلَ زُمْرَةٍ يَدْخُلُونَ الْجَنَّةَ يَوْمَ الْقِيَامَةِ ضَوْءُ وُجُوهِهِمْ عَلَى مِثْلِ ضَوْءِ الْقَمَرِ لَيْلَةَ الْبَدْرِ وَالزُّمْرَةُ الثَّانِيَةُ عَلَى مِثْلِ أَحْسَنِ كَوْكَبٍ دُرِّيٍّ فِي السَّمَاءِ لِكُلِّ رَجُلٍ مِنْهُمْ زَوْجَتَانِ عَلَى كُلِّ زَوْجَةٍ سَبْعُونَ حُلَّةً يُرَى مُخُّ سَاقِهَا مِنْ وَرَائِهَا</div>
+                    <div class="translation">Telah menceritakan kepada kami Sufyan bin Waki' telah menceritakan kepada kami ayahku dari Fudlail bin Marzuq dari 'Athiyah dari Abu Sa'id dari nabi Shallallahu 'alaihi wa Salam bersabda: "Sesungguhnya golongan pertama yang masuk surga pada hari kiamat (adalah yang) mukanya bersinar seperti sinar bulan di malam purnama dan golongan kedua seperti bintang bersinar terang terindah dilangit, setiap lelaki di antara mereka mendapatkan dua istri, setiap istri mengenakan tujuh puluh perhiasan, sungsumnya terlihat dari belakang."</div>
+                    <span class="source">— Sunan at-Tirmidzi-2535</span>
+                  </div>
+                </div>
+
+                <div class="sub-section">
+                  <h3>d. Tingkat Kedudukan Manusia di Surga</h3>
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا مُسَدَّدٌ حَدَّثَنَا يَحْيَى عَنْ الْحَسَنِ بْنِ ذَكْوَانَ حَدَّثَنَا أَبُو رَجَاءٍ قَالَ حَدَّثَنِي عِمْرَانُ بْنُ حُصَيْنٍ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ يَخْرُجُ قَوْمٌ مِنْ النَّارِ بِشَفَاعَةِ مُحَمَّدٍ فَيَدْخُلُونَ الْجَنَّةَ وَيُسَمَّوْنَ الْجَهَنَّمِيِّينَ</div>
+                    <div class="translation">Telah menceritakan kepada kami Musaddad berkata, telah menceritakan kepada kami Yahya dari Al Hasan bin Dzakwan berkata, telah menceritakan kepada kami Abu Raja ia berkata; telah menceritakan kepadaku Imran bin Hushain dari Nabi shallallahu 'alaihi wasallam, beliau bersabda: "Akan ada sekelompok orang keluar dari neraka karena syafaat Muhammad, mereka kemudian masuk ke dalam surga, dan mereka diberi nama Al Jahannamiyyun."</div>
+                    <span class="source">— Sunan Abu Daud No.4740</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا عُثْمَانُ بْنُ أَبِي شَيْبَةَ وَإِسْحَقُ بْنُ إِبْرَاهِيمَ الْحَنْظَلِيُّ كِلَاهُمَا عَنْ جَرِيرٍ قَالَ عُثْمَانُ حَدَّثَنَا جَرِيرٌ عَنْ مَنْصُورٍ عَنْ إِبْرَاهِيمَ عَنْ عَبِيدَةَ عَنْ عَبْدِ اللَّهِ بْنِ مَسْعُودٍ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ إِنِّي لَأَعْلَمُ آخِرَ أَهْلِ النَّارِ خُرُوجًا مِنْهَا وَآخِرَ أَهْلِ الْجَنَّةِ دُخُولًا الْجَنَّةَ¹ رَجُلٌ يَخْرُجُ مِنْ النَّارِ حَبْوًا فَيَقُولُ اللَّهُ تَبَارَكَ وَتَعَالَى لَهُ اذْهَبْ فَادْخُلْ الْجَنَّةَ فَيَأْتِيهَا فَيُخَيَّلُ إِلَيْهِ أَنَّهَا مَلْأَى فَيَرْجِعُ فَيَقُولُ يَا رَبِّ وَجَدْتُهَا مَلْأَى فَيَقُولُ اللَّهُ تَبَارَكَ وَتَعَالَى لَهُ اذْهَبْ فَادْخُلْ الْجَنَّةَ قَالَ فَيَأْتِيهَا فَيُخَيَّلُ إِلَيْهِ أَنَّهَا مَلْأَى فَيَرْجِعُ فَيَقُولُ يَا رَبِّ وَجَدْتُهَا مَلْأَى فَيَقُولُ اللَّهُ لَهُ اذْهَبْ فَادْخُلْ الْجَنَّةَ فَإِنَّ لَكَ مِثْلَ الدُّنْيَا وَعَشَرَةَ أَمْثَالِهَا أَوْ إِنَّ لَكَ عَشَرَةَ أَمْثَالِ الدُّنْيَا قَالَ فَيَقُولُ أَتَسْخَرُ بِي أَوْ أَتَضْحَكُ بِي وَأَنْتَ الْمَلِكُ قَالَ لَقَدْ رَأَيْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ ضَحِكَ حَتَّى بَدَتْ نَوَاجِذُهُ قَالَ فَكَانَ يُقَالُ ذَاكَ أَدْنَى أَهْلِ الْجَنَّةِ مَنْزِلَةً</div>
+                    <div class="translation">Telah menceritakan kepada kami Utsman bin Abu Syaibah dan Ishaq bin Ibrahim al-Hanzhali keduanya meriwayatkan dari Jarir, Utsman berkata, telah menceritakan kepada kami Jarir dari Manshur dari Ibrahim dari 'Abidah dari Abdullah bin Mas'ud dia berkata, "Rasulullah shallallahu 'alaihi wasallam bersabda: "Sesungguhnya aku mengetahui penduduk neraka yang terakhir keluar darinya dan ¹dia menjadi penduduk surga yang terakhir kali masuk surga, yaitu seorang laki-laki yang keluar dari neraka dalam keadaan merangkak, lalu Allah berkata kepadanya, 'Pergilah, dan masuklah surga. Lalu dia mendatanginya, lalu dikhayalkan kepadanya bahwa surga telah penuh. Lalu dia kembali seraya berkata, 'Wahai Rabbku, aku mendapatinya telah penuh.' Maka Allah berfirman kepadanya, 'Masuklah surga.' Lalu dia mendatanginya, lalu dikhayalkan kepadanya bahwa ia telah penuh. Lalu dia kembali seraya berkata, 'Wahai Rabbku, aku mendapatinya telah penuh.' Maka Allah berkata kepadanya, ²'Pergilah, lalu masuklah ke surga, karena kamu mendapatkan seperti dunia dan sepuluh kali lipat semisalnya, -atau kamu mendapatkan sepuluh kali lipat semisal dunia-.' Dia berkata, 'Apakah Engkau mengolok-olokku atau sedangkan Engkau adalah Raja'." Perawi berkata, "Sungguh aku melihat Rasulullah shallallahu 'alaihi wasallam tertawa hingga gigi gerahamnya terlihat." Perawi melanjutkan: "Dan dikatakan bahwa dia adalah penduduk surga yang paling rendah kedudukannya."</div>
+                    <span class="source">— Shahih Muslim No.186</span>
+                  </div>
+                </div>
+              `
+                }, {
+                    id: 'C2',
+                    label: '2. Bidadari',
+                    icon: '👸',
+                    content: `
+                <h2 class="panel-title">2. Bidadari</h2>
+                <p class="panel-sub">Keistimewaan bidadari surga</p>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا هَنَّادٌ وَأَحْمَدُ بْنُ مَنِيعٍ قَالَا حَدَّثَنَا أَبُو مُعَاوِيَةَ قَالَ حَدَّثَنَا عَبْدُ الرَّحْمَنِ بْنُ إِسْحَقَ عَنْ النُّعْمَانِ بْنِ سَعْدٍ عَنْ عَلِيٍّ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ إِنَّ فِي الْجَنَّةِ لَمُجْتَمَعًا لِلْحُورِ الْعِينِ يُرَفِّعْنَ بِأَصْوَاتٍ لَمْ يَسْمَعْ الْخَلَائِقُ مِثْلَهَا قَالَ يَقُلْنَ نَحْنُ الْخَالِدَاتُ فَلَا نَبِيدُ وَنَحْنُ النَّاعِمَاتُ فَلَا نَبْؤُسُ وَنَحْنُ الرَّاضِيَاتُ فَلَا نَسْخَطُ طُوبَى لِمَنْ كَانَ لَنَا وَكُنَّا لَهُ</div>
+                    <div class="translation">Telah menceritakan kepada kami [Hannad] dan [Ahmad bin Mani'] keduanya berkata: telah menceritakan kepada kami [Abu Muawiyah] berkata: telah menceritakan kepada kami [Abdurrahman bin Ishaq] dari [An Nu'man bin Sa'id] dari [Ali] berkata: Rasulullah shallallahu 'alaihi wa sallam bersabda: "Sesungguhnnya di surga ada perkumpulan para bidadari, mereka memanggil-manggil dengan suara keras, para makhluk belum pernah mendengar sepertinya. Mereka berkata: Kami wanita-wanita kekal, kami tidak lenyap, kami adalah wanita-wanita menyenangkan, kami tidak cemberut, kami wanita-wanita ridha, kami tidak marah. Beruntunglah siapa yang menjadi milik kami dan kami menjadi miliknya."</div>
+                    <span class="source">— Sunan at-Tirmidzi-2564</span>
+                  </div>
+                </div>
+              `
+                }, {
+                    id: 'C3',
+                    label: '3. Tumbuhan',
+                    icon: '🌳',
+                    content: `
+                <h2 class="panel-title">3. Tumbuhan di Surga</h2>
+                <p class="panel-sub">Pohon-pohon dan tumbuhan di surga</p>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا مُعَاذُ بْنُ أَسَدٍ أَخْبَرَنَا الْفَضْلُ بْنُ مُوسَى أَخْبَرَنَا الْفُضَيْلُ عَنْ أَبِي حَازِمٍ عَنْ أَبِي هُرَيْرَةَ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ مَا بَيْنَ مَنْكِبَيْ الْكَافِرِ مَسِيرَةُ ثَلَاثَةِ أَيَّامٍ للرَّاكِبِ الْمُسْرِعِ وَقَالَ إِسْحَاقُ بْنُ إِبْرَاهِيمَ أَخْبَرَنَا الْمُغِيرَةُ بْنُ سَلَمَةَ حَدَّثَنَا وُهَيْبٌ عَنْ أَبِي حَازِمٍ عَنْ سَهْلِ بْنِ سَعْدٍ عَنْ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ إِنَّ فِي الْجَنَّةِ لَشَجَرَةً يَسِيرُ الرَّاكِبُ فِي ظِلِّهَا مِائَةَ عَامٍ لَا يَقْطَعُهَا قَالَ أَبُو حَازِمٍ فَحَدَّثْتُ بِهِ النُّعْمَانَ بْنَ أَبِي عَيَّاشٍ فَقَالَ حَدَّثَنِي أَبُو سَعِيدٍ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ إِنَّ فِي الْجَنَّةِ لَشَجَرَةً يَسِيرُ¹ الرَّاكِبُ الْجَوَادَ الْمُضَمَّرَ السَّرِيعَ مِائَةَ عَامٍ مَا يَقْطَعُهَا</div>
+                    <div class="translation">Telah menceritakan kepada kami Mu'adz bin Asad telah mengabarkan kepada kami Al Fadhl bin Musa telah mengabarkan kepada kami Al Fudhail dari Abu Hazim dari Abu Hurairah dari Nabi shallallahu'alaihiwasallam, beliau bersabda: "(Di neraka), jarak antara kedua pundak orang kafir sejauh perjalanan tiga hari bagi pengendara yang memacu kendaraannya dengan cepat, " sedang Ishaq bin Ibrahim mengatakan; telah mengabarkan kepada kami Al Mughirah bin Salamah telah menceritakan kepada kami Wuhaib dari Abu Hazim dari Sahal bin Sa'd dari Rasulullah Shallallahu'alaihi wasalalm, beliau bersabda: "Dalam surga ada sebatang pohon yang sekiranya bayangannya dilewati oleh pengendara selama seratus tahun, dia tak akan mampu menyelesaikannya." Kata Abu Hazim; selanjutnya kuceritakan hadits ini kepada Nu'man bin Abu 'Ayyasy, maka ia menuturkan telah mengabarkan kepadaku Abu sa'id, dari Nabi Shallallahu'alaihi wa sallam, beliau bersabda: "Sungguh dalam surga ada sebatang pohon yang sekiranya ditempuh oleh seorang pengendara yang mengendarai kuda pacu pilihan yang cepat larinya selama seratus tahun niscaya dia tidak dapat menyelesaikannya"</div>
+                    <span class="source">— Bukhari No.6551</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا أَبُو سَعِيدٍ الْأَشَجُّ حَدَّثَنَا زِيَادُ بْنُ الْحَسَنِ بْنِ الْفُرَاتِ الْقَزَّازُ عَنْ أَبِيهِ عَنْ جَدِّهِ عَنْ أَبِي حَازِمٍ عَنْ أَبِي هُرَيْرَةَ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَا فِي الْجَنَّةِ شَجَرَةٌ إِلَّا وَسَاقُهَا مِنْ ذَهَبٍ</div>
+                    <div class="translation">Telah menceritakan kepada kami Abu Sa'id Al Asyaj telah bercerita kepada kami Ziyad bin Al Hasan bin Al Furath Al Qazzaz dari bapaknya dari kakeknya dari Abu Hazim dari Abu Hurairah berkata Rasulullah Shallallahu 'alaihi wa Salam bersabda: "Tidak ada pohon di surga kecuali dahannya terbuat dari emas."</div>
+                    <span class="source">— Sunan at-Tirmidzi No.2525</span>
+                  </div>
+                </div>
+              `
+                }, {
+                    id: 'C4',
+                    label: '4. Hewan',
+                    icon: '🐴',
+                    content: `
+                <h2 class="panel-title">4. Hewan di Surga</h2>
+                <p class="panel-sub">Kuda, unta, dan hewan-hewan surga</p>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا عَبْدُ اللَّهِ بْنُ عَبْدِ الرَّحْمَنِ قَالَ أَخْبَرَنَا عَاصِمُ بْنُ عَلِيٍّ حَدَّثَنَا الْمَسْعُودِيُّ عَنْ عَلْقَمَةَ بْنِ مَرْثَدٍ عَنْ سُلَيْمَانَ بْنِ بُرَيْدَةَ عَنْ أَبِيهِ أَنَّ رَجُلًا سَأَلَ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فَقَالَ يَا رَسُولَ اللَّهِ هَلْ فِي الْجَنَّةِ مِنْ خَيْلٍ قَالَ إِنْ اللَّهُ أَدْخَلَكَ الْجَنَّةَ فَلَا تَشَاءُ أَنْ تُحْمَلَ فِيهَا عَلَى فَرَسٍ مِنْ يَاقُوتَةٍ حَمْرَاءَ يَطِيرُ بِكَ فِي الْجَنَّةِ حَيْثُ شِئْتَ قَالَ وَسَأَلَهُ رَجُلٌ فَقَالَ يَا رَسُولَ اللَّهِ هَلْ فِي الْجَنَّةِ مِنْ إِبِلٍ قَالَ فَلَمْ يَقُلْ لَهُ مِثْلَ مَا قَالَ لِصَاحِبِهِ قَالَ إِنْ يُدْخِلْكَ اللَّهُ الْجَنَّةَ يَكُنْ لَكَ فِيهَا مَا اشْتَهَتْ نَفْسُكَ وَلَذَّتْ عَيْنُكَ</div>
+                    <div class="translation">Telah menceritakan kepada kami Abdullah bin Abdurrahman berkata: Telah mengkhabarkan kepada kami 'Ashim bin Ali telah menceritakan kepada kami Al Mas'udi dari 'Alqamah bin Murtsid dari Sulaiman bin Buraidah dari ayahnya, seseorang bertanya kepada Rasulullah Shallallahu 'alaihi wa Salam: Wahai Rasulullah, apakah di surga ada kuda? Beliau menjawab: Bila Allah memasukkanmu ke surga, kau akan dibawa di atas kuda dari permata merah di surga yang membawamu terbang di surga semaumu." Orang lain bertanya pada beliau: Wahai Rasulullah, apakah di surga ada unta? Beliau tidak menjawab seperti yang dikatakan kepada temannya, beliau bersabda: "Bila Allah memasukkanmu ke surga, didalamnya ada segala yang diinginkan oleh jiwamu dan dipandang nikmat oleh matamu."</div>
+                    <span class="source">— Sunan At-Tirmidzi No.2543</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا يَحْيَى عَنِ ابْنِ عَجْلَانَ حَدَّثَنِي وَهْبُ بْنُ كَيْسَانَ قَالَ مَرَّ أَبِي عَلَى أَبِي هُرَيْرَةَ فَقَالَ أَيْنَ تُرِيدُ قَالَ غُنَيْمَةً لِي قَالَ نَعَمْ امْسَحْ رُعَامَهَا وَأَطِبْ مُرَاحَهَا وَصَلِّ فِي جَانِبِ مُرَاحِهَا فَإِنَّهَا مِنْ دَوَابِّ الْجَنَّةِ وَأْنَسْ بِهَا فَإِنِّي سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ إِنَّهَا أَرْضٌ قَلِيلَةُ الْمَطَرِ قَالَ يَعْنِي الْمَدِينَةَ</div>
+                    <div class="translation">Telah menceritakan kepada kami [Yahya] dari [Ibnu 'Ajlan] telah menceritakan kepadaku [Wahab bin Kaisan] ia berkata: Ayahku melewati [Abu Hurairah], lalu ia berkata: "Engkau mau pergi ke mana?" Ia menjawab, "Menggembalakan kambingku, " Abu Hurairah berkata: "Ya, kalau begitu usaplah ingusnya, bersihkan kandangnya serta shalatlah kalian di samping kandangnya karena ia merupakan hewan surga. Dan bersikap lunaklah dengannya karena sesungguhnya aku mendengar Rasulullah shallallahu 'alaihi wa sallam bersabda: "Sesungguhnya ia adalah tanah yang sedikit curah hujannya, yakni Madinah."</div>
+                    <span class="source">— Musnad Ahmad No.9625</span>
+                  </div>
+
+                  <div class="hadith-box">
+                    <div class="arabic">حَدَّثَنَا يَحْيَى بْنُ بُكَيْرٍ حَدَّثَنَا اللَّيْثُ عَنْ خَالِدٍ عَنْ سَعِيدِ بْنِ أَبِي هِلَالٍ عَنْ زَيْدِ بْنِ أَسْلَمَ عَنْ عَطَاءِ بْنِ يَسَارٍ عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ قَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ تَكُونُ الْأَرْضُ يَوْمَ الْقِيَامَةِ خُبْزَةً وَاحِدَةً يَتَكَفَّؤُهَا الْجَبَّارُ بِيَدِهِ كَمَا يَكْفَأُ أَحَدُكُمْ خُبْزَتَهُ فِي السَّفَرِ نُزُلًا لِأَهْلِ الْجَنَّةِ فَأَتَى رَجُلٌ مِنْ الْيَهُودِ فَقَالَ بَارَكَ الرَّحْمَنُ عَلَيْكَ يَا أَبَا الْقَاسِمِ أَلَا أُخْبِرُكَ بِنُزُلِ أَهْلِ الْجَنَّةِ يَوْمَ الْقِيَامَةِ قَالَ بَلَى قَالَ تَكُونُ الْأَرْضُ خُبْزَةً وَاحِدَةً كَمَا قَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فَنَظَرَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ إِلَيْنَا ثُمَّ ضَحِكَ حَتَّى بَدَتْ نَوَاجِذُهُ ثُمَّ قَالَ أَلَا أُخْبِرُكَ بِإِدَامِهِمْ قَالَ إِدَامُهُمْ بَالَامٌ وَنُونٌ قَالُوا وَمَا هَذَا قَالَ ثَوْرٌ وَنُونٌ يَأْكُلُ مِنْ زَائِدَةِ كَبِدِهِمَا سَبْعُونَ أَلْفًا</div>
+                    <div class="translation">Telah menceritakan kepada kami Yahya bin Bukair telah menceritakan kepada kami Al Laits dari Khalid dari Sa'id bin Abu Hilal dari Zaid bin Aslam dari 'Atho' bin yasar dari Abu Sa'id Al Khudzri, Rasulullah shallallahu 'alaihi wasallam bersabda: "Pada hari kiamat bumi bagaikan sekeping roti, Allah Al Jabbar memutar-mutarnya dengan tangan-Nya sebagaimana salah seorang diantara kalian bisa memutar-mutar rotinya dalam perjalanan sebagai kabar gembira penghuni surga." Selanjutnya ada seorang yahudi dan berujar; 'Kiranya Allah Arrahman memberkatimu wahai Abul Qasim, maukah kamu ku+ beritahu kabar gembira penghuni surga dihari kiamat nanti? ' "baik" Jawab Nabi. Lanjut si yahudi; 'Bumi ketika itu bagaikan sekeping roti' sebagaimana disabdakan Nabi shallallahu 'alaihi wasallam. Lantas Nabi shallallahu 'alaihi wasallam memandang kami dan tertawa hingga terlihat gigi serinya, kemudian Nabi berujar; "Maukah kamu kuberitahu lauk penghuni surga?" Lanjut beliau; "lauk mereka adalah sapi dan ikan paus." Mereka bertanya; 'Apa keistimewaan daging ini? ' Nabi menjawab: "sobekan hati ikan paus dan sapi itu, bisa disantap untuk tujuh puluh ribu orang."</div>
+                    <span class="source">— Bukhari No.6520</span>
+                  </div>
+                </div>
+              `
+                }, {
+                    id: 'C5',
+                    label: '5. Buah',
+                    icon: '🍇',
+                    content: `
+                <h2 class="panel-title">5. Buah di Surga</h2>
+                <p class="panel-sub">Buah-buahan surga dan khasiatnya</p>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا أَسْوَدُ بْنُ عَامِرٍ حَدَّثَنَا زُهَيْرٌ عَنْ وَاصِلِ بْنِ حِبَّانَ الْبَجَلِيِّ حَدَّثَنِي عَبْدُ اللَّهِ بْنُ بُرَيْدَةَ عَنْ أَبِيهِ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ قَالَ الْكَمْأَةُ دَوَاءُ الْعَيْنِ وَإِنَّ الْعَجْوَةَ مِنْ فَاكِهَةِ الْجَنَّةِ وَإِنَّ هَذِهِ الْحَبَّةَ السَّوْدَاءَ قَالَ ابْنُ بُرَيْدَةَ يَعْنِي الشُّونِيزَ الَّذِي يَكُونُ فِي الْمِلْحِ دَوَاءٌ مِنْ كُلِّ دَاءٍ إِلَّا الْمَوْتَ</div>
+                    <div class="translation">Telah menceritakan kepada kami [Aswad bin 'Amir] telah menceritakan kepada kami [Zuhair] dari [Washil bin Hibban Al Bajali] telah menceritakan kepadaku ['Abdullah bin Buraidah] dari [ayahnya] dari Nabi shallallahu 'alaihi wa sallam bersabda: "Kam'ah adalah obat mata, (kurma) 'ajwah termasuk buah surga dan biji hitam ini -berkata Ibnu Buraidah: yaitu Syunaiz (jintan hitam/Nigella Sativa) - yang diberi garam adalah obat segala penyakit kecuali kematian."</div>
+                    <span class="source">— Musnad Ahmad No.22938</span>
+                  </div>
+                </div>
+              `
+                }]
+            }];
+
+            const extraData = [];
+
+            // ===== RENDER FUNCTIONS =====
+            const menuContainer = document.getElementById('menuContainer');
+            const extraMenuContainer = document.getElementById('extraMenu');
+            const panelContainer = document.getElementById('panelContainer');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const hamburger = document.getElementById('hamburgerBtn');
+            let activePanelId = null;
+
+            function renderMenu() {
+                let html = '';
+                let firstSubId = null;
+                menuData.forEach((section, idx) => {
+                    const isFirst = (idx === 0);
+                    html += `<div class="menu-section">`;
+                    html += `<button class="menu-head ${isFirst ? 'open' : ''}" data-section="${section.id}" aria-expanded="${isFirst}">
+                        <span class="icon">${section.icon}</span> ${section.label}
+                        <span class="arrow">▶</span>
+                    </button>`;
+                    html += `<ul class="sub-menu ${isFirst ? 'open' : ''}">`;
+                    section.children.forEach((child, ci) => {
+                        if (isFirst && ci === 0) firstSubId = child.id;
+                        html += `<li><button class="sub-link" data-panel="${child.id}">
+                            <span class="sub-icon">${child.icon || '▸'}</span> ${child.label}
+                        </button></li>`;
+                    });
+                    html += `</ul></div>`;
+                });
+                menuContainer.innerHTML = html;
+                return firstSubId;
+            }
+
+            function renderExtraMenu() {
+                let html = '';
+                extraData.forEach(item => {
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                        <span class="icon">${item.icon}</span> ${item.label}
+                    </button>`;
+                });
+                extraMenuContainer.innerHTML = html;
+            }
+
+            function renderPanels() {
+                let html = '';
+                menuData.forEach(section => {
+                    section.children.forEach(child => {
+                        html += `<div class="content-panel" id="panel-${child.id}">${child.content}</div>`;
+                    });
+                });
+                extraData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+                panelContainer.innerHTML = html;
+            }
+
+            function showPanel(panelId, fromSubLink = true) {
+                document.querySelectorAll('.content-panel').forEach(el => el.classList.remove('active'));
+                const panel = document.getElementById('panel-' + panelId);
+                if (panel) panel.classList.add('active');
+                document.querySelectorAll('.sub-link').forEach(el => el.classList.remove('active'));
+                const activeLink = document.querySelector(`.sub-link[data-panel="${panelId}"]`);
+                if (activeLink) activeLink.classList.add('active');
+                document.querySelectorAll('.extra-link').forEach(el => el.classList.remove('active'));
+                const extraLink = document.querySelector(`.extra-link[data-panel="${panelId}"]`);
+                if (extraLink) extraLink.classList.add('active');
+                activePanelId = panelId;
+                if (window.innerWidth <= 991 && fromSubLink) closeSidebar();
+            }
+
+            function toggleSection(headBtn) {
+                const sub = headBtn.nextElementSibling;
+                const isOpen = sub.classList.contains('open');
+                if (isOpen) {
+                    sub.classList.remove('open');
+                    headBtn.classList.remove('open');
+                    headBtn.setAttribute('aria-expanded', 'false');
+                } else {
+                    sub.classList.add('open');
+                    headBtn.classList.add('open');
+                    headBtn.setAttribute('aria-expanded', 'true');
+                }
+            }
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function toggleSidebar() {
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            function init() {
+                renderPanels();
+                const firstSub = renderMenu();
+                renderExtraMenu();
+
+                menuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('menu-head')) {
+                        e.stopPropagation();
+                        toggleSection(target);
+                        return;
+                    }
+                    if (target.classList.contains('sub-link')) {
+                        e.preventDefault();
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                        return;
+                    }
+                });
+
+                extraMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                // Default: tampilkan panel pertama dari bab pertama
+                if (firstSub) {
+                    showPanel(firstSub, false);
+                } else if (menuData.length && menuData[0].children.length) {
+                    showPanel(menuData[0].children[0].id, false);
+                }
+
+                // Buka bab pertama secara default
+                const firstSection = document.querySelector('.menu-section:first-child .menu-head');
+                const firstSubMenu = firstSection ? firstSection.nextElementSibling : null;
+                if (firstSection && firstSubMenu && !firstSubMenu.classList.contains('open')) {
+                    firstSection.classList.add('open');
+                    firstSubMenu.classList.add('open');
+                    firstSection.setAttribute('aria-expanded', 'true');
+                }
+
+                hamburger.addEventListener('click', toggleSidebar);
+                overlay.addEventListener('click', closeSidebar);
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 991) closeSidebar();
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+                });
+            }
+
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+        })();
+    </script>
+</body>
+</html>

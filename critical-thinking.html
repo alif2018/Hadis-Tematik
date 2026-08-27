@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hadis Tematik Tentang Critical Thinking</title>
+    <base target="_self" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f6f0;
+            color: #1e2b3a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        :root {
+            --primary: #2b4f8c;
+            --primary-light: #3a6bb0;
+            --primary-dark: #1d3a66;
+            --gold: #c9a84c;
+            --gold-light: #e0c66e;
+            --gold-dark: #a8892f;
+            --bg-body: #f8f6f0;
+            --bg-card: #ffffff;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --sidebar-width: 300px;
+            --header-height: 72px;
+        }
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 2px 12px rgba(43, 79, 140, 0.25);
+        }
+        .app-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .app-header .brand img {
+            height: 44px;
+            width: auto;
+            border-radius: 6px;
+            background: #fff;
+            padding: 4px;
+            object-fit: contain;
+        }
+        .app-header .brand .title-group {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .app-header .brand .title-group h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .app-header .brand .title-group .author {
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+        .app-header .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px 4px;
+            border-radius: 6px;
+            transition: background var(--transition);
+        }
+        .app-header .hamburger:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .app-header .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: #fff;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        .app-layout {
+            display: flex;
+            flex: 1;
+            position: relative;
+        }
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            border-left: 1px solid rgba(43, 79, 140, 0.10);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.04);
+            height: calc(100vh - var(--header-height));
+            position: sticky;
+            top: var(--header-height);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 16px 10px 30px;
+            flex-shrink: 0;
+            transition: transform var(--transition);
+            z-index: 900;
+        }
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: #f0ede7;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 8px;
+        }
+        .menu-section {
+            margin-bottom: 4px;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.06);
+        }
+        .menu-section:last-of-type {
+            border-bottom: none;
+        }
+        .menu-section .menu-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 14px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-align: left;
+            position: relative;
+        }
+        .menu-section .menu-head:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .menu-section .menu-head .icon {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .menu-section .menu-head .arrow {
+            margin-left: auto;
+            font-size: 0.7rem;
+            transition: transform var(--transition);
+            color: var(--gold-dark);
+        }
+        .menu-section .menu-head.open .arrow {
+            transform: rotate(90deg);
+        }
+        .sub-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 6px 0;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.35s ease, opacity 0.25s ease;
+            opacity: 0;
+        }
+        .sub-menu.open {
+            max-height: 800px;
+            opacity: 1;
+        }
+        .sub-menu li {
+            margin: 0;
+        }
+        .sub-menu li .sub-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px 8px 38px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 450;
+            color: #2d3f54;
+            text-decoration: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .sub-menu li .sub-link:hover {
+            background: rgba(43, 79, 140, 0.07);
+            color: var(--primary);
+        }
+        .sub-menu li .sub-link.active {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .sub-menu li .sub-link .sub-icon {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+        .sub-menu li .sub-link.active .sub-icon {
+            opacity: 1;
+        }
+        .extra-menu {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 2px solid rgba(43, 79, 140, 0.08);
+        }
+        .extra-menu .extra-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .extra-menu .extra-link:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .extra-menu .extra-link.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .extra-menu .extra-link .icon {
+            font-size: 1.1rem;
+        }
+        .main-content {
+            flex: 1;
+            padding: 32px 40px 60px;
+            min-width: 0;
+            background: var(--bg-body);
+        }
+        .content-panel {
+            display: none;
+            animation: fadeUp 0.35s ease;
+        }
+        .content-panel.active {
+            display: block;
+        }
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .content-panel .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .content-panel .panel-sub {
+            font-size: 0.95rem;
+            color: #5e6f82;
+            margin-bottom: 24px;
+        }
+        .content-panel .hadith-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 18px 0 22px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--gold);
+        }
+        .content-panel .hadith-box .arabic {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #1e2b3a;
+            direction: rtl;
+            font-family: 'Times New Roman', 'Traditional Arabic', serif;
+            margin-bottom: 12px;
+            padding: 6px 0;
+            word-wrap: break-word;
+        }
+        .content-panel .hadith-box .translation {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #2d3f54;
+            border-top: 1px dashed rgba(43, 79, 140, 0.12);
+            padding-top: 12px;
+        }
+        .content-panel .hadith-box .source {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--gold-dark);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+        .content-panel .sub-section {
+            margin-top: 28px;
+        }
+        .content-panel .sub-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .content-panel .sub-section p {
+            line-height: 1.7;
+            color: #2d3f54;
+            margin-bottom: 10px;
+        }
+        .bibliography {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43, 79, 140, 0.10);
+        }
+        .bibliography h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 14px;
+        }
+        .bibliography ul {
+            list-style: none;
+            padding: 0;
+        }
+        .bibliography ul li {
+            padding: 6px 0 6px 20px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #2d3f54;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.05);
+            text-indent: -20px;
+            padding-left: 30px;
+        }
+        .bibliography ul li::before {
+            content: "•";
+            color: var(--gold);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        .profil-penulis {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43, 79, 140, 0.10);
+        }
+        .profil-penulis h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 14px;
+        }
+        .profil-penulis p {
+            line-height: 1.8;
+            color: #2d3f54;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .profil-penulis .penulis-nama {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 850;
+            backdrop-filter: blur(2px);
+            transition: opacity var(--transition);
+        }
+        .overlay.active {
+            display: block;
+        }
+        @media (max-width: 991px) {
+            .app-header .hamburger {
+                display: flex;
+            }
+            .sidebar {
+                position: fixed;
+                top: var(--header-height);
+                right: 0;
+                height: calc(100vh - var(--header-height));
+                transform: translateX(100%);
+                box-shadow: -8px 0 30px rgba(0, 0, 0, 0.10);
+                border-left: none;
+                width: 290px;
+                padding: 12px 8px 30px;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                padding: 20px 18px 40px;
+            }
+            .content-panel .panel-title {
+                font-size: 1.5rem;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 1rem;
+            }
+            .app-header .brand img {
+                height: 36px;
+            }
+            .content-panel .hadith-box {
+                padding: 16px 18px;
+            }
+            .content-panel .hadith-box .arabic {
+                font-size: 1rem;
+            }
+        }
+        @media (max-width: 480px) {
+            :root {
+                --header-height: 64px;
+            }
+            .app-header {
+                padding: 0 14px;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 0.85rem;
+            }
+            .app-header .brand .title-group .author {
+                font-size: 0.7rem;
+            }
+            .sidebar {
+                width: 265px;
+            }
+            .main-content {
+                padding: 14px 12px 30px;
+            }
+            .content-panel .panel-title {
+                font-size: 1.25rem;
+            }
+            .sub-menu li .sub-link {
+                padding: 7px 10px 7px 28px;
+                font-size: 0.8rem;
+            }
+            .menu-section .menu-head {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="brand">
+            <img src="logo-pshd.jpg" alt="Logo" />
+            <div class="title-group">
+                <h1>Hadis Tematik Critical Thinking</h1>
+                <span class="author">Penyusun: Ibrahim & Muhammad Alif</span>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+    <div class="app-layout">
+        <div class="overlay" id="overlay"></div>
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Daftar isi">
+            <div id="menuContainer"></div>
+            <div class="extra-menu" id="extraMenu"></div>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div id="panelContainer"></div>
+        </main>
+    </div>
+    <script>
+        (function() {
+            'use strict';
+
+            const menuData = [{
+                id: 'babA',
+                label: 'A. Pengertian Berfikir Kritis',
+                icon: '🧠',
+                children: [{
+                    id: 'A1',
+                    label: '1. Pengenalan tentang berfikir kritis',
+                    icon: '📖',
+                    content: `
+                <h2 class="panel-title">1. Pengenalan tentang berfikir kritis</h2>
+                <p class="panel-sub">Pengenalan tentang pentingnya berpikir kritis dalam Islam.</p>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنِي عَبْدُ اللَّهِ بْنُ مُحَمَّدٍ سَمِعَ رَوْحَ بْنَ عُبَادَةَ حَدَّثَنَا سَعِيدُ بْنُ أَبِي عَرُوبَةَ عَنْ قَتَادَةَ قَالَ ذَكَرَ لَنَا أَنَسُ بْنُ مَالِكٍ عَنْ أَبِي طَلْحَةَ أَنَّ نَبِيَّ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ أَمَرَ يَوْمَ بَدْرٍ بِأَرْبَعَةٍ وَعِشْرِينَ رَجُلًا مِنْ صَنَادِيدِ قُرَيْشٍ فَقُذِفُوا فِي طَوِيٍّ مِنْ أَطْوَاءِ بَدْرٍ خَبِيثٍ مُخْبِثٍ وَكَانَ إِذَا ظَهَرَ عَلَى قَوْمٍ أَقَامَ بِالْعَرْصَةِ ثَلَاثَ لَيَالٍ فَلَمَّا كَانَ بِبَدْرٍ الْيَوْمَ الثَّالِثَ أَمَرَ بِرَاحِلَتِهِ فَشُدَّ عَلَيْهَا رَحْلُهَا ثُمَّ مَشَى وَاتَّبَعَهُ أَصْحَابُهُ وَقَالُوا مَا نُرَى يَنْطَلِقُ إِلَّا لِبَعْضِ حَاجَتِهِ حَتَّى قَامَ عَلَى شَفَةِ الرَّكِيِّ فَجَعَلَ يُنَادِيهِمْ بِأَسْمَائِهِمْ وَأَسْمَاءِ آبَائِهِمْ يَا فُلَانُ بْنَ فُلَانٍ وَيَا فُلَانُ بْنَ فُلَانٍ أَيَسُرُّكُمْ أَنَّكُمْ أَطَعْتُمْ اللَّهَ وَرَسُولَهُ فَإِنَّا قَدْ وَجَدْنَا مَا وَعَدَنَا رَبُّنَا حَقًّا فَهَلْ وَجَدْتُمْ مَا وَعَدَ رَبُّكُمْ حَقًّا قَالَ فَقَالَ عُمَرُ يَا رَسُولَ اللَّهِ مَا تُكَلِّمُ مِنْ أَجْسَادٍ لَا أَرْوَاحَ لَهَا فَقَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: وَالَّذِي نَفْسُ مُحَمَّدٍ بِيَدِهِ مَا أَنْتُمْ بِأَسْمَعَ لِمَا أَقُولُ مِنْهُمْ قَالَ قَتَادَةُ أَحْيَاهُمْ اللَّهُ حَتَّى أَسْمَعَهُمْ قَوْلَهُ تَوْبِيخًا وَتَصْغِيرًا وَنَقِيمَةً وَحَسْرَةً وَنَدَمًا</div>
+                  <div class="translation">Abdullah bin Muhammad menceritakan kepadaku, dia mendengar Ruh bin Ubadah, Sa'id bin Abi Arouba menceritakan kepada kami, atas wewenang Qatada, katanya, dia menyebutkan kepada kami Anas bin Malik atas wewenang Abu Thalha Pada Hari Badar, yang Nabi Allah, semoga Tuhan memberkati dia dan memberinya kedamaian, memerintahkan dua puluh empat orang dari kamp Quraisy, sehingga mereka dilemparkan ke dalam tanah. Kutukan dari kedalaman bulan purnama, keji dan keji. Dan ketika dia muncul di atas suatu kaum, dia tinggal di tempat perkumpulan itu selama tiga malam, dan ketika bulan purnama pada hari ketiga, dia memerintahkan agar tunggangannya dikerahkan. Dia menuntun tunggangannya ke arahnya, lalu dia berjalan pergi, dan para sahabatnya mengikutinya dan bersabda, "Kami tidak melihat dia berangkat kecuali untuk memenuhi kebutuhannya sendiri, sampai dia berdiri di tepi Ar-Raki. Maka dia mulai memanggil mereka dengan nama mereka dan nama ayah mereka: Wahai fulan, anak fulan, dan hai fulan, anak fulan, apakah kamu senang bahwa kamu telah menaati Allah dan Rasul-Nya? Kami telah mendapati apa yang dijanjikan Tuhan kami kepada kami adalah benar. Maka sudahkah kamu menemukan kebenaran janji Tuhanmu? Dia bersabda, dan Umar berkata, "Wahai Rasulullah, kamu tidak berbicara dengan tubuh tanpa jiwa." Kemudian Rasulullah, semoga Tuhan memberkati dia dan memberinya kedamaian, berkata: Demi Dzat yang jiwa Muhammad berada ditangannya, kamu tidak lebih baik dalam mendengarkan apa yang aku katakan daripada mereka. Dia bersabda: Qatada, semoga Allah menghidupkan mereka sampai Dia membuat mereka mendengar kata-kata teguran, penghinaan, hukuman, penyesalan, dan penyesalan.</div>
+                  <span class="source">(HR. al-Bukhari 3976)</span>
+                </div>
+                <p style="margin-top:12px;">Hadis ini menunjukkan bahwa orang yang cerdas akan lebih kritis dan tidak merugi, sedangkan orang yang tidak cerdas akan merugi.</p>
+              `
+                }, {
+                    id: 'A2',
+                    label: '2. Pentingnya berfikir kritis dalam kehidupan',
+                    icon: '🌟',
+                    content: `
+                <h2 class="panel-title">2. Pentingnya berfikir kritis dalam kehidupan sehari-hari dan di berbagai bidang</h2>
+                <p class="panel-sub">Pentingnya berpikir kritis dalam berbagai aspek kehidupan.</p>
+                <div class="hadith-box">
+                  <div class="arabic">ومضت قريش حتى نزلوا بالعدوة القصوى من الوادي ... فخرج رسول الله - صلى الله عليه وسلم - يبادرهم إلى الماء، حتى أدنى ماء من بدر نزل عليه. قال ابن إسحاق: فَحُدِّثتُ عن رجال من بني سلمة أنهم ذكروا أن الحباب بن المنذر بن الجموح قال: يا رسول الله، أرأيتَ هذا المنزل، أمنزلًا أنزلكه الله ليس لنا أن نتقدمه، ولا نتأخر عنه، أم هو الرأي والحرب والمكيدة؟ قال: بل هو الرأي والحرب والمكيدة. فقال: يا رسول الله فإن هذا ليس بمنزل، فانهض بالناس حتى نأتي أدنى ماء من القوم، فننزله، ثم نعورّ ما وراءه من القُلُب، ثم نبني عليه حوضًا فنملؤه ماء، ثم نقاتل القوم، فنشرب ولا يشربون، فقال رسول الله - صلى الله عليه وسلم -: لقد أشرت بالرأي، فنهض رسول الله - صلى الله عليه وسلم - ومن معه من الناس، فسار حتى إذا أتى أدنى ماء من القوم نزل عليه، ثم أمر بالقُلُب فعوّرت وبنى حوضًا على القليب الذي نزل عليه فمُلئ ماءً، ثم قذفوا فيه الآنية</div>
+                  <div class="translation">Kaum Quraisy meneruskan perjalanan hingga mereka tiba di bagian lembah yang terjauh... Kemudian Rasulullah -- semoga Allah memberkati dia dan memberinya kedamaian -- keluar dan bergegas menuju air, hingga air terendah bulan purnama turun ke atasnya. dia. Ibnu Ishaq berkata: Aku meriwayatkan dari seorang laki-laki dari Bani Salamah bahwa mereka menyebutkan bahwa Al-Hubab bin Al-Mundhir bin Al-Jamouh berkata: Ya Rasulullah, pernahkah engkau melihat rumah ini? Apakah ini rumah yang diturunkan Allah terserah anda? Bukan hak kita untuk memajukannya, atau terlambat darinya, ataukah itu opini, perang, dan intrik? Dia berkata: Sebaliknya, itu adalah opini, perang, dan intrik. Beliau bersabda: Wahai Rasulullah, ini bukan tempat tinggal, maka bangunlah bersama orang-orang tersebut hingga kita mencapai sumber air terdekat dengan orang tersebut, lalu kita turun ke sana, lalu kita gali apa yang ada di baliknya. ruang bawah tanah, lalu kita buatkan baskom di atasnya dan isi dengan air, lalu kita perangi orang-orang, maka kita minum dan mereka tidak minum, maka Rasulullah bersabda - Semoga Allah SWT dan shalawat besertanya - Saya telah menunjukkan pendapatnya, maka Rasulullah -shallallahu 'alaihi wa sallam - dan orang-orang yang bersamanya bangkit dan berjalan sampai dia tiba di sumber air terdekat dari orang-orang, dia turun ke atasnya, lalu dia memerintahkan penjara bawah tanah itu diisi. dengan air, lalu dia membuat sebuah baskom di atas tumpukan kotoran tempat dia turun dan mengisinya dengan air, lalu Mereka melemparkan peralatan ke dalamnya.</div>
+                  <span class="source">(HR. Ibnu Ishaq 79)</span>
+                </div>
+                <p style="margin-top:12px;">Hadis ini menunjukkan bahwa orang yang cerdas gemar berdialog dan tidak takut untuk menyampaikan pendapat yang kritis.</p>
+              `
+                }]
+            }, {
+                id: 'babB',
+                label: 'B. Komponen Berfikir Kritis',
+                icon: '⚙️',
+                children: [{
+                    id: 'B1',
+                    label: '1. Analisis Informasi',
+                    icon: '🔎',
+                    content: `
+                <h2 class="panel-title">1. Analisis Informasi</h2>
+                <p class="panel-sub">Pentingnya menganalisis informasi sebelum menerimanya.</p>
+                <div class="hadith-box">
+                  <div class="arabic">حدثنا عبيد الله بن معاذ العنبري. حدثنا أبي. ح وحدثنا محمد بن المثنى. حدثنا عبد الرحمن بن مهدي. قالا: حدثنا شعبة، عن خبيب بن عبد الرحمن، عن حفص بن عاصم، عن أبي هريرة؛ قال قال رسول الله صلى الله عليه وسلم كفى بالمرء كذبا أن يحدث بكل ما سمع</div>
+                  <div class="translation">Dan telah menceritakan pada kami Obaidullah bin Moaz Al-Anbari memberi tahu pada kamu bapak ku Dan Mohamed Bin Almothana memberi tahu kami. Beritahu kami Abdul Rahman bin Mahdi. Mereka berkata: Shu'bah memberi tahu kami, atas kewenangan Khabib bin Abd al-Rahman, atas kewenangan Hafs bin Asim, atas kewenangan Abu Hurairah Dia berkata: Nabi saw bersabda: Cukup bagi seorang untuk disebut pembohong jika menceritakan semua yang dia dengar.</div>
+                  <span class="source">(HR. Muslim 5)</span>
+                </div>
+                <p style="margin-top:12px;">Hadis ini mengajarkan untuk berhati-hati dalam menerima dan menyebarkan informasi.</p>
+              `
+                }, {
+                    id: 'B2',
+                    label: '2. Evaluasi Argumentasi',
+                    icon: '⚖️',
+                    content: `
+                <h2 class="panel-title">2. Evaluasi Argumentasi</h2>
+                <p class="panel-sub">Mengevaluasi argumen sebelum menerimanya.</p>
+                <div class="hadith-box">
+                  <div class="arabic">حدثنا أبو نعيم: حدثنا زكرياء، عن عامر قال: سمعت عبد الله بن عمرو يقول: قال النبي صلى الله عليه وسلم: «المسلم من سلم المسلمون من لسانه ويده، والمهاجر من هجر ما نهى الله عنه</div>
+                  <div class="translation">Artinya telah manceritakan zakariya dari amir berkata menceritakan pada kami abu naim dia mendengar Abdullah bin umar berkata nabi saw bersabda Orang Muslim adalah orang yang dari lidah dan tangannya Muslim selamat, dan hijrah adalah orang yang berhijrah dari apa yang dilarang Allah.</div>
+                  <span class="source">(HR. Bukhari 6484)</span>
+                </div>
+                <p style="margin-top:12px;">Allah melarang menyakiti sesama muslim baik dengan tindakan atau lisan.</p>
+              `
+                }, {
+                    id: 'B3',
+                    label: '3. Pemecahan Masalah',
+                    icon: '🧩',
+                    content: `
+                <h2 class="panel-title">3. Pemecahan Masalah</h2>
+                <p class="panel-sub">Pentingnya musyawarah dalam memecahkan masalah.</p>
+                <div class="hadith-box">
+                  <div class="arabic">حدثنا أحمد بن سعيد الأشقر قال: حدثنا يونس بن محمد، وهاشم بن القاسم، قالا: حدثنا صالح المري، عن سعيد الجريري، عن أبي عثمان النهدي، عن أبي هريرة، قال: قال رسول الله صلى الله عليه وسلم: «إذا كان أمراؤكم خياركم، وأغنياؤكم سمحاءكم، وأموركم شورى بينكم فظهر الأرض خير لكم من بطنها، وإذا كان أمراؤكم شراركم وأغنياؤكم بخلاءكم، وأموركم إلى نسائكم فبطن الأرض خير لكم من ظهرها</div>
+                  <div class="translation">Ahmed bin Saeed Al-Ashqar memberi tahu kami, dia berkata: Yunus bin Muhammad dan Hashem bin Al-Qasim memberi tahu kami, mereka berkata: Salih Al-Marri memberi tahu kami, dari Saeed Al-Jariri, dari Abi Othman Al-Nahdi, dari Abi Hurairah, dia berkata: Rasulullah, saw, berkata: "Jika pemimpin Anda adalah pilihan Anda Dan kekayaan Anda adalah kemurahan hati Anda, dan urusan Anda adalah dengan musyawarah antara kamu, maka permukaan bumi lebih baik bagimu daripada isinya, dan jika penguasamu adalah yang paling jahat dan orang kayamu adalah orang yang kikir, dan urusanmu adalah untuk wanitamu, maka bagian dalam bumi lebih baik untukmu daripada isinya. bagian luar.</div>
+                  <span class="source">(HR. Tirmidzi 2266)</span>
+                </div>
+                <p style="margin-top:12px;">Hadis ini menekankan pentingnya musyawarah dan tidak sewenang-wenang dalam memimpin.</p>
+              `
+                }]
+            }, {
+                id: 'babC',
+                label: 'C. Tantangan dalam Mengembangkan Berfikir Kritis',
+                icon: '⚠️',
+                children: [{
+                    id: 'C1',
+                    label: '1. Bias Kognitif',
+                    icon: '🧠',
+                    content: `
+                <h2 class="panel-title">1. Bias Kognitif</h2>
+                <p class="panel-sub">Menghindari prasangka dan bias dalam berpikir.</p>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا يَحْيَى بْنُ يَحْيَى قَالَ قَرَأْتُ عَلَى مَالِكٍ عَنْ أَبِي الزِّنَادِ عَنْ الْأَعْرَجِ عَنْ أَبِي هُرَيْرَةَ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ إِيَّاكُمْ وَالظَّنَّ فَإِنَّ الظَّنَّ أَكْذَبُ الْحَدِيثِ وَلَا تَحَسَّسُوا وَلَا تَجَسَّسُوا وَلَا تَنَافَسُوا وَلَا تَحَاسَدُوا وَلَا تَبَاغَضُوا وَلَا تَدَابَرُوا وَكُونُوا عِبَادَ اللَّهِ إِخْوَانًا</div>
+                  <div class="translation">Menceritakan pada kami Yahya bin Yahya. Dia berkata: Saya membaca tentang Malik dari Abi Al-Zinad, dari Al-Araj, dari Abi Hurairah: Bahwa Rasulullah Shallallahu 'alaihi wa sallam bersabda: "Waspadalah terhadap kecurigaan, karena kecurigaan adalah kebohongan yang paling buruk dalam ucapan. Jangan akal, jangan memata-matai, jangan bersaing, jangan iri, jangan membenci satu sama lain, dan jangan berpaling satu sama lain. Dan jadilah, hamba-hamba Allah! Saudara-saudara."</div>
+                  <span class="source">(HR. Muslim 2563)</span>
+                </div>
+                <p style="margin-top:12px;">Jangan saling menjatuhkan karena itu awal permusuhan.</p>
+              `
+                }, {
+                    id: 'C2',
+                    label: '2. Kompleksitas Informasi',
+                    icon: '📊',
+                    content: `
+                <h2 class="panel-title">2. Kompleksitas Informasi</h2>
+                <p class="panel-sub">Menghadapi informasi yang kompleks dengan bijak.</p>
+                <div class="hadith-box">
+                  <div class="arabic">حدثنا محمد بن يحيى قال: حدثنا محمد بن يوسف، عن ابن ثوبان هو عبد الرحمن بن ثابت بن ثوبان، عن حسان بن عطية، عن أبي كبشة السلولي، عن عبد الله بن عمرو، قال: قال رسول الله صلى الله عليه وسلم: «بلغوا عني ولو آية وحدثوا عن بني إسرائيل ولا حرج ومن كذب علي متعمدا فليتبوأ مقعده من النار»: «هذا حديث حسن صحيح» حدثنا محمد بن بشار قال: حدثنا أبو عاصم، عن الأوزاعي، عن حسان بن عطية، عن أبي كبشة السلولي، عن عبد الله بن عمرو، عن النبي صلى الله عليه وسلم نحوه «وهذا حديث حسن صحيح</div>
+                  <div class="translation">Muhammad bin Yahya memberi tahu kami, dia berkata: Muhammad bin Yusuf meriwayatkan kepada kami, dari Ibn Thawban, yaitu Abd al-Rahman bin Thabit bin Thawban, dari Hassan bin Attia, dari Abi Kabshah al-Saluli, atas otoritas Abdullah bin Amr, dia berkata: rasulullah saw berkata: "sampaikan dari ku walau satu ayat, dan ceritakan atas nama Bani Israel, dan tidak ada salahnya, dan siapa pun yang dengan sengaja berbohong tentang saya, biarkan dia mengambil tempatnya di Neraka. hadits shahih</div>
+                  <span class="source">(HR. Tirmidzi 2669)</span>
+                </div>
+                <p style="margin-top:12px;">Siapa yang berbohong atas nama nabi dimasukan ke dalam neraka.</p>
+              `
+                }, {
+                    id: 'C3',
+                    label: '3. Ketidakpastian',
+                    icon: '❓',
+                    content: `
+                <h2 class="panel-title">3. Ketidakpastian</h2>
+                <p class="panel-sub">Menghadapi ketidakpastian dengan bijak dan tidak terburu-buru.</p>
+                <div class="hadith-box">
+                  <div class="arabic">حدثنا نصر بن علي بن نصر: حدثنا عبد الله بن داود، عن ابن جريج، عن ابن أبي مليكة: «أن امرأتين كانتا تخرزان في بيت، أو في الحجرة، فخرجت إحداهما وقد أنفذ بإشفا في كفها، فادعت على الأخرى، فرفع إلى ابن عباس، فقال ابن عباس: قال رسول الله صلى الله عليه وسلم: لو يعطى الناس بدعواهم، لذهب دماء قوم وأموالهم</div>
+                  <div class="translation">Nasr bin Ali bin Nasr memberi tahu kami: Abdullah bin Dawood memberi tahu kami, dari Ibn Juraij, dari Ibn Abi Malika: "Dua wanita sedang membuat manik-manik di sebuah rumah, atau di sebuah kamar, dan salah satunya keluar dengan lubang tembus di telapak tangannya, jadi dia meminta pada yang satunya, dan dilaporkan kepada Ibnu Abbas Ibnu Abbas berkata: rasulullah, berkata: Jika orang memberi sesuai dengan tuduhan mereka, darah suatu orang dan uang mereka akan hilang.</div>
+                  <span class="source">(HR. Bukhari 4552)</span>
+                </div>
+                <p style="margin-top:12px;">Nabi mengharuskan ada saksi ketika menjatuhkan tuduhan pada orang lain.</p>
+              `
+                }]
+            }, {
+                id: 'babD',
+                label: 'D. Manfaat Berfikir Kritis',
+                icon: '💡',
+                children: [{
+                    id: 'D1',
+                    label: '1. Pengambilan Keputusan yang Lebih Baik',
+                    icon: '✅',
+                    content: `
+                <h2 class="panel-title">1. Pengambilan Keputusan yang Lebih Baik</h2>
+                <p class="panel-sub">Pengambilan keputusan yang lebih baik melalui berpikir kritis.</p>
+                <div class="hadith-box">
+                  <div class="arabic">حدثني أبي، وحدثني أبو بكر ابن أبي شيبة قالا حدثنا حسين بن على عن زائدة عن سماك عق حنش عن علي قال: قال لي رسول الله - صلى الله عليه وسلم -: "إذا تقاضى إليك رجلان فلا تقض للأول حتى تسمع ما يقول الآخر، فإنك سوف ترى كيف تقضي</div>
+                  <div class="translation">Ayah saya memberi tahu saya, dan Abu Bakar Ibn Abi Shaibah memberi tahu saya, mereka mengatakan Hussain bin Ali memberi tahu kami dari Zaida dari Sammak Aq Hanash dari Ali yang berkata: rasulullah saw - berkata kepada saya: "Jika dua orang berdebat dengan Anda, jangan menilai yang pertama sampai Anda mendengar apa yang dikatakan orang lain, karena Anda Anda akan melihat bagaimana Anda memutuskan.</div>
+                  <span class="source">(HR. Ahmad 1284)</span>
+                </div>
+                <p style="margin-top:12px;">Putuskan perkara setelah melihat bukti dan mendengar saksi-saksi.</p>
+              `
+                }, {
+                    id: 'D2',
+                    label: '2. Inovasi dan Kreativitas',
+                    icon: '🎨',
+                    content: `
+                <h2 class="panel-title">2. Inovasi dan Kreativitas</h2>
+                <p class="panel-sub">Berpikir kreatif dan inovatif dalam beribadah.</p>
+                <div class="hadith-box">
+                  <div class="arabic">حدثنا عبيد الله بن يعيش ومحمد بن العلاء الهمداني. قالا: حدثنا أبو أسامة عن أبي حيان. ح وحدثنا محمد بن عبدالله بن نمير (واللفظ له) قال: حدثنا أبي. حدثنا أبو حيان التيمي، يحيى بن سعيد عن زرعة، عن أبي هريرة. قال: قال رسول الله صلى الله عليه وسلم لبلال، عند صلاة الغداة "يا بلال! حدثني بأرجى عمل عملته، عندك، في الإسلام منفعة. فإني سمعت الليلة خشف نعليك بين يدي في الجنة". قال بلال: ما عملت عملا في الإسلام أرجى عندي منفعة، من أني لا أتطهر طهورا تاما، في ساعة من ليل ولا نهار، إلا صليت بذلك الطهور، ما كتب الله لي أن أصلي</div>
+                  <div class="translation">Ubaid Allah bin Yaish dan Muhammad bin Al-Ala Al-Hamedani memberi tahu kami. Mereka berkata: Abu Osama memberi tahu kami dari Abu Hayyan. H, dan Muhammad bin Abd memberi tahu kami, ayah saya berbicara kepada kami. Abu Hayyan al-Taymi memberi tahu kami, Yahya bin Saeed, dari Zaraa, atas otoritas Abu Hurairah. Dia berkata: Allah bin Numayr (dan pengucapan itu miliknya rasulullah, saw berkata kepada Bilal, pada saat sholat subuh, "Wahai Bilal! Ceritakan tentang perbuatan paling penuh harapan yang telah Anda lakukan dalam Islam untuk menjadi manfaat. Malam ini saya mendengar suara sepatumu di hadapanku di Firdaus." Bilal berkata: Saya belum melakukan suatu amalan Islam yang lebih saya harapkan daripada tidak bersuci dalam waktu satu jam. malam atau siang, kecuali saya berdoa dengan penyucian itu, Tuhan tidak memerintahkan saya untuk berdoa.</div>
+                  <span class="source">(HR. Muslim 2458)</span>
+                </div>
+                <p style="margin-top:12px;">Amalan sederhana yang dirutinkan bisa menjadi sebab masuk surga.</p>
+              `
+                }, {
+                    id: 'D3',
+                    label: '3. Komunikasi Efektif',
+                    icon: '💬',
+                    content: `
+                <h2 class="panel-title">3. Komunikasi Efektif</h2>
+                <p class="panel-sub">Pentingnya komunikasi yang efektif dan menghindari hal-hal tercela.</p>
+                <div class="hadith-box">
+                  <div class="arabic">حدثنا ابن أبي عمر. حدثنا مروان بن معاوية الفزاري عن محمد بن سوقة. أخبرنا محمد بن عبيد الله الثقفي عن وارد. قال: كتب المغيرة إلى معاوية: سلام عليك. أما بعد. فإني سمعت رسول الله صلى الله عليه وسلم يقول (إن الله حرم ثلاثا. ونهى عن ثلاث: حرم عقوق الوالد. ووأد البنات. ولا وهات. ونهى عن ثلاث: قيل وقال. وكثرة السؤال. وإضاعة المال</div>
+                  <div class="translation">Ibnu Abi Omar memberi tahu kami. Marwan bin Muawiyah Al-Fazari bercerita dari Muhammad bin Suqa. Muhammad ibn Ubaid Allah al-Thaqafi memberi tahu kami daro Ward. Dia berkata: Al-Mughira menulis kepada Muawiyah: Assalamu'alaikum. Adapun setelah. Karena aku mendengar rasulullah saw, mengatakan (Tuhan telah melarang tiga hal. Dia melarang tiga: Dia melarang ketidaktaatan kepada ayah, pembunuhan anak perempuan, dan tidak ada intimidasi. Dan dia melarang tiga: bergosip, bertanya berlebihan, dan membuang-buang uang.</div>
+                  <span class="source">(HR. Muslim 1715)</span>
+                </div>
+                <p style="margin-top:12px;">Jangan melakukan hal-hal yang dilarang oleh agama.</p>
+              `
+                }]
+            }, {
+                id: 'babE',
+                label: 'E. Strategi Pengembangan Berfikir Kritis',
+                icon: '📈',
+                children: [{
+                    id: 'E1',
+                    label: '1. Latihan dan Pembiasaan',
+                    icon: '🏋️',
+                    content: `
+                <h2 class="panel-title">1. Latihan dan Pembiasaan</h2>
+                <p class="panel-sub">Melatih berpikir kritis melalui pembiasaan.</p>
+                <div class="hadith-box">
+                  <div class="arabic">حَدَّثَنَا صَدَقَةُ بْنُ الْفَضْلِ أَخْبَرَنَا ابْنُ عُيَيْنَةَ عَنْ عَمْرٍو سَمِعَ جَابِرَ بْنَ عَبْدِ اللَّهِ رَضِيَ اللَّهُ عَنْهُمَا, قَالَ: قَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: الْحَرْبُ خَدْعَةٌ</div>
+                  <div class="translation">Sadaqa bin Al-Fadl memberi tahu kami: Ibn Uyaynah memberi tahu kami atas otoritas Amr: Dia mendengar Jabir bin Abdullah, semoga Tuhan meridhoi mereka, mengatakan: Nabi, semoga doa dan damai Allah besertanya, berkata: "Perang adalah sebuah siasat."</div>
+                  <span class="source">(HR. Bukhari 3030)</span>
+                </div>
+                <p style="margin-top:12px;">Dianjurkan untuk berfikir dan menganalisis sesuatu sebelum melakukan, termasuk perang.</p>
+              `
+                }, {
+                    id: 'E2',
+                    label: '2. Belajar Kolaboratif',
+                    icon: '🤝',
+                    content: `
+                <h2 class="panel-title">2. Belajar Kolaboratif</h2>
+                <p class="panel-sub">Belajar bersama dan saling mengajak pada kebaikan.</p>
+                <div class="hadith-box">
+                  <div class="arabic">وَحَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، وَأَبُو كُرَيْبٍ وَابْنُ أَبِي عُمَرَ - وَاللَّفْظُ لأَبِي كُرَيْبٍ - قَالُوا حَدَّثَنَا أَبُو مُعَاوِيَةَ، عَنِ الأَعْمَشِ، عَنْ أَبِي عَمْرٍو الشَّيْبَانِيِّ، عَنْ أَبِي مَسْعُودٍ الأَنْصَارِيِّ، قَالَ جَاءَ رَجُلٌ إِلَى النَّبِيِّ صلى الله عليه وسلم فَقَالَ إِنِّي أُبْدِعَ بِي فَاحْمِلْنِي فَقَالَ " مَا عِنْدِي " . فَقَالَ رَجُلٌ يَا رَسُولَ اللَّهِ أَنَا أَدُلُّهُ عَلَى مَنْ يَحْمِلُهُ فَقَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم " مَنْ دَلَّ عَلَى خَيْرٍ فَلَهُ مِثْلُ أَجْرِ فَاعِلِه</div>
+                  <div class="translation">Dan Abu Bakr bin Abi Shaybah, Abu Kuraib dan Ibn Abi Omar (dan pengucapan untuk Abi Kuraib) mengatakan kepada kami: Abu Muawiyah memberi tahu kami atas otoritas Al-A'mash, dari Abi Amr Al-Shaibani, dari Abi Masoud Al-Ansari. Dia berkata: Seorang pria mendatangi Nabi, semoga doa dan damai Allah besertanya, dan berkata: Saya berinovasi dengan saya, jadi bawa saya. Dia berkata (apa yang saya miliki) Seorang pria berkata: Wahai Rasulullah! Saya adalah bukti siapa yang membawanya. Utusan Allah, saw, berkata: "Dia yang membimbing sesuatu yang baik akan mendapat pahala yang sama dengan pelakunya."</div>
+                  <span class="source">(HR. Muslim 1893)</span>
+                </div>
+                <p style="margin-top:12px;">Anjuran untuk saling mengajak pada kebaikan akan mendapat pahala sama pada keduanya.</p>
+              `
+                }]
+            }];
+
+            const extraData = [{
+                id: 'kata-pengantar',
+                label: 'Kata Pengantar',
+                icon: '📖',
+                content: `
+                <h2 class="panel-title">Kata Pengantar</h2>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">Puji syukur kehadirat Allah SWT yang telah melimpahkan rahmat dan hidayah-Nya, sehingga penulis dapat menyelesaikan e-book berjudul "Hadis Tematik Tentang Critical Thinking". Shalawat serta salam semoga senantiasa tercurah kepada junjungan Nabi Muhammad SAW, yang telah memberikan teladan dalam segala aspek kehidupan, termasuk dalam berpikir kritis dan bijaksana.</p>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">E-book ini hadir sebagai upaya untuk menggali dan memahami konsep berpikir kritis dalam perspektif hadis. Berpikir kritis merupakan kemampuan yang sangat penting dalam kehidupan modern, dan Islam telah memberikan panduan yang jelas melalui hadis-hadis Nabi SAW. Dengan memahami dan mengamalkan ajaran-ajaran ini, kita dapat menjadi pribadi yang lebih bijaksana, objektif, dan mampu mengambil keputusan yang tepat.</p>
+                <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">Penulis berharap e-book ini dapat memberikan manfaat bagi para pembaca, terutama dalam mengembangkan kemampuan berpikir kritis sesuai dengan tuntunan Islam. Kritik dan saran yang membangun sangat penulis harapkan untuk perbaikan di masa mendatang.</p>
+                <p style="text-align:right; font-style:italic; color:#5e6f82;">Penulis</p>
+              `
+            }, {
+                id: 'daftar-pustaka',
+                label: 'Daftar Pustaka',
+                icon: '📚',
+                content: `
+                <h2 class="panel-title">Daftar Pustaka</h2>
+                <div class="bibliography">
+                  <ul>
+                    <li>al-Bukhāriy, Abū ‘Abdillāh Muḥammad ibn Ismā‘īl ibn Ibrāhīm ibn al-Mugīrah al-Ju‘fiy. <em>Al-Jāmi‘ Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Min Umūr Rasūlillah Ṣallā Allāh ‘alaih Wasallam Wa Sunanih Wa Ayyāmih</em>. Edited by Muḥammad Zuhair ibn Nāṣir al-Nāṣir. Dār Tauq al-Najāt, 1422.</li>
+                    <li>Ibn al-Ḥājjāj, Muslim. <em>Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Binaql Al-‘Adl ‘an Al-‘Adl Ilā Rasūlillah Ṣallā Allāh ‘alaih Wasallam</em>. Edited by Muḥammad Fu'ād Abd al-Bāqī. Vol. 1–3. Dār Iḥyā' al-Turās al-‘Arabiy, 1424.</li>
+                    <li>al-Tirmiżiy, Abū ‘Īsā Muḥammad ibn ‘Īsā ibn Saurah ibn Mūsā al-Daḥḥak. <em>Al-Jāmi‘ Al-Kabīr Wahuwa Sunan Al-Tirmiżiy</em>. Edited by Basysyār ‘Awad Ma‘rūf. Dār al-Garb al-Islāmiy, 1998.</li>
+                    <li>Ibn Ḥanbal, Aḥmad. <em>Musnad Al-Imām Aḥmad Ibn Ḥanbal</em>. Edited by Aḥmad Muḥammad Syākir. Dār al-Ḥadīs, 1995.</li>
+                    <li>Ibn Isḥāq, Muḥammad. <em>Sīrah Ibn Isḥāq</em>. Edited by Muḥammad Ḥamīdullāh. Ma‘had al-Dirāsāt wa al-Abḥāṡ li al-Ta‘rīb, 1976.</li>
+                  </ul>
+                </div>
+              `
+            }, {
+                id: 'profil-penulis',
+                label: 'Profil Penulis',
+                icon: '👤',
+                content: `
+                <h2 class="panel-title">Profil Penulis</h2>
+                <div class="profil-penulis">
+                  <p><span class="penulis-nama">Tim Penulis</span> — adalah tim yang terdiri dari para akademisi dan peneliti di bidang ilmu hadis dan pemikiran Islam. Mereka memiliki kepedulian yang tinggi terhadap pengembangan kemampuan berpikir kritis di kalangan umat Islam berdasarkan tuntunan hadis Nabi SAW.</p>
+                  <p>Tim penulis berharap melalui e-book ini dapat memberikan kontribusi nyata bagi pengembangan sumber daya manusia yang berkualitas, kritis, dan berakhlak mulia.</p>
+                </div>
+              `
+            }];
+
+            const menuContainer = document.getElementById('menuContainer');
+            const extraMenuContainer = document.getElementById('extraMenu');
+            const panelContainer = document.getElementById('panelContainer');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const hamburger = document.getElementById('hamburgerBtn');
+            let activePanelId = null;
+
+            function renderMenu() {
+                let html = '';
+                let firstSubId = null;
+                menuData.forEach((section, idx) => {
+                    const isFirst = (idx === 0);
+                    html += `<div class="menu-section">`;
+                    html += `<button class="menu-head ${isFirst ? 'open' : ''}" data-section="${section.id}" aria-expanded="${isFirst}">
+                        <span class="icon">${section.icon}</span> ${section.label}
+                        <span class="arrow">▶</span>
+                    </button>`;
+                    html += `<ul class="sub-menu ${isFirst ? 'open' : ''}">`;
+                    section.children.forEach((child, ci) => {
+                        if (isFirst && ci === 0) firstSubId = child.id;
+                        html += `<li><button class="sub-link" data-panel="${child.id}">
+                            <span class="sub-icon">${child.icon || '▸'}</span> ${child.label}
+                        </button></li>`;
+                    });
+                    html += `</ul></div>`;
+                });
+                menuContainer.innerHTML = html;
+                return firstSubId;
+            }
+
+            function renderExtraMenu() {
+                let html = '';
+                extraData.forEach(item => {
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                        <span class="icon">${item.icon}</span> ${item.label}
+                    </button>`;
+                });
+                extraMenuContainer.innerHTML = html;
+            }
+
+            function renderPanels() {
+                let html = '';
+                menuData.forEach(section => {
+                    section.children.forEach(child => {
+                        html += `<div class="content-panel" id="panel-${child.id}">${child.content}</div>`;
+                    });
+                });
+                extraData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+                panelContainer.innerHTML = html;
+            }
+
+            function showPanel(panelId, fromSubLink = true) {
+                document.querySelectorAll('.content-panel').forEach(el => el.classList.remove('active'));
+                const panel = document.getElementById('panel-' + panelId);
+                if (panel) panel.classList.add('active');
+                document.querySelectorAll('.sub-link').forEach(el => el.classList.remove('active'));
+                const activeLink = document.querySelector(`.sub-link[data-panel="${panelId}"]`);
+                if (activeLink) activeLink.classList.add('active');
+                document.querySelectorAll('.extra-link').forEach(el => el.classList.remove('active'));
+                const extraLink = document.querySelector(`.extra-link[data-panel="${panelId}"]`);
+                if (extraLink) extraLink.classList.add('active');
+                activePanelId = panelId;
+                if (window.innerWidth <= 991 && fromSubLink) closeSidebar();
+            }
+
+            function toggleSection(headBtn) {
+                const sub = headBtn.nextElementSibling;
+                const isOpen = sub.classList.contains('open');
+                if (isOpen) {
+                    sub.classList.remove('open');
+                    headBtn.classList.remove('open');
+                    headBtn.setAttribute('aria-expanded', 'false');
+                } else {
+                    sub.classList.add('open');
+                    headBtn.classList.add('open');
+                    headBtn.setAttribute('aria-expanded', 'true');
+                }
+            }
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function toggleSidebar() {
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            function init() {
+                renderPanels();
+                const firstSub = renderMenu();
+                renderExtraMenu();
+
+                menuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('menu-head')) {
+                        e.stopPropagation();
+                        toggleSection(target);
+                        return;
+                    }
+                    if (target.classList.contains('sub-link')) {
+                        e.preventDefault();
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                        return;
+                    }
+                });
+
+                extraMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                if (extraData.length > 0) {
+                    showPanel(extraData[0].id, false);
+                } else if (firstSub) {
+                    showPanel(firstSub, false);
+                } else if (menuData.length && menuData[0].children.length) {
+                    showPanel(menuData[0].children[0].id, false);
+                }
+
+                const firstSection = document.querySelector('.menu-section:first-child .menu-head');
+                const firstSubMenu = firstSection ? firstSection.nextElementSibling : null;
+                if (firstSection && firstSubMenu && !firstSubMenu.classList.contains('open')) {
+                    firstSection.classList.add('open');
+                    firstSubMenu.classList.add('open');
+                    firstSection.setAttribute('aria-expanded', 'true');
+                }
+
+                hamburger.addEventListener('click', toggleSidebar);
+                overlay.addEventListener('click', closeSidebar);
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 991) closeSidebar();
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+                });
+            }
+
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+        })();
+    </script>
+</body>
+</html>
