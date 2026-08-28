@@ -4,12 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pusat Studi Hadis Digital UIN Banten</title>
-
-    <!-- ===== TAMBAHAN: AUTHOR & KEYWORDS ===== -->
     <meta name="author" content="Muhammad Alif" />
     <meta name="keywords" content="pshd-uin-banten, hadis tematik, hadis digital, studi hadis, uin banten" />
     <meta name="description" content="Portal hadis tematik berbasis Analisis Tematik Terstruktur (ATT). Pusat Studi Hadis Digital UIN Sultan Maulana Hasanuddin Banten." />
-
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
@@ -27,364 +24,170 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-
     <style>
         /* ---------- RESET & GLOBAL ---------- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html,
-        body {
-            height: 100%;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f4f4f4;
-        }
-        body {
-            display: flex;
-            flex-direction: column;
-            padding-top: 70px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f4f4; }
+        body { display: flex; flex-direction: column; padding-top: 70px; }
 
         /* ---------- STICKY HEADER ---------- */
         .header-sticky {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            background: #2b4f8c;
-            color: #fff;
-            padding: 10px 15px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            height: 70px;
-            gap: 8px;
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: #2b4f8c; color: #fff; padding: 10px 15px;
+            display: flex; align-items: center; box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            height: 70px; gap: 2px;
         }
         .header-sticky .burger {
-            background: none;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            padding: 0 5px 0 0;
-            margin: 0;
-            line-height: 1;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 6px;
-            transition: background 0.2s;
+            background: none; border: none; color: #fff; cursor: pointer;
+            padding: 0; margin-left: -15px; line-height: 1; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            width: 38px; height: 38px; border-radius: 6px; transition: background 0.2s;
         }
-        .header-sticky .burger:hover {
-            background: rgba(255, 255, 255, 0.12);
-        }
-        .header-sticky .burger svg {
-            display: block;
-        }
+        .header-sticky .burger:hover { background: rgba(255,255,255,0.12); }
+        .header-sticky .burger svg { display: block; }
         .header-sticky .logo-wrap {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex: 1;
-            min-width: 0;
-            overflow: hidden;
+            display: flex; align-items: center; gap: 6px; flex: 1;
+            min-width: 0; overflow: hidden;
+            margin-left: 0; /* digeser lebih kiri */
         }
         .header-sticky .logo-wrap img {
-            height: 40px;
-            width: auto;
-            display: block;
-            flex-shrink: 0;
+            height: 38px; width: auto; display: block; flex-shrink: 0;
         }
         .header-sticky .logo-wrap .title-group {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-            overflow: hidden;
-            min-width: 0;
+            display: flex; flex-direction: column; line-height: 1.2;
+            overflow: hidden; min-width: 0;
         }
         .header-sticky .logo-wrap .title-group .main-title {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            /* SMART FONT SIZE & SATU BARIS TANPA WRAP */
+            font-family: 'Segoe UI', 'Inter', Roboto, sans-serif;
             font-size: clamp(0.5rem, 2.7vw, 1.2rem);
-            font-weight: 700;
-            letter-spacing: 0.2px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-weight: 700; letter-spacing: 0.2px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
         .header-sticky .logo-wrap .title-group .main-title h6 {
-            display: inline;
-            font-size: inherit;
-            font-weight: 400;
+            display: inline; font-size: inherit; font-weight: 400;
         }
-        .header-sticky .logo-wrap .title-group .main-title h6 em {
-            font-style: italic;
-            font-weight: 600;
-        }
+        .header-sticky .logo-wrap .title-group .main-title h6 em { font-style: italic; font-weight: 600; }
         .header-sticky .logo-wrap .title-group small {
-            font-size: 0.75rem;
-            font-weight: 400;
-            opacity: 0.85;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-size: 0.75rem; font-weight: 400; opacity: 0.85;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
 
         /* ---------- DRAWER ---------- */
-        .drawer-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 999;
-            display: none;
-        }
-        .drawer-overlay.active {
-            display: block;
-        }
+        .drawer-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 999; display: none; }
+        .drawer-overlay.active { display: block; }
         .drawer {
-            position: fixed;
-            top: 0;
-            left: -320px;
-            width: 300px;
-            height: 100%;
-            background: #2b4f8c;
-            color: #fff;
-            z-index: 1001;
-            transition: left 0.3s ease;
-            overflow-y: auto;
-            padding: 20px 10px 30px 20px;
-            box-shadow: 2px 0 12px rgba(0, 0, 0, 0.3);
+            position: fixed; top: 0; left: -320px; width: 300px; height: 100%;
+            background: #2b4f8c; color: #fff; z-index: 1001;
+            transition: left 0.3s ease; overflow-y: auto;
+            padding: 20px 10px 30px 20px; box-shadow: 2px 0 12px rgba(0,0,0,0.3);
         }
-        .drawer.open {
-            left: 0;
-        }
-        .drawer .menu-container ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        .drawer .menu-container li {
-            margin-bottom: 2px;
-        }
-        .drawer .menu-container details {
-            margin-bottom: 6px;
-        }
+        .drawer.open { left: 0; }
+        .drawer .menu-container ul { list-style: none; padding-left: 0; }
+        .drawer .menu-container li { margin-bottom: 2px; }
+        .drawer .menu-container details { margin-bottom: 6px; }
         .drawer .menu-container summary {
-            font-weight: 600;
-            font-size: 1rem;
-            padding: 8px 0 8px 5px;
-            cursor: pointer;
-            color: #d4e2f0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            font-weight: 600; font-size: 1rem; padding: 8px 0 8px 5px;
+            cursor: pointer; color: #d4e2f0; border-bottom: 1px solid rgba(255,255,255,0.15);
+            display: flex; justify-content: space-between; align-items: center;
         }
-        .drawer .menu-container summary::-webkit-details-marker {
-            color: #8aa9d1;
-        }
-        .drawer .menu-container details[open] summary {
-            color: #fff;
-        }
+        .drawer .menu-container summary::-webkit-details-marker { color: #8aa9d1; }
+        .drawer .menu-container details[open] summary { color: #fff; }
         .drawer .menu-container details ul {
-            padding-left: 20px;
-            margin: 5px 0 12px 0;
-            border-left: 2px solid #5a7fb0;
+            padding-left: 20px; margin: 5px 0 12px 0; border-left: 2px solid #5a7fb0;
         }
         .drawer .menu-container details ul li {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: flex; align-items: center; justify-content: space-between;
             padding: 2px 0;
         }
         .drawer .menu-container details ul li a {
-            color: #d4e2f0;
-            text-decoration: none;
-            font-size: 0.95rem;
-            padding: 4px 8px;
-            display: inline-block;
-            border-radius: 3px;
-            transition: background 0.2s;
-            flex: 1;
-            cursor: pointer;
+            color: #d4e2f0; text-decoration: none; font-size: 0.95rem;
+            padding: 4px 8px; display: inline-block; border-radius: 3px;
+            transition: background 0.2s; flex: 1; cursor: pointer;
         }
-        .drawer .menu-container details ul li a:hover {
-            background: #1f3f6a;
-            color: #fff;
-        }
+        .drawer .menu-container details ul li a:hover { background: #1f3f6a; color: #fff; }
         .drawer .menu-container details ul li .pdf-icon {
-            cursor: pointer;
-            margin-left: 8px;
-            padding: 2px 6px;
-            border-radius: 3px;
-            transition: background 0.2s;
-            color: #ffd966;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            flex-shrink: 0;
+            cursor: pointer; margin-left: 4px; padding: 2px 4px;
+            border-radius: 3px; transition: background 0.2s;
+            color: #ffd966; text-decoration: none; display: flex;
+            align-items: center; flex-shrink: 0;
+            font-size: 0.75rem; gap: 2px;
         }
-        .drawer .menu-container details ul li .pdf-icon:hover {
-            background: #1f3f6a;
-            color: #fff;
-        }
-        .drawer .menu-container details ul li .pdf-icon svg {
-            display: block;
-        }
+        .drawer .menu-container details ul li .pdf-icon:hover { background: #1f3f6a; color: #fff; }
+        .drawer .menu-container details ul li .pdf-icon svg { display: block; }
 
         /* ---------- IFRAME CONTENT ---------- */
-        .content-wrapper {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            padding-top: 5px;
-            background: #f4f4f4;
-        }
-        #content-iframe {
-            flex: 1;
-            width: 100%;
-            border: none;
-            background: #fff;
-            display: block;
-            border-radius: 4px;
-        }
+        .content-wrapper { flex: 1; display: flex; flex-direction: column; padding-top: 5px; background: #f4f4f4; }
+        #content-iframe { flex: 1; width: 100%; border: none; background: #fff; display: block; border-radius: 4px; }
 
         /* ---------- FOOTER ---------- */
         .footer {
-            background: #1a2b4c;
-            color: #a0b8d0;
-            text-align: center;
-            padding: 8px 20px;
-            font-size: 0.75rem;
-            border-top: 1px solid #3a5a7a;
-            flex-shrink: 0;
-            letter-spacing: 0.3px;
+            background: #1a2b4c; color: #a0b8d0; text-align: center;
+            padding: 8px 20px; font-size: 0.75rem; border-top: 1px solid #3a5a7a;
+            flex-shrink: 0; letter-spacing: 0.3px;
         }
-        .footer a {
-            color: #8aa9c8;
-            text-decoration: none;
-            margin: 0 4px;
-        }
-        .footer a:hover {
-            text-decoration: underline;
-            color: #c4d8f0;
-        }
-        .footer span.sep {
-            color: #4a6a8a;
-            margin: 0 4px;
-        }
+        .footer a { color: #8aa9c8; text-decoration: none; margin: 0 4px; }
+        .footer a:hover { text-decoration: underline; color: #c4d8f0; }
+        .footer span.sep { color: #4a6a8a; margin: 0 4px; }
 
         @media (max-width: 600px) {
-            .header-sticky .logo-wrap .title-group small {
-                font-size: 0.65rem;
-            }
-            .header-sticky .logo-wrap img {
-                height: 32px;
-            }
-            .drawer {
-                width: 280px;
-                left: -290px;
-            }
-            .footer {
-                font-size: 0.7rem;
-                padding: 6px 15px;
-            }
-            .content-wrapper {
-                padding-top: 3px;
-            }
-            .header-sticky .burger {
-                width: 34px;
-                height: 34px;
-            }
+            .header-sticky .logo-wrap .title-group small { font-size: 0.65rem; }
+            .header-sticky .logo-wrap img { height: 32px; }
+            .drawer { width: 280px; left: -290px; }
+            .footer { font-size: 0.7rem; padding: 6px 15px; }
+            .content-wrapper { padding-top: 3px; }
+            .header-sticky .burger { width: 34px; height: 34px; }
         }
 
         .menu-status {
-            padding: 10px;
-            border-radius: 5px;
-            margin: 5px 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            padding: 10px; border-radius: 5px; margin: 5px 0;
+            display: flex; align-items: center; gap: 10px;
         }
-        .menu-status svg {
-            flex-shrink: 0;
-        }
-        .menu-status.loading {
-            color: #aac3e0;
-        }
-        .menu-status.error {
-            color: #ff9999;
-            background: #441111;
-        }
-        .menu-status.warning {
-            color: #ffcc66;
-            background: #443311;
-        }
+        .menu-status svg { flex-shrink: 0; }
+        .menu-status.loading { color: #aac3e0; }
+        .menu-status.error { color: #ff9999; background: #441111; }
+        .menu-status.warning { color: #ffcc66; background: #443311; }
 
-        /* ---------- ICON UTILITY ---------- */
-        .icon-inline {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            vertical-align: middle;
-        }
-        .icon-inline svg {
-            display: block;
-        }
+        .icon-inline { display: inline-flex; align-items: center; justify-content: center; vertical-align: middle; }
+        .icon-inline svg { display: block; }
     </style>
 </head>
 <body>
 
-    <!-- ===== STICKY HEADER ===== -->
-    <header class="header-sticky">
-        <button class="burger" id="burgerBtn" aria-label="Buka menu">
-            <!-- Burger icon -->
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-            </svg>
-        </button>
-        <div class="logo-wrap">
-            <img src="logo-pshd.jpg" alt="Logo PSHD" />
-            <div class="title-group">
-                <div class="main-title">
-                    Bulūgul-Marām <h6><em><strong>min Adillati Life Style Mu‘āṣirah</strong></em></h6>
-                </div>
-                <small>Pusat Studi Hadis Digital UIN Banten</small>
+    <!-- ===== HEADER ===== -->
+<header class="header-sticky">
+    <button class="burger" id="burgerBtn" aria-label="Buka menu">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+    </button>
+    <div class="logo-wrap">
+        <img src="logo-pshd.jpg" alt="Logo PSHD" />
+        <div class="title-group">
+            <div class="main-title">
+                <h3>Bulūgul-Marām min Adillah Lifestyle Mu‘āṣirah</h3>
             </div>
+            <small>Pusat Studi Hadis Digital UIN Banten</small>
         </div>
-    </header>
-
+    </div>
+</header>
     <!-- ===== OVERLAY & DRAWER ===== -->
     <div class="drawer-overlay" id="drawerOverlay"></div>
     <nav class="drawer" id="drawer">
         <div class="menu-container" id="menuContainer">
             <p class="menu-status loading">
-                <!-- Spinner -->
                 <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2v4" />
-                    <path d="M12 18v4" />
-                    <path d="M4.93 4.93l2.83 2.83" />
-                    <path d="M16.24 16.24l2.83 2.83" />
-                    <path d="M2 12h4" />
-                    <path d="M18 12h4" />
-                    <path d="M4.93 19.07l2.83-2.83" />
-                    <path d="M16.24 7.76l2.83-2.83" />
+                    <path d="M12 2v4" /><path d="M12 18v4" /><path d="M4.93 4.93l2.83 2.83" />
+                    <path d="M16.24 16.24l2.83 2.83" /><path d="M2 12h4" /><path d="M18 12h4" />
+                    <path d="M4.93 19.07l2.83-2.83" /><path d="M16.24 7.76l2.83-2.83" />
                 </svg>
                 Memuat menu...
             </p>
         </div>
     </nav>
 
-    <!-- ===== IFRAME CONTENT dengan name ===== -->
+    <!-- ===== IFRAME ===== -->
     <div class="content-wrapper">
         <iframe name="contentFrame" id="content-iframe" src="about:blank"></iframe>
     </div>
@@ -392,10 +195,8 @@
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
         &copy; 2026 Pusat Studi Hadis Digital UIN Banten
-        <span class="sep">|</span>
-        <a href="#">Tentang</a>
-        <span class="sep">|</span>
-        <a href="#">Kontak</a>
+        <span class="sep">|</span> <a href="#">Tentang</a>
+        <span class="sep">|</span> <a href="#">Kontak</a>
     </footer>
 
     <script>
@@ -405,16 +206,14 @@
         const API_URL = 'https://script.google.com/macros/s/AKfycbw6GSgtwd8LVwf0c3FwF-js0iB1UHhqRt9H9rdLW2H27EynKejQE9K8pctdmduCF2IBZw/exec';
 
         const FALLBACK_DATA = [
-            { judul: 'Hadis tentang Tauhid', file: 'hadis-tauhid.html', kategori: 'Aqidah', urutan: 1,
-            pdf: 'https://example.com/tauhid.pdf' },
-            { judul: 'Hadis tentang Iman', file: 'hadis-iman.html', kategori: 'Aqidah', urutan: 2, pdf: '' },
-            { judul: 'Hadis tentang Ihsan', file: 'hadis-ihsan.html', kategori: 'Aqidah', urutan: 3, pdf: '' },
-            { judul: 'Hadis tentang Shalat', file: 'hadis-shalat.html', kategori: 'Fiqh', urutan: 1, pdf: '' },
-            { judul: 'Hadis tentang Zakat', file: 'hadis-zakat.html', kategori: 'Fiqh', urutan: 2, pdf: '' },
-            { judul: 'Hadis tentang Puasa', file: 'hadis-puasa.html', kategori: 'Fiqh', urutan: 3, pdf: '' },
-            { judul: 'Hadis tentang Sedekah', file: 'hadis-sedekah.html', kategori: 'Sosial', urutan: 1, pdf: '' },
-            { judul: 'Hadis tentang Silaturahmi', file: 'hadis-silaturahmi.html', kategori: 'Sosial', urutan: 2,
-            pdf: '' },
+            { judul: 'Hadis tentang Tauhid', file: 'hadis-tauhid.html', kategori: 'Aqidah', urutan1: 1, urutan2: 1, pdf1: '', pdf2: '', pdf3: '' },
+            { judul: 'Hadis tentang Iman',   file: 'hadis-iman.html',   kategori: 'Aqidah', urutan1: 1, urutan2: 2, pdf1: '', pdf2: '', pdf3: '' },
+            { judul: 'Hadis tentang Ihsan',  file: 'hadis-ihsan.html',  kategori: 'Aqidah', urutan1: 1, urutan2: 3, pdf1: '', pdf2: '', pdf3: '' },
+            { judul: 'Hadis tentang Shalat', file: 'hadis-shalat.html', kategori: 'Fiqh',   urutan1: 2, urutan2: 1, pdf1: '', pdf2: '', pdf3: '' },
+            { judul: 'Hadis tentang Zakat',  file: 'hadis-zakat.html',  kategori: 'Fiqh',   urutan1: 2, urutan2: 2, pdf1: '', pdf2: '', pdf3: '' },
+            { judul: 'Hadis tentang Puasa',  file: 'hadis-puasa.html',  kategori: 'Fiqh',   urutan1: 2, urutan2: 3, pdf1: '', pdf2: '', pdf3: '' },
+            { judul: 'Hadis tentang Sedekah',file: 'hadis-sedekah.html',kategori: 'Sosial', urutan1: 3, urutan2: 1, pdf1: '', pdf2: '', pdf3: '' },
+            { judul: 'Hadis tentang Silaturahmi', file: 'hadis-silaturahmi.html', kategori: 'Sosial', urutan1: 3, urutan2: 2, pdf1: '', pdf2: '', pdf3: '' },
         ];
 
         const iframe = document.getElementById('content-iframe');
@@ -427,12 +226,21 @@
             brain: `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b4f8c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2z"/></svg>`,
             search: `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b4f8c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
             folder: `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2b4f8c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>`,
-            pdf: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><rect x="8" y="13" width="8" height="6" rx="0.8" fill="currentColor" fill-opacity="0.15" stroke="none"/><text x="9.5" y="18.3" font-size="7" font-weight="700" fill="currentColor" font-family="Arial, sans-serif" stroke="none">PDF</text></svg>`,
             spinner: `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>`,
             warning: `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
             error: `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`,
             close: `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`,
         };
+
+        // Fungsi untuk membuat ikon PDF dengan label
+        function pdfIcon(label, color = '#ffd966') {
+            return `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="${color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <rect x="6" y="13" width="12" height="6" rx="1" fill="${color}" fill-opacity="0.15" stroke="none"/>
+                <text x="8" y="18.5" font-size="8" font-weight="700" fill="${color}" font-family="Arial, sans-serif" stroke="none">${label}</text>
+            </svg>`;
+        }
 
         // ================================================================
         //  3.  SHOW WELCOME
@@ -446,84 +254,18 @@
               <meta name="viewport" content="width=device-width, initial-scale=1.0" />
               <title>Selamat Datang</title>
               <style>
-                body {
-                  margin: 0;
-                  padding: 30px 20px;
-                  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                  background: #f4f4f4;
-                  color: #1a2b4c;
-                  line-height: 1.7;
-                }
-                .container {
-                  max-width: 800px;
-                  margin: 0 auto;
-                  background: #fff;
-                  padding: 40px 35px;
-                  border-radius: 12px;
-                  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-                }
-                .welcome-logo {
-                  display: block;
-                  max-width: 130px;
-                  height: auto;
-                  margin: 0 auto 25px;
-                  border-radius: 12px;
-                  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-                }
-                h1 {
-                  font-family: 'Georgia', 'Times New Roman', serif;
-                  font-size: 1.8rem;
-                  text-align: center;
-                  color: #2b4f8c;
-                  margin-bottom: 4px;
-                }
-                .subtitle {
-                  text-align: center;
-                  font-size: 1rem;
-                  color: #3a5a7a;
-                  margin-bottom: 30px;
-                  border-bottom: 2px solid #e8edf5;
-                  padding-bottom: 14px;
-                }
-                p {
-                  margin-bottom: 16px;
-                  color: #2d2d2d;
-                }
-                ul {
-                  padding-left: 24px;
-                  margin-bottom: 16px;
-                }
-                li {
-                  margin-bottom: 8px;
-                }
-                blockquote {
-                  border-left: 4px solid #c9a84c;
-                  padding: 12px 20px;
-                  margin: 20px 0;
-                  background: #f9f7f2;
-                  border-radius: 0 8px 8px 0;
-                  font-style: italic;
-                  color: #4a5a6a;
-                }
-                .footer-welcome {
-                  margin-top: 30px;
-                  text-align: center;
-                  font-size: 0.9rem;
-                  color: #7a8a9a;
-                  border-top: 1px solid #e8edf5;
-                  padding-top: 18px;
-                }
-                .highlight {
-                  background: #f0f4fa;
-                  padding: 12px 18px;
-                  border-radius: 8px;
-                  border-left: 4px solid #2b4f8c;
-                  margin: 18px 0;
-                }
-                @media (max-width: 600px) {
-                  .container { padding: 24px 16px; }
-                  h1 { font-size: 1.4rem; }
-                }
+                body { margin:0; padding:30px 20px; font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; background:#f4f4f4; color:#1a2b4c; line-height:1.7; }
+                .container { max-width:800px; margin:0 auto; background:#fff; padding:40px 35px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.06); }
+                .welcome-logo { display:block; max-width:130px; height:auto; margin:0 auto 25px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.08); }
+                h1 { font-family:'Georgia','Times New Roman',serif; font-size:1.8rem; text-align:center; color:#2b4f8c; margin-bottom:4px; }
+                .subtitle { text-align:center; font-size:1rem; color:#3a5a7a; margin-bottom:30px; border-bottom:2px solid #e8edf5; padding-bottom:14px; }
+                p { margin-bottom:16px; color:#2d2d2d; }
+                ul { padding-left:24px; margin-bottom:16px; }
+                li { margin-bottom:8px; }
+                blockquote { border-left:4px solid #c9a84c; padding:12px 20px; margin:20px 0; background:#f9f7f2; border-radius:0 8px 8px 0; font-style:italic; color:#4a5a6a; }
+                .footer-welcome { margin-top:30px; text-align:center; font-size:0.9rem; color:#7a8a9a; border-top:1px solid #e8edf5; padding-top:18px; }
+                .highlight { background:#f0f4fa; padding:12px 18px; border-radius:8px; border-left:4px solid #2b4f8c; margin:18px 0; }
+                @media (max-width:600px) { .container { padding:24px 16px; } h1 { font-size:1.4rem; } }
               </style>
             </head>
             <body>
@@ -531,55 +273,35 @@
                 <img src="logo-pshd.jpg" alt="Logo PSHD" class="welcome-logo" />
                 <h1>Pusat Studi Hadis Digital</h1>
                 <div class="subtitle">UIN Sultan Maulana Hasanuddin Banten</div>
-
-                <p>
-                  <strong>Selamat datang</strong> di portal hadis tematik berbasis <strong>Analisis Tematik Terstruktur (ATT)</strong> dengan pendekatan adaptasi <strong>Constructive Grounded Theory for Fixed Corpus</strong>.
-                </p>
-
-                <div class="highlight">
-                  <strong>⚡ Revitalisasi Tacit Knowledge Tematisasi Hadis</strong><br>
-                  Kajian ini merupakan upaya menghidupkan kembali <em>tacit knowledge</em> muḥaddiṡṡīn dalam <em>captioning</em> hadis sesuai kebutuhan kontemporer—sebuah mata rantai keilmuan yang telah lama terhenti sejak Ibnu Qayyim, dan sebenarnya telah mulai diupayakan untuk dihidupkan kembali oleh Kemenag, sebagaimana yang terlihat pada Silabus Hadis Sosial pada tahun 1980-an semisal Hadis Tematik Etos Kerja, Peduli Lingkungan, Kepemimpinan, Kesenian dan lain-lain.
-                </div>
-
-                <p>
-                  Beberapa pilar metodologis yang menjadi fondasi kajian ini:
-                </p>
+                <p><strong>Selamat datang</strong> di portal hadis tematik berbasis <strong>Analisis Tematik Terstruktur (ATT)</strong> dengan pendekatan adaptasi <strong>Constructive Grounded Theory for Fixed Corpus</strong>.</p>
+                <div class="highlight"><strong>⚡ Revitalisasi Tacit Knowledge Tematisasi Hadis</strong><br>Kajian ini merupakan upaya menghidupkan kembali <em>tacit knowledge</em> muḥaddiṡṡīn dalam <em>captioning</em> hadis sesuai kebutuhan kontemporer—sebuah mata rantai keilmuan yang telah lama terhenti sejak Ibnu Qayyim, dan sebenarnya telah mulai diupayakan untuk dihidupkan kembali oleh Kemenag, sebagaimana yang terlihat pada Silabus Hadis Sosial pada tahun 1980-an semisal Hadis Tematik Etos Kerja, Peduli Lingkungan, Kepemimpinan, Kesenian dan lain-lain.</div>
+                <p>Beberapa pilar metodologis yang menjadi fondasi kajian ini:</p>
                 <ul>
                   <li><strong>Analisis Tematik Terstruktur (ATT)</strong> — adalah metode studi tematik yang mengolah data teks (Al-Qur'an dan Hadis) secara sistematis melalui alur: ekstraksi substansi fenomena kontemporer → pencarian ayat/hadis berbasis kriteria inklusi → open-axial-selective coding dengan panduan sensitizing concept → output berupa prototipe klasifikasi dan abstraksi tematik ala Bulūgul-Marām. Metode ini terinspirasi oleh inversi double movement Fazlur Rahman [→ mengamati dan mendedah fenomena kontemporer hingga ke basiknya → mencari <em>aṣālah</em> atas basik fenomena kontemporer tersebut pada hadis → membawa pemahaman hadis dalam konteks kontemporer] dan dirancang untuk mengeksplisitkan tacit knowledge pakar hadis agar dapat dipraktikkan oleh peneliti pemula dengan pengakuan atas saturasi relatif sebagai keterbatasan wawasan peneliti.</li>
-                  <li>  <strong>Sampling Theory</strong> — berbasis <em>concept driven coding</em> (bukan <em>data driven</em>), bertumpu pada <em>sensitizing concept</em> dari <em>preliminary research</em> yang menunjukkan <em>wiḥdatul-gāyah</em> tema dalam perspektif umum-kontemporer. Konsep awal ini menjadi kerangka seleksi korpus dan kodifikasi, memastikan arah tematik tetap utuh dan koheren. Prosesnya <em>a posteriori</em>: induktif dari data, namun dalam bingkai konseptual yang telah dirumuskan.</li>
+                  <li><strong>Sampling Theory</strong> — berbasis <em>concept driven coding</em> (bukan <em>data driven</em>), bertumpu pada <em>sensitizing concept</em> dari <em>preliminary research</em> yang menunjukkan <em>wiḥdatul-gāyah</em> tema dalam perspektif umum-kontemporer. Konsep awal ini menjadi kerangka seleksi korpus dan kodifikasi, memastikan arah tematik tetap utuh dan koheren. Prosesnya <em>a posteriori</em>: induktif dari data, namun dalam bingkai konseptual yang telah dirumuskan.</li>
                   <li><strong>Saturasi Relatif</strong> — pengakuan jujur bahwa kejenuhan data sangat bergantung pada wawasan, kapabilitas, dan keterbatasan subjektif peneliti, dalam menjaring dan memetakan tematisasi hadis, bukan klaim absolut atas hasil olah data.</li>
                   <li><strong>Refleksivitas Peneliti</strong> — pernyataan eksplisit bahwa temuan ini adalah hasil usaha maksimal sesuai kemampuan, bukan klaim final atau lengkap.</li>
                   <li><strong>Peer Briefing &amp; Audit Trail</strong> — setiap langkah analisis didokumentasikan secara transparan dan didiskusikan dengan rekan sejawat untuk menjaga kredibilitas ilmiah.</li>
                 </ul>
-
-                <blockquote>
-                  <p><strong>“Sebaik-baik ilmu adalah yang bermanfaat, dan sebaik-baik manfaat adalah yang dapat dipertanggungjawabkan.”</strong></p>
-                </blockquote>
-
-                <p>
-                  ☕ <strong>Undangan Kolaborasi Ilmiah</strong> — Penelitian ini tidak berpretensi sebagai otoritas tunggal. Pembaca dan peneliti lain yang lebih mumpuni diundang untuk merevisi, menambah, atau menggugat temuan ini. Inilah semangat <strong>open science</strong> dan <strong>audit trail</strong> yang kami anut.
-                </p>
-
+                <blockquote><p><strong>“Sebaik-baik ilmu adalah yang bermanfaat, dan sebaik-baik manfaat adalah yang dapat dipertanggungjawabkan.”</strong></p></blockquote>
+                <p><strong>Catatan Prototipe</strong> — sebagai prototipe hadis tematik, tematisasi hadis di sini lebih memerlukan penjelasan ketimbang sekadar dipahami dari hasil membaca dan mengkaitkannya dengan <em>caption</em>. Prototipe ini dapat dikembangkan dalam tiga jalur: (1) <em>tafsīr/syarah ijāzī</em> berupa artikel jurnal, (2) <em>tafsīr/syarah mutawassiṭ/musāwi</em> berupa skripsi, dan (3) <em>tafsīr/syarah iṭnābī</em> berupa tafsir/syarah hadis tematik utuh.</p>
+                <p>☕ <strong>Undangan Kolaborasi Ilmiah</strong> — Penelitian ini tidak berpretensi sebagai otoritas tunggal. Pembaca dan peneliti lain yang lebih mumpuni diundang untuk merevisi, menambah, atau menggugat temuan ini. Inilah semangat <strong>open science</strong> dan <strong>audit trail</strong> yang kami anut.</p>
                 <p style="margin-top:8px;">Pilih menu di samping untuk mulai menjelajahi hadis-hadis tematik yang telah dianalisis.</p>
-
-                <div class="footer-welcome">
-                  — Tim Pusat Studi Hadis Digital<br>
-                  Banten, 2026
-                </div>
+                <div class="footer-welcome">— Tim Pusat Studi Hadis Digital<br>Banten, 2026</div>
               </div>
             </body>
-            </html>
-          `;
+            </html>`;
             iframe.srcdoc = welcomeHTML;
         }
 
         // ================================================================
-        //  4.  BANGUN MENU (dengan target="contentFrame")
+        //  4.  BANGUN MENU (dengan 3 ikon PDF dan 2 urutan)
         // ================================================================
         function buildMenuFromData(items) {
             const container = document.getElementById('menuContainer');
             container.innerHTML = '';
 
+            // Kelompokkan berdasarkan kategori
             const groups = {};
             items.forEach(item => {
                 const cat = item.kategori || 'Umum';
@@ -587,12 +309,23 @@
                 groups[cat].push(item);
             });
 
+            // Urutkan item dalam setiap kategori berdasarkan urutan1 lalu urutan2
             for (let cat in groups) {
-                groups[cat].sort((a, b) => (parseInt(a.urutan) || 0) - (parseInt(b.urutan) || 0));
+                groups[cat].sort((a, b) => {
+                    const u1 = (parseInt(a.urutan1) || 0) - (parseInt(b.urutan1) || 0);
+                    if (u1 !== 0) return u1;
+                    return (parseInt(a.urutan2) || 0) - (parseInt(b.urutan2) || 0);
+                });
             }
 
+            // Urutkan kategori berdasarkan urutan1 dari item pertama (opsional)
+            const sortedCats = Object.keys(groups).sort((catA, catB) => {
+                const aFirst = groups[catA][0]?.urutan1 || 0;
+                const bFirst = groups[catB][0]?.urutan1 || 0;
+                return aFirst - bFirst;
+            });
+
             const ul = document.createElement('ul');
-            const sortedCats = Object.keys(groups).sort();
 
             sortedCats.forEach(cat => {
                 const li = document.createElement('li');
@@ -607,6 +340,7 @@
                 groups[cat].forEach(item => {
                     const subLi = document.createElement('li');
 
+                    // Link utama
                     const a = document.createElement('a');
                     a.href = item.file;
                     a.textContent = item.judul;
@@ -616,28 +350,46 @@
                     });
                     subLi.appendChild(a);
 
-                    if (item.pdf && item.pdf.trim() !== '') {
-                        const pdfIcon = document.createElement('span');
-                        pdfIcon.className = 'pdf-icon';
-                        pdfIcon.innerHTML = Icons.pdf;
-                        pdfIcon.title = 'Buka PDF di Tab Baru';
-                        
-                        pdfIcon.addEventListener('click', function(e) {
+                    // Ikon PDF1 (olahdata1)
+                    if (item.pdf1 && item.pdf1.trim() !== '') {
+                        const icon1 = document.createElement('span');
+                        icon1.className = 'pdf-icon';
+                        icon1.innerHTML = pdfIcon('1', '#ffd966');
+                        icon1.title = 'Olah Data 1';
+                        icon1.addEventListener('click', function(e) {
                             e.stopPropagation();
-
-                            let url = item.pdf;
-                            let viewerUrl = url;
-
-                            const driveMatch = url.match(/\/d\/([^\/]+)/);
-                            if (driveMatch) {
-                                viewerUrl = 'https://drive.google.com/file/d/' + driveMatch[1] + '/preview';
-                            }
-
-                            window.open(viewerUrl, '_blank');
+                            window.open(item.pdf1, '_blank');
                             closeDrawer();
                         });
-                        
-                        subLi.appendChild(pdfIcon);
+                        subLi.appendChild(icon1);
+                    }
+
+                    // Ikon PDF2 (olahdata2)
+                    if (item.pdf2 && item.pdf2.trim() !== '') {
+                        const icon2 = document.createElement('span');
+                        icon2.className = 'pdf-icon';
+                        icon2.innerHTML = pdfIcon('2', '#ffaa66');
+                        icon2.title = 'Olah Data 2';
+                        icon2.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            window.open(item.pdf2, '_blank');
+                            closeDrawer();
+                        });
+                        subLi.appendChild(icon2);
+                    }
+
+                    // Ikon PDF3 (ebook)
+                    if (item.pdf3 && item.pdf3.trim() !== '') {
+                        const icon3 = document.createElement('span');
+                        icon3.className = 'pdf-icon';
+                        icon3.innerHTML = pdfIcon('E', '#66ccff');
+                        icon3.title = 'Ebook';
+                        icon3.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            window.open(item.pdf3, '_blank');
+                            closeDrawer();
+                        });
+                        subLi.appendChild(icon3);
                     }
 
                     subUl.appendChild(subLi);
@@ -672,8 +424,7 @@
                 }
                 const data = await response.json();
                 if (!Array.isArray(data) || data.length === 0) {
-                    container.innerHTML =
-                        `<p class="menu-status warning">${Icons.warning} Data kosong. Gunakan fallback.</p>`;
+                    container.innerHTML = `<p class="menu-status warning">${Icons.warning} Data kosong. Gunakan fallback.</p>`;
                     buildMenuFromData(FALLBACK_DATA);
                     return;
                 }
@@ -681,8 +432,7 @@
             } catch (err) {
                 container.innerHTML = `
                 <p class="menu-status error">${Icons.error} Gagal ambil data:<br><span style="font-size:0.9rem;">${err.message}</span></p>
-                <p style="color:#aac3e0; margin-top:10px;">→ Menggunakan fallback.</p>
-              `;
+                <p style="color:#aac3e0; margin-top:10px;">→ Menggunakan fallback.</p>`;
                 console.error(err);
                 buildMenuFromData(FALLBACK_DATA);
             }
@@ -709,8 +459,7 @@
               <line x1="3" y1="6" x2="21" y2="6" />
               <line x1="3" y1="12" x2="21" y2="12" />
               <line x1="3" y1="18" x2="21" y2="18" />
-            </svg>
-          `;
+            </svg>`;
         }
 
         burgerBtn.addEventListener('click', function(e) {
@@ -728,6 +477,5 @@
             fetchMenu();
         });
     </script>
-
 </body>
 </html>
