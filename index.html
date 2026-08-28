@@ -476,6 +476,16 @@
             showWelcome();
             fetchMenu();
         });
+        // ================================================================
+        //  8.  LOGO KLIK → SHOW WELCOME
+        // ================================================================
+        const logoImg = document.querySelector('.logo-wrap img');
+        if (logoImg) {
+            logoImg.addEventListener('click', function() {
+                showWelcome();
+                closeDrawer(); // tutup drawer jika terbuka
+            });
+        }
     </script>
 </body>
 </html>
