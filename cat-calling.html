@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hadis Tematik · Anti Catcalling</title>
+    <base target="_self" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f6f0;
+            color: #1e2b3a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        :root {
+            --primary: #2b4f8c;
+            --gold: #c9a84c;
+            --gold-light: #e0c66e;
+            --gold-dark: #a8892f;
+            --bg-body: #f8f6f0;
+            --bg-card: #ffffff;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --sidebar-width: 300px;
+            --header-height: 72px;
+        }
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 2px 12px rgba(43, 79, 140, 0.25);
+        }
+        .app-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .app-header .brand img {
+            height: 44px;
+            width: auto;
+            border-radius: 6px;
+            background: #fff;
+            padding: 4px;
+            object-fit: contain;
+        }
+        .app-header .brand .title-group {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .app-header .brand .title-group h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .app-header .brand .title-group .author {
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+        .app-header .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px 4px;
+            border-radius: 6px;
+        }
+        .app-header .hamburger:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .app-header .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: #fff;
+            border-radius: 4px;
+        }
+        .app-layout {
+            display: flex;
+            flex: 1;
+            position: relative;
+        }
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            border-left: 1px solid rgba(43, 79, 140, 0.10);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.04);
+            height: calc(100vh - var(--header-height));
+            position: sticky;
+            top: var(--header-height);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 16px 10px 30px;
+            flex-shrink: 0;
+            transition: transform var(--transition);
+            z-index: 900;
+        }
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: #f0ede7;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 8px;
+        }
+        .menu-section {
+            margin-bottom: 4px;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.06);
+        }
+        .menu-section:last-of-type {
+            border-bottom: none;
+        }
+        .menu-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 14px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-align: left;
+        }
+        .menu-head:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .menu-head .icon {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            width: 1.5rem;
+            text-align: center;
+        }
+        .menu-head .arrow {
+            margin-left: auto;
+            font-size: 0.7rem;
+            transition: transform var(--transition);
+            color: var(--gold-dark);
+        }
+        .menu-head.open .arrow {
+            transform: rotate(90deg);
+        }
+        .sub-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 6px 0;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.35s ease, opacity 0.25s ease;
+            opacity: 0;
+        }
+        .sub-menu.open {
+            max-height: 800px;
+            opacity: 1;
+        }
+        .sub-menu li {
+            margin: 0;
+        }
+        .sub-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px 8px 38px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 450;
+            color: #2d3f54;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .sub-link:hover {
+            background: rgba(43, 79, 140, 0.07);
+            color: var(--primary);
+        }
+        .sub-link.active {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .sub-link .sub-icon {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            width: 1.2rem;
+            text-align: center;
+        }
+        .sub-link.active .sub-icon {
+            opacity: 1;
+        }
+        .extra-menu {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 2px solid rgba(43, 79, 140, 0.08);
+        }
+        .extra-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .extra-link:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .extra-link.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .extra-link .icon {
+            font-size: 1.1rem;
+            width: 1.5rem;
+            text-align: center;
+        }
+        .main-content {
+            flex: 1;
+            padding: 32px 40px 60px;
+            min-width: 0;
+            background: var(--bg-body);
+        }
+        .content-panel {
+            display: none;
+            animation: fadeUp 0.35s ease;
+        }
+        .content-panel.active {
+            display: block;
+        }
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .panel-sub {
+            font-size: 0.95rem;
+            color: #5e6f82;
+            margin-bottom: 24px;
+        }
+        .hadith-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 18px 0 22px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--gold);
+        }
+        .hadith-box .arabic {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #1e2b3a;
+            direction: rtl;
+            font-family: 'Times New Roman', 'Traditional Arabic', serif;
+            margin-bottom: 12px;
+            padding: 6px 0;
+            word-wrap: break-word;
+        }
+        .hadith-box .translation {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #2d3f54;
+            border-top: 1px dashed rgba(43, 79, 140, 0.12);
+            padding-top: 12px;
+        }
+        .hadith-box .source {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--gold-dark);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+        .sub-section {
+            margin-top: 28px;
+        }
+        .sub-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .sub-section p {
+            line-height: 1.7;
+            color: #2d3f54;
+            margin-bottom: 10px;
+        }
+        .bibliography {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43, 79, 140, 0.10);
+        }
+        .bibliography h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 14px;
+        }
+        .bibliography ul {
+            list-style: none;
+            padding: 0;
+        }
+        .bibliography ul li {
+            padding: 6px 0 6px 20px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #2d3f54;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.05);
+            text-indent: -20px;
+            padding-left: 30px;
+        }
+        .bibliography ul li::before {
+            content: "•";
+            color: var(--gold);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 850;
+            backdrop-filter: blur(2px);
+        }
+        .overlay.active {
+            display: block;
+        }
+        @media (max-width: 991px) {
+            .app-header .hamburger {
+                display: flex;
+            }
+            .sidebar {
+                position: fixed;
+                top: var(--header-height);
+                right: 0;
+                height: calc(100vh - var(--header-height));
+                transform: translateX(100%);
+                box-shadow: -8px 0 30px rgba(0, 0, 0, 0.10);
+                border-left: none;
+                width: 290px;
+                padding: 12px 8px 30px;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                padding: 20px 18px 40px;
+            }
+            .panel-title {
+                font-size: 1.5rem;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 1rem;
+            }
+            .app-header .brand img {
+                height: 36px;
+            }
+            .hadith-box {
+                padding: 16px 18px;
+            }
+            .hadith-box .arabic {
+                font-size: 1rem;
+            }
+        }
+        @media (max-width: 480px) {
+            :root {
+                --header-height: 64px;
+            }
+            .app-header {
+                padding: 0 14px;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 0.85rem;
+            }
+            .app-header .brand .title-group .author {
+                font-size: 0.7rem;
+            }
+            .sidebar {
+                width: 265px;
+            }
+            .main-content {
+                padding: 14px 12px 30px;
+            }
+            .panel-title {
+                font-size: 1.25rem;
+            }
+            .sub-link {
+                padding: 7px 10px 7px 28px;
+                font-size: 0.8rem;
+            }
+            .menu-head {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="brand">
+            <img src="logo-pshd.jpg" alt="Logo" />
+            <div class="title-group">
+                <h1>Ebook Catcalling</h1>
+                <span class="author">Penyusun: Irfan Padlian Syah & Muhammad Alif</span>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+    <div class="app-layout">
+        <div class="overlay" id="overlay"></div>
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Daftar isi">
+            <div class="top-menu" id="topMenu"></div>
+            <div id="menuContainer"></div>
+            <div class="extra-menu" id="extraMenu"></div>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div id="panelContainer"></div>
+        </main>
+    </div>
+    <script>
+        (function() {
+            'use strict';
+
+            // ===== DATA MENU =====
+            const menuData = [{
+                id: 'bab1',
+                label: 'UPAYA ANTI CATCALLING',
+                icon: 'fa-shield-halved',
+                children: [{
+                    id: '1-1',
+                    label: 'Anti Catcalling',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">Anti Catcalling</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّثَنِي عَبْدُ الْعَزِيزِ بْنُ عَبْدِ اللَّهِ حَدَّثَنَا إِبْرَاهِيمُ بْنُ سَعْدٍ عَنْ ابْنِ شِهَابٍ عَنْ أَبِي سَلَمَةَ عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلَا يُؤْذِ جَارَهُ وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيُكْرِمْ ضَيْفَهُ</div>
+                            <div class="translation">Telah menceritakan kepada kami Abdul Aziz bin Abdillah, telah menceritakan kepada kami Ibrahim bin Sa‘ad dari Ibnu Syihab dari Abu Salamah dari Abu Hurairah radhiallahu‘anhu, ia berkata, Rasulullah ﷺ bersabda, <strong>“Barang siapa yang beriman kepada Allah dan hari Akhir, hendaknya ia berkata baik atau diam. Barang siapa yang beriman kepada Allah dan hari Akhir, janganlah ia menyakiti tetangganya, dan barang siapa yang beriman kepada Allah dan hari Akhir, hendaknya ia memuliakan tamunya.”</strong></div>
+                            <span class="source">Sumber: Shahih Bukhari</span>
+                        </div>
+                        <div style="background:#f5f0e6; border-radius:12px; padding:18px 22px; margin:12px 0 24px; border-left:4px solid var(--gold);">
+                            <p style="font-size:0.95rem; color:#2d3f54;"><strong><i class="fas fa-bullhorn" style="color:var(--primary);"></i> Pesan Utama:</strong> Hadis ini mengajarkan bahwa iman sejati tercermin dalam perkataan dan perbuatan. Seorang mukmin tidak hanya menjaga lisannya dari keburukan, tetapi juga menjaga hubungan baik dengan tetangga dan memuliakan tamu.</p>
+                        </div>
+                    `
+                }, {
+                    id: '1-2',
+                    label: 'Menjaga Lisan dan Perbuatan',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">Menjaga Lisan dan Perbuatan</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّثَنَا مُحَمَّدُ بْنُ عُبَيْدٍ حَدَّثَنَا زَكَرِيَّا عَنْ عَامِرٍ سَمِعْتُ عَبْدَ اللَّهِ بْنَ عَمْرٍو سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ الْمُسْلِمُ مَنْ سَلِمَ النَّاسُ مِنْ لِسَانِهِ وَيَدِهِ وَالْمُهَاجِرُ مَنْ هَجَرَ مَا نَهَى اللَّهُ عَنْهُ</div>
+                            <div class="translation">Telah menceritakan kepada kami Muhammad bin Ubaid, telah menceritakan kepada kami Zakaria dari ‘Amir, dia berkata, aku mendengar Abdullah bin ‘Amru berkata, aku mendengar Rasulullah ﷺ bersabda, <strong>“Seorang muslim adalah jika manusia selamat dari kejahatan lisan dan tangannya, dan seorang muhajir adalah orang yang menjauhi apa yang Allah larang.”</strong></div>
+                            <span class="source">Sumber: Shahih Bukhari</span>
+                        </div>
+                        <div style="background:#f5f0e6; border-radius:12px; padding:18px 22px; margin:12px 0 24px; border-left:4px solid var(--gold);">
+                            <p style="font-size:0.95rem; color:#2d3f54;"><strong><i class="fas fa-bullhorn" style="color:var(--primary);"></i> Pesan Utama:</strong> Keislaman seseorang diukur dari sejauh mana ia menjadi sumber keselamatan bagi orang lain — baik dari lisannya maupun tangannya. Hijrah (muhajir) sejati adalah meninggalkan segala yang dilarang Allah.</p>
+                        </div>
+                    `
+                }, {
+                    id: '1-3',
+                    label: 'Prinsip Ukhuwwah Islamiyyah',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">Prinsip Ukhuwwah Islamiyyah</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مَسْلَمَةَ بْنِ قَعْنَبٍ. حدثنا داود (يعني ابن قيس) عن أبي سعيد، مولى عامر بن كريز، عن أبي هريرة. قال: قال رسول الله صلى الله عليه وسلم "لا تحاسدوا. ولا تناجشوا، ولا تباغضوا، ولا تدابروا، ولا يبع بعضكم على بيع بعض. وكونوا، عباد الله! إخوانا. المسلم أخو المسلم. لا يظلمه، ولا يخذله، ولا يحقره. التقوى ههنا" ويشير إلى صدره ثلاث مرات "بحسب امرئ من الشر أن يحقر أخاه المسلم. كل المسلم على المسلم حرام. دمه وماله وعرضه"</div>
+                            <div class="translation">Telah menceritakan kepada kami Abdullah bin Maslamah bin Qanab telah menceritakan kepada kami Dawud bin Qais dari Abu Said, maula Amir bin Kriz, dari Abu Hurairah, Rasulullah SAW bersabda: <strong>“Janganlah kalian saling dengki, janganlah kalian saling menawar (dalam harga), janganlah kalian saling membenci, janganlah kalian saling berkhianat, dan janganlah kalian saling menjual atas penjualan saudaranya. Jadilah kalian, wahai hamba-hamba Allah, sebagai saudara. Sesungguhnya seorang muslim adalah saudara muslim lainnya. Dia tidak boleh menzaliminya, tidak boleh menelantarkannya, dan tidak boleh menghinanya. Takwa itu ada di sini.”</strong> (Rasulullah SAW menunjuk ke dadanya tiga kali) <strong>“Cukuplah bagi seseorang dari keburukan apabila dia menghina saudaranya sesama muslim. Setiap muslim haram bagi muslim lainnya: darahnya, hartanya, dan kehormatannya.”</strong></div>
+                            <span class="source">Sumber: Shahih Muslim</span>
+                        </div>
+                        <div style="background:#f5f0e6; border-radius:12px; padding:18px 22px; margin:12px 0 24px; border-left:4px solid var(--gold);">
+                            <p style="font-size:0.95rem; color:#2d3f54;"><strong><i class="fas fa-bullhorn" style="color:var(--primary);"></i> Pesan Utama:</strong> Hadis ini menjadi fondasi persaudaraan Islam. Menghina saudara muslim adalah keburukan yang sangat besar, dan seluruh aspek kehormatan, harta, serta darah seorang muslim adalah haram bagi muslim lainnya.</p>
+                        </div>
+                    `
+                }, {
+                    id: '1-4',
+                    label: 'Diam Selamat',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">Diam Selamat</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّثَنَا إِسْحَاقُ بْنُ عِيسَى حَدَّثَنِي ابْنُ لَهِيعَةَ عَنْ يَزِيدَ بْنِ عَمْرٍو عَنْ أَبِي عَبْدِ الرَّحْمَنِ الْحُبُلِيِّ عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَنْ صَمَتَ نَجَا</div>
+                            <div class="translation">Telah menceritakan kepada kami Ishaq bin Isa, telah menceritakan kepadaku Ibnu Lahi‘ah dari Yazid bin Amru dari Abu Abdirrahman Al Hubali dari Abdullah bin Amr dia berkata, Rasulullah ﷺ bersabda, <strong>“Barang siapa diam, ia selamat.”</strong></div>
+                            <span class="source">Sumber: Sunan Tirmidzi</span>
+                        </div>
+                        <div style="background:#f5f0e6; border-radius:12px; padding:18px 22px; margin:12px 0 24px; border-left:4px solid var(--gold);">
+                            <p style="font-size:0.95rem; color:#2d3f54;"><strong><i class="fas fa-bullhorn" style="color:var(--primary);"></i> Pesan Utama:</strong> Diam adalah perisai keselamatan. Dalam banyak situasi, menjaga lisan dari perkataan yang tidak bermanfaat adalah kunci untuk terhindar dari dosa dan konflik.</p>
+                        </div>
+                    `
+                }, {
+                    id: '1-5',
+                    label: 'Jaga Lisan',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">Jaga Lisan</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّثَنَا صَالِحُ بْنُ عَبْدِ اللَّهِ حَدَّثَنَا ابْنُ الْمُبَارَكِ ح و حَدَّثَنَا سُوَيْدٌ أَخْبَرَنَا ابْنُ الْمُبَارَكِ عَنْ يَحْيَى بْنِ أَيُّوبَ عَنْ عُبَيْدِ اللَّهِ بْنِ زَحْرٍ عَنْ عَلِيِّ بْنِ يَزِيدَ عَنْ الْقَاسِمِ عَنْ أَبِي أُمَامَةَ عَنْ عُقْبَةَ بْنِ عَامِرٍ قَالَ قُلْتُ يَا رَسُولَ اللَّهِ مَا النَّجَاةُ قَالَ أَمْسِكْ عَلَيْكَ لِسَانَكَ وَلْيَسَعْكَ بَيْتُكَ وَابْكِ عَلَى خَطِيئَتِكَ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ</div>
+                            <div class="translation">Telah menceritakan kepada kami Shalih bin Abdullah, telah menceritakan kepada kami Ibnu Al Mubarak, dan telah menceritakan kepada kami Suwaid, telah menceritakan kepada kami Ibnu Al Mubarak dari Yahya bin Ayyub dari ‘Ubaidillah bin Zahr dari ‘Ali bin Yazid dari Al Qasim dari Abu Umamah dari ‘Uqbah bin ‘Amir berkata, Aku bertanya: <em>“Wahai Rasulullah bagaimana supaya selamat?”</em> beliau menjawab, <strong>“Jagalah lisanmu, hendaklah rumahmu membuatmu lapang dan menangislah karena dosa-dosamu.”</strong> Abu Isa berkata, Hadits ini hasan.</div>
+                            <span class="source">Sumber: Sunan Tirmidzi (Hasan)</span>
+                        </div>
+                        <div style="background:#f5f0e6; border-radius:12px; padding:18px 22px; margin:12px 0 24px; border-left:4px solid var(--gold);">
+                            <p style="font-size:0.95rem; color:#2d3f54;"><strong><i class="fas fa-bullhorn" style="color:var(--primary);"></i> Pesan Utama:</strong> Tiga kunci keselamatan: menjaga lisan, merasa cukup dengan rumah (qana‘ah), dan senantiasa menangisi dosa-dosa sebagai bentuk taubat dan introspeksi diri.</p>
+                        </div>
+                    `
+                }, {
+                    id: '1-6',
+                    label: 'Tidak Duduk-duduk di Pinggir Jalan',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">Tidak Duduk-duduk di Pinggir Jalan</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مُحَمَّدٍ أَخْبَرَنَا أَبُو عَامِرٍ حَدَّثَنَا زُهَيْرٌ عَنْ زَيْدِ بْنِ أَسْلَمَ عَنْ عَطَاءِ بْنِ يَسَارٍ عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ رَضِيَ اللَّهُ عَنْهُ أَنَّ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ إِيَّاكُمْ وَالْجُلُوسَ بِالطُّرُقَاتِ فَقَالُوا يَا رَسُولَ اللَّهِ مَا لَنَا مِنْ مَجَالِسِنَا بُدٌّ نَتَحَدَّثُ فِيهَا فَقَالَ إِذْ أَبَيْتُمْ إِلَّا الْمَجْلِسَ فَأَعْطُوا الطَّرِيقَ حَقَّهُ قَالُوا وَمَا حَقُّ الطَّرِيقِ يَا رَسُولَ اللَّهِ قَالَ غَضُّ الْبَصَرِ وَكَفُّ الْأَذَى وَرَدُّ السَّلَامِ وَالْأَمْرُ بِالْمَعْرُوفِ وَالنَّهْيُ عَنْ الْمُنْكَرِ</div>
+                            <div class="translation">Telah menceritakan kepada kami Abdullah bin Muhammad, telah mengabarkan kepada kami Abu ‘Amir, telah menceritakan kepada kami Zuhair dari Zaid bin Aslam dari ‘Atha' bin Yasar dari Abu Sa‘id Al Khudri radhiallahu‘anhu, bahwa Nabi ﷺ bersabda, <strong>“Janganlah kalian duduk-duduk di pinggir jalan.”</strong> Mereka (para sahabat) berkata, <em>“Wahai Rasulullah, kami tidak memiliki tempat selain itu untuk bercakap-cakap.”</em> Beliau bersabda, <strong>“Jika kalian tidak mau meninggalkan majelis seperti itu, maka tunaikanlah hak jalan tersebut.”</strong> Mereka bertanya, <em>“Apa hak jalan itu?”</em> Beliau menjawab, <strong>“Menundukkan pandangan, menyingkirkan gangguan, menjawab salam dan amar ma‘ruf nahi munkar.”</strong></div>
+                            <span class="source">Sumber: Shahih Bukhari</span>
+                        </div>
+                        <div style="background:#f5f0e6; border-radius:12px; padding:18px 22px; margin:12px 0 24px; border-left:4px solid var(--gold);">
+                            <p style="font-size:0.95rem; color:#2d3f54;"><strong><i class="fas fa-bullhorn" style="color:var(--primary);"></i> Pesan Utama:</strong> Jika terpaksa berada di tempat umum, seorang muslim wajib menundukkan pandangan, menyingkirkan segala bentuk gangguan, menjawab salam, serta menegakkan kebaikan dan mencegah kemungkaran.</p>
+                        </div>
+                    `
+                }]
+            }, {
+                id: 'bab2',
+                label: 'JENIS-JENIS CATCALLING',
+                icon: 'fa-list',
+                children: [{
+                    id: '2-1',
+                    label: 'Catcalling Verbal',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">Catcalling Verbal</h2>
+                        <h3 style="font-family:'Playfair Display',serif; color:var(--primary); margin:12px 0 8px; font-size:1.2rem;"><i class="fas fa-comment" style="color:var(--gold);"></i> Catcalling dengan Lisan</h3>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّثَنَا مُوسَى بْنُ إِسْمَعِيلَ حَدَّثَنَا حَمَّادٌ عَنْ مُحَمَّدِ بْنِ عَمْروٍ عَنْ أَبِي سَلَمَةَ عَنْ عَائِشَةَ رَضِيَ اللَّهُ عَنْهَا أَنَّ رَجُلًا اسْتَأْذَنَ عَلَى النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فَقَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ بِئْسَ أَخُو الْعَشِيرَةِ فَلَمَّا دَخَلَ انْبَسَطَ إِلَيْهِ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ وَكَلَّمَهُ فَلَمَّا خَرَجَ قُلْتُ يَا رَسُولَ اللَّهِ لَمَّا اسْتَأْذَنَ قُلْتَ بِئْسَ أَخُو الْعَشِيرَةِ فَلَمَّا دَخَلَ انْبَسَطْتَ إِلَيْهِ فَقَالَ يَا عَائِشَةُ إِنَّ اللَّهَ لَا يُحِبُّ الْفَاحِشَ الْمُتَفَحِّشَ</div>
+                            <div class="translation">Telah menceritakan kepada kami Musa bin Isma‘il berkata, telah menceritakan kepada kami Hammad dari Muhammad bin Amru dari Abu Salamah dari ‘Aisyah radhiallahu‘anha ia berkata, <em>“Seorang laki-laki minta izin kepada Nabi ﷺ, lalu Nabi ﷺ bersabda, <strong>‘Ia adalah sejelek-jelek saudara dalam kaumnya.’</strong> Maka ketika laki-laki itu masuk, Rasulullah ﷺ berbicara dengannya dan menampakkan wajah keceriaan. Ketika laki-laki itu telah keluar, aku bertanya, <strong>‘Wahai Rasulullah, kenapa engkau izinkan ia masuk, padahal sebelum itu engkau mengatakan ‘Ia adalah sejelek-jelek saudara dalam kaumnya’? Dan ketika ia telah masuk wajahmu ceria?’</strong> beliau lalu menjawab, <strong>‘Wahai ‘Aisyah, sesungguhnya Allah tidak menyukai orang yang keji dan ucapan keji.’</strong>”</em></div>
+                            <span class="source">Sumber: Shahih Bukhari</span>
+                        </div>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّثَنَا عَبَّاسٌ الْعَنْبَرِيُّ حَدَّثَنَا أَسْوَدُ بْنُ عَامِرٍ حَدَّثَنَا شَرِيكٌ عَنْ الْأَعْمَشِ عَنْ مُجَاهِدٍ عَنْ عَائِشَةَ فِي هَذِهِ الْقِصَّةِ قَالَتْ فَقَالَ تَعْنِي النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَا عَائِشَةُ إِنَّ مِنْ شِرَارِ النَّاسِ الَّذِينَ يُكْرَمُونَ اتِّقَاءَ أَلْسِنَتِهِمْ</div>
+                            <div class="translation">Telah menceritakan kepada kami Abbas Al Anbari berkata, telah menceritakan kepada kami Aswad bin Amir berkata, telah menceritakan kepada kami Syarik dari Al A‘masy dari Mujahid dari ‘Aisyah tentang kisah ini, ia berkata, <em>“Nabi ﷺ bersabda, <strong>‘Wahai ‘Aisyah, sesungguhnya seburuk-buruk manusia adalah orang-orang yang diberi kemuliaan agar mereka (manusia) bisa terhindar dari keburukkan lisannya.’</strong>”</em></div>
+                            <span class="source">Sumber: Shahih Bukhari</span>
+                        </div>
+                        <div style="background:#f5f0e6; border-radius:12px; padding:18px 22px; margin:12px 0 24px; border-left:4px solid var(--gold);">
+                            <p style="font-size:0.95rem; color:#2d3f54;"><strong><i class="fas fa-bullhorn" style="color:var(--primary);"></i> Pesan Utama:</strong> Catcalling verbal termasuk ucapan keji yang tidak disukai Allah. Bahkan, orang yang lisannya buruk seringkali dihindari karena keburukan ucapannya. Islam mengajarkan untuk selalu berkata baik atau diam.</p>
+                        </div>
+                    `
+                }, {
+                    id: '2-2',
+                    label: 'Catcalling Non Verbal',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">Catcalling Non Verbal</h2>
+                        <h3 style="font-family:'Playfair Display',serif; color:var(--primary); margin:12px 0 8px; font-size:1.2rem;"><i class="fas fa-eye-slash" style="color:var(--gold);"></i> Body Shaming</h3>
+                        <div class="hadith-box">
+                            <div class="arabic">حدثنا عبد الصمد وحسن بن موسى قالا حدثنا حماد عن عاصم عن زِر ّبن حُبَيش عن ابن مسعود: أنه كان يجتني سوَاكاً من الأَراك، وكان دقيق الساقين، فجعلت الريح تَكْفَؤُة، فضحك الَقوم منه، فقال رسول الله - صلى الله عليه وسلم -: "مِمَّ تضحكون؟" ، قالوا: يا نبي الله، من دقّة ساقَيْه، فقال: "والذي نفسي بيده، لَهُمَا أثقل في الميزان من أُحُدٍ"</div>
+                            <div class="translation">Abd al-Samad dan Hassan bin Musa memberi tahu kami, mereka berkata, Hammad memberi tahu kami, atas otoritas Asim, atas otoritas Zurr bin Hubaysh, atas otoritas Ibn Masoud: <em>Dia biasa memetik siwak dari arak, dan dia mempunyai kaki yang bagus, sehingga angin membuatnya bertiup, dan orang-orang menertawakannya, maka Rasulullah SAW berkata: <strong>“Apa yang kamu tertawakan?”</strong> Mereka menjawab; <em>“Wahai Nabiyullah, kami menertawakan betisnya yang kecil”</em>, maka beliau bersabda: <strong>“Demi Dzat yang jiwaku berada di tanganNya, sungguh kedua betisnya lebih berat timbangannya dari gunung Uhud”.</strong></em></div>
+                            <span class="source">Sumber: Musnad Ahmad</span>
+                        </div>
+                        <div style="background:#f5f0e6; border-radius:12px; padding:18px 22px; margin:12px 0 24px; border-left:4px solid var(--gold);">
+                            <p style="font-size:0.95rem; color:#2d3f54;"><strong><i class="fas fa-bullhorn" style="color:var(--primary);"></i> Pesan Utama:</strong> Body shaming — menertawakan atau menghina fisik seseorang — adalah perbuatan tercela. Nilai seseorang bukan terletak pada penampilan fisiknya, melainkan pada ketakwaan dan amal shalihnya. Betis yang “kecil” sekalipun bisa lebih berat timbangannya di sisi Allah daripada Gunung Uhud.</p>
+                        </div>
+                    `
+                }]
+            }, {
+                id: 'bab3',
+                label: 'DAMPAK CATCALLING',
+                icon: 'fa-triangle-exclamation',
+                children: [{
+                    id: '3-1',
+                    label: 'Catcalling Tidak Dicintai Allah',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">Catcalling Tidak Dicintai Allah</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّثَنَا مُوسَى بْنُ إِسْمَعِيلَ حَدَّثَنَا حَمَّادٌ عَنْ مُحَمَّدِ بْنِ عَمْروٍ عَنْ أَبِي سَلَمَةَ عَنْ عَائِشَةَ رَضِيَ اللَّهُ عَنْهَا أَنَّ رَجُلًا اسْتَأْذَنَ عَلَى النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فَقَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ بِئْسَ أَخُو الْعَشِيرَةِ فَلَمَّا دَخَلَ انْبَسَطَ إِلَيْهِ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ وَكَلَّمَهُ فَلَمَّا خَرَجَ قُلْتُ يَا رَسُولَ اللَّهِ لَمَّا اسْتَأْذَنَ قُلْتَ بِئْسَ أَخُو الْعَشِيرَةِ فَلَمَّا دَخَلَ انْبَسَطْتَ إِلَيْهِ فَقَالَ يَا عَائِشَةُ إِنَّ اللَّهَ لَا يُحِبُّ الْفَاحِشَ الْمُتَفَحِّشَ</div>
+                            <div class="translation">Telah menceritakan kepada kami Musa bin Isma‘il berkata, telah menceritakan kepada kami Hammad dari Muhammad bin Amru dari Abu Salamah dari ‘Aisyah radhiallahu‘anha ia berkata, <em>“Seorang laki-laki minta izin kepada Nabi ﷺ, lalu Nabi ﷺ bersabda, <strong>‘Ia adalah sejelek-jelek saudara dalam kaumnya.’</strong> Maka ketika laki-laki itu masuk, Rasulullah ﷺ berbicara dengannya dan menampakkan wajah keceriaan. Ketika laki-laki itu telah keluar, aku bertanya, <strong>‘Wahai Rasulullah, kenapa engkau izinkan ia masuk, padahal sebelum itu engkau mengatakan ‘Ia adalah sejelek-jelek saudara dalam kaumnya’? Dan ketika ia telah masuk wajahmu ceria?’</strong> beliau lalu menjawab, <strong>‘Wahai ‘Aisyah, sesungguhnya Allah tidak menyukai orang yang keji dan ucapan keji.’</strong>”</em></div>
+                            <span class="source">Sumber: Shahih Bukhari</span>
+                        </div>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّثَنَا عَبَّاسٌ الْعَنْبَرِيُّ حَدَّثَنَا أَسْوَدُ بْنُ عَامِرٍ حَدَّثَنَا شَرِيكٌ عَنْ الْأَعْمَشِ عَنْ مُجَاهِدٍ عَنْ عَائِشَةَ فِي هَذِهِ الْقِصَّةِ قَالَتْ فَقَالَ تَعْنِي النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَا عَائِشَةُ إِنَّ مِنْ شِرَارِ النَّاسِ الَّذِينَ يُكْرَمُونَ اتِّقَاءَ أَلْسِنَتِهِمْ</div>
+                            <div class="translation">Telah menceritakan kepada kami Abbas Al Anbari berkata, telah menceritakan kepada kami Aswad bin Amir berkata, telah menceritakan kepada kami Syarik dari Al A‘masy dari Mujahid dari ‘Aisyah tentang kisah ini, ia berkata, <em>“Nabi ﷺ bersabda, <strong>‘Wahai ‘Aisyah, sesungguhnya seburuk-buruk manusia adalah orang-orang yang diberi kemuliaan agar mereka (manusia) bisa terhindar dari keburukkan lisannya.’</strong>”</em></div>
+                            <span class="source">Sumber: Shahih Bukhari</span>
+                        </div>
+                        <div style="background:#f5f0e6; border-radius:12px; padding:18px 22px; margin:12px 0 24px; border-left:4px solid var(--gold);">
+                            <p style="font-size:0.95rem; color:#2d3f54;"><strong><i class="fas fa-bullhorn" style="color:var(--primary);"></i> Pesan Utama:</strong> Catcalling dan segala bentuk perkataan keji adalah perbuatan yang dibenci Allah. Orang yang terbiasa dengan ucapan kotor termasuk dalam golongan yang dijauhi manusia karena keburukan lisannya.</p>
+                        </div>
+                    `
+                }, {
+                    id: '3-2',
+                    label: 'Orang Kasar dan Kotor Dibenci Allah',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">Orang yang Kasar dan Kata-Katanya Kotor Dibenci Allah</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّثَنَا ابْنُ أَبِي عُمَرَ، قَالَ: حَدَّثَنَا سُفْيَانُ، قَالَ: حَدَّثَنَا عَمْرُو بْنُ دِينَارٍ، عَنِ ابْنِ أَبِي مُلَيْكَةَ، عَنْ يَعْلَى بْنِ مَمْلَكٍ، عَنْ أُمِّ الدَّرْدَاءِ، عَنْ أَبِي الدَّرْدَاءِ أَنَّ النَّبِيَّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ قَالَ: «مَا شَيْءٌ أَثْقَلُ فِي مِيزَانِ الْمُؤْمِنِ يَوْمَ الْقِيَامَةِ مِنْ خُلُقٍ حَسَنٍ، وَإِنَّ اللهَ لَيُبْغِضُ الْفَاحِشَ الْبَذِيءَ». وَفِي الْبَابِ عَنْ عَائِشَةَ، وَأَبِي هُرَيْرَةَ، وَأَنَسٍ، وَأُسَامَةَ بْنِ شَرِيكٍ. وَهَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ</div>
+                            <div class="translation">Hadits yang diriwayatkan oleh Ibnu Abi Umar melalui Sofyan, dari Amr bin Dinar, dari Ibnu Abi Mulaykah, dari Ya‘la bin Mamlak, dari Ummu Darda‘, dari Abu Darda‘, Rasulullah SAW bersabda: <strong>“Tidak ada sesuatu yang lebih berat di timbangan seorang mukmin pada hari kiamat daripada akhlak mulia. Dan sungguh, Allah membenci orang yang kasar dan kata-katanya kotor.”</strong></div>
+                            <span class="source">Sumber: Sunan Tirmidzi (Hasan Shahih)</span>
+                        </div>
+                        <div style="background:#f5f0e6; border-radius:12px; padding:18px 22px; margin:12px 0 24px; border-left:4px solid var(--gold);">
+                            <p style="font-size:0.95rem; color:#2d3f54;"><strong><i class="fas fa-bullhorn" style="color:var(--primary);"></i> Pesan Utama:</strong> Akhlak mulia adalah amal yang paling berat timbangannya di hari kiamat. Sebaliknya, orang yang kasar dan berkata-kata kotor sangat dibenci oleh Allah. Ini menjadi peringatan keras bagi pelaku catcalling.</p>
+                        </div>
+                    `
+                }, {
+                    id: '3-3',
+                    label: 'Menghina Muslim Adalah Jahat',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">Menghina Muslim Adalah Jahat dan Membunuhnya Adalah Kafir</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّثَنَا عُمَرُ بْنُ حَفْصٍ، حَدَّثَنِي أَبِي، حَدَّثَنَا الْأَعْمَشُ، حَدَّثَنَا شَقِيقٌ قَالَ قَالَ عَبْدُ اللهِ: قَالَ النَّبِيُّ ﷺ: «سِبَابُ الْمُسْلِمِ فُسُوقٌ، وَقِتَالُهُ كُفْرٌ»</div>
+                            <div class="translation">Telah menceritakan kepada kami Umar bin Hafs, telah menceritakan kepadaku ayahku, telah menceritakan kepada kami Al-A‘mash, telah menceritakan kepada kami Shaqiq, dia berkata: Abdullah berkata: Nabi SAW bersabda: <strong>“Menghina seorang muslim adalah tindakan kejahatan. Dan membunuhnya adalah kafir.”</strong></div>
+                            <span class="source">Sumber: Shahih Bukhari</span>
+                        </div>
+                        <div style="background:#f5f0e6; border-radius:12px; padding:18px 22px; margin:12px 0 24px; border-left:4px solid var(--gold);">
+                            <p style="font-size:0.95rem; color:#2d3f54;"><strong><i class="fas fa-bullhorn" style="color:var(--primary);"></i> Pesan Utama:</strong> Menghina (sibab) sesama muslim termasuk perbuatan fasik (jahat). Ini menunjukkan bahwa catcalling yang mengandung penghinaan terhadap kehormatan seseorang adalah dosa besar. Sedangkan membunuhnya adalah kekufuran.</p>
+                        </div>
+                    `
+                }, {
+                    id: '3-4',
+                    label: 'Hilangnya Pahala Kebaikan',
+                    icon: 'fa-chevron-right',
+                    content: `
+                        <h2 class="panel-title">Hilangnya Pahala Kebaikan</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّثَنَا قُتَيْبَة بْنُ سَعِيْدٍ وَعَلِيُّ بْنُ حُجْرٍ. قَالَا: حَدَّثَنَا إِسْمَاعِيلُ (وَهُوَ ابْنُ جَعْفَرٍ) عَنِ الْعَلَاءِ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ؛ أَنَّ رَسُوْلَ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ قَالَ "أَتَدْرُوْنَ مَا المُفْلِسُ؟" قاَلُوا: المُفْلِسُ فِيْنَا مَنْ لَا دِرْهَمٌ لَهُ وَلَا مَتَاعٌ. فَقَالَ "إِنَّ المُفْلِسَ مِنْ أُمَّتِي، يَأْتِي يَوْمَ القِيَامَةِ بِصَلَاةِ وَصِيَامِ وَزكَاةِ، وَيَأْتِي قَدْ شتم هَذَا، وَقَذَفَ هَذَا، وَأَكَلَ مَالَ هَذَا، وسفك دم هَذَا، وَضَرَبَ هَذَا. فَيعطى هذا مِنْ حَسَنَاتِهِ وَهَذَا مِنْ حَسَنَاتِهِ. فَإِن فنيت حَسَنَاتِهِ، قَبْلَ أَنْ يَقْضِى مَا عَلَيْهِ، أَخَذَ مِنْ خَطَايَاهُمْ فَطَرَحَتْ عَلَيْهِ. ثُمَّ طَرَحَ فِي النَّارِ"</div>
+                            <div class="translation">Telah menceritakan kepada kami Qutaibah ibn Sa‘id dan Ali bin Hujr berkata telah menceritakan kepada kami Ismail (yaitu putra Ja‘far) telah menceritakan kepada kami dari Al-A‘laa, dari ayahnya, dari Abu Hurairah, bahwa Rasulullah shallallahu alaihi wa sallam bersabda, <strong>“Tahukah kalian siapa orang yang muflis (bangkrut) itu?”</strong> Para sahabat menjawab, <em>“Orang yang muflis di antara kami adalah yang tidak memiliki dirham atau harta benda.”</em> Beliau shallallahu alaihi wa sallam bersabda, <strong>“Sesungguhnya orang yang muflis dari umatku adalah dia yang datang pada hari kiamat dengan membawa pahala shalat, puasa, dan zakat. Akan tetapi, dia pernah mencela orang lain, menuduh (mencemarkan nama baik) orang lain, memakan harta orang lain, menumpahkan darah orang lain, dan memukul orang lain. Maka pahala kebaikannya akan diberikan kepada orang yang dicelanya sebagian, dan kepada orang yang dituduhnya sebagian. Jika amal kebaikannya telah habis sebelum hutangnya terlunasi, maka akan diambilkan sebagian dari kesalahan orang-orang yang pernah dizalimi itu lalu dibebankan kepadanya, kemudian dia akan dilemparkan ke dalam neraka.”</strong></div>
+                            <span class="source">Sumber: Shahih Muslim</span>
+                        </div>
+                        <div style="background:#f5f0e6; border-radius:12px; padding:18px 22px; margin:12px 0 24px; border-left:4px solid var(--gold);">
+                            <p style="font-size:0.95rem; color:#2d3f54;"><strong><i class="fas fa-bullhorn" style="color:var(--primary);"></i> Pesan Utama:</strong> Salah satu dampak paling mengerikan dari catcalling dan penghinaan adalah hilangnya pahala kebaikan di akhirat. Pelaku catcalling yang mencela atau menuduh orang lain akan kehilangan amal shalihnya, dan jika tidak cukup, dosa orang yang dizalimi akan dipikulnya. Ini adalah kebangkrutan hakiki.</p>
+                        </div>
+                    `
+                }]
+            }];
+
+            // ===== TOP MENU & EXTRA MENU DATA =====
+            const topMenuData = [{
+                id: 'home',
+                label: 'Home',
+                icon: 'fa-house',
+                content: `
+                    <h2 class="panel-title">Ebook Digital</h2>
+                    <h3 style="font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--primary); margin:0.5rem 0 1.5rem;">📖 Catcalling dalam Perspektif Hadis</h3>
+                    <div style="background:var(--bg-card); border-radius:var(--radius); padding:2rem; box-shadow:var(--shadow);">
+                        <p style="font-size:1.1rem; line-height:1.8; color:#2d3f54;">Mengupas tuntunan Nabi ﷺ dalam menjaga lisan, menghindari ucapan keji, dan menghormati kehormatan sesama muslim. Ebook ini mengkaji berbagai hadis tentang larangan catcalling, body shaming, dan dampak buruknya.</p>
+                        <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+                            <span style="background:#e8edf5; padding:0.5rem 1rem; border-radius:30px;"><i class="fas fa-shield-halved" style="color:var(--primary);"></i> Anti Catcalling</span>
+                            <span style="background:#e8edf5; padding:0.5rem 1rem; border-radius:30px;"><i class="fas fa-list" style="color:var(--primary);"></i> Jenis Catcalling</span>
+                            <span style="background:#e8edf5; padding:0.5rem 1rem; border-radius:30px;"><i class="fas fa-triangle-exclamation" style="color:var(--primary);"></i> Dampak Catcalling</span>
+                        </div>
+                        <p style="margin-top:1.5rem; color:#6b7280;"><i class="fas fa-user-graduate" style="color:var(--gold);"></i> Penyusun: Irfan Padlian Syah & Muhammad Alif</p>
+                    </div>
+                `
+            }];
+
+            const extraData = [{
+                id: 'daftar-pustaka',
+                label: 'Daftar Pustaka',
+                icon: 'fa-book',
+                content: `
+                    <h2 class="panel-title">Daftar Pustaka</h2>
+                    <div class="bibliography">
+                        <ul>
+                            <li>Al-Bukhāriy, Abū ‘Abdillāh Muḥammad ibn Ismā‘īl. <em>Al-Jāmi‘ Al-Musnad Al-Ṣaḥīḥ</em>. Dār Ṭauq al-Najāt.</li>
+                            <li>Muslim ibn Al-Ḥajjāj. <em>Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar</em>. Dār Iḥyā’ al-Turāṡ al-‘Arabiy.</li>
+                            <li>Abū Dāwud, Sulaimān ibn Al-Asy‘aṡ. <em>Sunan Abī Dāwud</em>.</li>
+                            <li>Al-Tirmīziy, Abū ‘Īsā. <em>Al-Jāmi‘ Al-Kabīr (Sunan Al-Tirmīziy)</em>.</li>
+                            <li>Ibn Ḥanbal, Aḥmad. <em>Musnad Al-Imām Aḥmad</em>.</li>
+                            <li>An-Nasā’iy, Aḥmad ibn Shu‘ayb. <em>Sunan An-Nasā’iy</em>.</li>
+                        </ul>
+                    </div>
+                `
+            }];
+
+            // ===== RENDER =====
+            const topMenuContainer = document.getElementById('topMenu');
+            const menuContainer = document.getElementById('menuContainer');
+            const extraMenuContainer = document.getElementById('extraMenu');
+            const panelContainer = document.getElementById('panelContainer');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const hamburger = document.getElementById('hamburgerBtn');
+
+            function renderTopMenu() {
+                let html = '';
+                topMenuData.forEach(item => {
+                    html += `<div style="margin-bottom:12px; padding-bottom:12px; border-bottom:2px solid rgba(43,79,140,0.08);">`;
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                        <span class="icon"><i class="fas ${item.icon}"></i></span> ${item.label}
+                    </button>`;
+                    html += `</div>`;
+                });
+                topMenuContainer.innerHTML = html;
+            }
+
+            function renderMenu() {
+                let html = '';
+                menuData.forEach(item => {
+                    html += `<div class="menu-section">`;
+                    html += `<button class="menu-head open" data-toggle="${item.id}" aria-expanded="true">
+                        <span class="icon"><i class="fas ${item.icon || 'fa-folder'}"></i></span> ${item.label}
+                        <span class="arrow">▶</span>
+                    </button>`;
+                    html += `<ul class="sub-menu open">`;
+                    item.children.forEach(child => {
+                        html += `<li><button class="sub-link" data-panel="${child.id}">
+                            <span class="sub-icon"><i class="fas ${child.icon || 'fa-chevron-right'}"></i></span> ${child.label}
+                        </button></li>`;
+                    });
+                    html += `</ul></div>`;
+                });
+                menuContainer.innerHTML = html;
+            }
+
+            function renderExtraMenu() {
+                let html = '';
+                extraData.forEach(item => {
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                        <span class="icon"><i class="fas ${item.icon}"></i></span> ${item.label}
+                    </button>`;
+                });
+                extraMenuContainer.innerHTML = html;
+            }
+
+            function renderPanels() {
+                let html = '';
+                topMenuData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+                menuData.forEach(section => {
+                    section.children.forEach(child => {
+                        html += `<div class="content-panel" id="panel-${child.id}">${child.content}</div>`;
+                    });
+                });
+                extraData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+                panelContainer.innerHTML = html;
+            }
+
+            function showPanel(panelId, fromSubLink = true) {
+                document.querySelectorAll('.content-panel').forEach(el => el.classList.remove('active'));
+                const panel = document.getElementById('panel-' + panelId);
+                if (panel) panel.classList.add('active');
+                
+                document.querySelectorAll('.sub-link, .extra-link').forEach(el => el.classList.remove('active'));
+                const links = document.querySelectorAll(`[data-panel="${panelId}"]`);
+                links.forEach(link => link.classList.add('active'));
+
+                if (window.innerWidth <= 991 && fromSubLink) closeSidebar();
+            }
+
+            function toggleSection(btn) {
+                const sub = btn.nextElementSibling;
+                if (!sub) return;
+                const isOpen = sub.classList.contains('open');
+                if (isOpen) {
+                    sub.classList.remove('open');
+                    btn.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+                } else {
+                    sub.classList.add('open');
+                    btn.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            }
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function toggleSidebar() {
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            function init() {
+                renderPanels();
+                renderTopMenu();
+                renderMenu();
+                renderExtraMenu();
+
+                // Delegasi event untuk sidebar secara global agar aman dan responsif
+                sidebar.addEventListener('click', function(e) {
+                    const menuHead = e.target.closest('.menu-head');
+                    if (menuHead) {
+                        e.stopPropagation();
+                        toggleSection(menuHead);
+                        return;
+                    }
+
+                    const clickable = e.target.closest('[data-panel]');
+                    if (clickable) {
+                        const panelId = clickable.dataset.panel;
+                        if (panelId) {
+                            showPanel(panelId, true);
+                        }
+                    }
+                });
+
+                // Default: tampilkan home
+                if (topMenuData.length > 0) {
+                    showPanel(topMenuData[0].id, false);
+                }
+
+                hamburger.addEventListener('click', toggleSidebar);
+                overlay.addEventListener('click', closeSidebar);
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 991) closeSidebar();
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+                });
+            }
+
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+        })();
+    </script>
+</body>
+</html>
