@@ -7,20 +7,6 @@
     <meta name="author" content="Muhammad Alif" />
     <meta name="keywords" content="pshd-uin-banten, hadis tematik, hadis digital, studi hadis, uin banten" />
     <meta name="description" content="Bulūgul-Marām min Adillah Lifestyle Mu‘āṣirah, merupakan Portal Hadis Tematik berbasis Analisis Tematik Terstruktur (ATT). Pusat Studi Hadis Digital UIN Sultan Maulana Hasanuddin Banten." />
-    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
@@ -48,10 +34,10 @@
         .header-sticky .logo-wrap {
             display: flex; align-items: center; gap: 6px; flex: 1;
             min-width: 0; overflow: hidden;
-            margin-left: 0; /* digeser lebih kiri */
+            margin-left: 0;
         }
         .header-sticky .logo-wrap img {
-            height: 38px; width: auto; display: block; flex-shrink: 0;
+            height: 38px; width: auto; display: block; flex-shrink: 0; cursor: pointer;
         }
         .header-sticky .logo-wrap .title-group {
             display: flex; flex-direction: column; line-height: 1.2;
@@ -163,7 +149,7 @@
         </svg>
     </button>
     <div class="logo-wrap">
-        <img src="logo-pshd.jpg" alt="Logo PSHD" />
+        <img src="/logo-pshd.jpg" alt="Logo PSHD" />
         <div class="title-group">
             <div class="main-title">
                 <h3>Bulūgul-Marām min Adillah Lifestyle Mu‘āṣirah</h3>
@@ -195,8 +181,8 @@
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
         &copy; 2026 Pusat Studi Hadis Digital UIN Banten
-        <span class="sep">|</span> <a href="#">Tentang</a>
-        <span class="sep">|</span> <a href="#">Kontak</a>
+        <span class="sep">|</span> <a target="contentFrame" href="tentang.html" class="footer-link">Tentang</a>
+        <span class="sep">|</span> <a href="mailto:lab.fuda@uinbanten.ac.id">Kontak</a>
     </footer>
 
     <script>
@@ -206,17 +192,32 @@
         const API_URL = 'https://script.google.com/macros/s/AKfycbw6GSgtwd8LVwf0c3FwF-js0iB1UHhqRt9H9rdLW2H27EynKejQE9K8pctdmduCF2IBZw/exec';
 
         const FALLBACK_DATA = [
-            { judul: 'Hadis tentang Tauhid', file: 'hadis-tauhid.html', kategori: 'Aqidah', urutan1: 1, urutan2: 1, pdf1: '', pdf2: '', pdf3: '' },
-            { judul: 'Hadis tentang Iman',   file: 'hadis-iman.html',   kategori: 'Aqidah', urutan1: 1, urutan2: 2, pdf1: '', pdf2: '', pdf3: '' },
-            { judul: 'Hadis tentang Ihsan',  file: 'hadis-ihsan.html',  kategori: 'Aqidah', urutan1: 1, urutan2: 3, pdf1: '', pdf2: '', pdf3: '' },
-            { judul: 'Hadis tentang Shalat', file: 'hadis-shalat.html', kategori: 'Fiqh',   urutan1: 2, urutan2: 1, pdf1: '', pdf2: '', pdf3: '' },
-            { judul: 'Hadis tentang Zakat',  file: 'hadis-zakat.html',  kategori: 'Fiqh',   urutan1: 2, urutan2: 2, pdf1: '', pdf2: '', pdf3: '' },
-            { judul: 'Hadis tentang Puasa',  file: 'hadis-puasa.html',  kategori: 'Fiqh',   urutan1: 2, urutan2: 3, pdf1: '', pdf2: '', pdf3: '' },
-            { judul: 'Hadis tentang Sedekah',file: 'hadis-sedekah.html',kategori: 'Sosial', urutan1: 3, urutan2: 1, pdf1: '', pdf2: '', pdf3: '' },
-            { judul: 'Hadis tentang Silaturahmi', file: 'hadis-silaturahmi.html', kategori: 'Sosial', urutan1: 3, urutan2: 2, pdf1: '', pdf2: '', pdf3: '' },
+            { judul: 'Hadis tentang Tauhid', file: '/hadis-tauhid.html', kategori: 'Aqidah', urutan1: 1, urutan2: 1, pdf1: '', pdf2: '', pdf3: '' },
+            { judul: 'Hadis tentang Iman',   file: '/hadis-iman.html',   kategori: 'Aqidah', urutan1: 1, urutan2: 2, pdf1: '', pdf2: '', pdf3: '' },
+            { judul: 'Hadis tentang Ihsan',  file: '/hadis-ihsan.html',  kategori: 'Aqidah', urutan1: 1, urutan2: 3, pdf1: '', pdf2: '', pdf3: '' },
+            { judul: 'Hadis tentang Shalat', file: '/hadis-shalat.html', kategori: 'Fiqh',   urutan1: 2, urutan2: 1, pdf1: '', pdf2: '', pdf3: '' },
+            { judul: 'Hadis tentang Zakat',  file: '/hadis-zakat.html',  kategori: 'Fiqh',   urutan1: 2, urutan2: 2, pdf1: '', pdf2: '', pdf3: '' },
+            { judul: 'Hadis tentang Puasa',  file: '/hadis-puasa.html',  kategori: 'Fiqh',   urutan1: 2, urutan2: 3, pdf1: '', pdf2: '', pdf3: '' },
+            { judul: 'Hadis tentang Sedekah',file: '/hadis-sedekah.html',kategori: 'Sosial', urutan1: 3, urutan2: 1, pdf1: '', pdf2: '', pdf3: '' },
+            { judul: 'Hadis tentang Silaturahmi', file: '/hadis-silaturahmi.html', kategori: 'Sosial', urutan1: 3, urutan2: 2, pdf1: '', pdf2: '', pdf3: '' },
         ];
 
+        let globalMenuData = [];
         const iframe = document.getElementById('content-iframe');
+
+        function formatRootPath(filePath) {
+            if (!filePath) return '';
+            let cleanPath = filePath.trim();
+            if (cleanPath.startsWith('http://') || cleanPath.startsWith('https://')) {
+                return cleanPath;
+            }
+            // Hapus awalan '/' jika ada agar path menjadi relatif terhadap folder lokal/server
+            if (cleanPath.startsWith('/')) {
+                cleanPath = cleanPath.substring(1);
+            }
+            return cleanPath;
+        }
+
 
         // ================================================================
         //  2.  SVG ICON HELPERS
@@ -232,7 +233,6 @@
             close: `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`,
         };
 
-        // Fungsi untuk membuat ikon PDF dengan label
         function pdfIcon(label, color = '#ffd966') {
             return `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="${color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -270,46 +270,105 @@
             </head>
             <body>
               <div class="container">
-                <img src="logo-pshd.jpg" alt="Logo PSHD" class="welcome-logo" />
+                <img src="/logo-pshd.jpg" alt="Logo PSHD" class="welcome-logo" />
                 <h1>Pusat Studi Hadis Digital</h1>
                 <div class="subtitle">UIN Sultan Maulana Hasanuddin Banten</div>
                 <p><strong>Selamat datang</strong> di portal hadis tematik berbasis <strong>Analisis Tematik Terstruktur (ATT)</strong> dengan pendekatan adaptasi <strong>Constructive Grounded Theory for Fixed Corpus</strong>.</p>
                 <div class="highlight"><strong>⚡ Revitalisasi Tacit Knowledge Tematisasi Hadis</strong><br>Kajian ini merupakan upaya menghidupkan kembali <em>tacit knowledge</em> muḥaddiṡṡīn dalam <em>captioning</em> hadis sesuai kebutuhan kontemporer—sebuah mata rantai keilmuan yang telah lama terhenti sejak Ibnu Qayyim, dan sebenarnya telah mulai diupayakan untuk dihidupkan kembali oleh Kemenag, sebagaimana yang terlihat pada Silabus Hadis Sosial pada tahun 1980-an semisal Hadis Tematik Etos Kerja, Peduli Lingkungan, Kepemimpinan, Kesenian dan lain-lain.</div>
                 <p>Beberapa pilar metodologis yang menjadi fondasi kajian ini:</p>
                 <ul>
-                  <li><strong>Analisis Tematik Terstruktur (ATT)</strong> — adalah metode studi tematik yang mengolah data teks (Al-Qur'an dan Hadis) secara sistematis melalui alur: ekstraksi substansi fenomena kontemporer → pencarian ayat/hadis berbasis kriteria inklusi → open-axial-selective coding dengan panduan sensitizing concept → output berupa prototipe klasifikasi dan abstraksi tematik ala Bulūgul-Marām. Metode ini terinspirasi oleh inversi double movement Fazlur Rahman [→ mengamati dan mendedah fenomena kontemporer hingga ke basiknya → mencari <em>aṣālah</em> atas basik fenomena kontemporer tersebut pada hadis → membawa pemahaman hadis dalam konteks kontemporer] dan dirancang untuk mengeksplisitkan tacit knowledge pakar hadis agar dapat dipraktikkan oleh peneliti pemula dengan pengakuan atas saturasi relatif sebagai keterbatasan wawasan peneliti.</li>
+                  <li><strong>Analisis Tematik Terstruktur (ATT)</strong> — adalah metode studi tematik yang mengolah data teks (Al-Qur'an dan Hadis) secara sistematis melalui alur: ekstraksi substansi fenomena kontemporer → pencarian ayat/hadis berbasis kriteria inklusi → open-axial-selective coding dengan panduan sensitizing concept → output berupa prototipe klasifikasi dan abstraksi tematik ala Bulūgul-Marām. Metode ini terinspirasi oleh inversi double movement Fazlur Rahman [→ mengamati dan mendedah fenomena kontemporer hingga ke substansinya → mencari <em>aṣālah</em> atas substansi fenomena kontemporer tersebut pada hadis → membawa pemahaman hadis dalam konteks kontemporer] dan dirancang untuk mengeksplisitkan tacit knowledge pakar hadis agar dapat dipraktikkan oleh peneliti pemula dengan pengakuan atas saturasi relatif sebagai keterbatasan wawasan peneliti.</li>
                   <li><strong>Sampling Theory</strong> — berbasis <em>concept driven coding</em> (bukan <em>data driven</em>), bertumpu pada <em>sensitizing concept</em> dari <em>preliminary research</em> yang menunjukkan <em>wiḥdatul-gāyah</em> tema dalam perspektif umum-kontemporer. Konsep awal ini menjadi kerangka seleksi korpus dan kodifikasi, memastikan arah tematik tetap utuh dan koheren. Prosesnya <em>a posteriori</em>: induktif dari data, namun dalam bingkai konseptual yang telah dirumuskan.</li>
-                  <li><strong>Saturasi Relatif</strong> — pengakuan jujur bahwa kejenuhan data sangat bergantung pada wawasan, kapabilitas, dan keterbatasan subjektif peneliti, dalam menjaring dan memetakan tematisasi hadis, bukan klaim absolut atas hasil olah data.</li>
+                  <li><strong>Saturasi Relatif</strong> — pengakuan jujur bahwa kejenuhan data sangat bergantung pada wawasan, kapabilitas, dan keterbatasan subjektif peneliti, dalam menjaring dan memetakan tematisasi hadis, bukan klaim absolut atas saturasi data dan hasil olah data.</li>
                   <li><strong>Refleksivitas Peneliti</strong> — pernyataan eksplisit bahwa temuan ini adalah hasil usaha maksimal sesuai kemampuan, bukan klaim final atau lengkap.</li>
                   <li><strong>Peer Briefing &amp; Audit Trail</strong> — setiap langkah analisis didokumentasikan secara transparan dan didiskusikan dengan rekan sejawat untuk menjaga kredibilitas ilmiah.</li>
+                  <li><strong>Refleksi Kepengarangan &amp; Publikasi Lanjutan</strong> — seluruh orisinalitas tematisasi dan model analitis yang dikembangkan oleh <strong>Muhammad Alif</strong> ini dilindungi oleh hak cipta. Pengembangan komprehensif dari kerangka metodologis tersebut akan segera hadir dalam bentuk karya monograf melalui terbitnya buku <strong>QSHT-ATT</strong> dalam waktu dekat.</li>
                 </ul>
                 <blockquote><p><strong>“Sebaik-baik ilmu adalah yang bermanfaat, dan sebaik-baik manfaat adalah yang dapat dipertanggungjawabkan.”</strong></p></blockquote>
-                <p><strong>Catatan Prototipe</strong> — sebagai prototipe hadis tematik, tematisasi hadis di sini lebih memerlukan penjelasan ketimbang sekadar dipahami dari hasil membaca dan mengkaitkannya dengan <em>caption</em>. Prototipe ini dapat dikembangkan dalam tiga jalur: (1) <em>tafsīr/syarah ijāzī</em> berupa artikel jurnal, (2) <em>tafsīr/syarah mutawassiṭ/musāwi</em> berupa skripsi, dan (3) <em>tafsīr/syarah iṭnābī</em> berupa tafsir/syarah hadis tematik utuh.</p>
+                <p><strong>Catatan Prototipe</strong> — sebagai prototipe tafsir/syarah hadis tematik, tematisasi hadis di sini lebih memerlukan penjelasan ketimbang sekadar dipahami dari hasil membaca dan mengkaitkannya dengan <em>caption</em>. Prototipe ini dapat dikembangkan dalam tiga jalur: (1) <em>tafsīr/syarah ijāzī</em> berupa artikel jurnal, (2) <em>tafsīr/syarah mutawassiṭ/musāwi</em> berupa skripsi, dan (3) <em>tafsīr/syarah iṭnābī</em> berupa tafsir/syarah hadis tematik utuh.</p>
                 <p>☕ <strong>Undangan Kolaborasi Ilmiah</strong> — Penelitian ini tidak berpretensi sebagai otoritas tunggal. Pembaca dan peneliti lain yang lebih mumpuni diundang untuk merevisi, menambah, atau menggugat temuan ini. Inilah semangat <strong>open science</strong> dan <strong>audit trail</strong> yang kami anut.</p>
                 <p style="margin-top:8px;">Pilih menu di samping untuk mulai menjelajahi hadis-hadis tematik yang telah dianalisis.</p>
                 <div class="footer-welcome">— Tim Pusat Studi Hadis Digital<br>Banten, 2026</div>
               </div>
             </body>
             </html>`;
+            iframe.removeAttribute('src');
             iframe.srcdoc = welcomeHTML;
         }
 
         // ================================================================
-        //  4.  BANGUN MENU (dengan 3 ikon PDF dan 2 urutan)
+        //  4.  ROUTER FLEKSIBEL & AMAN DI SEGALA LINGKUNGAN
+        // ================================================================
+        function handleRouting() {
+            let targetKey = '';
+
+            // Ambil dari Parameter ?q=... atau Hash #...
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('q')) {
+                targetKey = urlParams.get('q').trim();
+            } else if (window.location.hash) {
+                targetKey = window.location.hash.replace('#', '').trim();
+            }
+
+            if (!targetKey) {
+                showWelcome();
+                return;
+            }
+
+            // Bersihkan format target (cegah masalah slash/ekstensi berbeda antar server)
+            let cleanTarget = targetKey.replace(/\.html$/i, '').trim().toLowerCase();
+
+            // Pengecualian halaman statis (Tentang, dll)
+            if (cleanTarget === 'tentang') {
+                iframe.removeAttribute('srcdoc');
+                iframe.src = 'tentang.html';
+                return;
+            }
+
+            // Jika data menu dari GAS belum siap, tunggu sebentar atau abaikan dulu
+            if (!globalMenuData || globalMenuData.length === 0) {
+                return; 
+            }
+
+            let matchedItem = globalMenuData.find(item => {
+                if (!item.file) return false;
+                let cleanFile = item.file.split('/').pop().split('?')[0].replace(/\.html$/i, '').trim();
+                return cleanFile.toLowerCase() === cleanTarget;
+            });
+
+            if (matchedItem) {
+                let targetUrl = formatRootPath(matchedItem.file);
+                
+                iframe.removeAttribute('srcdoc');
+                iframe.src = 'about:blank';
+                setTimeout(() => {
+                    iframe.src = targetUrl;
+                }, 30);
+            } else {
+                // Jika hash diketik manual tapi tidak ada di data GAS/fallback
+                showWelcome();
+            }
+        }
+
+        // ================================================================
+        //  5.  BANGUN MENU
         // ================================================================
         function buildMenuFromData(items) {
+            globalMenuData = items.map(item => ({
+                ...item,
+                file: formatRootPath(item.file)
+            }));
+
             const container = document.getElementById('menuContainer');
             container.innerHTML = '';
 
-            // Kelompokkan berdasarkan kategori
             const groups = {};
-            items.forEach(item => {
+            globalMenuData.forEach(item => {
                 const cat = item.kategori || 'Umum';
                 if (!groups[cat]) groups[cat] = [];
                 groups[cat].push(item);
             });
 
-            // Urutkan item dalam setiap kategori berdasarkan urutan1 lalu urutan2
             for (let cat in groups) {
                 groups[cat].sort((a, b) => {
                     const u1 = (parseInt(a.urutan1) || 0) - (parseInt(b.urutan1) || 0);
@@ -318,7 +377,6 @@
                 });
             }
 
-            // Urutkan kategori berdasarkan urutan1 dari item pertama (opsional)
             const sortedCats = Object.keys(groups).sort((catA, catB) => {
                 const aFirst = groups[catA][0]?.urutan1 || 0;
                 const bFirst = groups[catB][0]?.urutan1 || 0;
@@ -339,18 +397,24 @@
                 const subUl = document.createElement('ul');
                 groups[cat].forEach(item => {
                     const subLi = document.createElement('li');
-
-                    // Link utama
                     const a = document.createElement('a');
-                    a.href = item.file;
+                    
+                    let cleanName = '';
+                    if (item.file) {
+                        cleanName = item.file.split('/').pop().split('?')[0].replace(/\.html$/i, '').trim();
+                    }
+                    
+                    a.href = `#${cleanName}`;
                     a.textContent = item.judul;
-                    a.target = 'contentFrame';
+                    
                     a.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        window.location.hash = `#${cleanName}`;
                         closeDrawer();
                     });
+
                     subLi.appendChild(a);
 
-                    // Ikon PDF1 (olahdata1)
                     if (item.pdf1 && item.pdf1.trim() !== '') {
                         const icon1 = document.createElement('span');
                         icon1.className = 'pdf-icon';
@@ -364,7 +428,6 @@
                         subLi.appendChild(icon1);
                     }
 
-                    // Ikon PDF2 (olahdata2)
                     if (item.pdf2 && item.pdf2.trim() !== '') {
                         const icon2 = document.createElement('span');
                         icon2.className = 'pdf-icon';
@@ -378,7 +441,6 @@
                         subLi.appendChild(icon2);
                     }
 
-                    // Ikon PDF3 (ebook)
                     if (item.pdf3 && item.pdf3.trim() !== '') {
                         const icon3 = document.createElement('span');
                         icon3.className = 'pdf-icon';
@@ -400,17 +462,11 @@
             });
 
             container.appendChild(ul);
-
-            const firstLink = container.querySelector('ul li:first-child details ul li a');
-            if (firstLink) {
-                // biarkan user klik sendiri
-            } else {
-                showWelcome();
-            }
+            handleRouting();
         }
 
         // ================================================================
-        //  5.  FETCH DATA
+        //  6.  FETCH DATA
         // ================================================================
         async function fetchMenu() {
             const container = document.getElementById('menuContainer');
@@ -424,7 +480,7 @@
                 }
                 const data = await response.json();
                 if (!Array.isArray(data) || data.length === 0) {
-                    container.innerHTML = `<p class="menu-status warning">${Icons.warning} Data kosong. Gunakan fallback.</p>`;
+                    container.innerHTML = `<p class="menu-status warning">${Icons.warning} Data kosong. Menggunakan fallback.</p>`;
                     buildMenuFromData(FALLBACK_DATA);
                     return;
                 }
@@ -432,14 +488,14 @@
             } catch (err) {
                 container.innerHTML = `
                 <p class="menu-status error">${Icons.error} Gagal ambil data:<br><span style="font-size:0.9rem;">${err.message}</span></p>
-                <p style="color:#aac3e0; margin-top:10px;">→ Menggunakan fallback.</p>`;
+                <p style="color:#aac3e0; margin-top:10px;">→ Menggunakan data fallback.</p>`;
                 console.error(err);
                 buildMenuFromData(FALLBACK_DATA);
             }
         }
 
         // ================================================================
-        //  6.  DRAWER TOGGLE
+        //  7.  DRAWER TOGGLE
         // ================================================================
         const drawer = document.getElementById('drawer');
         const overlay = document.getElementById('drawerOverlay');
@@ -470,20 +526,44 @@
         overlay.addEventListener('click', closeDrawer);
 
         // ================================================================
-        //  7.  INISIALISASI
+        //  8.  LISTENER & INISIALISASI
         // ================================================================
+        window.addEventListener('hashchange', handleRouting);
+        window.addEventListener('popstate', handleRouting);
+
         document.addEventListener('DOMContentLoaded', function() {
             showWelcome();
             fetchMenu();
+
+            // Event Delegation Global untuk menangkap klik pada semua link internal/hash
+            document.addEventListener('click', function(e) {
+                let targetLink = e.target.closest('a');
+                if (!targetLink) return;
+
+                let href = targetLink.getAttribute('href');
+                if (!href) return;
+
+                // Jika link berupa hash atau halaman statis (seperti tentang.html)
+                if (href.startsWith('#') || href.endsWith('.html') && !href.startsWith('http')) {
+                    e.preventDefault();
+                    let cleanName = href.replace('#', '').split('/').pop().split('?')[0].replace(/\.html$/i, '').trim();
+                    if (cleanName) {
+                        window.location.hash = `#${cleanName}`;
+                        closeDrawer();
+                    }
+                }
+            });
         });
+
         // ================================================================
-        //  8.  LOGO KLIK → SHOW WELCOME
+        //  9.  LOGO KLIK → KEMBALI KE WELCOME
         // ================================================================
         const logoImg = document.querySelector('.logo-wrap img');
         if (logoImg) {
             logoImg.addEventListener('click', function() {
+                history.pushState("", document.title, window.location.pathname);
                 showWelcome();
-                closeDrawer(); // tutup drawer jika terbuka
+                closeDrawer();
             });
         }
     </script>

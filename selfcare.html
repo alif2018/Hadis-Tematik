@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Self Care Hadis · E-Book</title>
+    <base target="_self" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f6f0;
+            color: #1e2b3a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        :root {
+            --primary: #2b4f8c;
+            --gold: #c9a84c;
+            --gold-light: #e0c66e;
+            --gold-dark: #a8892f;
+            --bg-body: #f8f6f0;
+            --bg-card: #ffffff;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --sidebar-width: 300px;
+            --header-height: 72px;
+        }
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 2px 12px rgba(43, 79, 140, 0.25);
+        }
+        .app-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .app-header .brand img {
+            height: 44px;
+            width: auto;
+            border-radius: 6px;
+            background: #fff;
+            padding: 4px;
+            object-fit: contain;
+        }
+        .app-header .brand .title-group {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .app-header .brand .title-group h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .app-header .brand .title-group .author {
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+        .app-header .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px 4px;
+            border-radius: 6px;
+        }
+        .app-header .hamburger:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .app-header .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: #fff;
+            border-radius: 4px;
+        }
+        .app-layout {
+            display: flex;
+            flex: 1;
+            position: relative;
+        }
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            border-left: 1px solid rgba(43, 79, 140, 0.10);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.04);
+            height: calc(100vh - var(--header-height));
+            position: sticky;
+            top: var(--header-height);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 16px 10px 30px;
+            flex-shrink: 0;
+            transition: transform var(--transition);
+            z-index: 900;
+        }
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: #f0ede7;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 8px;
+        }
+        .menu-section {
+            margin-bottom: 4px;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.06);
+        }
+        .menu-section:last-of-type {
+            border-bottom: none;
+        }
+        .menu-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 14px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-align: left;
+        }
+        .menu-head:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .menu-head .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            fill: var(--primary);
+        }
+        .menu-head .arrow {
+            margin-left: auto;
+            font-size: 0.7rem;
+            transition: transform var(--transition);
+            color: var(--gold-dark);
+        }
+        .menu-head.open .arrow {
+            transform: rotate(90deg);
+        }
+        .sub-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 6px 0;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.35s ease, opacity 0.25s ease;
+            opacity: 0;
+        }
+        .sub-menu.open {
+            max-height: 1200px;
+            opacity: 1;
+        }
+        .sub-menu li {
+            margin: 0;
+        }
+        .sub-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px 8px 38px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 450;
+            color: #2d3f54;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .sub-link:hover {
+            background: rgba(43, 79, 140, 0.07);
+            color: var(--primary);
+        }
+        .sub-link.active {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .sub-link .sub-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px;
+            fill: #2d3f54;
+            opacity: 0.8;
+        }
+        .sub-link:hover .sub-icon {
+            fill: var(--primary);
+        }
+        .sub-link.active .sub-icon {
+            fill: #fff;
+            opacity: 1;
+        }
+        .extra-menu {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 2px solid rgba(43, 79, 140, 0.08);
+        }
+        .extra-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .extra-link:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .extra-link.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .extra-link .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            fill: var(--primary);
+        }
+        .extra-link.active .icon {
+            fill: #fff;
+        }
+        .main-content {
+            flex: 1;
+            padding: 32px 40px 60px;
+            min-width: 0;
+            background: var(--bg-body);
+        }
+        .content-panel {
+            display: none;
+            animation: fadeUp 0.35s ease;
+        }
+        .content-panel.active {
+            display: block;
+        }
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .panel-sub {
+            font-size: 0.95rem;
+            color: #5e6f82;
+            margin-bottom: 24px;
+        }
+        .hadith-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 18px 0 22px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--gold);
+        }
+        .hadith-box .arabic {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #1e2b3a;
+            direction: rtl;
+            font-family: 'Times New Roman', 'Traditional Arabic', serif;
+            margin-bottom: 12px;
+            padding: 6px 0;
+            word-wrap: break-word;
+        }
+        .hadith-box .translation {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #2d3f54;
+            border-top: 1px dashed rgba(43, 79, 140, 0.12);
+            padding-top: 12px;
+        }
+        .hadith-box .source {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--gold-dark);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+        .sub-section {
+            margin-top: 28px;
+        }
+        .sub-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .sub-section p {
+            line-height: 1.7;
+            color: #2d3f54;
+            margin-bottom: 10px;
+        }
+        .bibliography {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43, 79, 140, 0.10);
+        }
+        .bibliography h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 14px;
+        }
+        .bibliography ul {
+            list-style: none;
+            padding: 0;
+        }
+        .bibliography ul li {
+            padding: 6px 0 6px 20px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #2d3f54;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.05);
+            text-indent: -20px;
+            padding-left: 30px;
+        }
+        .bibliography ul li::before {
+            content: "•";
+            color: var(--gold);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 850;
+            backdrop-filter: blur(2px);
+        }
+        .overlay.active {
+            display: block;
+        }
+        .kata-pengantar-text {
+            line-height: 1.8;
+            font-size: 1rem;
+            color: #2d3f54;
+            margin-bottom: 16px;
+        }
+        .kata-pengantar-text strong {
+            color: var(--primary);
+        }
+        .signature {
+            text-align: right;
+            font-style: italic;
+            color: #5e6f82;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 991px) {
+            .app-header .hamburger {
+                display: flex;
+            }
+            .sidebar {
+                position: fixed;
+                top: var(--header-height);
+                right: 0;
+                height: calc(100vh - var(--header-height));
+                transform: translateX(100%);
+                box-shadow: -8px 0 30px rgba(0, 0, 0, 0.10);
+                border-left: none;
+                width: 290px;
+                padding: 12px 8px 30px;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                padding: 20px 18px 40px;
+            }
+            .panel-title {
+                font-size: 1.5rem;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 1rem;
+            }
+            .app-header .brand img {
+                height: 36px;
+            }
+            .hadith-box {
+                padding: 16px 18px;
+            }
+            .hadith-box .arabic {
+                font-size: 1rem;
+            }
+        }
+        @media (max-width: 480px) {
+            :root {
+                --header-height: 64px;
+            }
+            .app-header {
+                padding: 0 14px;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 0.85rem;
+            }
+            .app-header .brand .title-group .author {
+                font-size: 0.7rem;
+            }
+            .sidebar {
+                width: 265px;
+            }
+            .main-content {
+                padding: 14px 12px 30px;
+            }
+            .panel-title {
+                font-size: 1.25rem;
+            }
+            .sub-link {
+                padding: 7px 10px 7px 28px;
+                font-size: 0.8rem;
+            }
+            .menu-head {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="brand">
+            <img src="logo-pshd.jpg" alt="Logo" />
+            <div class="title-group">
+                <h1>Self Care Hadis</h1>
+                <span class="author">Penyusun: Attoriq Islami Pasha</span>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+    <div class="app-layout">
+        <div class="overlay" id="overlay"></div>
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Daftar isi">
+            <div class="top-menu" id="topMenu"></div>
+            <div id="menuContainer"></div>
+            <div class="extra-menu" id="extraMenu"></div>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div id="panelContainer"></div>
+        </main>
+    </div>
+    <script>
+        (function() {
+            'use strict';
+
+            // ===== SVG Icons =====
+            const svgIcons = {
+                book: '<svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>',
+                books: '<svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>',
+                folder: '<svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>',
+                target: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>',
+                heart: '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>',
+                scale: '<svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l4-2.18L12 3zm6.82 9L12 15.72 5.18 12 12 8.28l6.82 3.72zM5 16.5v-3.55L12 17l7-4.05v3.55L12 20.28 5 16.5z"/></svg>',
+                star: '<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>',
+                drop: '<svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>',
+                cloud: '<svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>',
+                hands: '<svg viewBox="0 0 24 24"><path d="M18 11h-2V6c0-1.1-.9-2-2-2v0c-1.1 0-2 .9-2 2v5H9V4c0-1.1-.9-2-2-2v0C5.9 2 5 2.9 5 4v12.25c0 .77.31 1.48.86 2.02l4.97 4.98c.55.55 1.28.86 2.04.86h5.08c1.66 0 3.01-1.34 3.01-3v-6c0-1.66-1.34-3-3-3z"/></svg>',
+                angry: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15 9l-3 3-3-3M9 16c1.5-1 3.5-1 5 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+                mask: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-1.03.2-2.01.56-2.91L10 14.44V16c0 1.1.9 2 2 2v2zm5.88-5.88l-1.88-.75V11c0-1.1-.9-2-2-2h-2V7h1c1.1 0 2-.9 2-2V4.26c3.22 1.15 5.6 3.99 6.13 7.5.02.12.04.24.04.36 0 1.25-.39 2.41-1.06 3.38z"/></svg>',
+                sad: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 9.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-7 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm6.5 6.5c-1.5 1.5-3.5 2-5 2s-3.5-.5-5-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+                fist: '<svg viewBox="0 0 24 24"><path d="M18 7h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v1H6c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-6-4c1.66 0 3 1.34 3 3v1H9V6c0-1.66 1.34-3 3-3zm8 10H4v6h16v-6z"/></svg>',
+                fire: '<svg viewBox="0 0 24 24"><path d="M17.56 10.59c-.93-.88-1.74-2.18-1.75-3.64 0-1.63 1.05-3.1 2.5-3.65-2.09-.64-4.52.22-5.73 2.05-1.46 2.21-.49 5.2 1.64 6.78-1.28-.15-2.43-.81-3.14-1.85-.94-1.38-1.02-3.21-.19-4.66C9.28 6.55 7.82 8.3 7.3 10.45c-.6 2.5.39 5.16 2.45 6.74C11.39 18.3 13.06 19 14.8 19c2.04 0 3.99-.87 5.37-2.38 1.4-1.52 1.94-3.7 1.35-5.65-.55-1.82-2.12-3.19-3.96-3.38z"/></svg>',
+                neutral: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.5" fill="currentColor"/><circle cx="15" cy="10" r="1.5" fill="currentColor"/><path d="M9 15h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+                storm: '<svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM10 17l-3-5h3l-1-4 5 6h-3l1 3z"/></svg>',
+                skull: '<svg viewBox="0 0 24 24"><path d="M12 2c-4.42 0-8 3.58-8 8 0 1.97.71 3.78 1.89 5.18L5 20l4.5-.82C10.5 19.5 11.23 19.75 12 19.75s1.5-.25 2.5-.57L19 20l-.89-4.82C19.29 13.78 20 11.97 20 10c0-4.42-3.58-8-8-8zm0 13c-1.93 0-3.5-1.57-3.5-3.5S10.07 8 12 8s3.5 1.57 3.5 3.5S13.93 15 12 15zm-2.5-4c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm5 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>',
+                tag: '<svg viewBox="0 0 24 24"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg>',
+                knife: '<svg viewBox="0 0 24 24"><path d="M4 2v20h2V2H4zm14.5 2l-7.5 7.5L6.5 8 14 1.5 18.5 4z"/></svg>',
+                money: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-1.18c-1.15-.22-2.11-.93-2.5-1.92l1.78-.74c.26.65.86 1.14 1.72 1.34v-2.55c-1.68-.38-3-1.42-3-2.95 0-1.4 1.07-2.5 2.5-2.82V5h2v1.18c1.15.22 2.11.93 2.5 1.92l-1.78.74c-.26-.65-.86-1.14-1.72-1.34v2.55c1.68.38 3 1.42 3 2.95 0 1.4-1.07 2.5-2.5 2.82V17z"/></svg>',
+                paw: '<svg viewBox="0 0 24 24"><path d="M12 3c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm7 4c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM5 7c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm7 5c-2.76 0-5 2.24-5 5 0 1.66 1.34 3 3 3h4c1.66 0 3-1.34 3-3 0-2.76-2.24-5-5-5z"/></svg>',
+                camel: '<svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM4 18c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm15-9c-.55 0-1 .45-1 1v1h-2V7c0-.55-.45-1-1-1s-1 .45-1 1v3H9V7c0-.55-.45-1-1-1s-1 .45-1 1v3H5V8c0-.55-.45-1-1-1s-1 .45-1 1v4c0 2.21 1.79 4 4 4h12c2.21 0 4-1.79 4-4v-1c0-.55-.45-1-1-1z"/></svg>',
+                devil: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>',
+                circus: '<svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
+                chartDown: '<svg viewBox="0 0 24 24"><path d="M16 18l2.29-2.29-4.88-4.88-4 4L2 7.41 3.41 6l6 6 4-4 6.3 6.29L22 12v6h-6z"/></svg>'
+            };
+
+            // ===== DATA KATA PENGANTAR =====
+            const topMenuData = [{
+                id: 'kata-pengantar',
+                label: 'Kata Pengantar',
+                icon: svgIcons.book,
+                content: `
+                    <h2 class="panel-title">Kata Pengantar</h2>
+                    <p class="kata-pengantar-text">
+                        Segala puji bagi Allah SWT, Tuhan semesta alam, yang telah menganugerahkan kepada kita nikmat iman, kesehatan, dan ketenangan hati. Shalawat dan salam semoga senantiasa tercurah kepada junjungan kita Nabi Muhammad SAW, suri teladan terbaik dalam segala aspek kehidupan termasuk dalam menjaga diri dan merawat jiwa.
+                    </p>
+                    <p class="kata-pengantar-text">
+                        Buku <strong>Self Care Hadis</strong> ini lahir dari kesadaran bahwa perawatan diri (<em>self care</em>) bukan sekadar tren modern, melainkan juga bagian dari ajaran Islam yang luhur. Rasulullah SAW telah mengajarkan keseimbangan antara ibadah, kerja keras, dan perhatian terhadap tubuh, pikiran, serta hati. Di tengah dunia yang serba cepat dan penuh tekanan, kita sering lupa bahwa menjaga diri juga merupakan ibadah.
+                    </p>
+                    <p class="kata-pengantar-text">
+                        Melalui kumpulan hadis dan refleksi sederhana dalam buku ini, penulis mengajak pembaca untuk kembali menata diri, menenangkan hati, dan menemukan makna ketenangan sejati melalui bimbingan sunnah Rasulullah SAW. Semoga setiap halaman dapat menjadi pengingat lembut bahwa mencintai diri sendiri adalah bentuk syukur kepada Sang Pencipta.
+                    </p>
+                    <p class="kata-pengantar-text">
+                        Akhir kata, penulis menyadari bahwa karya ini masih jauh dari sempurna. Kritik dan saran yang membangun sangat diharapkan demi penyempurnaan pada edisi-edisi berikutnya. Semoga buku ini menjadi amal jariyah yang membawa manfaat bagi pembaca dan penulis di dunia serta akhirat.
+                    </p>
+                    <p class="signature">Wassalamu'alaikum warahmatullahi wabarakatuh.</p>
+                    <p class="signature" style="margin-top:4px;">Tangerang, 20 Desember 2025</p>
+                    <p class="signature" style="margin-top:4px; font-weight:600; color:var(--primary);">Penulis<br />Attoriq Islami</p>
+                `
+            }];
+
+            // ===== DATA MENU UTAMA =====
+            const menuData = [{
+                id: 'bab1',
+                label: 'BAB I — MAKNA DAN PENGERTIAN SELF CARE',
+                icon: svgIcons.target,
+                children: [{
+                    id: '1A',
+                    label: 'A. Pengertian Selfcare',
+                    icon: svgIcons.target,
+                    content: `
+                        <h2 class="panel-title">A. Pengertian Selfcare</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">قَالَ رَسُولُ اللَّهِ ﷺ: «إِنَّ لِجَسَدِكَ عَلَيْكَ حَقًّا، وَإِنَّ لِعَيْنِكَ عَلَيْكَ حَقًّا، وَإِنَّ لِزَوْجِكَ عَلَيْكَ حَقًّا»</div>
+                            <div class="translation">"Sesungguhnya tubuhmu memiliki hak atasmu, matamu memiliki hak atasmu, dan istrimu pun memiliki hak atasmu."</div>
+                            <span class="source">— HR. Al-Bukhāriy</span>
+                        </div>
+                        <div class="sub-section">
+                            <p>Hadis ini menegaskan bahwa menjaga tubuh dan kesehatan adalah bagian dari tanggung jawab seorang muslim. Rasulullah SAW mengingatkan kita untuk tidak mengabaikan hak-hak jasmani dan rohani yang Allah anugerahkan.</p>
+                        </div>
+                    `
+                }, {
+                    id: '1B',
+                    label: 'B. Urgensi Self Care',
+                    icon: svgIcons.star,
+                    content: `
+                        <h2 class="panel-title">B. Urgensi Self Care</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">قَالَ النَّبِيُّ ﷺ: «الْمُؤْمِنُ الْقَوِيُّ خَيْرٌ وَأَحَبُّ إِلَى اللَّهِ مِنَ الْمُؤْمِنِ الضَّعِيفِ، وَفِي كُلٍّ خَيْرٌ»</div>
+                            <div class="translation">"Mukmin yang kuat lebih baik dan lebih dicintai oleh Allah daripada mukmin yang lemah, dan pada keduanya ada kebaikan."</div>
+                            <span class="source">— HR. Muslim</span>
+                        </div>
+                        <div class="sub-section">
+                            <p>Kekuatan yang dimaksud dalam hadis ini mencakup kekuatan fisik, mental, dan spiritual. Menjaga diri agar tetap kuat adalah bagian dari upaya mendekatkan diri kepada Allah.</p>
+                        </div>
+                    `
+                }, {
+                    id: '1C',
+                    label: 'C. Esensi Self Care',
+                    icon: svgIcons.scale,
+                    content: `
+                        <h2 class="panel-title">C. Esensi Self Care</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو قَالَ: قَالَ لِي رَسُولُ اللَّهِ ﷺ: «يَا عَبْدَ اللَّهِ! أَلَا أُخْبِرُكَ بِأَحَبِّ الصَّوْمِ إِلَى اللَّهِ؟ صَوْمُ دَاوُدَ، كَانَ يَصُومُ يَوْمًا وَيُفْطِرُ يَوْمًا»</div>
+                            <div class="translation">Dari 'Abdullāh bin 'Amr (ra) berkata: Rasulullah ﷺ bersabda kepadaku, "Wahai 'Abdullāh! Maukah aku kabarkan kepadamu puasa yang paling dicintai oleh Allah? Yaitu puasa Nabi Dāwūd; beliau berpuasa sehari dan berbuka sehari."</div>
+                            <span class="source">— HR. Al-Bukhāriy</span>
+                        </div>
+                        <div class="sub-section">
+                            <p>Esensi self care adalah keseimbangan. Nabi Dāwūd AS mengajarkan kita untuk tidak berlebihan dalam ibadah hingga mengorbankan kesehatan, namun juga tidak lalai dari kewajiban kepada Allah.</p>
+                        </div>
+                    `
+                }, {
+                    id: '1D',
+                    label: 'D. Substansi Self Care',
+                    icon: svgIcons.drop,
+                    content: `
+                        <h2 class="panel-title">D. Substansi Self Care</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">وَقَالَ ﷺ: «الطُّهُورُ شَطْرُ الْإِيمَانِ»</div>
+                            <div class="translation">Dan Rasulullah ﷺ bersabda: "Kebersihan adalah separuh dari iman."</div>
+                            <span class="source">— HR. Muslim</span>
+                        </div>
+                        <div class="sub-section">
+                            <p>Kebersihan fisik dan lingkungan adalah fondasi dari perawatan diri. Islam sangat menekankan kebersihan sebagai cerminan keimanan seseorang.</p>
+                        </div>
+                    `
+                }, {
+                    id: '1E',
+                    label: 'E. Eksistensi Self Care',
+                    icon: svgIcons.cloud,
+                    content: `
+                        <h2 class="panel-title">E. Eksistensi Self Care</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">قَالَ رَسُولُ اللَّهِ ﷺ: «سَاعَةً وَسَاعَةً» (فَقَالَ حَنْظَلَةُ لِأَبِي بَكْرٍ: نَافَقَ حَنْظَلَةُ! فَقَالَ رَسُولُ اللَّهِ ﷺ: يَا حَنْظَلَةُ سَاعَةً وَسَاعَةً)</div>
+                            <div class="translation">"(Ketika Hanzhalah merasa munafik karena tidak selalu dalam keadaan khusyuk seperti saat bersama Nabi), Rasulullah ﷺ bersabda: Wahai Hanzhalah, ada waktunya begini dan ada waktunya begitu."</div>
+                            <span class="source">— HR. Muslim</span>
+                        </div>
+                        <div class="sub-section">
+                            <p>Manusia tidak bisa selalu dalam kondisi spiritual yang tinggi. Ada masa untuk ibadah dan ada masa untuk istirahat. Self care adalah pengakuan akan kodrat manusia yang memiliki keterbatasan.</p>
+                        </div>
+                    `
+                }]
+            }, {
+                id: 'bab2',
+                label: 'BAB II — MACAM MACAM SELF CARE',
+                icon: svgIcons.folder,
+                children: [{
+                    id: '2A',
+                    label: 'A. Mengelola Emosi & Kedamaian Batin',
+                    icon: svgIcons.angry,
+                    content: `
+                        <h2 class="panel-title">A. Mengelola Emosi Dan Mencapai Kedamaian Batin</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">قَالَ رَسُولُ اللَّهِ ﷺ: «مَنْ كَظَمَ غَيْظًا وَهُوَ قَادِرٌ عَلَى أَنْ يُنْفِذَهُ، دَعَاهُ اللَّهُ عَلَى رُؤُوسِ الْخَلَائِقِ حَتَّى يُخَيِّرَهُ مِنَ الْحُورِ الْعِينِ مَا شَاءَ»</div>
+                            <div class="translation">"Barang siapa menahan amarah padahal ia mampu melampiaskannya, maka Allah akan memanggilnya di hadapan makhluk dan mempersilakannya memilih bidadari yang ia kehendaki."</div>
+                            <span class="source">— HR. At-Tirmiżiy</span>
+                        </div>
+                        <div class="sub-section">
+                            <p>Mengelola emosi, terutama amarah, adalah bentuk self care yang agung. Dengan menahan amarah, seseorang tidak hanya menjaga hubungan dengan orang lain, tetapi juga meraih pahala besar di sisi Allah.</p>
+                        </div>
+                    `
+                }, {
+                    id: '2B',
+                    label: 'B. Menjaga Hubungan Yang Sehat & Harmonis',
+                    icon: svgIcons.hands,
+                    content: `
+                        <h2 class="panel-title">B. Menjaga Hubungan Yang Sehat Dan Harmonis</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">قَالَ رَسُولُ اللَّهِ ﷺ: «الْمُسْلِمُ أَخُو الْمُسْلِمِ، لَا يَظْلِمُهُ وَلَا يَخْذُلُهُ وَلَا يَحْقِرُهُ»</div>
+                            <div class="translation">"Seorang Muslim adalah saudara bagi Muslim lainnya, ia tidak menzaliminya, tidak meninggalkannya, dan tidak merendahkannya."</div>
+                            <span class="source">— HR. Muslim</span>
+                        </div>
+                        <div class="sub-section">
+                            <p>Menjaga hubungan yang harmonis dengan sesama adalah bagian penting dari self care. Lingkungan sosial yang sehat memberikan ketenangan batin dan dukungan emosional.</p>
+                        </div>
+                    `
+                }, {
+                    id: '2C',
+                    label: 'C. Memaafkan Sesama',
+                    icon: svgIcons.heart,
+                    content: `
+                        <h2 class="panel-title">C. Memaafkan Sesama</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">قَالَ رَسُولُ اللَّهِ ﷺ: «مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ، وَمَا زَادَ اللَّهُ عَبْدًا بِعَفْوٍ إِلَّا عِزًّا»</div>
+                            <div class="translation">"Tidaklah sedekah mengurangi harta, dan tidaklah Allah menambah kepada seorang hamba yang memaafkan kecuali kemuliaan."</div>
+                            <span class="source">— HR. Muslim</span>
+                        </div>
+                        <div class="sub-section">
+                            <p>Memaafkan adalah bentuk self care yang membebaskan hati dari beban dendam dan kebencian. Dengan memaafkan, seseorang meraih kemuliaan di sisi Allah.</p>
+                        </div>
+                    `
+                }, {
+                    id: '2D',
+                    label: 'D. Ibadah Sarana Komunikasi Dengan Allah',
+                    icon: svgIcons.star,
+                    content: `
+                        <h2 class="panel-title">D. Ibadah Sarana Komunikasi Dengan Allah</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">قَالَ رَسُولُ اللَّهِ ﷺ: «أَقْرَبُ مَا يَكُونُ الْعَبْدُ مِنْ رَبِّهِ وَهُوَ سَاجِدٌ»</div>
+                            <div class="translation">"Keadaan seorang hamba yang paling dekat dengan Tuhannya adalah ketika ia bersujud."</div>
+                            <span class="source">— HR. Muslim</span>
+                        </div>
+                        <div class="sub-section">
+                            <p>Ibadah, terutama sujud, adalah momen intim antara hamba dan Pencipta. Dalam kesibukan sehari-hari, meluangkan waktu untuk berdialog dengan Allah melalui ibadah adalah self care spiritual yang hakiki.</p>
+                        </div>
+                    `
+                }, {
+                    id: '2E',
+                    label: 'E. Empati Dan Amal Sosial',
+                    icon: svgIcons.hands,
+                    content: `
+                        <h2 class="panel-title">E. Empati Dan Amal Sosial</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">قَالَ رَسُولُ اللَّهِ ﷺ: «مَنْ نَفَّسَ عَنْ مُؤْمِنٍ كُرْبَةً مِنْ كُرَبِ الدُّنْيَا، نَفَّسَ اللَّهُ عَنْهُ كُرْبَةً مِنْ كُرَبِ يَوْمِ الْقِيَامَةِ»</div>
+                            <div class="translation">"Barang siapa melepaskan satu kesusahan seorang mukmin di dunia, maka Allah akan melepaskan darinya satu kesusahan di hari kiamat."</div>
+                            <span class="source">— HR. Muslim</span>
+                        </div>
+                        <div class="sub-section">
+                            <p>Membantu orang lain dan berempati adalah bentuk self care yang meluas. Ketika kita meringankan beban sesama, hati kita juga menjadi lebih ringan dan damai.</p>
+                        </div>
+                    `
+                }, {
+                    id: '2F',
+                    label: 'F. Meningkatkan Intelektual',
+                    icon: svgIcons.book,
+                    content: `
+                        <h2 class="panel-title">F. Meningkatkan Intelektual</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">قَالَ رَسُولُ اللَّهِ ﷺ: «طَلَبُ الْعِلْمِ فَرِيضَةٌ عَلَى كُلِّ مُسْلِمٍ»</div>
+                            <div class="translation">"Menuntut ilmu adalah kewajiban atas setiap Muslim."</div>
+                            <span class="source">— HR. Ibn Mājah</span>
+                        </div>
+                        <div class="sub-section">
+                            <p>Merawat pikiran dengan ilmu adalah bagian dari self care. Dengan ilmu, seseorang dapat memahami dirinya, lingkungannya, dan agamanya dengan lebih baik, sehingga hidup lebih bermakna.</p>
+                        </div>
+                    `
+                }]
+            }, {
+                id: 'bab3',
+                label: 'BAB III — DAMPAK SELF CARE',
+                icon: svgIcons.scale,
+                children: [{
+                    id: '3A',
+                    label: 'A. Keberkahan Waktu & Produktivitas Hidup',
+                    icon: svgIcons.target,
+                    content: `
+                        <h2 class="panel-title">A. Keberkahan Waktu Dan Produktivitas Hidup</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">قَالَ رَسُولُ اللَّهِ ﷺ: «نِعْمَتَانِ مَغْبُونٌ فِيهِمَا كَثِيرٌ مِنَ النَّاسِ: الصِّحَّةُ وَالْفَرَاغُ»</div>
+                            <div class="translation">"Ada dua kenikmatan yang banyak manusia tertipu karenanya: kesehatan dan waktu luang."</div>
+                            <span class="source">— HR. Al-Bukhāriy</span>
+                        </div>
+                        <div class="sub-section">
+                            <p>Self care yang baik akan melahirkan produktivitas dan keberkahan waktu. Dengan tubuh yang sehat dan pikiran yang jernih, seseorang dapat memanfaatkan waktu luangnya untuk hal-hal yang bermanfaat.</p>
+                        </div>
+                    `
+                }, {
+                    id: '3B',
+                    label: 'B. Perlindungan & Keteguhan Spiritual',
+                    icon: svgIcons.storm,
+                    content: `
+                        <h2 class="panel-title">B. Perlindungan Dan Keteguhan Spiritual</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">قَالَ رَسُولُ اللَّهِ ﷺ: «احْفَظِ اللَّهَ يَحْفَظْكَ، احْفَظِ اللَّهَ تَجِدْهُ تُجَاهَكَ»</div>
+                            <div class="translation">"Jagalah Allah, niscaya Dia akan menjagamu. Jagalah Allah, niscaya engkau akan mendapati-Nya di hadapanmu."</div>
+                            <span class="source">— HR. At-Tirmiżiy</span>
+                        </div>
+                        <div class="sub-section">
+                            <p>Menjaga diri dengan menjalankan perintah Allah dan menjauhi larangan-Nya adalah bentuk self care yang paling fundamental. Allah akan melindungi hamba-Nya yang menjaga hubungan dengan-Nya.</p>
+                        </div>
+                    `
+                }, {
+                    id: '3C',
+                    label: 'C. Ketenangan Hati & Kedamaian Batin',
+                    icon: svgIcons.heart,
+                    content: `
+                        <h2 class="panel-title">C. Ketenangan Hati Dan Kedamaian Batin</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">قَالَ رَسُولُ اللَّهِ ﷺ: «أَلَا وَإِنَّ فِي الْجَسَدِ مُضْغَةً إِذَا صَلَحَتْ صَلَحَ الْجَسَدُ كُلُّهُ، وَإِذَا فَسَدَتْ فَسَدَ الْجَسَدُ كُلُّهُ، أَلَا وَهِيَ الْقَلْبُ»</div>
+                            <div class="translation">"Ketahuilah, sesungguhnya di dalam tubuh ada segumpal daging. Jika ia baik, maka seluruh tubuh menjadi baik; dan jika ia rusak, maka seluruh tubuh menjadi rusak. Ketahuilah, itulah hati."</div>
+                            <span class="source">— HR. Al-Bukhāriy</span>
+                        </div>
+                        <div class="sub-section">
+                            <p>Ketenangan hati adalah inti dari self care. Dengan membersihkan hati dari penyakit-penyakit batin seperti iri, dengki, dan sombong, seseorang akan merasakan kedamaian sejati.</p>
+                        </div>
+                    `
+                }, {
+                    id: '3D',
+                    label: 'D. Keseimbangan Jiwa',
+                    icon: svgIcons.scale,
+                    content: `
+                        <h2 class="panel-title">D. Keseimbangan Jiwa</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">قَالَ رَسُولُ اللَّهِ ﷺ: «عَجَبًا لِأَمْرِ الْمُؤْمِنِ، إِنَّ أَمْرَهُ كُلَّهُ خَيْرٌ، وَلَيْسَ ذَاكَ لِأَحَدٍ إِلَّا لِلْمُؤْمِنِ، إِنْ أَصَابَتْهُ سَرَّاءُ شَكَرَ فَكَانَ خَيْرًا لَهُ، وَإِنْ أَصَابَتْهُ ضَرَّاءُ صَبَرَ فَكَانَ خَيْرًا لَهُ»</div>
+                            <div class="translation">"Sungguh menakjubkan urusan seorang mukmin! Semua urusannya adalah kebaikan — dan hal itu tidak dimiliki kecuali oleh orang beriman. Jika ia mendapatkan kesenangan, ia bersyukur, maka itu baik baginya. Jika ia tertimpa kesusahan, ia bersabar, maka itu juga baik baginya."</div>
+                            <span class="source">— HR. Muslim</span>
+                        </div>
+                        <div class="sub-section">
+                            <p>Keseimbangan jiwa terwujud dalam sikap syukur saat senang dan sabar saat susah. Inilah puncak self care yang membuat seorang mukmin selalu dalam keadaan baik, apapun yang terjadi.</p>
+                        </div>
+                    `
+                }]
+            }];
+
+            // ===== DATA EKSTRA: DAFTAR PUSTAKA =====
+            const extraData = [{
+                id: 'daftar-pustaka',
+                label: 'Daftar Pustaka',
+                icon: svgIcons.books,
+                content: `
+                    <h2 class="panel-title">Daftar Pustaka</h2>
+                    <div class="bibliography">
+                        <ul>
+                            <li>Abū ʻAbdillāh Muḥammad ibn Yazīd Ibn Mājah, <em>Sunan Ibn Mājah</em>, ed. Syuʻaib al-Arna'ūṭ, ʻĀdil Mursyid, and ʻAbd al-Laṭīf Haraz Allāh, (Dār al-Risālah al-ʻālamiyyah, 2009).</li>
+                            <li>Bukhāriy, Abū ʻAbdillāh Muḥammad ibn Ismāʻīl ibn Ibrāhīm ibn al-Mugīrah al-Juʻfiy al-. <em>Al-Jāmiʻ Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Min Umūr Rasūl Allāh Ṣallā Allāh ʻalaih Wasallam Wa Sunanih Wa Ayyāmih</em>. Edited by Muḥammad Zuhair ibn Nāṣir al-Nāṣir. Vol. 1–9. Dār Ṭauq al-Najāt, 1422.</li>
+                            <li>Ibn al-Ḥajjāj, Muslim. <em>Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Bi Naql Al-ʻAdl ʻan Al-ʻAdl Ilā Rasūl Allāh Ṣallā Allāh ʻalaih Wasallam</em>. Edited by Muḥammad Fu'ād ʻAbd al-Bāqī. Vol. 1–5. Dār Iḥyā' al-Turāṡ al-ʻArabiy, 1955.</li>
+                            <li>Tirmiżiy, Abū ʻĪsā Muḥammad ibn ʻĪsā ibn Saurah ibn Mūsā al-Ḍaḥḥak al-. <em>Al-Jāmiʻ Al-Kabīr (Sunan Al-Tirmiżiy)</em>. Edited by Basysyār ʻAwad Maʻrūf. Vol. 1–6. Beirut: Dār al-Garb al-Islāmiy, 1996.</li>
+                        </ul>
+                    </div>
+                `
+            }];
+
+            // ===== RENDER =====
+            const topMenuContainer = document.getElementById('topMenu');
+            const menuContainer = document.getElementById('menuContainer');
+            const extraMenuContainer = document.getElementById('extraMenu');
+            const panelContainer = document.getElementById('panelContainer');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const hamburger = document.getElementById('hamburgerBtn');
+
+            function renderTopMenu() {
+                let html = '';
+                topMenuData.forEach(item => {
+                    html += `<div style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 2px solid rgba(43,79,140,0.08);">`;
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                        <span class="icon">${item.icon}</span> ${item.label}
+                    </button>`;
+                    html += `</div>`;
+                });
+                topMenuContainer.innerHTML = html;
+            }
+
+            function renderMenuItems(items, depth) {
+                let html = '';
+                items.forEach(item => {
+                    if (item.children) {
+                        const isTop = depth === 0;
+                        html += `<div class="menu-section">`;
+                        html += `<button class="menu-head ${isTop ? 'open' : ''}" data-toggle="${item.id}" aria-expanded="${isTop}">
+                            <span class="icon">${item.icon || svgIcons.folder}</span> ${item.label}
+                            <span class="arrow">▶</span>
+                        </button>`;
+                        html += `<ul class="sub-menu ${isTop ? 'open' : ''}">`;
+                        html += renderMenuItems(item.children, depth + 1);
+                        html += `</ul></div>`;
+                    } else {
+                        html += `<li><button class="sub-link" data-panel="${item.id}">
+                            <span class="sub-icon">${item.icon || svgIcons.target}</span> ${item.label}
+                        </button></li>`;
+                    }
+                });
+                return html;
+            }
+
+            function renderMenu() {
+                let html = '';
+                menuData.forEach(item => {
+                    html += `<div class="menu-section">`;
+                    html += `<button class="menu-head open" data-toggle="${item.id}" aria-expanded="true">
+                        <span class="icon">${item.icon || svgIcons.folder}</span> ${item.label}
+                        <span class="arrow">▶</span>
+                    </button>`;
+                    html += `<ul class="sub-menu open">`;
+                    html += renderMenuItems(item.children, 1);
+                    html += `</ul></div>`;
+                });
+                menuContainer.innerHTML = html;
+            }
+
+            function renderExtraMenu() {
+                let html = '';
+                extraData.forEach(item => {
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                        <span class="icon">${item.icon}</span> ${item.label}
+                    </button>`;
+                });
+                extraMenuContainer.innerHTML = html;
+            }
+
+            function renderPanels() {
+                let html = '';
+                topMenuData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+
+                function collectPanels(items) {
+                    items.forEach(item => {
+                        if (item.children) {
+                            collectPanels(item.children);
+                        } else {
+                            html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                        }
+                    });
+                }
+                collectPanels(menuData);
+
+                extraData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+                panelContainer.innerHTML = html;
+            }
+
+            let activePanelId = null;
+
+            function showPanel(panelId, fromSubLink = true) {
+                document.querySelectorAll('.content-panel').forEach(el => el.classList.remove('active'));
+                const panel = document.getElementById('panel-' + panelId);
+                if (panel) panel.classList.add('active');
+
+                document.querySelectorAll('.sub-link, .extra-link').forEach(el => el.classList.remove('active'));
+                const link = document.querySelector(`.sub-link[data-panel="${panelId}"], .extra-link[data-panel="${panelId}"]`);
+                if (link) link.classList.add('active');
+
+                activePanelId = panelId;
+                if (window.innerWidth <= 991 && fromSubLink) closeSidebar();
+            }
+
+            function toggleSection(btn) {
+                const sub = btn.nextElementSibling;
+                if (!sub) return;
+                const isOpen = sub.classList.contains('open');
+                if (isOpen) {
+                    sub.classList.remove('open');
+                    btn.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+                } else {
+                    sub.classList.add('open');
+                    btn.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            }
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function toggleSidebar() {
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            function init() {
+                renderPanels();
+                renderTopMenu();
+                renderMenu();
+                renderExtraMenu();
+
+                // Top menu events
+                topMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                // Main menu events
+                menuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('menu-head')) {
+                        e.stopPropagation();
+                        toggleSection(target);
+                        return;
+                    }
+                    if (target.classList.contains('sub-link')) {
+                        e.preventDefault();
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                        return;
+                    }
+                });
+
+                // Extra menu events
+                extraMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                // Default: show Kata Pengantar
+                if (topMenuData.length > 0) {
+                    showPanel(topMenuData[0].id, false);
+                }
+
+                hamburger.addEventListener('click', toggleSidebar);
+                overlay.addEventListener('click', closeSidebar);
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 991) closeSidebar();
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+                });
+            }
+
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+        })();
+    </script>
+</body>
+</html>
