@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tentang - Pusat Studi Hadis Digital</title>
     <style>
-        /* ---------- RESET & GLOBAL ---------- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Background Body Royal Blue 50% */
             background: rgba(65, 105, 225, 0.5);
             color: #2d2d2d;
             padding: 30px 20px;
@@ -21,76 +23,124 @@
             background: #fff;
             padding: 40px 35px;
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
         }
 
-        /* ---------- HEADER BERLATAR BELAKANG ROYAL BLUE ---------- */
+        /* ---------- HEADER KOMPAK: LOGO + JUDUL SATU BARIS ---------- */
         .royal-header-box {
-            background: #4169E1; /* Royal Blue Standar */
+            background: linear-gradient(135deg, #1a3a7a 0%, #4169E1 100%);
             color: #ffffff;
-            text-align: center;
-            padding: 30px 20px;
-            border-radius: 10px;
+            padding: 20px 25px;
+            border-radius: 14px;
             margin-bottom: 25px;
-            box-shadow: 0 4px 12px rgba(65, 105, 225, 0.3);
-        }
-        
-        /* Container untuk dua logo berdampingan */
-        .logo-container {
+            box-shadow: 0 6px 20px rgba(65, 105, 225, 0.4);
             display: flex;
-            justify-content: center;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
+            justify-content: flex-start;
+            gap: 20px;
             flex-wrap: wrap;
+            position: relative;
+            overflow: hidden;
         }
+        .royal-header-box::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 215, 0, 0.08);
+            border-radius: 50%;
+        }
+        .royal-header-box::after {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            left: -60px;
+            width: 180px;
+            height: 180px;
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: 50%;
+        }
+
         .logo-header img {
-            max-width: 80px;
+            max-width: 65px;
             height: auto;
-            border-radius: 8px;
+            border-radius: 10%;
             background: #ffffff;
             padding: 5px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
             object-fit: contain;
+            transition: transform 0.3s ease;
+            display: block;
+        }
+        .logo-header img:hover {
+            transform: scale(1.05);
         }
 
-        .royal-header-box h1 {
-            color: #ffffff;
+        .header-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+            z-index: 1;
+        }
+        .header-text h1 {
             font-family: 'Georgia', 'Times New Roman', serif;
-            font-size: 1.6rem;
-            margin-bottom: 6px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            line-height: 1.2;
         }
-        .royal-header-box .subtitle {
-            font-size: 0.95rem;
-            color: #f1f2f6;
+        .header-text .subtitle {
+            font-size: 0.85rem;
+            color: #d4d9e6;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            margin-top: 2px;
+        }
+        .header-text .subtitle span {
+            background: rgba(255, 215, 0, 0.12);
+            padding: 0 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            display: inline-block;
+        }
+
+        /* ---------- TAGLINE OTONOM (DIPERSEPADU) ---------- */
+        .tagline-otonom {
+            background: #e8edf9;
+            border-left: 5px solid #FFD700;
+            padding: 10px 18px;
+            border-radius: 6px;
+            margin-bottom: 20px;
             font-weight: 500;
+            color: #1e3a5f;
+            font-size: 0.95rem;
         }
 
-        p {
-            margin-bottom: 16px;
-            color: #2d2d2d;
-        }
-
-        /* ---------- LABEL BAGAN STRUKTUR ORGANISASI ---------- */
         .org-section-label {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 35px;
             margin-bottom: 15px;
         }
         .org-section-label h2 {
             display: inline-block;
             color: #ffffff;
-            background: #4169E1; /* Royal Blue Standar */
+            background: #4169E1;
             font-size: 1.1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             padding: 10px 25px;
             border-radius: 25px;
             box-shadow: 0 3px 8px rgba(65, 105, 225, 0.3);
-            border: 2px solid #FFD700; /* Gold Terang agar serasi dengan Royal Blue */
+            border: 2px solid #FFD700;
         }
 
-        /* ---------- BAGAN STRUKTUR ORGANISASI TERINTEGRASI ---------- */
         .org-chart-wrapper {
             background: #f4f6fc;
             border: 2px solid #4169E1;
@@ -103,18 +153,16 @@
         }
 
         .org-img {
-            width: 75px;
-            height: 75px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
-            /* Border Gold Terang yang kontras dan serasi dengan Royal Blue */
-            border: 3px solid #FFD700; 
+            border: 3px solid #FFD700;
             object-fit: cover;
             background-color: #ddd;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-            margin-bottom: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            margin-bottom: 6px;
         }
 
-        /* Kotak Bagan Utama (Direktur & Sekretaris) */
         .org-box {
             background: #ffffff;
             border: 2px solid #4169E1;
@@ -122,7 +170,22 @@
             padding: 15px 20px;
             text-align: center;
             box-shadow: 0 4px 10px rgba(65, 105, 225, 0.08);
-            width: 360px;
+            width: 320px;
+        }
+        /* Pengarah menggunakan gradasi yang sama dengan header */
+        .org-box.dean {
+            background: linear-gradient(135deg, #1a3a7a 0%, #4169E1 100%);
+            border-color: #FFD700;
+            color: #ffffff;
+        }
+        .org-box.dean .org-title {
+            color: #FFD700;
+        }
+        .org-box.dean .org-name {
+            color: #ffffff;
+        }
+        .org-box.dean .org-desc {
+            color: #d4d9e6;
         }
 
         .org-box.director {
@@ -130,7 +193,7 @@
             color: #ffffff;
         }
         .org-box.director .org-title {
-            color: #FFD700; /* Gold agar elegan di atas Royal Blue */
+            color: #FFD700;
         }
         .org-box.director .org-name {
             color: #ffffff;
@@ -140,35 +203,31 @@
         }
 
         .org-title {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: bold;
             color: #4169E1;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-bottom: 2px;
         }
-
         .org-name {
             font-size: 0.95rem;
             font-weight: 700;
             color: #1E272E;
-            margin-bottom: 6px;
         }
-
         .org-desc {
             font-size: 0.75rem;
             color: #57606f;
             line-height: 1.4;
+            margin-top: 4px;
         }
 
-        /* Garis Vertikal & Penghubung */
         .vertical-line {
             width: 2px;
-            height: 25px;
+            height: 20px;
             background: #4169E1;
         }
 
-        /* Tata Letak Divisi Grid */
         .divisions-wrapper {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -189,7 +248,6 @@
             align-items: center;
             box-shadow: 0 4px 10px rgba(65, 105, 225, 0.08);
         }
-
         .division-header-title {
             font-size: 0.85rem;
             font-weight: bold;
@@ -202,40 +260,31 @@
             text-align: center;
             width: 100%;
         }
-
-        /* Daftar Anggota Divisi Berbaris Vertikal (Ke Bawah) */
         .division-members-vertical {
             display: flex;
             flex-direction: column;
             gap: 12px;
             width: 100%;
         }
-
-        .member-task-card {
+        .member-card {
             background: #f4f6fc;
             border: 1px solid #74b9ff;
             border-radius: 8px;
-            padding: 12px;
+            padding: 10px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-
-        .member-task-card .member-name {
+        .member-card .member-name {
             font-size: 0.85rem;
             font-weight: bold;
             color: #4169E1;
             margin-top: 4px;
-            margin-bottom: 3px;
         }
-
-        .member-task-card .member-desc {
-            font-size: 0.75rem;
+        .member-card .org-desc {
             color: #333;
-            line-height: 1.3;
-            text-align: left;
-            width: 100%;
+            margin-top: 2px;
         }
 
         @media (max-width: 768px) {
@@ -245,104 +294,123 @@
             .org-box {
                 width: 100%;
             }
+            .royal-header-box {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 18px 20px;
+            }
+            .header-text h1 {
+                font-size: 1.4rem;
+            }
+            .logo-header img {
+                max-width: 55px;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Header Berlatar Belakang Royal Blue dengan Logo UIN & Logo PSHD -->
+
+        <!-- HEADER KOMPAK: LOGO + JUDUL SATU BARIS -->
         <div class="royal-header-box">
-            <div class="logo-container">
-                <div class="logo-header">
-                    <img src="logo-uin.png" alt="Logo UIN Sultan Maulana Hasanuddin Banten">
-                </div>
-                <div class="logo-header">
-                    <img src="logo-pshd.jpg" alt="Logo PSHD">
+            <div class="logo-header">
+                <img src="logo-pshd.jpg" alt="Logo PSHD" />
+            </div>
+            <div class="header-text">
+                <h1>Pusat Studi Hadis Digital</h1>
+                <div class="subtitle">
                 </div>
             </div>
-            <h1>Pusat Studi Hadis Digital</h1>
-            <div class="subtitle">Fakultas Ushuluddin dan Pemikiran Islam UIN Sultan Maulana Hasanuddin Banten</div>
         </div>
 
-        <p>Pusat Studi Hadis Digital (PSHD) UIN Banten merupakan lembaga riset, pelatihan, dan pengembangan ekosistem teknologi digital berbasis keilmuan hadis untuk menjawab tantangan zaman kontemporer.</p>
+        <!-- TAGLINE PENJELASAN SINGKAT -->
+        <div class="tagline-otonom">
+            Pusat Studi Hadis Digital (PSHD) merupakan lembaga otonom FUSPI UIN Banten yang bergerak dalam bidang riset, pelatihan, dan pengembangan ilmu hadis berbasis ekosistem teknologi digital untuk menjawab tantangan zaman kontemporer. PSHD memiliki fleksibilitas kelembagaan dalam menjalankan program dan kemitraan.
+        </div>
 
-        <!-- Label Struktur Organisasi diletakkan secara sentral di atas bagan -->
+        <!-- STRUKTUR -->
         <div class="org-section-label">
             <h2>Struktur Organisasi PSHD</h2>
         </div>
-        
-        <!-- BAGAN STRUKTUR ORGANISASI VISUAL TERINTEGRASI -->
+
         <div class="org-chart-wrapper">
-            
-            <!-- Direktur -->
-            <div class="org-box director">
-                <div class="org-title">Direktur Pusat Studi Hadis Digital</div>
-                <img src="Alif.png" alt="Muhammad Alif" class="org-img">              
-                <div class="org-name">Muhammad Alif</div>
-                <div class="org-desc">Memimpin arah strategis kebijakan kelembagaan, riset, dan program pengembangan pusat studi.</div>
+
+            <!-- Pengarah (Dekanat) - gradasi seragam dengan header -->
+            <div class="org-box dean">
+                <div class="org-title">Pengarah</div>
+                <div class="org-name">Dekanat FUSPI</div>
+                <div class="org-desc">Memberikan arahan kebijakan dan pengawasan umum</div>
             </div>
 
             <div class="vertical-line"></div>
 
-            <!-- Sekretaris Pusat -->
-            <div class="org-box">
-                <div class="org-title">Sekretaris Pusat</div>
-                <img src="Salim.jpeg" alt="Salim Rosyadi" class="org-img">
-                <div class="org-name">Salim Rosyadi</div>
-                <div class="org-desc">Mengelola administrasi kesekretariatan dan tata kelola dokumen kelembagaan.</div>
+            <!-- Direktur -->
+            <div class="org-box director">
+                <div class="org-title">Direktur</div>
+                <img src="alif.png" alt="Muhammad Alif" class="org-img" />
+                <div class="org-name">Muhammad Alif</div>
+                <div class="org-desc">Memimpin arah strategis dan mengoordinasikan program kerja pusat studi</div>
             </div>
 
-            <!-- Divisi-Divisi (Berbaris Vertikal Ke Bawah dengan Foto, Nama, & Job Desc) -->
+            <div class="vertical-line"></div>
+
+            <!-- Sekretaris -->
+            <div class="org-box">
+                <div class="org-title">Sekretaris</div>
+                <img src="salim.jpeg" alt="Salim Rosyadi" class="org-img" />
+                <div class="org-name">Salim Rosyadi</div>
+                <div class="org-desc">Mengelola administrasi kesekretariatan dan tata kelola dokumen kelembagaan</div>
+            </div>
+
+            <!-- Divisi -->
             <div class="divisions-wrapper">
-                
-                <!-- Divisi Pelatihan -->
+
                 <div class="division-column">
                     <div class="division-header-title">Divisi Pelatihan</div>
                     <div class="division-members-vertical">
-                        <div class="member-task-card">
-                            <img src="Fahmi.jpg" alt="Fahmi Andaluzi" class="org-img">
+                        <div class="member-card">
+                            <img src="fahmi.jpg" alt="Fahmi Andaluzi" class="org-img" />
                             <div class="member-name">Fahmi Andaluzi</div>
-                            <div class="member-desc"><strong>Tugas:</strong> Menyusun kurikulum, modul, dan materi bimbingan teknis literasi hadis.</div>
+                            <div class="org-desc">Menyusun kurikulum, modul, dan materi bimbingan teknis literasi hadis</div>                  
                         </div>
-                        <div class="member-task-card">
-                            <img src="Nara.jpg" alt="Nagib Romadhony" class="org-img">
+                        <div class="member-card">
+                            <img src="nara.jpg" alt="Nagib Romadhony" class="org-img" />
                             <div class="member-name">Nagib Romadhony</div>
-                            <div class="member-desc"><strong>Tugas:</strong> Pengembangan materi instruksional dan fasilitator pelatihan digital.</div>
+                            <div class="org-desc">Mengembangkan materi instruksional dan memfasilitasi pelatihan digital</div>                  
                         </div>
                     </div>
                 </div>
 
-                <!-- Divisi Pengembangan -->
                 <div class="division-column">
                     <div class="division-header-title">Divisi Pengembangan</div>
                     <div class="division-members-vertical">
-                        <div class="member-task-card">
-                            <img src="Millah.jpeg" alt="Mus'idul Millah" class="org-img">
+                        <div class="member-card">
+                            <img src="millah.jpeg" alt="Mus'idul Millah" class="org-img" />
                             <div class="member-name">Mus'idul Millah</div>
-                            <div class="member-desc"><strong>Tugas:</strong> Pengelolaan sistem portal digital, database, dan teknologi penunjang.</div>
+                            <div class="org-desc">Mengelola sistem portal digital, database, dan infrastruktur teknologi penunjang</div>                  
                         </div>
                     </div>
                 </div>
 
-                <!-- Divisi Kemitraan -->
                 <div class="division-column">
                     <div class="division-header-title">Divisi Kemitraan</div>
                     <div class="division-members-vertical">
-                        <div class="member-task-card">
-                            <img src="Repa.jpg" alt="Repa Hudan Lisalam" class="org-img">
+                        <div class="member-card">
+                            <img src="repa.jpg" alt="Repa Hudan Lisalam" class="org-img" />
                             <div class="member-name">Repa Hudan Lisalam</div>
-                            <div class="member-desc"><strong>Tugas:</strong> Membangun jejaring kerja sama eksternal dan relasi kelembagaan.</div>
+                            <div class="org-desc">Membangun jejaring kerja sama eksternal dan memperluas relasi kelembagaan</div>                  
                         </div>
-                        <div class="member-task-card">
-                            <img src="Mashudi.jpg" alt="Mohamad Mashudi" class="org-img">
+                        <div class="member-card">
+                            <img src="mashudi.jpg" alt="Mohamad Mashudi" class="org-img" />
                             <div class="member-name">Mohamad Mashudi</div>
-                            <div class="member-desc"><strong>Tugas:</strong> Publikasi kegiatan, dokumentasi program, dan relasi publik.</div>
+                            <div class="org-desc">Mengelola publikasi kegiatan, dokumentasi program, dan komunikasi publik</div>                  
                         </div>
                     </div>
                 </div>
 
             </div>
+
         </div>
 
     </div>
