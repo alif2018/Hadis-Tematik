@@ -10,6 +10,20 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png"> 
+    <link rel="apple-touch-icon" sizes="60x60" href="apple-icon-60x60.png"> 
+    <link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png"> 
+    <link rel="apple-touch-icon" sizes="76x76" href="apple-icon-76x76.png"> 
+    <link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png"> 
+    <link rel="apple-touch-icon" sizes="120x120" href="apple-icon-120x120.png"> 
+    <link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png"> 
+    <link rel="apple-touch-icon" sizes="152x152" href="apple-icon-152x152.png"> 
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png"> 
+    <link rel="icon" type="image/png" sizes="192x192" href="android-icon-192x192.png"> 
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"> 
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png"> 
     <style>
         /* ---------- RESET & GLOBAL ---------- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -81,25 +95,47 @@
         .drawer .menu-container details ul {
             padding-left: 20px; margin: 5px 0 12px 0; border-left: 2px solid #5a7fb0;
         }
+        /* ---------- PERBAIKAN: rapat & tengah vertikal ---------- */
         .drawer .menu-container details ul li {
-            display: flex; align-items: center; justify-content: space-between;
+            display: flex;
+            align-items: center;          /* ikon di tengah vertikal */
+            gap: 1px;                    /* jarak antar elemen = 1px */
             padding: 2px 0;
+            flex-wrap: nowrap;
+            min-width: 0;
         }
         .drawer .menu-container details ul li a {
             color: #d4e2f0; text-decoration: none; font-size: 0.95rem;
             padding: 4px 8px; display: inline-block; border-radius: 3px;
             transition: background 0.2s; flex: 1; cursor: pointer;
+            white-space: normal;
+            overflow: visible;
+            word-break: break-word;
+            line-height: 1.4;
         }
         .drawer .menu-container details ul li a:hover { background: #1f3f6a; color: #fff; }
         .drawer .menu-container details ul li .pdf-icon {
-            cursor: pointer; margin-left: 4px; padding: 2px 4px;
-            border-radius: 3px; transition: background 0.2s;
-            color: #ffd966; text-decoration: none; display: flex;
-            align-items: center; flex-shrink: 0;
-            font-size: 0.75rem; gap: 2px;
+            cursor: pointer;
+            margin-left: 0;
+            padding: 0px 1px;            /* padding kiri/kanan = 1px */
+            border-radius: 3px;
+            transition: background 0.2s;
+            color: #ffd966;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            font-size: 0.7rem;
+            gap: 1px;
+            line-height: 1;
+            align-self: center;          /* pastikan di tengah */
         }
         .drawer .menu-container details ul li .pdf-icon:hover { background: #1f3f6a; color: #fff; }
-        .drawer .menu-container details ul li .pdf-icon svg { display: block; }
+        .drawer .menu-container details ul li .pdf-icon svg {
+            display: block;
+            width: 18px;
+            height: 18px;
+        }
 
         /* ---------- IFRAME CONTENT ---------- */
         .content-wrapper { flex: 1; display: flex; flex-direction: column; padding-top: 5px; background: #f4f4f4; }
@@ -149,7 +185,7 @@
         </svg>
     </button>
     <div class="logo-wrap">
-        <img src="/logo-pshd.jpg" alt="Logo PSHD" />
+        <img src="logo-pshd.jpg" alt="Logo PSHD" />
         <div class="title-group">
             <div class="main-title">
                 <h3>Bulūgul-Marām min Adillah Lifestyle Mu‘āṣirah</h3>
@@ -192,14 +228,14 @@
         const API_URL = 'https://script.google.com/macros/s/AKfycbw6GSgtwd8LVwf0c3FwF-js0iB1UHhqRt9H9rdLW2H27EynKejQE9K8pctdmduCF2IBZw/exec';
 
         const FALLBACK_DATA = [
-            { judul: 'Hadis tentang Tauhid', file: '/hadis-tauhid.html', kategori: 'Aqidah', urutan1: 1, urutan2: 1, pdf1: '', pdf2: '', pdf3: '' },
-            { judul: 'Hadis tentang Iman',   file: '/hadis-iman.html',   kategori: 'Aqidah', urutan1: 1, urutan2: 2, pdf1: '', pdf2: '', pdf3: '' },
-            { judul: 'Hadis tentang Ihsan',  file: '/hadis-ihsan.html',  kategori: 'Aqidah', urutan1: 1, urutan2: 3, pdf1: '', pdf2: '', pdf3: '' },
-            { judul: 'Hadis tentang Shalat', file: '/hadis-shalat.html', kategori: 'Fiqh',   urutan1: 2, urutan2: 1, pdf1: '', pdf2: '', pdf3: '' },
-            { judul: 'Hadis tentang Zakat',  file: '/hadis-zakat.html',  kategori: 'Fiqh',   urutan1: 2, urutan2: 2, pdf1: '', pdf2: '', pdf3: '' },
-            { judul: 'Hadis tentang Puasa',  file: '/hadis-puasa.html',  kategori: 'Fiqh',   urutan1: 2, urutan2: 3, pdf1: '', pdf2: '', pdf3: '' },
-            { judul: 'Hadis tentang Sedekah',file: '/hadis-sedekah.html',kategori: 'Sosial', urutan1: 3, urutan2: 1, pdf1: '', pdf2: '', pdf3: '' },
-            { judul: 'Hadis tentang Silaturahmi', file: '/hadis-silaturahmi.html', kategori: 'Sosial', urutan1: 3, urutan2: 2, pdf1: '', pdf2: '', pdf3: '' },
+            { judul: 'Hadis tentang Tauhid', file: '/hadis-tauhid.html', kategori: 'Aqidah', urutan1: 1, urutan2: 1, pdf1: '', pdf2: '', pdf3: '', pdf4: '' },
+            { judul: 'Hadis tentang Iman',   file: '/hadis-iman.html',   kategori: 'Aqidah', urutan1: 1, urutan2: 2, pdf1: '', pdf2: '', pdf3: '', pdf4: '' },
+            { judul: 'Hadis tentang Ihsan',  file: '/hadis-ihsan.html',  kategori: 'Aqidah', urutan1: 1, urutan2: 3, pdf1: '', pdf2: '', pdf3: '', pdf4: '' },
+            { judul: 'Hadis tentang Shalat', file: '/hadis-shalat.html', kategori: 'Fiqh',   urutan1: 2, urutan2: 1, pdf1: '', pdf2: '', pdf3: '', pdf4: '' },
+            { judul: 'Hadis tentang Zakat',  file: '/hadis-zakat.html',  kategori: 'Fiqh',   urutan1: 2, urutan2: 2, pdf1: '', pdf2: '', pdf3: '', pdf4: '' },
+            { judul: 'Hadis tentang Puasa',  file: '/hadis-puasa.html',  kategori: 'Fiqh',   urutan1: 2, urutan2: 3, pdf1: '', pdf2: '', pdf3: '', pdf4: '' },
+            { judul: 'Hadis tentang Sedekah',file: '/hadis-sedekah.html',kategori: 'Sosial', urutan1: 3, urutan2: 1, pdf1: '', pdf2: '', pdf3: '', pdf4: '' },
+            { judul: 'Hadis tentang Silaturahmi', file: '/hadis-silaturahmi.html', kategori: 'Sosial', urutan1: 3, urutan2: 2, pdf1: '', pdf2: '', pdf3: '', pdf4: '' },
         ];
 
         let globalMenuData = [];
@@ -234,11 +270,11 @@
         };
 
         function pdfIcon(label, color = '#ffd966') {
-            return `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="${color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            return `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="${color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                 <polyline points="14 2 14 8 20 8"/>
                 <rect x="6" y="13" width="12" height="6" rx="1" fill="${color}" fill-opacity="0.15" stroke="none"/>
-                <text x="8" y="18.5" font-size="8" font-weight="700" fill="${color}" font-family="Arial, sans-serif" stroke="none">${label}</text>
+                <text x="12" y="18.5" font-size="9" font-weight="700" fill="${color}" font-family="Arial, sans-serif" stroke="none" text-anchor="middle">${label}</text>
             </svg>`;
         }
 
@@ -270,7 +306,7 @@
             </head>
             <body>
               <div class="container">
-                <img src="/logo-pshd.jpg" alt="Logo PSHD" class="welcome-logo" />
+                <img src="logo-pshd.jpg" alt="Logo PSHD" class="welcome-logo" />
                 <h1>Pusat Studi Hadis Digital</h1>
                 <div class="subtitle">UIN Sultan Maulana Hasanuddin Banten</div>
                 <p><strong>Selamat datang</strong> di portal hadis tematik berbasis <strong>Analisis Tematik Terstruktur (ATT)</strong> dengan pendekatan adaptasi <strong>Constructive Grounded Theory for Fixed Corpus</strong>.</p>
@@ -356,7 +392,8 @@
         function buildMenuFromData(items) {
             globalMenuData = items.map(item => ({
                 ...item,
-                file: formatRootPath(item.file)
+                file: formatRootPath(item.file),
+                pdf4: item.pdf4 || ''   // pastikan pdf4 selalu ada
             }));
 
             const container = document.getElementById('menuContainer');
@@ -452,6 +489,20 @@
                             closeDrawer();
                         });
                         subLi.appendChild(icon3);
+                    }
+
+                    // ---------- TAMBAHAN PDF4 (Publication) ----------
+                    if (item.pdf4 && item.pdf4.trim() !== '') {
+                        const icon4 = document.createElement('span');
+                        icon4.className = 'pdf-icon';
+                        icon4.innerHTML = pdfIcon('P', '#66cc66');
+                        icon4.title = 'Publikasi / Ebook';
+                        icon4.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            window.open(item.pdf4, '_blank');
+                            closeDrawer();
+                        });
+                        subLi.appendChild(icon4);
                     }
 
                     subUl.appendChild(subLi);
