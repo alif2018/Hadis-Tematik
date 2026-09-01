@@ -9,11 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', sans-serif;
@@ -137,21 +133,8 @@
             text-align: left;
         }
         .menu-head:hover { background: rgba(43,79,140,0.06); }
-        .menu-head .icon { 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            width: 20px;
-            height: 20px;
-            fill: var(--primary);
-        }
-        .menu-head .arrow {
-            margin-left: auto;
-            font-size: 0.7rem;
-            transition: transform var(--transition);
-            color: var(--gold-dark);
-        }
+        .menu-head .icon { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 20px; height: 20px; fill: var(--primary); }
+        .menu-head .arrow { margin-left: auto; font-size: 0.7rem; transition: transform var(--transition); color: var(--gold-dark); }
         .menu-head.open .arrow { transform: rotate(90deg); }
 
         .sub-menu {
@@ -189,24 +172,11 @@
             font-weight: 500;
             box-shadow: 0 4px 12px rgba(43,79,140,0.25);
         }
-        .sub-link .sub-icon { 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            width: 16px;
-            height: 16px;
-            fill: #2d3f54;
-            opacity: 0.8; 
-        }
+        .sub-link .sub-icon { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 16px; height: 16px; fill: #2d3f54; opacity: 0.8; }
         .sub-link:hover .sub-icon { fill: var(--primary); }
         .sub-link.active .sub-icon { fill: #fff; opacity: 1; }
 
-        .extra-menu {
-            margin-top: 16px;
-            padding-top: 12px;
-            border-top: 2px solid rgba(43,79,140,0.08);
-        }
+        .extra-menu { margin-top: 16px; padding-top: 12px; border-top: 2px solid rgba(43,79,140,0.08); }
         .extra-link {
             display: flex;
             align-items: center;
@@ -230,16 +200,14 @@
             color: #fff;
             box-shadow: 0 4px 12px rgba(43,79,140,0.25);
         }
-        .extra-link .icon { 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            width: 20px;
-            height: 20px;
-            fill: var(--primary);
-        }
+        .extra-link .icon { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 20px; height: 20px; fill: var(--primary); }
         .extra-link.active .icon { fill: #fff; }
+
+        .top-menu { margin-bottom: 6px; padding-bottom: 8px; border-bottom: 2px solid rgba(43,79,140,0.08); }
+        .top-menu .extra-link { font-weight: 600; color: var(--gold-dark); }
+        .top-menu .extra-link:hover { background: rgba(201,168,76,0.08); }
+        .top-menu .extra-link.active { background: var(--gold); color: #1e2b3a; }
+        .top-menu .extra-link.active .icon { fill: #1e2b3a; }
 
         .main-content {
             flex: 1;
@@ -249,10 +217,8 @@
         }
         .content-panel { display: none; animation: fadeUp 0.35s ease; }
         .content-panel.active { display: block; }
-        @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(12px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeUp { 0% { opacity: 0; transform: translateY(12px); } 100% { opacity: 1; transform: translateY(0); } }
+
         .panel-title {
             font-family: 'Playfair Display', serif;
             font-size: 1.9rem;
@@ -263,7 +229,6 @@
             padding-bottom: 10px;
             display: inline-block;
         }
-        .panel-sub { font-size: 0.95rem; color: #5e6f82; margin-bottom: 24px; }
         .hadith-box {
             background: var(--bg-card);
             border-radius: var(--radius);
@@ -297,25 +262,10 @@
             font-weight: 500;
             letter-spacing: 0.2px;
         }
-        .sub-section { margin-top: 28px; }
-        .sub-section h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            color: var(--primary);
-            margin-bottom: 6px;
-        }
-        .sub-section p { line-height: 1.7; color: #2d3f54; margin-bottom: 10px; }
-
         .bibliography {
             margin-top: 32px;
             padding-top: 20px;
             border-top: 2px solid rgba(43,79,140,0.10);
-        }
-        .bibliography h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            color: var(--primary);
-            margin-bottom: 14px;
         }
         .bibliography ul { list-style: none; padding: 0; }
         .bibliography ul li {
@@ -327,12 +277,8 @@
             text-indent: -20px;
             padding-left: 30px;
         }
-        .bibliography ul li::before {
-            content: "•";
-            color: var(--gold);
-            font-weight: 700;
-            margin-right: 8px;
-        }
+        .bibliography ul li::before { content: "•"; color: var(--gold); font-weight: 700; margin-right: 8px; }
+
         .overlay {
             display: none;
             position: fixed;
@@ -383,7 +329,7 @@
             <img src="logo-pshd.jpg" alt="Logo" />
             <div class="title-group">
                 <h1>Hadis Tematik Animal Abuse</h1>
-                <span class="author">Penyusun: Eva Fatonah & Muhammad Alif</span>
+                <span class="author">Penyusun: Eva Fatonah &amp; Muhammad Alif</span>
             </div>
         </div>
         <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
@@ -405,7 +351,6 @@
         (function() {
             'use strict';
 
-            // SVG Icons Library
             const svgIcons = {
                 target: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>',
                 money: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-1.18c-1.15-.22-2.11-.93-2.5-1.92l1.78-.74c.26.65.86 1.14 1.72 1.34v-2.55c-1.68-.38-3-1.42-3-2.95 0-1.4 1.07-2.5 2.5-2.82V5h2v1.18c1.15.22 2.11.93 2.5 1.92l-1.78.74c-.26-.65-.86-1.14-1.72-1.34v2.55c1.68.38 3 1.42 3 2.95 0 1.4-1.07 2.5-2.5 2.82V17z"/></svg>',
@@ -435,7 +380,7 @@
                 folder: '<svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>'
             };
 
-            // ===== DATA MENU =====
+            // ===== DATA MENU LENGKAP dari PDF =====
             const menuData = [{
                 id: 'bab1',
                 label: 'BAB I — Motiv-Motiv Animal Abuse',
@@ -452,7 +397,7 @@
                             <h2 class="panel-title">1. Vivisection komersial</h2>
                             <div class="hadith-box">
                                 <div class="arabic">حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ الْأَعْلَى الصَّنْعَانِيُّ، قَالَ: حَدَّثَنَا سَلَمَةُ بْنُ رَجَاءٍ قَالَ: حَدَّثَ عَبْدُ الرَّحْمَنِ بْنُ عَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ عَطَاءِ بْنِ يَسَارٍ، عَنْ أَبِي وَاقِدٍ اللَّيْثِيِّ قَالَ: «قَدِمَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ الْمَدِينَةَ وَهُمْ يَجُبُّونَ أَسْنِمَةَ الْإِبِلِ وَيَقْطَعُونَ أَلْيَاتِ الْغَنَمِ، فَقَالَ: مَا قُطِعَ مِنَ الْبَهِيمَةِ وَهِيَ حَيَّةٌ فَهُوَ مَيْتَةٌ»</div>
-                                <div class="translation">Telah menceritakan kepada kami Muhammad bin ‘Abdil A’la ash-Shan’ani, ia berkata: Telah menceritakan kepada kami Salamah bin Raja’, ia berkata: Telah menceritakan ‘Abdurrahman bin ‘Abdillah bin Dinar, dari Zaid bin Aslam, dari ‘Atha’ bin Yasar, dari Abu Waqid al-Laitsi, ia berkata: 'Ketika Nabi tiba di Madinah, beliau mendapati orang-orang memotong punuk unta dan memotong ekor-ekor kambing (sementara hewan-hewan itu masih hidup). Maka Nabi bersabda: 'Apa yang dipotong dari hewan ketika ia masih hidup, maka itu adalah bangkai (haram dimakan).''</div>
+                                <div class="translation">Telah menceritakan kepada kami Muhammad bin ‘Abdil A’la ash-Shan’ani, ia berkata: Telah menceritakan kepada kami Salamah bin Raja’, ia berkata: Telah menceritakan ‘Abdurrahman bin ‘Abdillah bin Dinar, dari Zaid bin Aslam, dari ‘Atha’ bin Yasar, dari Abu Waqid al-Laitsi, ia berkata: "Ketika Nabi tiba di Madinah, beliau mendapati orang-orang memotong punuk unta dan memotong ekor-ekor kambing (sementara hewan-hewan itu masih hidup). Maka Nabi bersabda: 'Apa yang dipotong dari hewan ketika ia masih hidup, maka itu adalah bangkai (haram dimakan).'"</div>
                                 <span class="source">— Sunan At-Tirmidzi 145</span>
                             </div>
                         `
@@ -464,7 +409,7 @@
                             <h2 class="panel-title">2. Eksploitasi ikatan biologis</h2>
                             <div class="hadith-box">
                                 <div class="arabic">حَدَّثَنَا عُمَرُ بْنُ حَفْصِ بْنِ عُمَرَ الشَّيْبَانِيُّ، قَالَ: أَخْبَرَنَا عَبْدُ اللَّهِ بْنُ وَهْبٍ قَالَ: أَخْبَرَنِي حُيَيٌّ عَنْ أَبِي عَبْدِ الرَّحْمَنِ الْحُبْلِيِّ، عَنْ أَبِي أَيُّوبَ قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: «مَنْ فَرَّقَ بَيْنَ الْوَالِدَةِ وَوَلَدِهَا فَرَّقَ اللَّهُ بَيْنَهُ وَبَيْنَ أَحِبَّتِهِ يَوْمَ الْقِيَامَةِ»</div>
-                                <div class="translation">Telah menceritakan kepada kami Umar bin Hafsh bin Umar asy-Syaibani, ia berkata: Telah mengabarkan kepada kami Abdullah bin Wahb, ia berkata: Telah mengabarkan kepadaku Huyay, dari Abu Abdurrahman al-Hubuli, dari Abu Ayyub, ia berkata: 'Aku mendengar Rasulullah SAW bersabda: Barang siapa memisahkan induk dengan anaknya, maka Allah akan memisahkan ia dengan orang-orang yang dicintainya pada hari kiamat.'</div>
+                                <div class="translation">Telah menceritakan kepada kami Umar bin Hafsh bin Umar asy-Syaibani, ia berkata: Telah mengabarkan kepada kami Abdullah bin Wahb, ia berkata: Telah mengabarkan kepadaku Huyay, dari Abu Abdurrahman al-Hubuli, dari Abu Ayyub, ia berkata: "Aku mendengar Rasulullah SAW bersabda: Barang siapa memisahkan induk dengan anaknya, maka Allah akan memisahkan ia dengan orang-orang yang dicintainya pada hari kiamat."</div>
                                 <span class="source">— Sunan At-Tirmidzi 225</span>
                             </div>
                         `
@@ -476,7 +421,7 @@
                             <h2 class="panel-title">3. Komodifikasi mahluk hidup</h2>
                             <div class="hadith-box">
                                 <div class="arabic">حَدَّثَنَا عَبْدُ الْوَهَّابِ بْنُ نَجْدَةَ، حَدَّثَنَا ابْنُ عَيَّاشٍ، عَنْ يَحْيَى بْنِ أَبِي عَمْرٍو السَّيْبَانِيِّ، عَنْ أَبِي مَرْيَمَ، عَنْ أَبِي هُرَيْرَةَ، عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «إِيَّاكُمْ أَنْ تَتَّخِذُوا ظُهُورَ دَوَابِّكُمْ مَنَابِرَ، فَإِنَّ اللَّهَ إِنَّمَا سَخَّرَهَا لَكُمْ لِتُبْلِغَكُمْ إِلَى بَلَدٍ لَمْ تَكُونُوا بِالِغِيهِ إِلَّا بِشِقِّ الْأَنْفُسِ، وَجَعَلَ لَكُمُ الْأَرْضَ فَعَلَيْهَا فَاقْضُوا حَاجَاتِكُمْ»</div>
-                                <div class="translation">Dari ‘Abd al-Wahhab bin Najdah, dari Ibn ‘Ayyash, dari Yahya bin Abi ‘Amr al-Saybani, dari Abu Maryam, dari Abu Hurairah RA, dari Nabi SAW, beliau bersabda: 'Janganlah kalian menjadikan punggung hewan tunggangan kalian sebagai mimbar (tempat duduk atau berbicara). Sesungguhnya Allah hanya menundukkan hewan-hewan itu untuk kalian agar dapat mengantarkan kalian ke negeri yang tidak mungkin kalian capai kecuali dengan kesusahan. Dan Allah telah menjadikan bumi bagi kalian, maka selesaikanlah kebutuhan kalian di atasnya (bukan di atas punggung hewan).'</div>
+                                <div class="translation">Dari ‘Abd al-Wahhab bin Najdah, dari Ibn ‘Ayyash, dari Yahya bin Abi ‘Amr al-Saybani, dari Abu Maryam, dari Abu Hurairah RA, dari Nabi SAW, beliau bersabda: "Janganlah kalian menjadikan punggung hewan tunggangan kalian sebagai mimbar (tempat duduk atau berbicara). Sesungguhnya Allah hanya menundukkan hewan-hewan itu untuk kalian agar dapat mengantarkan kalian ke negeri yang tidak mungkin kalian capai kecuali dengan kesusahan. Dan Allah telah menjadikan bumi bagi kalian, maka selesaikanlah kebutuhan kalian di atasnya (bukan di atas punggung hewan)."</div>
                                 <span class="source">— Sunan Abu Dawud 214</span>
                             </div>
                         `
@@ -486,7 +431,11 @@
                         icon: svgIcons.chartDown,
                         content: `
                             <h2 class="panel-title">4. Negligensi krisis ekonomi</h2>
-                            <p>Tidak ditemukan hadis spesifik untuk sub-bab ini dalam naskah.</p>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مُحَمَّدٍ النُّفَيْلِيُّ، حَدَّثَنَا مِسْكِينٌ يَعْنِي ابْنَ بُكَيْرٍ، حَدَّثَنَا مُحَمَّدُ بْنُ مُهَاجِرٍ، عَنْ رَبِيعَةَ بْنِ يَزِيدَ، عَنْ أَبِي كَبْشَةَ السَّلُولِيِّ، عَنْ سَهْلِ بْنِ الْحَنْظَلِيَّةِ قَالَ: مَرَّ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ بِبَعِيرٍ قَدْ لَصِقَ ظَهْرُهُ بِبَطْنِهِ، فَقَالَ: «اتَّقُوا اللَّهَ فِي هَذِهِ الْبَهَائِمِ الْمُعْجَمَةِ، ارْكَبُوهَا صَالِحَةً، وَكُلُوهَا صَالِحَةً»</div>
+                                <div class="translation">Telah menceritakan kepada kami Abdullah bin Muhammad an-Nufaili, telah menceritakan kepada kami Miskin — yakni Ibnu Bukair — telah menceritakan kepada kami Muhammad bin Muhajir, dari Rabi’ah bin Yazid, dari Abu Kabsyah As-Saluli, dari Sahl bin al-Hanzhaliyyah, ia berkata: "Rasulullah SAW melewati seekor unta yang punggungnya telah menempel ke perutnya (karena sangat kurus dan lemah). Maka beliau bersabda: 'Bertakwalah kalian kepada Allah dalam memperlakukan hewan-hewan yang bisu ini. Tunggangilah mereka dalam keadaan baik (ketika sehat dan kuat), dan sembelihlah mereka dalam keadaan baik (tidak membiarkan mereka tersiksa dan kelaparan).'"</div>
+                                <span class="source">— Sunan Abu Dawud 200</span>
+                            </div>
                         `
                     }, {
                         id: '1A5',
@@ -494,7 +443,11 @@
                         icon: svgIcons.sad,
                         content: `
                             <h2 class="panel-title">5. Trauma zoologis</h2>
-                            <p>Tidak ditemukan hadis spesifik untuk sub-bab ini dalam naskah.</p>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنِي عَبْدُ اللَّهِ بْنُ مُحَمَّدِ بْنِ أَسْمَاءَ، حَدَّثَنَا جُوَيْرِيَةُ بْنُ أَسْمَاءَ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «عُذِّبَتِ امْرَأَةٌ فِي هِرَّةٍ سَجَنَتْهَا حَتَّى مَاتَتْ، فَدَخَلَتْ فِيهَا النَّارَ، لَا هِيَ أَطْعَمَتْهَا وَلَا سَقَتْهَا إِذْ حَبَسَتْهَا، وَلَا هِيَ تَرَكَتْهَا تَأْكُلُ مِنْ حُشَاشِ الْأَرْضِ»</div>
+                                <div class="translation">Dari Abdullah bin Muhammad bin Asma' meriwayatkan kepadaku, Juwairiyyah bin Asma' meriwayatkan kepada kami, dari Nafi', dari Abdullah bin 'Umar radliallahu 'anhuma bahwa Rasulullah shallallahu 'alaihi wasallam bersabda: "Ada seorang wanita disiksa disebabkan seekor kucing yang dikurungnya hingga mati kelaparan lalu wanita itupun masuk neraka karena dia tidak memberinya makan dan minum ketika mengurungnya, dan tidak melepaskannya sehingga dia dapat menyantap serangga tanah".</div>
+                                <span class="source">— Shahih Muslim 3482</span>
+                            </div>
                         `
                     }, {
                         id: '1A6',
@@ -504,7 +457,7 @@
                             <h2 class="panel-title">6. Eksploitasi hewan tunggangan</h2>
                             <div class="hadith-box">
                                 <div class="arabic">عَنْ عَبْدِ اللَّهِ بْنِ جَعْفَرٍ، قَالَ: أَرْدَفَنِي رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ ذَاتَ يَوْمٍ خَلْفَهُ، فَأَسَرَّ إِلَيَّ حَدِيثًا لَا أُخْبِرُ بِهِ أَحَدًا، وَكَانَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ أَحَبَّ مَا اسْتَتَرَ بِهِ فِي حَاجَتِهِ هَدَفٌ أَوْ حَائِشُ نَخْلٍ، فَدَخَلَ يَوْمًا حَائِطًا مِنْ حِيطَانِ الْأَنْصَارِ، فَإِذَا جَمَلٌ قَدْ أَتَاهُ فَجَرَجَرَ وَذَرَفَتْ عَيْنَاهُ، فَلَمَّا رَأَى النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ حَنَّ وَذَرَفَتْ عَيْنَاهُ، فَمَسَحَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ سَرَاتَهُ وَذِفْرَاهُ فَسَكَنَ، فَقَالَ: «مَنْ صَاحِبُ الْجَمَلِ؟» فَجَاءَ فَتًى مِنَ الْأَنْصَارِ فَقَالَ: هُوَ لِي يَا رَسُولَ اللَّهِ، فَقَالَ: «أَمَا تَتَّقِي اللَّهَ فِي هَذِهِ الْبَهِيمَةِ الَّتِي مَلَّكَكَهَا اللَّهُ، إِنَّهُ شَكَا إِلَيَّ أَنَّكَ تُجِيعُهُ وَتُدْئِبُهُ»</div>
-                                <div class="translation">Dari Abdullah bin Ja’far RA berkata: 'Suatu hari Rasulullah SAW memboncengku di belakang beliau. Lalu beliau membisikkan sebuah rahasia kepadaku yang tidak pernah aku ceritakan kepada siapa pun. Rasulullah SAW adalah orang yang paling suka mencari tempat yang teduh atau di balik dinding kebun kurma untuk memenuhi kebutuhannya. Pada suatu hari beliau masuk ke kebun milik seorang Anshar. Tiba-tiba seekor unta datang menghampiri beliau sambil mengeluarkan suara rintihan dan air matanya mengalir. Ketika unta itu melihat Nabi SAW, ia merintih dan meneteskan air mata. Rasulullah SAW pun mengusap punggung dan telinga unta itu, lalu unta itu menjadi tenang. Kemudian beliau bersabda: 'Siapakah pemilik unta ini?' Maka seorang pemuda Anshar datang dan berkata: 'Unta itu milikku, wahai Rasulullah.' Beliau bersabda: 'Tidakkah engkau bertakwa kepada Allah terhadap hewan tunggangan yang Allah titipkan kepadamu? Sesungguhnya ia telah mengadu kepadaku bahwa engkau membiarkannya lapar dan membebaninya (pekerjaan berat).''</div>
+                                <div class="translation">Dari Abdullah bin Ja’far RA berkata: "Suatu hari Rasulullah SAW memboncengku di belakang beliau. Lalu beliau membisikkan sebuah rahasia kepadaku yang tidak pernah aku ceritakan kepada siapa pun. Rasulullah SAW adalah orang yang paling suka mencari tempat yang teduh atau di balik dinding kebun kurma untuk memenuhi kebutuhannya. Pada suatu hari beliau masuk ke kebun milik seorang Anshar. Tiba-tiba seekor unta datang menghampiri beliau sambil mengeluarkan suara rintihan dan air matanya mengalir. Ketika unta itu melihat Nabi SAW, ia merintih dan meneteskan air mata. Rasulullah SAW pun mengusap punggung dan telinga unta itu, lalu unta itu menjadi tenang. Kemudian beliau bersabda: "Siapakah pemilik unta ini?" Maka seorang pemuda Anshar datang dan berkata: "Unta itu milikku, wahai Rasulullah." Beliau bersabda: "Tidakkah engkau bertakwa kepada Allah terhadap hewan tunggangan yang Allah titipkan kepadamu? Sesungguhnya ia telah mengadu kepadaku bahwa engkau membiarkannya lapar dan membebaninya (pekerjaan berat)."</div>
                                 <span class="source">— Musnad Ahmad 274</span>
                             </div>
                         `
@@ -521,7 +474,7 @@
                             <h2 class="panel-title">1. Zoosadisme demonstratif</h2>
                             <div class="hadith-box">
                                 <div class="arabic">حَدَّثَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، حَدَّثَنَا مُحَمَّدُ بْنُ جَعْفَرٍ، حَدَّثَنَا شُعْبَةُ، قَالَ: سَمِعْتُ هِشَامَ بْنَ زَيْدِ بْنِ أَنَسِ بْنِ مَالِكٍ قَالَ: دَخَلْتُ مَعَ جَدِّي أَنَسِ بْنِ مَالِكٍ دَارَ الْحَكَمِ بْنِ أَيُّوبَ، فَإِذَا قَوْمٌ قَدْ نَصَبُوا دَجَاجَةً يَرْمُونَهُ، فَقَالَ أَنَسٌ: «نَهَى رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ أَنْ تُصْبَرَ الْبَهَائِمُ»</div>
-                                <div class="translation">Telah menceritakan kepada kami Muhammad bin al-Mutsanna, telah menceritakan kepada kami Muhammad bin Ja‘far, telah menceritakan kepada kami Syu‘bah, ia berkata: Aku mendengar Hisyam bin Zaid bin Anas bin Malik berkata: 'Aku pernah masuk bersama kakekku, Anas bin Malik, ke rumah al-Hakam bin Ayyub. Ternyata ada sekelompok orang yang sedang menancapkan seekor ayam (mengikatnya) lalu melempari (untuk dijadikan sasaran). Maka Anas berkata: Rasulullah SAW melarang menjadikan hewan sebagai sasaran (dengan cara diikat dan disiksa).'</div>
+                                <div class="translation">Telah menceritakan kepada kami Muhammad bin al-Mutsanna, telah menceritakan kepada kami Muhammad bin Ja‘far, telah menceritakan kepada kami Syu‘bah, ia berkata: Aku mendengar Hisyam bin Zaid bin Anas bin Malik berkata: "Aku pernah masuk bersama kakekku, Anas bin Malik, ke rumah al-Hakam bin Ayyub. Ternyata ada sekelompok orang yang sedang menancapkan seekor ayam (mengikatnya) lalu melempari (untuk dijadikan sasaran). Maka Anas berkata: Rasulullah SAW melarang menjadikan hewan sebagai sasaran (dengan cara diikat dan disiksa)."</div>
                                 <span class="source">— Shahih Muslim 1549</span>
                             </div>
                         `
@@ -533,7 +486,7 @@
                             <h2 class="panel-title">2. Zoosadisme rekreatif</h2>
                             <div class="hadith-box">
                                 <div class="arabic">حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا عَلِيُّ بْنُ مُسْهِرٍ، عَنِ ابْنِ جُرَيْجٍ، عَنْ أَبِي الزُّبَيْرِ، عَنْ جَابِرٍ، قَالَ: «نَهَى رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ عَنِ الضَّرْبِ فِي الْوَجْهِ، وَعَنِ الْوَسْمِ فِي الْوَجْهِ»</div>
-                                <div class="translation">Telah menceritakan kepada kami Abu Bakar bin Abi Syaibah, telah menceritakan kepada kami Ali bin Mushir dari Ibnu Juraij, dari Abu Az-Zubair, dari Jabir, ia berkata: 'Rasulullah SAW melarang memukul pada wajah dan melarang menandai (hewan) di wajah.'</div>
+                                <div class="translation">Telah menceritakan kepada kami Abu Bakar bin Abi Syaibah, telah menceritakan kepada kami Ali bin Mushir dari Ibnu Juraij, dari Abu Az-Zubair, dari Jabir, ia berkata: "Rasulullah SAW melarang memukul pada wajah dan melarang menandai (hewan) di wajah."</div>
                                 <span class="source">— Shahih Muslim 1673</span>
                             </div>
                         `
@@ -545,12 +498,12 @@
                             <h2 class="panel-title">3. Festival zoosadisme</h2>
                             <div class="hadith-box">
                                 <div class="arabic">وَحَدَّثَنِي سَلَمَةُ بْنُ شَبِيبٍ، حَدَّثَنَا الْحَسَنُ بْنُ أَعْيَنَ، حَدَّثَنَا مَعْقِلٌ، عَنْ أَبِي الزُّبَيْرِ، عَنْ جَابِرٍ، أَنَّ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَرَّ عَلَيْهِ حِمَارٌ قَدْ وُسِمَ فِي وَجْهِهِ، فَقَالَ: «لَعَنَ اللَّهُ الَّذِي وَسَمَهُ»</div>
-                                <div class="translation">Telah menceritakan kepadaku Salamah bin Syabib, telah menceritakan kepada kami Al-Hasan bin A’yan, telah menceritakan Ma’qil dari Abu az-Zubair dari Jabir: 'Bahwa Nabi SAW melewati seekor keledai yang diberi tanda bakar pada wajahnya, maka beliau bersabda: 'Semoga Allah melaknat orang yang memberi tanda bakar padanya.'</div>
+                                <div class="translation">Telah menceritakan kepadaku Salamah bin Syabib, telah menceritakan kepada kami Al-Hasan bin A’yan, telah menceritakan Ma’qil dari Abu az-Zubair dari Jabir: "Bahwa Nabi SAW melewati seekor keledai yang diberi tanda bakar pada wajahnya, maka beliau bersabda: 'Semoga Allah melaknat orang yang memberi tanda bakar padanya.'"</div>
                                 <span class="source">— Shahih Muslim 2116</span>
                             </div>
                             <div class="hadith-box">
                                 <div class="arabic">وَحَدَّثَنِي زُهَيْرُ بْنُ حَرْبٍ، حَدَّثَنَا هُشَيْمٌ، أَخْبَرَنَا أَبُو بِشْرٍ، عَنْ سَعِيدِ بْنِ جُبَيْرٍ، قَالَ: مَرَّ ابْنُ عُمَرَ بِفِتْيَانٍ مِنْ قُرَيْشٍ قَدْ نَصَبُوا طَيْرًا وَهُمْ يَرْمُونَهُ، وَقَدْ جَعَلُوا لِصَاحِبِ الطَّيْرِ كُلَّ خَاطِئَةٍ مِنْ نَبْلِهِمْ، فَلَمَّا رَأَوْا ابْنَ عُمَرَ تَفَرَّقُوا، فَقَالَ ابْنُ عُمَرَ: مَنْ فَعَلَ هَذَا؟ لَعَنَ اللَّهُ مَنْ فَعَلَ هَذَا، إِنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ لَعَنَ مَنِ اتَّخَذَ شَيْئًا فِيهِ الرُّوحُ غَرَضًا</div>
-                                <div class="translation">Telah menceritakan kepadaku Zuhair bin Harb, telah menceritakan kepada kami Hasyim, telah mengabarkan kepada kami Abu Bisyr dari Said bin Jubair; ia berkata: 'Ibnu Umar pernah melewati sekelompok anak muda dari Quraisy yang sedang menancapkan seekor burung (sebagai sasaran), lalu mereka melemparinya. Mereka memberikan setiap anak panah yang meleset kepada pemilik burung itu. Ketika mereka melihat Ibnu Umar, mereka langsung bubar. Ibnu Umar berkata: ‘Siapa yang melakukan ini? Semoga Allah melaknat orang yang melakukan ini! Sesungguhnya Rasulullah SAW telah melaknat orang yang menjadikan sesuatu yang bernyawa sebagai sasaran lemparan.’</div>
+                                <div class="translation">Telah menceritakan kepadaku Zuhair bin Harb, telah menceritakan kepada kami Hasyim, telah mengabarkan kepada kami Abu Bisyr dari Said bin Jubair; ia berkata: "Ibnu Umar pernah melewati sekelompok anak muda dari Quraisy yang sedang menancapkan seekor burung (sebagai sasaran), lalu mereka melemparinya. Mereka memberikan setiap anak panah yang meleset kepada pemilik burung itu. Ketika mereka melihat Ibnu Umar, mereka langsung bubar. Ibnu Umar berkata: ‘Siapa yang melakukan ini? Semoga Allah melaknat orang yang melakukan ini! Sesungguhnya Rasulullah SAW telah melaknat orang yang menjadikan sesuatu yang bernyawa sebagai sasaran lemparan.’"</div>
                                 <span class="source">— Shahih Muslim 1550</span>
                             </div>
                         `
@@ -567,7 +520,7 @@
                             <h2 class="panel-title">1. Nafsu dominasi</h2>
                             <div class="hadith-box">
                                 <div class="arabic">أَخْبَرَنَا مُحَمَّدُ بْنُ عَبْدِ اللَّهِ بْنِ يَزِيدَ الْمُقْرِئُ، قَالَ: حَدَّثَنَا سُفْيَانُ، عَنْ عَمْرٍو، عَنْ صُهَيْبٍ مَوْلَى ابْنِ عَامِرٍ، عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «مَا مِنْ إِنْسَانٍ قَتَلَ عُصْفُورًا فَمَا فَوْقَهَا بِغَيْرِ حَقِّهَا إِلَّا سَأَلَهُ اللَّهُ عَزَّ وَجَلَّ عَنْهَا» قِيلَ: يَا رَسُولَ اللَّهِ، وَمَا حَقُّهَا؟ قَالَ: «يَذْبَحُهَا فَيَأْكُلُهَا، وَلَا يَقْطَعُ رَأْسَهَا فَيَرْمِي بِهَا»</div>
-                                <div class="translation">Telah mengabarkan kepada kami Muhammad bin Abdullah bin Yazid al-Muqri’, ia berkata: Telah menceritakan kepada kami Sufyan, dari ‘Amr, dari Shuhaib, mantan budak Ibn ‘Amir, dari Abdullah bin ‘Amr, bahwa Rasulullah SAW bersabda: 'Tidaklah seseorang membunuh burung pipit atau yang lebih besar darinya tanpa alasan yang benar, kecuali Allah ‘Azza wa Jalla akan menanyakannya tentang burung itu pada hari kiamat.' Para sahabat bertanya: 'Wahai Rasulullah, apa haknya (burung itu)?' Beliau menjawab: 'Menyembelihnya lalu memakannya, dan tidak memotong kepalanya lalu membuangnya (sia-sia).'</div>
+                                <div class="translation">Telah mengabarkan kepada kami Muhammad bin Abdullah bin Yazid al-Muqri’, ia berkata: Telah menceritakan kepada kami Sufyan, dari ‘Amr, dari Shuhaib, mantan budak Ibn ‘Amir, dari Abdullah bin ‘Amr, bahwa Rasulullah SAW bersabda: "Tidaklah seseorang membunuh burung pipit atau yang lebih besar darinya tanpa alasan yang benar, kecuali Allah ‘Azza wa Jalla akan menanyakannya tentang burung itu pada hari kiamat." Para sahabat bertanya: "Wahai Rasulullah, apa haknya (burung itu)?" Beliau menjawab: "Menyembelihnya lalu memakannya, dan tidak memotong kepalanya lalu membuangnya (sia-sia)."</div>
                                 <span class="source">— Sunan An-Nasa’i 206</span>
                             </div>
                         `
@@ -579,7 +532,7 @@
                             <h2 class="panel-title">2. Perlakuan destruktif terhadap hewan</h2>
                             <div class="hadith-box">
                                 <div class="arabic">حَدَّثَنَا إِسْمَاعِيلُ بْنُ أَبِي أُوَيْسٍ، قَالَ: حَدَّثَنِي مَالِكٌ، عَنْ أَبِي الزِّنَادِ، عَنِ الْأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «نَزَلَ نَبِيٌّ مِنَ الْأَنْبِيَاءِ تَحْتَ شَجَرَةٍ، فَلَدَغَتْهُ نَمْلَةٌ، فَأَمَرَ بِجَهَازِهِ فَأُخْرِجَ مِنْ تَحْتِهَا، ثُمَّ أَمَرَ بِبَيْتِهَا فَأُحْرِقَ بِالنَّارِ، فَأُوحِيَ اللَّهُ إِلَيْهِ: فَهَلَّا نَمْلَةً وَاحِدَةً؟»</div>
-                                <div class="translation">Telah menceritakan kepada kami Isma’il bin Abi Uwais, ia berkata: Telah menceritakan kepadaku Malik, dari Abu az-Zinad, dari al-A’raj, dari Abu Hurairah ra., bahwa Rasulullah SAW bersabda: 'Seorang nabi dari para nabi singgah di bawah sebuah pohon. Lalu ia digigit oleh seekor semut. Maka ia memerintahkan barang-barangnya dipindahkan dari bawah pohon tersebut. Kemudian ia memerintahkan untuk membakar sarang semut itu dengan api. Maka Allah mewahyukan kepadanya: ‘Mengapa tidak hanya semut yang menggigitmu saja (yang dibunuh)?’'</div>
+                                <div class="translation">Telah menceritakan kepada kami Isma’il bin Abi Uwais, ia berkata: Telah menceritakan kepadaku Malik, dari Abu az-Zinad, dari al-A’raj, dari Abu Hurairah ra., bahwa Rasulullah SAW bersabda: "Seorang nabi dari para nabi singgah di bawah sebuah pohon. Lalu ia digigit oleh seekor semut. Maka ia memerintahkan barang-barangnya dipindahkan dari bawah pohon tersebut. Kemudian ia memerintahkan untuk membakar sarang semut itu dengan api. Maka Allah mewahyukan kepadanya: ‘Mengapa tidak hanya semut yang menggigitmu saja (yang dibunuh)?’"</div>
                                 <span class="source">— Shahih Bukhari 130</span>
                             </div>
                         `
@@ -591,7 +544,7 @@
                             <h2 class="panel-title">3. Ketidaksadaran etis pada hewan</h2>
                             <div class="hadith-box">
                                 <div class="arabic">حَدَّثَنَا عَبْدُ الرَّزَّاقِ، أَخْبَرَنَا سُفْيَانُ، عَنْ أَبِي إِسْحَاقَ الشَّيْبَانِيِّ، عَنِ الْحَسَنِ بْنِ سَعْدٍ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ عَبْدِ اللَّهِ، عَنْ عَبْدِ اللَّهِ، قَالَ: كُنَّا مَعَ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، فَمَرَرْنَا بِقَرْيَةِ نَمْلٍ قَدْ أُحْرِقَتْ، فَقَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «لَا يَنْبَغِي لِبَشَرٍ أَنْ يُعَذِّبَ بِعَذَابِ اللَّهِ عَزَّ وَجَلَّ»</div>
-                                <div class="translation">Telah menceritakan kepada kami ‘Abdur Razzaq, telah mengabarkan kepada kami Sufyan, dari Abu Ishaq asy-Syaibani, dari al-Hasan bin Sa‘d, dari ‘Abdur Rahman bin ‘Abdillah, dari ‘Abdullah (yakni Abdullah bin Mas‘ud) ia berkata: 'Kami pernah bersama Nabi Muhammad SAW, lalu kami melewati sebuah perkampungan semut yang telah dibakar. Maka Nabi SAW bersabda: ‘Tidak sepantasnya bagi seorang manusia untuk menyiksa dengan siksaan Allah ‘Azza wa Jalla (yaitu dengan api).’'</div>
+                                <div class="translation">Telah menceritakan kepada kami ‘Abdur Razzaq, telah mengabarkan kepada kami Sufyan, dari Abu Ishaq asy-Syaibani, dari al-Hasan bin Sa‘d, dari ‘Abdur Rahman bin ‘Abdillah, dari ‘Abdullah (yakni Abdullah bin Mas‘ud) ia berkata: "Kami pernah bersama Nabi Muhammad SAW, lalu kami melewati sebuah perkampungan semut yang telah dibakar. Maka Nabi SAW bersabda: ‘Tidak sepantasnya bagi seorang manusia untuk menyiksa dengan siksaan Allah ‘Azza wa Jalla (yaitu dengan api).’"</div>
                                 <span class="source">— Musnad Ahmad 118</span>
                             </div>
                         `
@@ -613,7 +566,7 @@
                             <h2 class="panel-title">1. Marking abuse</h2>
                             <div class="hadith-box">
                                 <div class="arabic">وَحَدَّثَنِي سَلَمَةُ بْنُ شَبِيبٍ، حَدَّثَنَا الْحَسَنُ بْنُ أَعْيَنَ، حَدَّثَنَا مَعْقِلٌ، عَنْ أَبِي الزُّبَيْرِ، عَنْ جَابِرٍ، أَنَّ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَرَّ عَلَيْهِ حِمَارٌ قَدْ وُسِمَ فِي وَجْهِهِ، فَقَالَ: «لَعَنَ اللَّهُ الَّذِي وَسَمَهُ»</div>
-                                <div class="translation">Telah menceritakan kepadaku Salamah bin Syabib, telah menceritakan kepada kami Al-Hasan bin A’yan, telah menceritakan Ma’qil dari Abu az-Zubair dari Jabir: 'Bahwa Nabi SAW melewati seekor keledai yang diberi tanda bakar pada wajahnya, maka beliau bersabda: ‘Semoga Allah melaknat orang yang memberi tanda bakar padanya.’</div>
+                                <div class="translation">Telah menceritakan kepadaku Salamah bin Syabib, telah menceritakan kepada kami Al-Hasan bin A’yan, telah menceritakan Ma’qil dari Abu az-Zubair dari Jabir: "Bahwa Nabi SAW melewati seekor keledai yang diberi tanda bakar pada wajahnya, maka beliau bersabda: ‘Semoga Allah melaknat orang yang memberi tanda bakar padanya.’"</div>
                                 <span class="source">— Shahih Muslim 2116</span>
                             </div>
                         `
@@ -625,7 +578,7 @@
                             <h2 class="panel-title">2. Inhumane slaughter</h2>
                             <div class="hadith-box">
                                 <div class="arabic">حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ الْأَعْلَى الصَّنْعَانِيُّ، قَالَ: حَدَّثَنَا سَلَمَةُ بْنُ رَجَاءٍ قَالَ: حَدَّثَ عَبْدُ الرَّحْمَنِ بْنُ عَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنْ زَيْدِ بْنِ أَسْلَمَ، عَنْ عَطَاءِ بْنِ يَسَارٍ، عَنْ أَبِي وَاقِدٍ اللَّيْثِيِّ قَالَ: «قَدِمَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ الْمَدِينَةَ وَهُمْ يَجُبُّونَ أَسْنِمَةَ الْإِبِلِ وَيَقْطَعُونَ أَلْيَاتِ الْغَنَمِ، فَقَالَ: مَا قُطِعَ مِنَ الْبَهِيمَةِ وَهِيَ حَيَّةٌ فَهُوَ مَيْتَةٌ»</div>
-                                <div class="translation">Telah menceritakan kepada kami Muhammad bin ‘Abdil A’la ash-Shan’ani, ia berkata: Telah menceritakan kepada kami Salamah bin Raja’, ia berkata: Telah menceritakan ‘Abdurrahman bin ‘Abdillah bin Dinar, dari Zaid bin Aslam, dari ‘Atha’ bin Yasar, dari Abu Waqid al-Laitsi, ia berkata: 'Ketika Nabi tiba di Madinah, beliau mendapati orang-orang memotong punuk unta dan memotong ekor-ekor kambing (sementara hewan-hewan itu masih hidup). Maka Nabi bersabda: 'Apa yang dipotong dari hewan ketika ia masih hidup, maka itu adalah bangkai (haram dimakan).'</div>
+                                <div class="translation">Telah menceritakan kepada kami Muhammad bin ‘Abdil A’la ash-Shan’ani, ia berkata: Telah menceritakan kepada kami Salamah bin Raja’, ia berkata: Telah menceritakan ‘Abdurrahman bin ‘Abdillah bin Dinar, dari Zaid bin Aslam, dari ‘Atha’ bin Yasar, dari Abu Waqid al-Laitsi, ia berkata: "Ketika Nabi tiba di Madinah, beliau mendapati orang-orang memotong punuk unta dan memotong ekor-ekor kambing (sementara hewan-hewan itu masih hidup). Maka Nabi bersabda: 'Apa yang dipotong dari hewan ketika ia masih hidup, maka itu adalah bangkai (haram dimakan).'"</div>
                                 <span class="source">— Sunan At-Tirmidzi 145</span>
                             </div>
                         `
@@ -637,7 +590,7 @@
                             <h2 class="panel-title">3. Genosida hewan</h2>
                             <div class="hadith-box">
                                 <div class="arabic">حَدَّثَنَا إِسْمَاعِيلُ بْنُ أَبِي أُوَيْسٍ، قَالَ: حَدَّثَنِي مَالِكٌ، عَنْ أَبِي الزِّنَادِ، عَنِ الْأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «نَزَلَ نَبِيٌّ مِنَ الْأَنْبِيَاءِ تَحْتَ شَجَرَةٍ، فَلَدَغَتْهُ نَمْلَةٌ، فَأَمَرَ بِجَهَازِهِ فَأُخْرِجَ مِنْ تَحْتِهَا، ثُمَّ أَمَرَ بِبَيْتِهَا فَأُحْرِقَ بِالنَّارِ، فَأُوحِيَ اللَّهُ إِلَيْهِ: فَهَلَّا نَمْلَةً وَاحِدَةً؟»</div>
-                                <div class="translation">Telah menceritakan kepada kami Isma’il bin Abi Uwais, ia berkata: Telah menceritakan kepadaku Malik, dari Abu az-Zinad, dari al-A’raj, dari Abu Hurairah ra., bahwa Rasulullah SAW bersabda: 'Seorang nabi dari para nabi singgah di bawah sebuah pohon. Lalu ia digigit oleh seekor semut. Maka ia memerintahkan barang-barangnya dipindahkan dari bawah pohon tersebut. Kemudian ia memerintahkan untuk membakar sarang semut itu dengan api. Maka Allah mewahyukan kepadanya: ‘Mengapa tidak hanya semut yang menggigitmu saja (yang dibunuh)?’'</div>
+                                <div class="translation">Telah menceritakan kepada kami Isma’il bin Abi Uwais, ia berkata: Telah menceritakan kepadaku Malik, dari Abu az-Zinad, dari al-A’raj, dari Abu Hurairah ra., bahwa Rasulullah SAW bersabda: "Seorang nabi dari para nabi singgah di bawah sebuah pohon. Lalu ia digigit oleh seekor semut. Maka ia memerintahkan barang-barangnya dipindahkan dari bawah pohon tersebut. Kemudian ia memerintahkan untuk membakar sarang semut itu dengan api. Maka Allah mewahyukan kepadanya: ‘Mengapa tidak hanya semut yang menggigitmu saja (yang dibunuh)?’"</div>
                                 <span class="source">— Shahih Bukhari 130</span>
                             </div>
                         `
@@ -654,7 +607,7 @@
                             <h2 class="panel-title">1. Trauma etologis</h2>
                             <div class="hadith-box">
                                 <div class="arabic">حَدَّثَنَا عُمَرُ بْنُ حَفْصِ بْنِ عُمَرَ الشَّيْبَانِيُّ، قَالَ: أَخْبَرَنَا عَبْدُ اللَّهِ بْنُ وَهْبٍ قَالَ: أَخْبَرَنِي حُيَيٌّ عَنْ أَبِي عَبْدِ الرَّحْمَنِ الْحُبْلِيِّ، عَنْ أَبِي أَيُّوبَ قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: «مَنْ فَرَّقَ بَيْنَ الْوَالِدَةِ وَوَلَدِهَا فَرَّقَ اللَّهُ بَيْنَهُ وَبَيْنَ أَحِبَّتِهِ يَوْمَ الْقِيَامَةِ»</div>
-                                <div class="translation">Telah menceritakan kepada kami Umar bin Hafsh bin Umar asy-Syaibani, ia berkata: Telah mengabarkan kepada kami Abdullah bin Wahb, ia berkata: Telah mengabarkan kepadaku Huyay, dari Abu Abdurrahman al-Hubuli, dari Abu Ayyub, ia berkata: 'Aku mendengar Rasulullah SAW bersabda: Barang siapa memisahkan induk dengan anaknya, maka Allah akan memisahkan ia dengan orang-orang yang dicintainya pada hari kiamat.'</div>
+                                <div class="translation">Telah menceritakan kepada kami Umar bin Hafsh bin Umar asy-Syaibani, ia berkata: Telah mengabarkan kepada kami Abdullah bin Wahb, ia berkata: Telah mengabarkan kepadaku Huyay, dari Abu Abdurrahman al-Hubuli, dari Abu Ayyub, ia berkata: "Aku mendengar Rasulullah SAW bersabda: Barang siapa memisahkan induk dengan anaknya, maka Allah akan memisahkan ia dengan orang-orang yang dicintainya pada hari kiamat."</div>
                                 <span class="source">— Sunan At-Tirmidzi 225</span>
                             </div>
                         `
@@ -676,7 +629,7 @@
                             <h2 class="panel-title">1. Ihsan</h2>
                             <div class="hadith-box">
                                 <div class="arabic">حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا إِسْمَاعِيلُ بْنُ عُلَيَّةَ، عَنْ خَالِدٍ الْحَذَّاءِ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي الْأَشْعَثِ، عَنْ شَدَّادِ بْنِ أَوْسٍ، قَالَ: ثِنْتَانِ حَفِظْتُهُمَا عَنْ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، قَالَ: «إِنَّ اللَّهَ كَتَبَ الْإِحْسَانَ عَلَى كُلِّ شَيْءٍ، فَإِذَا قَتَلْتُمْ فَأَحْسِنُوا الْقِتْلَةَ، وَإِذَا ذَبَحْتُمْ فَأَحْسِنُوا الذَّبْحَ، وَلْيُحِدَّ أَحَدُكُمْ شَفْرَتَهُ، وَلْيُرِحْ ذَبِيحَتَهُ»</div>
-                                <div class="translation">Dari Abu Bakr bin Abi Syaibah, dari Ismail bin ‘Ulayyah, dari Khalid al-Haddza’, dari Abu Qilabah, dari Abu al-Asy’ats, dari Syaddad bin Aus RA, ia berkata: 'Ada dua hal yang aku hafalkan dari Rasulullah shallallahu ‘alaihi wasallam. Beliau bersabda: Sesungguhnya Allah telah menetapkan (mewajibkan) berbuat ihsan pada segala sesuatu. Maka apabila kalian membunuh, berbuatlah dengan cara yang baik; dan apabila kalian menyembelih, berbuatlah dengan cara yang baik. Hendaklah salah seorang dari kalian menajamkan pisaunya, lalu membuat nyaman hewan sembelihannya.'</div>
+                                <div class="translation">Dari Abu Bakr bin Abi Syaibah, dari Ismail bin ‘Ulayyah, dari Khalid al-Haddza’, dari Abu Qilabah, dari Abu al-Asy’ats, dari Syaddad bin Aus RA, ia berkata: "Ada dua hal yang aku hafalkan dari Rasulullah shallallahu ‘alaihi wasallam. Beliau bersabda: Sesungguhnya Allah telah menetapkan (mewajibkan) berbuat ihsan pada segala sesuatu. Maka apabila kalian membunuh, berbuatlah dengan cara yang baik; dan apabila kalian menyembelih, berbuatlah dengan cara yang baik. Hendaklah salah seorang dari kalian menajamkan pisaunya, lalu membuat nyaman hewan sembelihannya."</div>
                                 <span class="source">— Shahih Muslim 1548</span>
                             </div>
                         `
@@ -688,7 +641,7 @@
                             <h2 class="panel-title">2. Kasih sayang</h2>
                             <div class="hadith-box">
                                 <div class="arabic">حَدَّثَنَا ابْنُ أَبِي عُمَرَ، قَالَ: حَدَّثَنَا سُفْيَانُ، عَنْ عَمْرِو بْنِ دِينَارٍ، عَنْ أَبِي قَابُوسَ، عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو، قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «الرَّاحِمُونَ يَرْحَمُهُمُ الرَّحْمَنُ، ارْحَمُوا مَنْ فِي الْأَرْضِ يَرْحَمْكُمْ مَنْ فِي السَّمَاءِ، الرَّحِمُ شِجْنَةٌ مِنَ الرَّحْمَنِ، فَمَنْ وَصَلَهَا وَصَلَهُ اللَّهُ، وَمَنْ قَطَعَهَا قَطَعَهُ اللَّهُ»</div>
-                                <div class="translation">Dari Ibnu Abi ‘Umar, ia berkata: Telah menceritakan kepada kami Sufyan, dari ‘Amr bin Dinar, dari Abu Qabus, dari Abdullah bin ‘Amr RA, ia berkata: Rasulullah SAW bersabda: 'Orang-orang yang penyayang akan disayangi oleh (Allah) Yang Maha Penyayang. Sayangilah siapa saja yang ada di bumi, niscaya (Allah) yang di langit akan menyayangi kalian. Rahim (kasih sayang/ikatan kekerabatan) adalah cabang dari (sifat) Ar-Rahman. Barang siapa yang menyambungnya, Allah akan menyambungnya (dengan rahmat-Nya), dan barang siapa yang memutusnya, Allah akan memutusnya (dari rahmat-Nya).'</div>
+                                <div class="translation">Dari Ibnu Abi ‘Umar, ia berkata: Telah menceritakan kepada kami Sufyan, dari ‘Amr bin Dinar, dari Abu Qabus, dari Abdullah bin ‘Amr RA, ia berkata: Rasulullah SAW bersabda: "Orang-orang yang penyayang akan disayangi oleh (Allah) Yang Maha Penyayang. Sayangilah siapa saja yang ada di bumi, niscaya (Allah) yang di langit akan menyayangi kalian. Rahim (kasih sayang/ikatan kekerabatan) adalah cabang dari (sifat) Ar-Rahman. Barang siapa yang menyambungnya, Allah akan menyambungnya (dengan rahmat-Nya), dan barang siapa yang memutusnya, Allah akan memutusnya (dari rahmat-Nya)."</div>
                                 <span class="source">— Sunan At-Tirmidzi 483</span>
                             </div>
                         `
@@ -700,7 +653,7 @@
                             <h2 class="panel-title">3. Reduksi penderitaan</h2>
                             <div class="hadith-box">
                                 <div class="arabic">حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا إِسْمَاعِيلُ بْنُ عُلَيَّةَ، عَنْ خَالِدٍ الْحَذَّاءِ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي الْأَشْعَثِ، عَنْ شَدَّادِ بْنِ أَوْسٍ، قَالَ: ثِنْتَانِ حَفِظْتُهُمَا عَنْ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، قَالَ: «إِنَّ اللَّهَ كَتَبَ الْإِحْسَانَ عَلَى كُلِّ شَيْءٍ، فَإِذَا قَتَلْتُمْ فَأَحْسِنُوا الْقِتْلَةَ، وَإِذَا ذَبَحْتُمْ فَأَحْسِنُوا الذَّبْحَ، وَلْيُحِدَّ أَحَدُكُمْ شَفْرَتَهُ، وَلْيُرِحْ ذَبِيحَتَهُ»</div>
-                                <div class="translation">Telah menceritakan kepada kami Abu Bakar bin Abi Syaibah, telah menceritakan kepada kami Isma'il bin 'Ulayyah, dari Khalid al-Hadzdza', dari Abu Qilabah, dari Abu al-Asy’ats, dari Syaddad bin Aus, ia berkata: 'Ada dua hal yang aku hafal dari Rasulullah SAW, beliau bersabda: 'Sesungguhnya Allah telah menetapkan (perintah) berbuat ihsan (kebaikan) atas segala sesuatu. Maka jika kalian membunuh, berbuat baiklah dalam membunuh itu; dan jika kalian menyembelih, maka berbuat baiklah dalam menyembelih itu. Hendaklah salah seorang di antara kalian menajamkan pisaunya, dan hendaklah ia membuat nyaman hewan sembelihannya.'</div>
+                                <div class="translation">Telah menceritakan kepada kami Abu Bakar bin Abi Syaibah, telah menceritakan kepada kami Isma'il bin 'Ulayyah, dari Khalid al-Hadzdza', dari Abu Qilabah, dari Abu al-Asy’ats, dari Syaddad bin Aus, ia berkata: "Ada dua hal yang aku hafal dari Rasulullah SAW, beliau bersabda: 'Sesungguhnya Allah telah menetapkan (perintah) berbuat ihsan (kebaikan) atas segala sesuatu. Maka jika kalian membunuh, berbuat baiklah dalam membunuh itu; dan jika kalian menyembelih, maka berbuat baiklah dalam menyembelih itu. Hendaklah salah seorang di antara kalian menajamkan pisaunya, dan hendaklah ia membuat nyaman hewan sembelihannya.'"</div>
                                 <span class="source">— Shahih Muslim 1458</span>
                             </div>
                         `
@@ -717,7 +670,7 @@
                             <h2 class="panel-title">1. Konsekuensi spiritual</h2>
                             <div class="hadith-box">
                                 <div class="arabic">حَدَّثَنِي عَبْدُ اللَّهِ بْنُ مُحَمَّدِ بْنِ أَسْمَاءَ، حَدَّثَنَا جُوَيْرِيَةُ بْنُ أَسْمَاءَ، عَنْ نَافِعٍ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «عُذِّبَتِ امْرَأَةٌ فِي هِرَّةٍ سَجَنَتْهَا حَتَّى مَاتَتْ، فَدَخَلَتْ فِيهَا النَّارَ، لَا هِيَ أَطْعَمَتْهَا وَلَا سَقَتْهَا إِذْ حَبَسَتْهَا، وَلَا هِيَ تَرَكَتْهَا تَأْكُلُ مِنْ حُشَاشِ الْأَرْضِ»</div>
-                                <div class="translation">Dari Abdullah bin Muhammad bin Asma' meriwayatkan kepadaku, Juwairiyyah bin Asma' meriwayatkan kepada kami, dari Nafi', dari Abdullah bin 'Umar radliallahu 'anhuma bahwa Rasulullah shallallahu 'alaihi wasallam bersabda: 'Ada seorang wanita disiksa disebabkan seekor kucing yang dikurungnya hingga mati kelaparan lalu wanita itupun masuk neraka karena dia tidak memberinya makan dan minum ketika mengurungnya, dan tidak melepaskannya sehingga dia dapat menyantap serangga tanah'.</div>
+                                <div class="translation">Dari Abdullah bin Muhammad bin Asma' meriwayatkan kepadaku, Juwairiyyah bin Asma' meriwayatkan kepada kami, dari Nafi', dari Abdullah bin 'Umar radliallahu 'anhuma bahwa Rasulullah shallallahu 'alaihi wasallam bersabda: "Ada seorang wanita disiksa disebabkan seekor kucing yang dikurungnya hingga mati kelaparan lalu wanita itupun masuk neraka karena dia tidak memberinya makan dan minum ketika mengurungnya, dan tidak melepaskannya sehingga dia dapat menyantap serangga tanah".</div>
                                 <span class="source">— Shahih Muslim 3482</span>
                             </div>
                         `
@@ -729,7 +682,7 @@
                             <h2 class="panel-title">2. Zulm berbalas</h2>
                             <div class="hadith-box">
                                 <div class="arabic">أَخْبَرَنَا مُحَمَّدُ بْنُ عَبْدِ اللَّهِ بْنِ يَزِيدَ الْمُقْرِئُ، قَالَ: حَدَّثَنَا سُفْيَانُ، عَنْ عَمْرٍو، عَنْ صُهَيْبٍ مَوْلَى ابْنِ عَامِرٍ، عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «مَا مِنْ إِنْسَانٍ قَتَلَ عُصْفُورًا فَمَا فَوْقَهَا بِغَيْرِ حَقِّهَا إِلَّا سَأَلَهُ اللَّهُ عَزَّ وَجَلَّ عَنْهَا» قِيلَ: يَا رَسُولَ اللَّهِ، وَمَا حَقُّهَا؟ قَالَ: «يَذْبَحُهَا فَيَأْكُلُهَا، وَلَا يَقْطَعُ رَأْسَهَا فَيَرْمِي بِهَا»</div>
-                                <div class="translation">Telah mengabarkan kepada kami Muhammad bin Abdullah bin Yazid al-Muqri’, ia berkata: Telah menceritakan kepada kami Sufyan, dari ‘Amr, dari Shuhaib, mantan budak Ibn ‘Amir, dari Abdullah bin ‘Amr, bahwa Rasulullah SAW bersabda: 'Tidaklah seseorang membunuh burung pipit atau yang lebih besar darinya tanpa alasan yang benar, kecuali Allah ‘Azza wa Jalla akan menanyakannya tentang burung itu pada hari kiamat.' Para sahabat bertanya: 'Wahai Rasulullah, apa haknya (burung itu)?' Beliau menjawab: 'Menyembelihnya lalu memakannya, dan tidak memotong kepalanya lalu membuangnya (sia-sia).'</div>
+                                <div class="translation">Telah mengabarkan kepada kami Muhammad bin Abdullah bin Yazid al-Muqri’, ia berkata: Telah menceritakan kepada kami Sufyan, dari ‘Amr, dari Shuhaib, mantan budak Ibn ‘Amir, dari Abdullah bin ‘Amr, bahwa Rasulullah SAW bersabda: "Tidaklah seseorang membunuh burung pipit atau yang lebih besar darinya tanpa alasan yang benar, kecuali Allah ‘Azza wa Jalla akan menanyakannya tentang burung itu pada hari kiamat." Para sahabat bertanya: "Wahai Rasulullah, apa haknya (burung itu)?" Beliau menjawab: "Menyembelihnya lalu memakannya, dan tidak memotong kepalanya lalu membuangnya (sia-sia)."</div>
                                 <span class="source">— Sunan An-Nasa’i 206</span>
                             </div>
                         `
@@ -741,7 +694,7 @@
                             <h2 class="panel-title">3. Konsekuensi moral</h2>
                             <div class="hadith-box">
                                 <div class="arabic">حَدَّثَنَا مُحَمَّدٌ، أَخْبَرَنَا أَبُو مُعَاوِيَةَ، عَنِ الْأَعْمَشِ، عَنْ زَيْدِ بْنِ وَهْبٍ، وَأَبِي ظَبْيَانَ، عَنْ جَرِيرِ بْنِ عَبْدِ اللَّهِ، قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «لَا يَرْحَمُ اللَّهُ مَنْ لَا يَرْحَمُ النَّاسَ»</div>
-                                <div class="translation">Telah menceritakan kepada kami Muhammad, telah mengabarkan kepada kami Abu Mu’awiyah, dari al-A’masy, dari Zaid bin Wahb dan Abu Dzabyan, dari Jarir bin Abdullah, ia berkata: Rasulullah SAW bersabda: 'Allah tidak akan merahmati (memberikan kasih sayang-Nya kepada) orang yang tidak menyayangi manusia.'</div>
+                                <div class="translation">Telah menceritakan kepada kami Muhammad, telah mengabarkan kepada kami Abu Mu’awiyah, dari al-A’masy, dari Zaid bin Wahb dan Abu Dzabyan, dari Jarir bin Abdullah, ia berkata: Rasulullah SAW bersabda: "Allah tidak akan merahmati (memberikan kasih sayang-Nya kepada) orang yang tidak menyayangi manusia."</div>
                                 <span class="source">— Shahih Bukhari 115</span>
                             </div>
                         `
@@ -753,7 +706,7 @@
                             <h2 class="panel-title">4. Pahala moral</h2>
                             <div class="hadith-box">
                                 <div class="arabic">حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا أَبُو خَالِدٍ الْأَحْمَرُ، عَنْ هِشَامٍ، عَنْ مُحَمَّدٍ، عَنْ أَبِي هُرَيْرَةَ، عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «أَنَّ امْرَأَةً بَغِيًّا رَأَتْ كَلْبًا فِي يَوْمٍ حَارٍّ يُحِيطُ بِبِئْرٍ، قَدْ أَدْلَعَ لِسَانَهُ مِنَ الْعَطَشِ، فَنَزَعَتْ خُفَّهَا فَأَوْكَتْهُ بِخِمَارِهَا، فَنَزَعَتْ لَهُ مِنَ الْمَاءِ، فَغُفِرَ لَهَا»</div>
-                                <div class="translation">Telah menceritakan kepada kami Abu Bakar bin Abi Syaibah, telah menceritakan kepada kami Abu Khalid al-Ahmar dari Hisyam, dari Muhammad, dari Abu Hurairah, dari Nabi SAW: 'Seorang wanita pezina melihat seekor anjing pada hari yang sangat panas sedang mengelilingi sumur sambil menjulurkan lidahnya karena kehausan. Maka wanita itu melepas sepatunya, lalu mengikatnya dengan kerudungnya, kemudian mengambil air untuk anjing itu, maka diampuni dosanya.'</div>
+                                <div class="translation">Telah menceritakan kepada kami Abu Bakar bin Abi Syaibah, telah menceritakan kepada kami Abu Khalid al-Ahmar dari Hisyam, dari Muhammad, dari Abu Hurairah, dari Nabi SAW: "Seorang wanita pezina melihat seekor anjing pada hari yang sangat panas sedang mengelilingi sumur sambil menjulurkan lidahnya karena kehausan. Maka wanita itu melepas sepatunya, lalu mengikatnya dengan kerudungnya, kemudian mengambil air untuk anjing itu, maka diampuni dosanya."</div>
                                 <span class="source">— Shahih Muslim 1761</span>
                             </div>
                         `
@@ -765,7 +718,7 @@
                             <h2 class="panel-title">5. Rahmat berbalas</h2>
                             <div class="hadith-box">
                                 <div class="arabic">عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «بَيْنَا رَجُلٌ يَمْشِي فَاشْتَدَّ عَلَيْهِ الْعَطَشُ، فَنَزَلَ بِئْرًا فَشَرِبَ مِنْهَا، ثُمَّ خَرَجَ فَإِذَا هُوَ بِكَلْبٍ يَلْهَثُ يَأْكُلُ الثَّرَى مِنَ الْعَطَشِ، فَقَالَ: لَقَدْ بَلَغَ هَذَا مِثْلُ الَّذِي بَلَغَ بِي، فَمَلَأَ خُفَّهُ ثُمَّ أَمْسَكَهُ بِفِيهِ، ثُمَّ رَقِيَ فَسَقَى الْكَلْبَ، فَشَكَرَ اللَّهُ لَهُ فَغَفَرَ لَهُ» قَالُوا: يَا رَسُولَ اللَّهِ، وَإِنَّ لَنَا فِي الْبَهَائِمِ أَجْرًا؟ قَالَ: «فِي كُلِّ كَبِدٍ رَطْبَةٍ أَجْرٌ»</div>
-                                <div class="translation">Dari Abdullah bin Yusuf, dari Malik, dari Sumay, dari Abu Shalih, dari Abu Hurairah RA, bahwa Rasulullah SAW bersabda: 'Ketika seorang laki-laki sedang berjalan, ia merasa sangat kehausan. Lalu ia turun ke sebuah sumur dan minum darinya. Setelah keluar, ia melihat seekor anjing yang menjulurkan lidahnya menjilat tanah karena sangat haus. Laki-laki itu berkata: ‘Sungguh, anjing ini merasakan haus sebagaimana yang aku rasakan tadi.’ Maka ia mengambil air menggunakan sepatunya, lalu menggigitnya dengan mulutnya (karena kedua tangannya sibuk memanjat), kemudian naik ke atas dan memberi minum anjing itu. Maka Allah berterima kasih kepadanya dan mengampuni dosanya.” Para sahabat bertanya: “Wahai Rasulullah, apakah kami mendapatkan pahala juga bila berbuat baik kepada hewan?” Beliau bersabda: “Pada setiap makhluk yang bernyawa (berhati basah) ada pahala.”</div>
+                                <div class="translation">Dari Abdullah bin Yusuf, dari Malik, dari Sumay, dari Abu Shalih, dari Abu Hurairah RA, bahwa Rasulullah SAW bersabda: "Ketika seorang laki-laki sedang berjalan, ia merasa sangat kehausan. Lalu ia turun ke sebuah sumur dan minum darinya. Setelah keluar, ia melihat seekor anjing yang menjulurkan lidahnya menjilat tanah karena sangat haus. Laki-laki itu berkata: ‘Sungguh, anjing ini merasakan haus sebagaimana yang aku rasakan tadi.’ Maka ia mengambil air menggunakan sepatunya, lalu menggigitnya dengan mulutnya (karena kedua tangannya sibuk memanjat), kemudian naik ke atas dan memberi minum anjing itu. Maka Allah berterima kasih kepadanya dan mengampuni dosanya.” Para sahabat bertanya: “Wahai Rasulullah, apakah kami mendapatkan pahala juga bila berbuat baik kepada hewan?” Beliau bersabda: “Pada setiap makhluk yang bernyawa (berhati basah) ada pahala.”</div>
                                 <span class="source">— Shahih Bukhari 111</span>
                             </div>
                         `
@@ -773,7 +726,6 @@
                 }]
             }];
 
-            // ===== TOP MENU & EXTRA MENU DATA =====
             const topMenuData = [{
                 id: 'kata-pengantar',
                 label: 'Kata Pengantar',
@@ -803,12 +755,13 @@
                             <li>Abū Dāwud, Sulaimān Ibn Al-Asy‘aṣ Ibn Ishāq Ibn Basyīr Ibn Syidād Ibn ‘Amru Al-Azdiy Al-Sijistāniy. <em>Sunan Abī Dāwud</em>.</li>
                             <li>Ibn Al-Ḥajjāj, Muslim. <em>Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Binaql Al-‘Adl ‘an Al-‘Adl Ilā Rasūlillah Ṣallā Allāh ‘alaih Wasallam</em>. Edited by Muḥammad Fu’ād ‘Abd Al-Bāقī. Dār Iḥyā’ al-Turāṡ al-‘Arabiy.</li>
                             <li>Ibn Ḥanbal, Aḥmad. <em>Musnad Al-Imām Aḥmad Ibn Ḥanbal</em>. Dār al-Ḥadīṡ.</li>
+                            <li>Ibn Mājah, Abū ‘Abdillāh Muḥammad ibn Yazīd. <em>Sunan Ibn Mājah</em>. Edited by Muḥammad Fu‘ād ‘Abd al-Bāqī. Dār Iḥyā‘ al-Kutub al-‘Arabiyyah.</li>
                         </ul>
                     </div>
                 `
             }];
 
-            // ===== RENDER =====
+            // ===== RENDER ENGINE (sama seperti sebelumnya) =====
             const topMenuContainer = document.getElementById('topMenu');
             const menuContainer = document.getElementById('menuContainer');
             const extraMenuContainer = document.getElementById('extraMenu');
@@ -822,16 +775,13 @@
             function renderTopMenu() {
                 let html = '';
                 topMenuData.forEach(item => {
-                    html += `<div style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 2px solid rgba(43,79,140,0.08);">`;
-                    html += `<button class="extra-link" data-panel="${item.id}">
-                        <span class="icon">${item.icon}</span> ${item.label}
-                    </button>`;
+                    html += `<div style="margin-bottom:12px;padding-bottom:12px;border-bottom:2px solid rgba(43,79,140,0.08);">`;
+                    html += `<button class="extra-link" data-panel="${item.id}"><span class="icon">${item.icon}</span> ${item.label}</button>`;
                     html += `</div>`;
                 });
                 topMenuContainer.innerHTML = html;
             }
 
-            // Fungsi render menu recursively
             function renderMenuItems(items, depth) {
                 let html = '';
                 items.forEach(item => {
@@ -872,9 +822,7 @@
             function renderExtraMenu() {
                 let html = '';
                 extraData.forEach(item => {
-                    html += `<button class="extra-link" data-panel="${item.id}">
-                        <span class="icon">${item.icon}</span> ${item.label}
-                    </button>`;
+                    html += `<button class="extra-link" data-panel="${item.id}"><span class="icon">${item.icon}</span> ${item.label}</button>`;
                 });
                 extraMenuContainer.innerHTML = html;
             }
@@ -886,11 +834,8 @@
                 });
                 function collectPanels(items) {
                     items.forEach(item => {
-                        if (item.children) {
-                            collectPanels(item.children);
-                        } else {
-                            html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
-                        }
+                        if (item.children) collectPanels(item.children);
+                        else html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
                     });
                 }
                 collectPanels(menuData);
@@ -931,13 +876,11 @@
                 overlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }
-
             function closeSidebar() {
                 sidebar.classList.remove('open');
                 overlay.classList.remove('active');
                 document.body.style.overflow = '';
             }
-
             function toggleSidebar() {
                 if (sidebar.classList.contains('open')) closeSidebar();
                 else openSidebar();
@@ -949,7 +892,6 @@
                 renderMenu();
                 renderExtraMenu();
 
-                // Event delegation untuk menu atas
                 topMenuContainer.addEventListener('click', function(e) {
                     const target = e.target.closest('button');
                     if (!target) return;
@@ -984,7 +926,6 @@
                     }
                 });
 
-                // Default: tampilkan kata pengantar
                 if (topMenuData.length > 0) {
                     showPanel(topMenuData[0].id, false);
                 }
