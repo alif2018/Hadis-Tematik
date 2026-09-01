@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Friendship Circle in Hadith Perspective</title>
+    <base target="_self" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f6f0;
+            color: #1e2b3a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        :root {
+            --primary: #2b4f8c;
+            --gold: #c9a84c;
+            --gold-light: #e0c66e;
+            --gold-dark: #a8892f;
+            --bg-body: #f8f6f0;
+            --bg-card: #ffffff;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+            --sidebar-width: 300px;
+            --header-height: 72px;
+        }
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 2px 12px rgba(43,79,140,0.25);
+        }
+        .app-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .app-header .brand img {
+            height: 44px;
+            width: auto;
+            border-radius: 6px;
+            background: #fff;
+            padding: 4px;
+            object-fit: contain;
+        }
+        .app-header .brand .title-group {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .app-header .brand .title-group h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .app-header .brand .title-group .author {
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+        .app-header .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px 4px;
+            border-radius: 6px;
+        }
+        .app-header .hamburger:hover { background: rgba(255,255,255,0.1); }
+        .app-header .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: #fff;
+            border-radius: 4px;
+        }
+        .app-layout { display: flex; flex: 1; position: relative; }
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            border-left: 1px solid rgba(43,79,140,0.10);
+            box-shadow: -4px 0 20px rgba(0,0,0,0.04);
+            height: calc(100vh - var(--header-height));
+            position: sticky;
+            top: var(--header-height);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 16px 10px 30px;
+            flex-shrink: 0;
+            transition: transform var(--transition);
+            z-index: 900;
+        }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-track { background: #f0ede7; }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 8px; }
+
+        .menu-section { margin-bottom: 4px; border-bottom: 1px solid rgba(43,79,140,0.06); }
+        .menu-section:last-of-type { border-bottom: none; }
+        .menu-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 14px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-align: left;
+        }
+        .menu-head:hover { background: rgba(43,79,140,0.06); }
+        .menu-head .icon { 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            fill: var(--primary);
+        }
+        .menu-head .arrow {
+            margin-left: auto;
+            font-size: 0.7rem;
+            transition: transform var(--transition);
+            color: var(--gold-dark);
+        }
+        .menu-head.open .arrow { transform: rotate(90deg); }
+
+        .sub-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 6px 0;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.35s ease, opacity 0.25s ease;
+            opacity: 0;
+        }
+        .sub-menu.open { max-height: 1200px; opacity: 1; }
+        .sub-menu li { margin: 0; }
+        .sub-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px 8px 38px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 450;
+            color: #2d3f54;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .sub-link:hover { background: rgba(43,79,140,0.07); color: var(--primary); }
+        .sub-link.active {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(43,79,140,0.25);
+        }
+        .sub-link .sub-icon { 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px;
+            fill: #2d3f54;
+            opacity: 0.8; 
+        }
+        .sub-link:hover .sub-icon { fill: var(--primary); }
+        .sub-link.active .sub-icon { fill: #fff; opacity: 1; }
+
+        .extra-menu {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 2px solid rgba(43,79,140,0.08);
+        }
+        .extra-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .extra-link:hover { background: rgba(43,79,140,0.06); }
+        .extra-link.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(43,79,140,0.25);
+        }
+        .extra-link .icon { 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            fill: var(--primary);
+        }
+        .extra-link.active .icon { fill: #fff; }
+
+        .top-menu {
+            margin-bottom: 6px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(43,79,140,0.08);
+        }
+        .top-menu .extra-link {
+            font-weight: 600;
+            color: var(--gold-dark);
+        }
+        .top-menu .extra-link:hover { background: rgba(201,168,76,0.08); }
+        .top-menu .extra-link.active {
+            background: var(--gold);
+            color: #1e2b3a;
+        }
+        .top-menu .extra-link.active .icon { fill: #1e2b3a; }
+
+        .main-content {
+            flex: 1;
+            padding: 32px 40px 60px;
+            min-width: 0;
+            background: var(--bg-body);
+        }
+        .content-panel { display: none; animation: fadeUp 0.35s ease; }
+        .content-panel.active { display: block; }
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .panel-sub { font-size: 0.95rem; color: #5e6f82; margin-bottom: 24px; }
+        .hadith-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 18px 0 22px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--gold);
+        }
+        .hadith-box .arabic {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #1e2b3a;
+            direction: rtl;
+            font-family: 'Times New Roman', 'Traditional Arabic', serif;
+            margin-bottom: 12px;
+            padding: 6px 0;
+            word-wrap: break-word;
+        }
+        .hadith-box .translation {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #2d3f54;
+            border-top: 1px dashed rgba(43,79,140,0.12);
+            padding-top: 12px;
+        }
+        .hadith-box .source {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--gold-dark);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+        .sub-section { margin-top: 28px; }
+        .sub-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .sub-section p { line-height: 1.7; color: #2d3f54; margin-bottom: 10px; }
+
+        .bibliography {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43,79,140,0.10);
+        }
+        .bibliography h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 14px;
+        }
+        .bibliography ul { list-style: none; padding: 0; }
+        .bibliography ul li {
+            padding: 6px 0 6px 20px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #2d3f54;
+            border-bottom: 1px solid rgba(43,79,140,0.05);
+            text-indent: -20px;
+            padding-left: 30px;
+        }
+        .bibliography ul li::before {
+            content: "•";
+            color: var(--gold);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.35);
+            z-index: 850;
+            backdrop-filter: blur(2px);
+        }
+        .overlay.active { display: block; }
+
+        @media (max-width: 991px) {
+            .app-header .hamburger { display: flex; }
+            .sidebar {
+                position: fixed;
+                top: var(--header-height);
+                right: 0;
+                height: calc(100vh - var(--header-height));
+                transform: translateX(100%);
+                box-shadow: -8px 0 30px rgba(0,0,0,0.10);
+                border-left: none;
+                width: 290px;
+                padding: 12px 8px 30px;
+            }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { padding: 20px 18px 40px; }
+            .panel-title { font-size: 1.5rem; }
+            .app-header .brand .title-group h1 { font-size: 1rem; }
+            .app-header .brand img { height: 36px; }
+            .hadith-box { padding: 16px 18px; }
+            .hadith-box .arabic { font-size: 1rem; }
+        }
+        @media (max-width: 480px) {
+            :root { --header-height: 64px; }
+            .app-header { padding: 0 14px; }
+            .app-header .brand .title-group h1 { font-size: 0.85rem; }
+            .app-header .brand .title-group .author { font-size: 0.7rem; }
+            .sidebar { width: 265px; }
+            .main-content { padding: 14px 12px 30px; }
+            .panel-title { font-size: 1.25rem; }
+            .sub-link { padding: 7px 10px 7px 28px; font-size: 0.8rem; }
+            .menu-head { padding: 10px 12px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="brand">
+            <img src="logo-pshd.jpg" alt="Logo" />
+            <div class="title-group">
+                <h1>Friendship Circle in Hadith Perspective</h1>
+                <span class="author">Penyusun: Fahmi Andaluzi &amp; Muhammad Alif</span>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+    <div class="app-layout">
+        <div class="overlay" id="overlay"></div>
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Daftar isi">
+            <div class="top-menu" id="topMenu"></div>
+            <div id="menuContainer"></div>
+            <div class="extra-menu" id="extraMenu"></div>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div id="panelContainer"></div>
+        </main>
+    </div>
+    <script>
+        (function() {
+            'use strict';
+
+            // SVG Icons
+            const svgIcons = {
+                target: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>',
+                users: '<svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V17h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V17h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>',
+                handshake: '<svg viewBox="0 0 24 24"><path d="M16.48 10.41c-.39.39-1.04.39-1.43 0l-2.34-2.34c-.37-.37-.37-.98 0-1.36l3.77-3.77c.37-.37.98-.37 1.36 0l2.34 2.34c.37.37.37.98 0 1.36l-3.7 3.77zm-6.59-2.2l-3.77 3.77c-.37.37-.98.37-1.36 0l-2.34-2.34c-.37-.37-.37-.98 0-1.36l3.77-3.77c.37-.37.98-.37 1.36 0l2.34 2.34c.37.37.37.98 0 1.36zm6.85 4.55l-3.77 3.77c-.37.37-.98.37-1.36 0l-2.34-2.34c-.37-.37-.37-.98 0-1.36l3.77-3.77c.37-.37.98-.37 1.36 0l2.34 2.34c.37.37.37.98 0 1.36z"/></svg>',
+                heart: '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>',
+                scale: '<svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l4-2.18L12 3zm6.82 9L12 15.72 5.18 12 12 8.28l6.82 3.72zM5 16.5v-3.55L12 17l7-4.05v3.55L12 20.28 5 16.5z"/></svg>',
+                check: '<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>',
+                alert: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>',
+                book: '<svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>',
+                books: '<svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>',
+                vision: '<svg viewBox="0 0 24 24"><path d="M12 7C8 7 4.5 9.5 3 12c1.5 2.5 5 5 9 5s7.5-2.5 9-5c-1.5-2.5-5-5-9-5zm0 8c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg>',
+                mission: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm1-13h-2v6l5.25 3.15L17 12.23l-4-2.37V7z"/></svg>',
+                impact: '<svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>',
+                smile: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 14s1.5 3 4 3 4-3 4-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="9" cy="9" r="1.5" fill="currentColor"/><circle cx="15" cy="9" r="1.5" fill="currentColor"/></svg>',
+                frown: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 17s1.5-3 4-3 4 3 4 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="9" cy="9" r="1.5" fill="currentColor"/><circle cx="15" cy="9" r="1.5" fill="currentColor"/></svg>'
+            };
+
+            // ===== MENU DATA =====
+            const menuData = [{
+                id: 'bab1',
+                label: '1. Definition and Urgency of Friendship Circles',
+                icon: svgIcons.target,
+                children: [{
+                    id: '1a',
+                    label: 'a. Definition',
+                    icon: svgIcons.users,
+                    content: `
+                        <h2 class="panel-title">1. Definition and Urgency of Friendship Circles</h2>
+                        <h3 style="font-family:'Playfair Display',serif; color:var(--primary); margin:16px 0 8px; font-size:1.3rem;">a. Definition</h3>
+                        <p style="line-height:1.7; color:#2d3f54; margin-bottom:12px;">Friendship (ṣuḥbah or ṣadāqah) in Islam is a sacred bond built on mutual love, trust, and sincerity for the sake of Allah. It is not merely a social relationship, but a spiritual and moral commitment that shapes one's character and faith.</p>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّث َنَا أَبُو بَكْرِ بْنُ أَِبِ شَي ْبَةَ. حَدَّث َنَا أَبُو مُعَاوِيَةَ وَوَكِيعٌ عَنِ اَلَعْمَشِ ، عَنْ أِب صاحل، عن أِب هر يرة؛ قال: قال رسول هللا صلى هللا عليه وسلم " َل َتَدْخُلُون َاْلَْنَّة َّحََّت ت ُؤْمِنُوا. وََلَ ت ُؤْمِنُوا حََّتَّ حتََابُّوا. أَوََلَ أَدُلُّكُمْ عَلَى شَيْءٍ إِذَا ف َعَلْتُمُوهُ حتاببتم؟ أفشوا السالم بي نكم</div>
+                            <div class="translation">From Abu Hurairah he said, "The Messenger of Allah (peace and blessings of Allaah be upon him) said: "For the sake of the One whose soul is in His hands, you will not enter Paradise until you believe, and you will not believe until you love one another. Will you show me something that if you practice it, you will love each other? Spread greetings among you."</div>
+                            <span class="source">— Shahih Muslim 73</span>
+                        </div>
+                        <div class="hadith-box">
+                            <div class="arabic">عن عبد هللا ابن عمرو بن العاصي عن رسول هللا- صلي هللا عليه وسلم- " :أنه قال ُخري اَلصحاب عند هللا خريهم لصاحبه، وخري اْلريان عند هللا خريُهم ْلاره</div>
+                            <div class="translation">From Abdillah bin Amr from the Prophet PBUH said: The best friend in the sight of Allah is the best among them towards his friend. And the best neighbor in the sight of Allah is the best among them to his neighbor.</div>
+                            <span class="source">— Sunan At-Tirmidzi 333, Sunan Ad-Darimi 1583</span>
+                        </div>
+                    `
+                }, {
+                    id: '1b',
+                    label: 'b. Urgency',
+                    icon: svgIcons.alert,
+                    content: `
+                        <h2 class="panel-title">1. Definition and Urgency of Friendship Circles</h2>
+                        <h3 style="font-family:'Playfair Display',serif; color:var(--primary); margin:16px 0 8px; font-size:1.3rem;">b. Urgency</h3>
+                        <p style="line-height:1.7; color:#2d3f54; margin-bottom:12px;">Friendship is not a luxury but a necessity in Islam. It is a means to strengthen faith, gain righteous company, and attain Allah's pleasure. The Prophet ﷺ emphasized the importance of choosing good companions and maintaining brotherhood.</p>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّث َنَا أَبُو بَكْرِ بْنُ أَِبِ شَي ْبَةَ. حَدَّث َنَا أَبُو مُعَاوِيَةَ وَوَكِيعٌ عَنِ اَلَعْمَشِ ، عَنْ أِب صاحل، عن أِب هر يرة؛ قال: قال رسول هللا صلى هللا عليه وسلم " َل َتَدْخُلُون َاْلَْنَّة َّحََّت ت ُؤْمِنُوا. وََلَ ت ُؤْمِنُوا حََّتَّ حتََابُّوا. أَوََلَ أَدُلُّكُمْ عَلَى شَيْءٍ إِذَا ف َعَلْتُمُوهُ حتاببتم؟ أفشوا السالم بي نكم</div>
+                            <div class="translation">From Abu Hurairah he said, "The Messenger of Allah (peace and blessings of Allaah be upon him) said: "For the sake of the One whose soul is in His hands, you will not enter Paradise until you believe, and you will not believe until you love one another. Will you show me something that if you practice it, you will love each other? Spread greetings among you."</div>
+                            <span class="source">— Shahih Muslim 73</span>
+                        </div>
+                        <div class="hadith-box">
+                            <div class="arabic">عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «خَيْرُ الْأَصْحَابِ عِنْدَ اللَّهِ خَيْرُهُمْ لِصَاحِبِهِ، وَخَيْرُ الْجِيرَانِ عِنْدَ اللَّهِ خَيْرُهُمْ لِجَارِهِ»</div>
+                            <div class="translation">From Abdullah bin 'Amr, that the Messenger of Allah ﷺ said: "The best companion in the sight of Allah is the best to his companion, and the best neighbor in the sight of Allah is the best to his neighbor."</div>
+                            <span class="source">— Sunan At-Tirmidzi 333</span>
+                        </div>
+                    `
+                }]
+            }, {
+                id: 'bab2',
+                label: '2. Vision and Mission of Friendship Circles',
+                icon: svgIcons.vision,
+                children: [{
+                    id: '2a',
+                    label: 'a. Vision',
+                    icon: svgIcons.vision,
+                    content: `
+                        <h2 class="panel-title">2. Vision and Mission of Friendship Circles</h2>
+                        <h3 style="font-family:'Playfair Display',serif; color:var(--primary); margin:16px 0 8px; font-size:1.3rem;">a. Vision</h3>
+                        <p style="line-height:1.7; color:#2d3f54; margin-bottom:12px;">To build a community of believers who are united like a solid structure, supporting and strengthening one another in faith, love, and righteousness.</p>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّث َنَا ُمَُمَّدُ بْنُ يُوسُفَ: حَدَّث َنَا سُفْيَانُ، عَن ِأَِبِ ب ُرْدَةَ ب ُرَيْدِ بْنِ أَِبِ ب ُرْدَةَ قَالَ: أَخَْبََّنِ جَديِي أَبُو ب ُرْدَةَ، عَنْ أَبِيهِ أَِب َُّمُوسَى عَنِ النَّبِيِ صلى هللا عليه وسلم قَالَ: «الْمُؤْمِنُ لِلْمُؤْمِنِ كَالْب ُن ْيَانِ، يَشُدُّ ب َعْضُهُ ب َعْضًا، ُث َشَبَّك َْبَني ِأَصَابِعِه</div>
+                            <div class="translation">A believer and another believer are like a building that strengthens each other (as he shows in a way) crossing his fingers.</div>
+                            <span class="source">— Shahih Bukhari 12</span>
+                        </div>
+                    `
+                }, {
+                    id: '2b',
+                    label: 'b. Mission',
+                    icon: svgIcons.mission,
+                    content: `
+                        <h2 class="panel-title">2. Vision and Mission of Friendship Circles</h2>
+                        <h3 style="font-family:'Playfair Display',serif; color:var(--primary); margin:16px 0 8px; font-size:1.3rem;">b. Mission</h3>
+                        <ul style="padding-left:24px; margin:12px 0 16px; color:#2d3f54; line-height:1.8;">
+                            <li>Fostering love and brotherhood among believers for the sake of Allah.</li>
+                            <li>Encouraging mutual support, empathy, and compassion.</li>
+                            <li>Promoting righteous deeds and preventing harm.</li>
+                            <li>Building a strong community based on Islamic values.</li>
+                        </ul>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّث َنَا أَبُو بَكْرِ بْنُ أَِبِ شَي ْبَةَ. حَدَّث َنَا أَبُو مُعَاوِيَةَ وَوَكِيعٌ عَنِ اَلَعْمَشِ ، عَنْ أِب صاحل، عن أِب هر يرة؛ قال: قال رسول هللا صلى هللا عليه وسلم " َل َتَدْخُلُون َاْلَْنَّة َّحََّت ت ُؤْمِنُوا. وََلَ ت ُؤْمِنُوا حََّتَّ حتََابُّوا. أَوََلَ أَدُلُّكُمْ عَلَى شَيْءٍ إِذَا ف َعَلْتُمُوهُ حتاببتم؟ أفشوا السالم بي نكم</div>
+                            <div class="translation">From Abu Hurairah he said, "The Messenger of Allah (peace and blessings of Allaah be upon him) said: "You will not enter Paradise until you believe, and you will not believe until you love one another. Shall I guide you to something that if you do it, you will love each other? Spread greetings among you."</div>
+                            <span class="source">— Shahih Muslim 73</span>
+                        </div>
+                    `
+                }]
+            }, {
+                id: 'bab3',
+                label: '3. Principles of the Friendship Circle',
+                icon: svgIcons.handshake,
+                children: [{
+                    id: '3a',
+                    label: 'Principles of Friendship',
+                    icon: svgIcons.handshake,
+                    content: `
+                        <h2 class="panel-title">3. Principles of the Friendship Circle</h2>
+                        <p style="line-height:1.7; color:#2d3f54; margin-bottom:12px;">Islam outlines clear principles for friendship: mutual love, sincerity, patience, honesty, and compassion. Friends should be reflections of one another, helping and protecting each other in times of need.</p>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّثَنا الربيعُ بن سليمان املؤذَّن، حدَّثنا ابنُ وهب، عن سُليمان-يعِن ابنَ بالل - عن كثريِ بن زيدٍ، عن الوليد بن رِبح عن ُأِب هريرة، عن رسول هللا صلى هللا عليه وسلم، قال: "املؤمِنُ مرآة املؤمِنِ، واملؤمِنُ أخو املؤمن: يكُفُّ عليه ضَي ْعَتَه، وَيَُوطُه مِن وَرائه</div>
+                            <div class="translation">A mu'min is a reflection of another mu'min. A mu'min with a mu'min is a brother, he helps him when he loses (bears his hardships) and takes care of him (defends him) from behind.</div>
+                            <span class="source">— Sunan Abu Dawud 279</span>
+                        </div>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّث َنَا ُمَُمَّدُ بْنُ عَبْدِ اّلِلَِّ بْنِ ُنَُريٍْ. حَدَّث َنَا أَِبِ . حَدَّث َنَا زَكَرَِّيَّءُ عَنْ الشَّعْبِيِ، عَنِ الن عْمَانِ بْنِ بَشِريٍ. قَال قَالَ رَسُولُ هللا صلى هللا عليه وسلم مثل املؤمنني يف توادهم وترامحهم وتعاطفهم، مثل اْلسد. إذا اشتكى منه عضو، تداعى له سائر اْلسد ِبلسهر واحلمى</div>
+                            <div class="translation">Muhammad bin 'Abdillah bin Numairin, narrated to us his father, narrated to us Zakariya, from Shu'bi, from Nu'man bin Yashir, said: The Prophet PBUH said: The parable of the brotherhood of Muslims in love and affection between them is like one body. If one body or limb is sick, it causes the whole body to become feverish and unable to sleep.</div>
+                            <span class="source">— Shahih Muslim 1999</span>
+                        </div>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّثَنَا أَبُو بَكْرِ بْنُ أَِبِ شَي ْبَةَ، حَدَّث َنَا جَرِيرٌ، عَنْ مَنْصُورٍ، عَنْ أَِبِ وَائِلٍ، عَنْ عَبْدِ اّلِلَِّ رضي هللا عنه ، عَنِ النَّبِيِ صلى هللا عليه وسلم قَال َّإِن َالصيِدْق ي َهْدِي َإَِل َالَْبِيِ، وَإِنَّ الَْبَِّ ي َهْدِي إَِلَ اْلَْنَّةِ، وَإِنَّ الرَّجُلَ لَيَصْدُقُ حََّتَّ يَكُونَ صِديِيقًا، وَإِنَّ الْكَذِب َِّي َهْدِي إَِلَ الْفُجُورِ، وَإِنَّ الْفُجُورَ ي َهْدِي إَِلَ النَّارِ، وَإِنَّ الرَّجُلَ لَيَكْذِبُ حََّتَّ يُكْتَبَ عِنْدَ اّلِل ً كَذَّاِب</div>
+                            <div class="translation">Narrated to us Uthman bin Abi Shaybah narrated to us Jarir from Manshur from Abu Wa'il from Abdullah (may Allah be pleased with him) and he said: "Indeed, honesty will lead to goodness, and goodness will lead to Paradise, indeed a person who always acts honestly until he will be recorded as an honest person. And indeed, the lie will lead to evil, and indeed the evil will lead to hell. And indeed, a person will always lie so that it will be recorded for him as a liar."</div>
+                            <span class="source">— Shahih Bukhari 25, Shahih Muslim 2012</span>
+                        </div>
+                    `
+                }]
+            }, {
+                id: 'bab4',
+                label: '4. Positive and Negative Impacts of Friendship Circles',
+                icon: svgIcons.impact,
+                children: [{
+                    id: '4a',
+                    label: 'Impact Indications',
+                    icon: svgIcons.scale,
+                    content: `
+                        <h2 class="panel-title">4. Positive and Negative Impacts of Friendship Circles</h2>
+                        <h3 style="font-family:'Playfair Display',serif; color:var(--primary); margin:16px 0 8px; font-size:1.3rem;">Impact Indications</h3>
+                        <p style="line-height:1.7; color:#2d3f54; margin-bottom:12px;"><strong>Indicator 1:</strong> The parable of friendship as an indicator of the social environment (Ṣaḥīḥ al-Bukhāriy - 2109, Ṣaḥīḥ Muslim – 2628, Sunan Abu Dawud - 4918)</p>
+                        <div class="hadith-box">
+                            <div class="arabic">ُحدثِن مُوسَى بْن َإِْسَْاعِيلَ، حَدَّث َنَا عَبْدُ الْوَاحِدِ، حَدَّث َنَا أَبُو ب ُرْدَةَ بْنُ عَبْدِ اّلِلَِّ، قَالَ: ْسَِعْتُ أَِبَ ب ُرْدَةَ بْن ، أَِبِ مُوسَى عَنْ أَبِيهِ رضي هللا عنه قَالَ: قَالَ رَسُولُ اّلِلَِّ صلى هللا عليه وسلم ُمَثَل ِاْلَْلِيس ِالصَّالِح ِوَاْلَْلِيس ِالسَّوْءِ، كَمَثَل ُصَاحِبِ الْمِسْكِ وَكِريِ احلَْدَّادِ، َلَ ي َعْدَمُكَ مِنْ صَاحِبِ الْمِسْكِ، إِمَّا تَشَْتَِيهِ، أَوْ َتَِدُ رَِيَهُ، وَكِري َ احلَْدَّادِ َيُْرِقُ بَدَنَك ًأَوْ ث َوْبَكَ، أَوْ َتَِدُ مِنْهُ رَِيًا خَبِيثَة</div>
+                            <div class="translation">Narrated to me Musa bin Isma'il narrated to us 'Abdul Wahid narrated to us Abu Burdah bin 'Abdullah said; I heard Abu Burdah bin Abu Musa from his father (may Allah be pleased with him) saying: The Prophet PBUH said: "The parable of a person who associates with a righteous person and a person who associates with a bad person such as a perfume seller and a blacksmith, you must get from a perfume dealer whether you buy the perfume or just get the smell of the perfume, while from the blacksmith will burn your body or your cloth or you will get an unpleasant smell."</div>
+                            <span class="source">— Shahih Bukhari 2109, Shahih Muslim 2628</span>
+                        </div>
+                        <p style="line-height:1.7; color:#2d3f54; margin-top:16px;"><strong>Indicator 2:</strong> Reflection of the friendship environment (Ahmad - 8015 &amp; 8398)</p>
+                        <div class="hadith-box">
+                            <div class="arabic">عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ، عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «الرَّجُلُ عَلَى دِينِ خَلِيلِهِ، فَلْيَنْظُرْ أَحَدُكُمْ مَنْ يُخَالِلُ»</div>
+                            <div class="translation">From Abu Hurairah said: The Prophet (peace and blessings of Allaah be upon him) said: "A person will follow the religion of his friend, so one of you should pay attention to whom he is a friend."</div>
+                            <span class="source">— Sunan Abu Dawud 4918, Musnad Ahmad 8015</span>
+                        </div>
+                    `
+                }, {
+                    id: '4b',
+                    label: 'a. Positive Impact',
+                    icon: svgIcons.smile,
+                    content: `
+                        <h2 class="panel-title">4. Positive and Negative Impacts of Friendship Circles</h2>
+                        <h3 style="font-family:'Playfair Display',serif; color:var(--primary); margin:16px 0 8px; font-size:1.3rem;">a. Positive Impact</h3>
+                        <p style="line-height:1.7; color:#2d3f54; margin-bottom:12px;">Good friendship brings countless blessings: it strengthens faith, increases happiness, provides support in hardship, and leads to Allah's mercy. The Prophet ﷺ highlighted the virtue of helping a brother in need and restraining anger.</p>
+                        <div class="hadith-box">
+                            <div class="arabic">عَنِ ابْنِ عُمَرَ، أَنَّ رَجُلًا جَاءَ إِلَى النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فَقَالَ: يَا رَسُولَ اللَّهِ، أَيُّ النَّاسِ أَحَبُّ إِلَى اللَّهِ وَأَيُّ الْأَعْمَالِ أَحَبُّ إِلَى اللَّهِ؟ فَقَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «أَحَبُّ النَّاسِ إِلَى اللَّهِ أَنْفَعُهُمْ لِلنَّاسِ، وَأَحَبُّ الْأَعْمَالِ إِلَى اللَّهِ سُرُورٌ تُدْخِلُهُ عَلَى مُسْلِمٍ، أَوْ تَكْشِفُ عَنْهُ كُرْبَةً، أَوْ تَقْضِي عَنْهُ دَيْنًا، أَوْ تَطْرُدُ عَنْهُ جُوعًا»</div>
+                            <div class="translation">From Ibn Umar, a man came to the Prophet (saw) and said, "O Messenger of Allah, who is the one whom Allah loves and what deeds does Allah love?" The Prophet replied, "The one who is loved by Allah is the most beneficial person for mankind and the charity that Allah loves is the happiness that you put into a Muslim or you get rid of a hardship or you pay off a debt or get rid of hunger."</div>
+                            <span class="source">— Al-Mu'jam al-Awsat 1194</span>
+                        </div>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّثَنَا حَرْمَلَةُ بْنُ يَحْيَى قَالَ: حَدَّثَنَا عَبْدُ اللَّهِ بْنُ وَهْبٍ قَالَ: حَدَّثَنِي سَعِيدُ بْنُ أَبِي أَيُّوبَ، عَنْ أَبِي مَرْحُومٍ، عَنْ سَهْلِ بْنِ مُعَاذِ بْنِ أَنَسٍ، عَنْ أَبِيهِ، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، قَالَ: «مَنْ كَظَمَ غَيْظًا وَهُوَ قَادِرٌ عَلَى أَنْ يُنْفِذَهُ، دَعَاهُ اللَّهُ عَلَى رُءُوسِ الْخَلَائِقِ يَوْمَ الْقِيَامَةِ، حَتَّى يُخَيِّرَهُ فِي أَيِّ الْحُورِ شَاءَ»</div>
+                            <div class="translation">Whoever restrains his anger while he is able to shed it, then Allah will call him on the Day of Resurrection before all creatures, and give him the choice of angels that he desires.</div>
+                            <span class="source">— Sunan Ibn Majah 1400, Sunan Abu Dawud 157</span>
+                        </div>
+                    `
+                }, {
+                    id: '4c',
+                    label: 'b. Negative Impact',
+                    icon: svgIcons.frown,
+                    content: `
+                        <h2 class="panel-title">4. Positive and Negative Impacts of Friendship Circles</h2>
+                        <h3 style="font-family:'Playfair Display',serif; color:var(--primary); margin:16px 0 8px; font-size:1.3rem;">b. Negative Impact</h3>
+                        <p style="line-height:1.7; color:#2d3f54; margin-bottom:12px;">Bad friendship leads to moral decay, dishonesty, and spiritual ruin. The Prophet ﷺ warned against envy, hatred, and backbiting, and emphasized the importance of guarding one's tongue and heart.</p>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّثَنَا أَبُو بَكْرِ بْنُ أَِبِ شَي ْبَةَ، حَدَّث َنَا جَرِيرٌ، عَنْ مَنْصُورٍ، عَنْ أَِبِ وَائِلٍ، عَنْ عَبْدِ اّلِلَِّ رضي هللا عنه ، عَنِ النَّبِيِ صلى هللا عليه وسلم قَال َّإِن َالصيِدْق ي َهْدِي َإَِل َالَْبِيِ، وَإِنَّ الَْبَِّ ي َهْدِي إَِلَ اْلَْنَّةِ، وَإِنَّ الرَّجُلَ لَيَصْدُقُ حََّتَّ يَكُونَ صِديِيقًا، وَإِنَّ الْكَذِب َِّي َهْدِي إَِلَ الْفُجُورِ، وَإِنَّ الْفُجُورَ ي َهْدِي إَِلَ النَّارِ، وَإِنَّ الرَّجُلَ لَيَكْذِبُ حََّتَّ يُكْتَبَ عِنْدَ اّلِل ً كَذَّاِب</div>
+                            <div class="translation">Narrated to us Uthman bin Abi Shaybah narrated to us Jarir from Manshur from Abu Wa'il from Abdullah (may Allah be pleased with him) and he said: "Indeed, honesty will lead to goodness, and goodness will lead to Paradise, indeed a person who always acts honestly until he will be recorded as an honest person. And indeed, the lie will lead to evil, and indeed the evil will lead to hell. And indeed, a person will always lie so that it will be recorded for him as a liar."</div>
+                            <span class="source">— Shahih Bukhari 25, Shahih Muslim 2012</span>
+                        </div>
+                        <div class="hadith-box">
+                            <div class="arabic">َحَدَّث َنَا َيََْيَ بْنُ بُكَريٍْ، حَدَّث َنَا اللَّيْثُ، عَنْ جَعْفَرِ بْنِ رَبِيعَةَ، عَنِ اَلَْعْرَجِ، قَالَ: قَالَ أَبُو هُرَي ْر ةَ: َيَْث ُرُ عَنِ النَّبِيِ صلى هللا عليه وسلم قال ْإَِّيَّكُم َّوَالظَّنَّ، فَإِنَّ الظَّن ًأَكْذَبُ احلَْدِيثِ ، وََلَ َتََسَّسُوا وََلَ حتََسَّسُوا، وََلَ ت َبَاغَضُوا وَكُونُوا إِخْوَاَن</div>
+                            <div class="translation">Narrated to us Yahya ibn Bukair, narrated to us al-Laiṣ from Jaʻfar ibn Rabīʻah from al-Aʻraj, he said Abu Hurairah narrated from the Prophet (peace be upon him), he said: Stay away from prejudice, indeed prejudice is the most lies. Do not seek disgrace on one another, silence one another, and hate one another. Be your brothers.</div>
+                            <span class="source">— Shahih Bukhari 19</span>
+                        </div>
+                    `
+                }]
+            }];
+
+            // ===== TOP MENU & EXTRA MENU =====
+            const topMenuData = [{
+                id: 'foreword',
+                label: 'Foreword',
+                icon: svgIcons.book,
+                content: `
+                    <h2 class="panel-title">Foreword</h2>
+                    <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">Praise be to Allah SWT, the Lord of the universe, for His overflow of grace and grace so that this book can be completed properly. Prayers and greetings are always poured out to the Prophet Muhammad SAW, along with his family, friends, and followers until the end of time.</p>
+                    <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">This e-book is titled <strong>Friendship Circle in Hadith Perspective</strong>. It is present as a guide for readers to understand how Islam views and regulates friendship relationships in daily life. Friendship is one of the important aspects of human life. Through friendship, humans can share stories, experiences, and knowledge with each other. Positive friendships can provide many benefits, such as improving happiness, mental health, and motivation.</p>
+                    <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">The purpose of writing this book is to provide an overview of the concept of friendship in Islam. Provides guidance for readers to build and maintain positive friendships. Invite readers to stay away from negative friendships. The author's hope is that this book can be useful for readers, especially for young Muslims, in building and maintaining positive friendships in accordance with Islamic teachings. The author hopes to receive criticism and suggestions from this book, because the author believes in the shortcomings and limitations of both the author's time and ability in compiling this E-book. May we all get guidance and forgiveness from Allah SWT.</p>
+                `
+            }];
+
+            const extraData = [{
+                id: 'reference',
+                label: 'Reference',
+                icon: svgIcons.books,
+                content: `
+                    <h2 class="panel-title">Reference</h2>
+                    <div class="bibliography">
+                        <ul>
+                            <li>Abū Dāwud, Sulaimān ibn al-Asyʻaṣ ibn Isḥāq ibn Basyīr ibn Syidād ibn ʻAmru al-Azdiy al-Sijistāniy. <em>Sunan Abī Dāwud</em>. Edited by Syuʻaib al-Arna’ūṭ and Muḥammad Kāmil Qurah Balaliy. Vol. 1–7. Dār al-Risālah al-ʻĀlamiyah, 2009. https://shamela.ws/book/117359.</li>
+                            <li>Al-Bukhāriy, Abū ʻAbdillāh Muḥammad ibn Ismāʻīl ibn Ibrāhīm ibn al-Mugīrah al-Juʻfiy. <em>Al-Jāmiʻ Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Min Umūr Rasūl Allāh Ṣallā Allāh ʻalaih Wasallam Wa Sunanih Wa Ayyāmih</em>. Edited by Muḥammad Zuhair ibn Nāṣir al-Nāṣir. Vol. 1–9. Dār Ṭauq al-Najāt, 1422.</li>
+                            <li>Al-Bustiy, Abū Ḥātim Muḥammad ibn Ḥibbān ibn Aḥmad al-Tamīmiy. <em>Ṣaḥīḥ Ibn Ḥibbān</em>. Bairūt: Dār ibn Ḥazm, 2012.</li>
+                            <li>Al-Ṭabarāniy, Abū al-Qāsim Sulaimān ibn Aḥmad. <em>Al-Muʻjam Al-Ausaṭ</em>. al-Qāhirah: Dār al-Ḥaramain, 1995.</li>
+                            <li>Dārimiy, Abū Muḥammad ʻAbdi ibn ʻAbd al-Raḥmān ibn al-Faḍl ibn Bahrām ibn ʻAbd al-Ṣamad. <em>Al-Musnad Al-Jāmiʻ Al-Maʻrūf Bi Sunan Al-Dārimiy</em>. Edited by Ḥusain Salīm Asad Al-Dārāniy. Vol. 1–4. Dār al-Mugnī, 2000.</li>
+                            <li>Hākim, Abū ‘Abd Allāh Muḥammad ibn ‘Abd Allāh. <em>Al-Mustadrak ‘alā Al-Ṣaḥīhain</em>. Edited by Muṣṭafā ‘Abd al-Qādir ‘Atā. Vol. 1–4. Dār al-Kutub al-‘Ilmiyyah, 1990.</li>
+                            <li>Ibn al-Ḥajjāj, Muslim. <em>Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Bi Naql Al-‘Adl ‘an Al-‘Adl Ilā Rasūl Allāh Ṣallā Allāh ‘alaih Wasallam</em>. Edited by Muḥammad Fu‘ād ‘Abd al-Bāqī. Vol. 1–5. Dār Iḥyā‘ al-Turās al-‘Arabiy, 1955.</li>
+                            <li>Ibn Ḥanbal, Aḥmad. <em>Musnad Al-Imām Aḥmad Ibn Ḥanbal</em>. Edited by Aḥmad Muḥammad Syākir. Vol. 1–20. Dār al-Ḥadīṡ PP - Kairo, 1995.</li>
+                            <li>Ibn Mājah, Abū ‘Abdillāh Muḥammad ibn Yazīd. <em>Sunan Ibn Mājah</em>. Edited by Muḥammad Fu‘ād ‘Abd al-Bāqī. Vol. 1–2. Dār Iḥyā‘ al-Kutub al-‘Arabiyyah, n.d. https://shamela.ws/book/1198.</li>
+                            <li>Tirmīziy, Abū ‘Īsā Muḥammad ibn ‘Īsā ibn Saurah ibn Mūsā al-Daḥḥak. <em>Sunan Al-Tirmīziy</em>. Edited by Aḥmad Muḥammad Syākir, Muḥammad Fu‘ād ‘Abd al-Baqī, and Ibrāhīm ‘Utwah ‘Aud. Vol. 1–5. Muṣṭafā al-Bābī al-Halabiy PP - Mesir, 1975.</li>
+                        </ul>
+                    </div>
+                `
+            }];
+
+            // ===== RENDER =====
+            const topMenuContainer = document.getElementById('topMenu');
+            const menuContainer = document.getElementById('menuContainer');
+            const extraMenuContainer = document.getElementById('extraMenu');
+            const panelContainer = document.getElementById('panelContainer');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const hamburger = document.getElementById('hamburgerBtn');
+
+            let activePanelId = null;
+
+            function renderTopMenu() {
+                let html = '';
+                topMenuData.forEach(item => {
+                    html += `<div style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 2px solid rgba(43,79,140,0.08);">`;
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                        <span class="icon">${item.icon}</span> ${item.label}
+                    </button>`;
+                    html += `</div>`;
+                });
+                topMenuContainer.innerHTML = html;
+            }
+
+            function renderMenuItems(items, depth) {
+                let html = '';
+                items.forEach(item => {
+                    if (item.children) {
+                        const isTop = depth === 0;
+                        html += `<div class="menu-section">`;
+                        html += `<button class="menu-head ${isTop ? 'open' : ''}" data-toggle="${item.id}" aria-expanded="${isTop}">
+                            <span class="icon">${item.icon || svgIcons.folder}</span> ${item.label}
+                            <span class="arrow">▶</span>
+                        </button>`;
+                        html += `<ul class="sub-menu ${isTop ? 'open' : ''}">`;
+                        html += renderMenuItems(item.children, depth + 1);
+                        html += `</ul></div>`;
+                    } else {
+                        html += `<li><button class="sub-link" data-panel="${item.id}">
+                            <span class="sub-icon">${item.icon || svgIcons.target}</span> ${item.label}
+                        </button></li>`;
+                    }
+                });
+                return html;
+            }
+
+            function renderMenu() {
+                let html = '';
+                menuData.forEach(item => {
+                    html += `<div class="menu-section">`;
+                    html += `<button class="menu-head open" data-toggle="${item.id}" aria-expanded="true">
+                        <span class="icon">${item.icon || svgIcons.folder}</span> ${item.label}
+                        <span class="arrow">▶</span>
+                    </button>`;
+                    html += `<ul class="sub-menu open">`;
+                    html += renderMenuItems(item.children, 1);
+                    html += `</ul></div>`;
+                });
+                menuContainer.innerHTML = html;
+            }
+
+            function renderExtraMenu() {
+                let html = '';
+                extraData.forEach(item => {
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                        <span class="icon">${item.icon}</span> ${item.label}
+                    </button>`;
+                });
+                extraMenuContainer.innerHTML = html;
+            }
+
+            function renderPanels() {
+                let html = '';
+                topMenuData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+                function collectPanels(items) {
+                    items.forEach(item => {
+                        if (item.children) {
+                            collectPanels(item.children);
+                        } else {
+                            html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                        }
+                    });
+                }
+                collectPanels(menuData);
+                extraData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+                panelContainer.innerHTML = html;
+            }
+
+            function showPanel(panelId, fromSubLink = true) {
+                document.querySelectorAll('.content-panel').forEach(el => el.classList.remove('active'));
+                const panel = document.getElementById('panel-' + panelId);
+                if (panel) panel.classList.add('active');
+                document.querySelectorAll('.sub-link, .extra-link').forEach(el => el.classList.remove('active'));
+                const link = document.querySelector(`.sub-link[data-panel="${panelId}"], .extra-link[data-panel="${panelId}"]`);
+                if (link) link.classList.add('active');
+                activePanelId = panelId;
+                if (window.innerWidth <= 991 && fromSubLink) closeSidebar();
+            }
+
+            function toggleSection(btn) {
+                const sub = btn.nextElementSibling;
+                if (!sub) return;
+                const isOpen = sub.classList.contains('open');
+                if (isOpen) {
+                    sub.classList.remove('open');
+                    btn.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+                } else {
+                    sub.classList.add('open');
+                    btn.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            }
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function toggleSidebar() {
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            function init() {
+                renderPanels();
+                renderTopMenu();
+                renderMenu();
+                renderExtraMenu();
+
+                topMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                menuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('menu-head')) {
+                        e.stopPropagation();
+                        toggleSection(target);
+                        return;
+                    }
+                    if (target.classList.contains('sub-link')) {
+                        e.preventDefault();
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                        return;
+                    }
+                });
+
+                extraMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                if (topMenuData.length > 0) {
+                    showPanel(topMenuData[0].id, false);
+                }
+
+                hamburger.addEventListener('click', toggleSidebar);
+                overlay.addEventListener('click', closeSidebar);
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 991) closeSidebar();
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+                });
+            }
+
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+        })();
+    </script>
+</body>
+</html>
