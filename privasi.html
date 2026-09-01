@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privasi dalam Perspektif Hadis · Tematik</title>
+    <base target="_self" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f6f0;
+            color: #1e2b3a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        :root {
+            --primary: #2b4f8c;
+            --gold: #c9a84c;
+            --gold-light: #e0c66e;
+            --gold-dark: #a8892f;
+            --bg-body: #f8f6f0;
+            --bg-card: #ffffff;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --sidebar-width: 300px;
+            --header-height: 72px;
+        }
+
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 2px 12px rgba(43, 79, 140, 0.25);
+        }
+        .app-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .app-header .brand img {
+            height: 44px;
+            width: auto;
+            border-radius: 6px;
+            background: #fff;
+            padding: 4px;
+            object-fit: contain;
+        }
+        .app-header .brand .title-group {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .app-header .brand .title-group h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .app-header .brand .title-group .author {
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+        .app-header .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px 4px;
+            border-radius: 6px;
+        }
+        .app-header .hamburger:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .app-header .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: #fff;
+            border-radius: 4px;
+        }
+
+        .app-layout {
+            display: flex;
+            flex: 1;
+            position: relative;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            border-left: 1px solid rgba(43, 79, 140, 0.10);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.04);
+            height: calc(100vh - var(--header-height));
+            position: sticky;
+            top: var(--header-height);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 16px 10px 30px;
+            flex-shrink: 0;
+            transition: transform var(--transition);
+            z-index: 900;
+        }
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: #f0ede7;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 8px;
+        }
+
+        .menu-section {
+            margin-bottom: 4px;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.06);
+        }
+        .menu-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .menu-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 14px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-align: left;
+        }
+        .menu-head:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .menu-head .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            fill: var(--primary);
+        }
+        .menu-head .arrow {
+            margin-left: auto;
+            font-size: 0.7rem;
+            transition: transform var(--transition);
+            color: var(--gold-dark);
+        }
+        .menu-head.open .arrow {
+            transform: rotate(90deg);
+        }
+
+        .sub-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 6px 0;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.35s ease, opacity 0.25s ease;
+            opacity: 0;
+        }
+        .sub-menu.open {
+            max-height: 1200px;
+            opacity: 1;
+        }
+        .sub-menu li {
+            margin: 0;
+        }
+        .sub-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px 8px 38px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 450;
+            color: #2d3f54;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .sub-link:hover {
+            background: rgba(43, 79, 140, 0.07);
+            color: var(--primary);
+        }
+        .sub-link.active {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .sub-link .sub-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px;
+            fill: #2d3f54;
+            opacity: 0.8;
+        }
+        .sub-link:hover .sub-icon {
+            fill: var(--primary);
+        }
+        .sub-link.active .sub-icon {
+            fill: #fff;
+            opacity: 1;
+        }
+
+        .extra-menu {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 2px solid rgba(43, 79, 140, 0.08);
+        }
+        .extra-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .extra-link:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .extra-link.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .extra-link .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            fill: var(--primary);
+        }
+        .extra-link.active .icon {
+            fill: #fff;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 32px 40px 60px;
+            min-width: 0;
+            background: var(--bg-body);
+        }
+        .content-panel {
+            display: none;
+            animation: fadeUp 0.35s ease;
+        }
+        .content-panel.active {
+            display: block;
+        }
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .panel-sub {
+            font-size: 0.95rem;
+            color: #5e6f82;
+            margin-bottom: 24px;
+        }
+
+        .hadith-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 18px 0 22px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--gold);
+        }
+        .hadith-box .arabic {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #1e2b3a;
+            direction: rtl;
+            font-family: 'Times New Roman', 'Traditional Arabic', serif;
+            margin-bottom: 12px;
+            padding: 6px 0;
+            word-wrap: break-word;
+        }
+        .hadith-box .translation {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #2d3f54;
+            border-top: 1px dashed rgba(43, 79, 140, 0.12);
+            padding-top: 12px;
+        }
+        .hadith-box .source {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--gold-dark);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+
+        .sub-section {
+            margin-top: 28px;
+        }
+        .sub-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .sub-section p {
+            line-height: 1.7;
+            color: #2d3f54;
+            margin-bottom: 10px;
+        }
+
+        .bibliography {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43, 79, 140, 0.10);
+        }
+        .bibliography h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 14px;
+        }
+        .bibliography ul {
+            list-style: none;
+            padding: 0;
+        }
+        .bibliography ul li {
+            padding: 6px 0 6px 20px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #2d3f54;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.05);
+            text-indent: -20px;
+            padding-left: 30px;
+        }
+        .bibliography ul li::before {
+            content: "•";
+            color: var(--gold);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+
+        .profile-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 28px 32px;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--gold);
+            margin-top: 12px;
+        }
+        .profile-card .name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+        .profile-card .role {
+            font-size: 0.9rem;
+            color: var(--gold-dark);
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+        .profile-card p {
+            line-height: 1.7;
+            color: #2d3f54;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 850;
+            backdrop-filter: blur(2px);
+        }
+        .overlay.active {
+            display: block;
+        }
+
+        @media (max-width: 991px) {
+            .app-header .hamburger {
+                display: flex;
+            }
+            .sidebar {
+                position: fixed;
+                top: var(--header-height);
+                right: 0;
+                height: calc(100vh - var(--header-height));
+                transform: translateX(100%);
+                box-shadow: -8px 0 30px rgba(0, 0, 0, 0.10);
+                border-left: none;
+                width: 290px;
+                padding: 12px 8px 30px;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                padding: 20px 18px 40px;
+            }
+            .panel-title {
+                font-size: 1.5rem;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 1rem;
+            }
+            .app-header .brand img {
+                height: 36px;
+            }
+            .hadith-box {
+                padding: 16px 18px;
+            }
+            .hadith-box .arabic {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            :root {
+                --header-height: 64px;
+            }
+            .app-header {
+                padding: 0 14px;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 0.85rem;
+            }
+            .app-header .brand .title-group .author {
+                font-size: 0.7rem;
+            }
+            .sidebar {
+                width: 265px;
+            }
+            .main-content {
+                padding: 14px 12px 30px;
+            }
+            .panel-title {
+                font-size: 1.25rem;
+            }
+            .sub-link {
+                padding: 7px 10px 7px 28px;
+                font-size: 0.8rem;
+            }
+            .menu-head {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+            .profile-card {
+                padding: 20px 18px;
+            }
+            .profile-card .name {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="brand">
+            <img src="logo-pshd.jpg" alt="Logo" />
+            <div class="title-group">
+                <h1>Privasi dalam Perspektif Hadis</h1>
+                <span class="author">Penyusun: Akhsa Alpar Mubarok</span>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <div class="app-layout">
+        <div class="overlay" id="overlay"></div>
+
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Daftar isi">
+            <div class="top-menu" id="topMenu"></div>
+            <div id="menuContainer"></div>
+            <div class="extra-menu" id="extraMenu"></div>
+        </nav>
+
+        <main class="main-content" id="mainContent">
+            <div id="panelContainer"></div>
+        </main>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // ===== SVG Icons =====
+            const svgIcons = {
+                book: '<svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>',
+                shield: '<svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>',
+                lock: '<svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>',
+                user: '<svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>',
+                eye: '<svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>',
+                home: '<svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>',
+                talk: '<svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>',
+                secret: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.59.08-1.16.23-1.7l5.57 5.57c.3.3.71.44 1.13.44h1.48c.71 0 1.3-.57 1.3-1.28v-.89l2.35-2.35c.6.81.94 1.78.94 2.81 0 4.41-3.59 8-8 8zm6.83-12.83L12.7 9.3c-.3-.3-.71-.44-1.13-.44h-1.48c-.71 0-1.3.57-1.3 1.28v.89L5.83 12.3C5.23 11.49 4.89 10.52 4.89 9.5c0-4.41 3.59-8 8-8 2.96 0 5.54 1.61 6.94 4.17z"/></svg>',
+                family: '<svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>',
+                neighborhood: '<svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>',
+                books: '<svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>',
+                profile: '<svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>',
+                folder: '<svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>',
+                target: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>',
+                heart: '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>',
+                star: '<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>',
+                handshake: '<svg viewBox="0 0 24 24"><path d="M16 22h2v-4h-2v4zm-4-12h-2v6h2v-6zm8 0h-2v6h2v-6zm-8-4c0 1.1-.9 2-2 2H6.5c-.83 0-1.5-.67-1.5-1.5S5.67 5 6.5 5H14v1zm8 0c0 1.1-.9 2-2 2h-2.5c-.83 0-1.5-.67-1.5-1.5S17.67 5 18.5 5H22v1z"/></svg>',
+                door: '<svg viewBox="0 0 24 24"><path d="M8 3v2h10v14H8v2h12V3H8zm-4 4h4v10H4V7zm2 2v6h2V9H6z"/></svg>'
+            };
+
+            // ===== DATA =====
+            const topMenuData = [{
+                id: 'kata-pengantar',
+                label: 'Kata Pengantar',
+                icon: svgIcons.book,
+                content: `
+                        <h2 class="panel-title">Kata Pengantar</h2>
+                        <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">
+                            Alhamdulillāh, segala puji bagi Allah Swt. atas segala rahmat, taufik, dan hidayah-Nya sehingga buku yang berjudul <strong>“Privasi dalam Perspektif Hadis: Studi Hadis Tematik”</strong> ini dapat diselesaikan dengan baik. Shalawat serta salam semoga senantiasa tercurah kepada Nabi Muhammad saw., keluarga, sahabat, dan seluruh umat Islam yang istiqamah mengikuti sunnah beliau hingga akhir zaman.
+                        </p>
+                        <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">
+                            Buku ini disusun sebagai bentuk upaya menghimpun hadis-hadis Nabi yang berkaitan dengan privasi dalam perspektif Islam, khususnya mengenai perlindungan kehormatan diri, etika meminta izin, menjaga rahasia, serta penghormatan terhadap ruang pribadi dalam kehidupan sosial. Penulisan buku ini dilatarbelakangi oleh pentingnya menghadirkan pemahaman hadis yang lebih utuh, sistematis, dan proporsional terhadap isu privasi, mengingat pembahasan mengenai privasi dalam kehidupan modern semakin relevan di tengah perkembangan teknologi informasi dan media sosial yang sering kali mengaburkan batas-batas privasi individu.
+                        </p>
+                        <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">
+                            Melalui pendekatan studi hadis tematik (<em>maudhu‘i</em>), hadis-hadis yang memiliki keterkaitan tema dihimpun, diklasifikasikan, dan disusun ke dalam beberapa pembahasan utama. Buku ini dibagi menjadi beberapa tema besar, yaitu konsep dasar privasi dalam Islam, etika meminta izin dan menjaga pandangan, perlindungan kehormatan dan rahasia pribadi, privasi dalam kehidupan keluarga dan sosial, serta relevansi nilai-nilai privasi hadis dalam kehidupan kontemporer.
+                        </p>
+                        <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">
+                            Buku ini ditujukan bagi mahasiswa, peneliti, akademisi, santri, maupun masyarakat umum yang memiliki perhatian terhadap kajian hadis dan isu-isu sosial keislaman. Penulis berharap buku ini dapat digunakan secara efektif sebagai bahan kajian, referensi pembelajaran, maupun bahan diskusi akademik terkait hadis-hadis tentang privasi.
+                        </p>
+                        <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:16px;">
+                            Penulis menyadari bahwa buku ini masih jauh dari kesempurnaan, baik dari sisi penyusunan, analisis, maupun kelengkapan referensi. Oleh karena itu, kritik dan saran yang membangun sangat diharapkan demi penyempurnaan karya ini di masa mendatang.
+                        </p>
+                        <p style="line-height:1.8; font-size:1rem; color:#2d3f54; margin-bottom:8px;">
+                            Akhir kata, semoga buku ini dapat memberikan manfaat, menambah khazanah keilmuan hadis, serta menjadi salah satu kontribusi sederhana dalam memahami konsep privasi dalam perspektif hadis Nabi secara lebih bijak, proporsional, dan kontekstual.
+                        </p>
+                        <p style="text-align:right; font-style:italic; color:#5e6f82; margin-top:12px;">Serang, 11 Mei 2026</p>
+                        <p style="text-align:right; font-weight:500; color:var(--primary);">Akhsa Alpar Mubarok</p>
+                    `
+            }];
+
+            const menuData = [{
+                id: 'bab1',
+                label: 'BAB I — Perlindungan Kehormatan dan Privasi Individu',
+                icon: svgIcons.shield,
+                children: [{
+                    id: '1A',
+                    label: 'A. Perlindungan Aib dan Kehormatan Individu',
+                    icon: svgIcons.lock,
+                    content: `
+                            <h2 class="panel-title">A. Perlindungan Aib dan Kehormatan Individu</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا أَبُو مُعَاوِيَةَ، عَنِ الْأَعْمَشِ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "مَنْ سَتَرَ مُسْلِمًا سَتَرَهُ اللَّهُ فِي الدُّنْيَا وَالْآخِرَةِ"</div>
+                                <div class="translation">Telah menceritakan kepada kami Abu Bakr bin Abi Syaibah, telah menceritakan kepada kami Abu Mu‘awiyah, dari Al-A‘mash, dari Abu Shalih, dari Abu Hurairah bahwa Rasulullah ﷺ bersabda: "Siapa yang menutupi (dosa) seorang Muslim, Allah akan menutupi (dosa)nya di dunia dan di akhirat."</div>
+                                <span class="source">— H.R. Ibnu Majah 2544</span>
+                            </div>
+
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا عَبْدُ الْعَزِيزِ بْنُ عَبْدِ اللَّهِ، قَالَ أَخْبَرَنِي اللَّيْثُ، عَنْ سَعِيدٍ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ قَالَ سَمِعْتُ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: "إِذَا زَنَتْ أَمَةُ أَحَدِكُمْ، فَتَبَيَّنَ زِنَاهَا فَلْيَجْلِدْهَا الْحَدَّ، وَلَا يُثَرِّبْ عَلَيْهَا، ثُمَّ إِنْ زَنَتْ فَلْيَجْلِدْهَا الْحَدَّ وَلَا يُثَرِّبْ، ثُمَّ إِنْ زَنَتْ الثَّالِثَةَ فَتَبَيَّنَ زِنَاهَا فَلْيَبِعْهَا وَلَوْ بِحَبْلٍ مِنْ شَعَرٍ"</div>
+                                <div class="translation">Telah menceritakan kepada kami ‘Abdul ‘Aziz bin ‘Abdullah, ia berkata: telah mengabarkan kepadaku al-Laits, dari Sa‘id, dari ayahnya dari Abu Hurairah, ia berkata: "Saya mendengar Nabi bersabda, 'Jika seorang budak perempuan milik kalian berzina dan zina tersebut terbukti, maka ia harus dicambuk, dan setelah itu tidak ada yang boleh menyalahkannya, dan jika ia berzina untuk kedua kalinya, maka ia harus dicambuk dan tidak ada yang boleh menyalahkannya setelah itu, dan jika ia melakukan kesalahan untuk ketiga kalinya dan zina tersebut terbukti, maka ia harus dijual meskipun hanya dengan seutas tali dari rambut."</div>
+                                <span class="source">— H.R. Bukhari 2234</span>
+                            </div>
+
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا يَحْيَى بْنُ أَكْثَمَ، وَالْجَارُودُ بْنُ مُعَاذٍ، قَالاَ حَدَّثَنَا الْفَضْلُ بْنُ مُوسَى، حَدَّثَنَا الْحُسَيْنُ بْنُ وَاقِدٍ، عَنْ أُوفَى بْنِ دَلْهَمٍ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، قَالَ صَعِدَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ الْمِنْبَرَ فَنَادَى بِصَوْتٍ رَفِيعٍ فَقَالَ: "يَا مَعْشَرَ مَنْ قَدْ أَسْلَمْ بِلسَانِهِ وَلَمْ يُفْضِ الإِيمَانُ إِلَى قَلْبِهِ، لاَ تُؤْذُوا الْمُسْلِمِينَ وَلاَ تُعَيِّرُوهُمْ وَلاَ تَتَّبِعُوا عَوْرَاتِهِمْ، فَإِنَّهُ مَنْ تَتَّبِعَ عَوْرَةَ أَخِيهِ الْمُسْلِمِ تَتَّبِعَ اللَّهُ عَوْرَتَهُ، وَمَنْ تَتَّبِعَ اللَّهُ عَوْرَتَهُ يَفْضَحْهُ وَلَوْ فِي جَوْفِ رَحْلِهِ"</div>
+                                <div class="translation">Telah menceritakan kepada kami Yahya bin Aktsam dan Al-Jarud bin Mu‘adz, keduanya berkata: telah menceritakan kepada kami Al-Fadhl bin Musa, telah menceritakan kepada kami Al-Husain bin Waqid, dari Aufa bin Dahl am, dari Nafi‘, dari Ibnu Umar, ia berkata: Rasulullah ﷺ naik mimbar dan berseru dengan suara nyaring: "Wahai orang-orang yang beriman dengan lisannya tetapi iman belum meresap ke dalam hatinya, janganlah kalian menyakiti orang-orang Muslim, janganlah kalian mencela mereka, dan janganlah kalian mencari-cari aib mereka. Karena barangsiapa mencari-cari aib saudaranya yang Muslim, Allah akan mencari-cari aibnya, dan barangsiapa yang Allah cari-cari aibnya, maka Allah akan membongkarnya meskipun ia berada di dalam rumahnya."</div>
+                                <span class="source">— H.R. Abu Dawud, hasan gharib</span>
+                            </div>
+
+                            <div class="hadith-box">
+                                <div class="arabic">أَخْبَرَنَا عَبْدُ اللَّهِ بْنُ مُحَمَّدِ بْنِ أَسْمَاءَ بْنِ عُبَيْدٍ، أَخْبَرَنَا ابْنُ الْمُبَارَكِ، عَنْ يَحْيَى بْنِ أَيُّوبَ، عَنْ عَبْدِ اللَّهِ بْنِ سُلَيْمَانَ، عَنْ إِسْمَاعِيلَ بْنِ يَحْيَى الْمَعَافِرِيِّ، عَنْ سَهْلِ بْنِ مُعَاذِ بْنِ أَنَسٍ الْجُهَنِيِّ، عَنْ أَبِيهِ، عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: "مَنْ عَاذَرَ مُؤْمِنًا مِنْ مُنَافِقٍ، بَعَثَ اللَّهُ مَلَكًا يَحْفَظُ لَحْمَهُ يَوْمَ الْقِيَامَةِ مِنْ نَارِ جَهَنَّمَ، وَمَنْ رَمَى مُسْلِمًا بِشَيْءٍ يُرِيدُ شَيْنَهُ، حَبَسَهُ اللَّهُ عَلَى جِسْرِ جَهَنَّمَ حَتَّى يَخْرُجَ مِمَّا قَالَ"</div>
+                                <div class="translation">Telah mengabarkan kepada kami Abdullah bin Muhammad bin Asma' bin Ubaid, telah mengabarkan kepada kami Ibn Al-Mubarak, dari Yahya bin Ayyub, dari Abdullah bin Sulaiman, dari Ismail bin Yahya Al-Ma'afiri, dari Sahl bin Mu'adh bin Anas Al-Juhani, dari ayahnya, dari Nabi ﷺ bersabda: "Siapa yang membela seorang mukmin dari seorang munafik, maka Allah akan mengutus seorang malaikat yang akan menjaga dagingnya pada hari kiamat dari api Jahannam; dan siapa yang menyerang seorang Muslim dengan sesuatu yang ingin ia hinakan, maka Allah akan menahannya di jembatan Jahannam hingga ia dibebaskan dari apa yang ia katakan."</div>
+                                <span class="source">— H.R. Abu Dawud 4883</span>
+                            </div>
+                        `
+                }, {
+                    id: '1B',
+                    label: 'B. Perlindungan Privasi Personal dan Kesalehan Diri',
+                    icon: svgIcons.user,
+                    content: `
+                            <h2 class="panel-title">B. Perlindungan Privasi Personal dan Kesalehan Diri</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا عَبْدُ الْعَزِيزِ بْنُ عَبْدِ اللَّهِ، حَدَّثَنَا إِبْرَاهِيمُ بْنُ سَعْدٍ، عَنِ ابْنِ أَخِي ابْنِ شِهَابٍ، عَنِ ابْنِ شِهَابٍ، عَنْ سَالِمِ بْنِ عَبْدِ اللَّهِ، قَالَ سَمِعْتُ أَبَا هُرَيْرَةَ يَقُولُ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: "كُلُّ أُمَّتِي مُعَافًى إِلاَّ الْمُجَاهِرِينَ، وَإِنَّ مِنَ الْمُجَانَةِ أَنْ يَعْمَلَ الرَّجُلُ بِاللَّيْلِ عَمَلاً، ثُمَّ يُصْبِحَ وَقَدْ سَتَرَهُ اللَّهُ، فَيَقُولَ: يَا فُلاَنُ عَمِلْتُ الْبَارِحَةَ كَذَا وَكَذَا، وَقَدْ بَاتَ يَسْتُرُهُ رَبُّهُ وَيُصْبِحُ يَكْشِفُ سِتْرَ اللَّهِ عَنْهُ"</div>
+                                <div class="translation">Telah menceritakan kepada kami Abdul Aziz bin Abdullah, telah menceritakan kepada kami Ibrahim bin Sa‘d, dari keponakan Ibnu Syihab, dari Ibnu Syihab, dari Salim bin Abdullah, ia berkata: aku mendengar Abu Hurairah berkata: Aku mendengar Rasulullah ﷺ bersabda, "Semua umatku akan diampuni kecuali orang-orang yang melakukan dosa secara terang-terangan. Contoh dari pengungkapan tersebut adalah ketika seseorang melakukan dosa di malam hari dan Allah menutupinya dari publik, kemudian ia datang di pagi hari dan berkata, 'Wahai si Fulan, aku melakukan perbuatan (jahat) seperti ini dan itu kemarin,' padahal ia telah menghabiskan malamnya dengan ditutupi oleh Tuhannya (tidak ada yang mengetahui tentang dosanya) dan di pagi hari ia mengangkat tirai Allah dari dirinya."</div>
+                                <span class="source">— H.R. Bukhari 6069</span>
+                            </div>
+                        `
+                }, {
+                    id: '1C',
+                    label: 'C. Perlindungan Aurat dan Kehormatan Tubuh',
+                    icon: svgIcons.eye,
+                    content: `
+                            <h2 class="panel-title">C. Perlindungan Aurat dan Kehormatan Tubuh</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا عَبْدُ اللَّهِ بْنُ أَبِي زِيَادٍ، حَدَّثَنَا زَيْدُ بْنُ حُبَابٍ، أَخْبَرَنِي الضَّحَّاكُ بْنُ عُثْمَانَ، أَخْبَرَنِي زَيْدُ بْنُ أَسْلَمَ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ أَبِي سَعِيدٍ الْخُدْرِيِّ، عَنْ أَبِيهِ، قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "لاَ يَنْظُرُ الرَّجُلُ إِلَى عَوْرَةِ الرَّجُلِ، وَلاَ تَنْظُرُ الْمَرْأَةُ إِلَى عَوْرَةِ الْمَرْأَةِ، وَلاَ يُفْضِي الرَّجُلُ إِلَى الرَّجُلِ فِي الثَّوْبِ الْوَاحِدِ، وَلاَ تُفْضِي الْمَرْأَةُ إِلَى الْمَرْأَةِ فِي الثَّوْبِ الْوَاحِدِ"</div>
+                                <div class="translation">Telah menceritakan kepada kami Abdullah bin Abi Ziyad, telah menceritakan kepada kami Zaid bin Hubab, telah mengabarkan kepadaku Ad-Dahhak bin Utsman, telah mengabarkan kepadaku Zaid bin Aslam, dari Abdurrahman bin Abi Sa'id Al-Khudri, dari ayahnya, ia berkata: Rasulullah ﷺ bersabda: "Janganlah seorang laki-laki melihat aurat laki-laki lain, dan janganlah seorang perempuan melihat aurat perempuan lain, dan janganlah seorang laki-laki tidur dalam satu selimut dengan laki-laki lain tanpa penghalang, dan janganlah seorang perempuan tidur dalam satu selimut dengan perempuan lain tanpa penghalang."</div>
+                                <span class="source">— H.R. Tirmidzi, hasan gharib</span>
+                            </div>
+                        `
+                }]
+            }, {
+                id: 'bab2',
+                label: 'BAB II — Privasi dalam Interaksi dan Komunikasi Sosial',
+                icon: svgIcons.talk,
+                children: [{
+                    id: '2A',
+                    label: 'A. Kerahasiaan dalam Komunikasi Interpersonal',
+                    icon: svgIcons.secret,
+                    content: `
+                            <h2 class="panel-title">A. Kerahasiaan dalam Komunikasi Interpersonal</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا يَحْيَى بْنُ آدَمَ، حَدَّثَنَا ابْنُ أَبِي ذِئْبٍ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ عَطَاءٍ، عَنْ عَبْدِ الْمَلِكِ بْنِ جَابِرِ بْنِ عَتِيكٍ، عَنْ جَابِرِ بْنِ عَبْدِ اللَّهِ، قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "إِذَا حَدَّثَ الرَّجُلُ بِالْحَدِيثِ ثُمَّ الْتَفَتَ فَهِيَ أَمَانَةٌ"</div>
+                                <div class="translation">Telah menceritakan kepada kami Abu Bakr bin Abi Syaibah, telah menceritakan kepada kami Yahya bin Adam, telah menceritakan kepada kami Ibnu Abi Dzi’b, dari Abdurrahman bin ‘Atha’, dari Abdul Malik bin Jabir bin ‘Atik, dari Jabir bin Abdullah: Rasulullah ﷺ bersabda: "Ketika seorang lelaki menceritakan sesuatu dan kemudian (setelah itu) ia menoleh (ke kanan dan ke kiri), maka itu adalah amanah."</div>
+                                <span class="source">— H.R. Abu Dawud 4868</span>
+                            </div>
+
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا أَحْمَدُ بْنُ صَالِحٍ، قَالَ قَرَأْتُ عَلَى عَبْدِ اللَّهِ بْنِ نَافِعٍ، قَالَ أَخْبَرَنِي ابْنُ أَبِي ذِئْبٍ، عَنِ ابْنِ أَخِي، عَنْ جَابِرِ بْنِ عَبْدِ اللَّهِ، قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "الْمَجَالِسُ بِالأَمَانَةِ إِلاَّ ثَلاَثَ مَجَالِسٍ: سَفْكُ دَمٍ حَرَامٍ، أَوْ فَرْجٌ حَرَامٌ، أَوْ مَالٌ حَرَامٌ"</div>
+                                <div class="translation">Telah menceritakan kepada kami Ahmad bin Shalih, ia berkata: aku membacakan (hadis) kepada Abdullah bin Nafi‘, ia berkata: telah mengabarkan kepadaku Ibnu Abi Dzi’b, dari keponakanku, Dari Jabir bin Abdullah: Rasulullah ﷺ bersabda: "Pertemuan adalah rahasia kecuali tiga (hal): yang bertujuan untuk menumpahkan darah secara tidak sah, atau melakukan perzinahan, atau mengambil harta secara tidak sah."</div>
+                                <span class="source">— H.R. Abu Dawud 4869</span>
+                            </div>
+
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا عُبَيْدُ اللَّهِ بْنُ مُعَاذٍ الْعَنْبَرِيُّ، حَدَّثَنَا أَبِي، ح وَحَدَّثَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، حَدَّثَنَا عَبْدُ الرَّحْمَنِ بْنُ مَهْدِيٍّ، قَالاَ حَدَّثَنَا شُعْبَةُ، عَنْ خُبَيْبِ بْنِ عَبْدِ الرَّحْمَنِ، عَنْ حَفْصِ بْنِ عَاصِمٍ، قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "كَفَى بِالْمَرْءِ كَذِبًا أَنْ يُحَدِّثَ بِكُلِّ مَا سَمِعَ"</div>
+                                <div class="translation">Telah menceritakan kepada kami 'Ubaidillah bin Mu'adz al-'Anbari, telah menceritakan kepada kami ayahku; dan telah menceritakan kepada kami Muhammad bin al-Mutsanna, telah menceritakan kepada kami Abdurrahman bin Mahdi, keduanya berkata: telah menceritakan kepada kami Syu'bah, dari Khubaib bin Abdurrahman, dari Hafsh bin 'Ashim, ia berkata: Rasulullah ﷺ bersabda: "Cukuplah seseorang dikatakan dusta apabila ia menceritakan segala sesuatu yang ia dengar."</div>
+                                <span class="source">— H.R. Muslim</span>
+                            </div>
+                        `
+                }, {
+                    id: '2B',
+                    label: 'B. Penghormatan terhadap Privasi Rumah',
+                    icon: svgIcons.door,
+                    content: `
+                            <h2 class="panel-title">B. Penghormatan terhadap Privasi Rumah</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا عَمْرُو بْنُ مُحَمَّدِ بْنِ بُكَيْرٍ النَّاقِدُ، حَدَّثَنَا سُفْيَانُ بْنُ عُيَيْنَةَ، عَنِ - وَاللَّهِ - يَزِيدَ بْنِ خُصَيْفَةَ، عَنْ بُسْرِ بْنِ سَعِيدٍ، قَالَ: سَمِعْتُ أَبَا سَعِيدٍ الْخُدْرِيَّ يَقُولُ: كُنْتُ جَالِسًا فِي مَجْلِسِ الْأَنْصَارِ، فَجَاءَ أَبُو مُوسَى فَزِعًا، فَقُلْنَا: مَا لَكَ؟ قَالَ: أَرْسَلَ إِلَيَّ عُمَرُ، فَجِئْتُ إِلَى بَابِهِ فَسَلَّمْتُ ثَلَاثًا، فَلَمْ يُؤْذَنْ لِي، فَرَجَعْتُ، فَقَالَ: مَا مَنَعَكَ؟ قُلْتُ: سَلَّمْتُ ثَلَاثًا فَلَمْ يُؤْذَنْ لِي، فَرَجَعْتُ، قَالَ: أَلَا سَمِعْتَ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: إِذَا اسْتَأْذَنَ أَحَدُكُمْ ثَلَاثًا فَلَمْ يُؤْذَنْ لَهُ فَلْيَرْجِعْ؟ قَالَ: بَلَى، قَالَ: وَاللَّهِ لَتُقِيمُنَّ عَلَيَّ بِهَا بَيِّنَةً، أَوْ لَأَفْعَلَنَّ، فَأَخْبَرَ عُمَرَ أَبَا سَعِيدٍ الْخُدْرِيَّ، فَقَامَ مَعَ الْقَوْمِ حَتَّى أَتَى عُمَرَ، فَأَخْبَرَهُ.</div>
+                                <div class="translation">Telah mengabarkan kepada kami Amru bin Muhammad bin Bukair Al-Naqid, telah mengabarkan kepada kami Sufyan bin Uyainah, dari - demi Allah - Yazid bin Khusairah dari Busra bin Said, ia berkata: "Aku mendengar Abu Said Al-Khudri berkata: Aku sedang duduk di Madinah dalam majelis Ansar ketika Abu Musa datang dengan ketakutan. Kami berkata: Apa yang terjadi? Ia berkata: "Umar telah mengutusku untuk menemuinya. Aku pergi ke pintunya dan memberi salam tiga kali tetapi ia tidak menjawabku, maka aku kembali. Ia berkata: Apa yang menghalangimu untuk datang? Aku berkata: Aku memberi salam tiga kali tetapi tidak diizinkan masuk, maka aku kembali. Ia berkata: Tidakkah engkau mendengar Rasulullah ﷺ bersabda: 'Jika salah seorang di antara kalian meminta izin tiga kali dan tidak diberi izin, maka hendaklah ia kembali.' Ia menjawab: Benar. Ia berkata: Demi Allah, engkau harus mendatangkan saksi atas hal ini, atau aku akan melakukan sesuatu. Maka Umar memberitahu Abu Sa'id Al-Khudri, lalu ia berdiri bersama orang-orang hingga mendatangi Umar dan memberitahunya."</div>
+                                <span class="source">— H.R. Tirmidzi, hasan gharib</span>
+                            </div>
+                        `
+                }]
+            }, {
+                id: 'bab3',
+                label: 'BAB III — Etika Meminta Izin dan Menjaga Pandangan',
+                icon: svgIcons.eye,
+                children: [{
+                    id: '3A',
+                    label: 'A. Etika Meminta Izin',
+                    icon: svgIcons.door,
+                    content: `
+                            <h2 class="panel-title">A. Etika Meminta Izin</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا عَلِيُّ بْنُ عَبْدِ اللَّهِ، حَدَّثَنَا سُفْيَانُ، حَدَّثَنَا أَبُو الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "لَوْ أَنَّ امْرَأً اطَّلَعَ عَلَيْكَ بِغَيْرِ إِذْنٍ، فَخَذَفْتَهُ بِعَصَاةٍ، فَفَقَأْتَ عَيْنَهُ، لَمْ يَكُنْ عَلَيْكَ جُنَاحٌ"</div>
+                                <div class="translation">Telah menceritakan kepada kami ‘Alī bin ‘Abdullāh, telah menceritakan kepada kami Sufyān, telah menceritakan kepada kami Abū az-Zinād, dari al-A‘raj, dari Abu Hurairah, Rasulullah ﷺ bersabda: "Jika ada seseorang yang mengintip kepadamu tanpa izin, lalu kamu memukulnya dengan tongkat dan melukai matanya, maka kamu tidak akan disalahkan."</div>
+                                <span class="source">— H.R. Bukhari 6902</span>
+                            </div>
+                            <p style="margin-top:8px; color:#2d3f54;">Hadis ini menegaskan hak privasi dan perlindungan terhadap intrusi tanpa izin, sekaligus memberikan keringanan hukum bagi orang yang mempertahankan privasinya.</p>
+                        `
+                }, {
+                    id: '3B',
+                    label: 'B. Menjaga Pandangan',
+                    icon: svgIcons.eye,
+                    content: `
+                            <h2 class="panel-title">B. Menjaga Pandangan</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا عَبْدُ اللَّهِ بْنُ أَبِي زِيَادٍ، حَدَّثَنَا زَيْدُ بْنُ حُبَابٍ، أَخْبَرَنِي الضَّحَّاكُ بْنُ عُثْمَانَ، أَخْبَرَنِي زَيْدُ بْنُ أَسْلَمَ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ أَبِي سَعِيدٍ الْخُدْرِيِّ، عَنْ أَبِيهِ، قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "لاَ يَنْظُرُ الرَّجُلُ إِلَى عَوْرَةِ الرَّجُلِ، وَلاَ تَنْظُرُ الْمَرْأَةُ إِلَى عَوْرَةِ الْمَرْأَةِ، وَلاَ يُفْضِي الرَّجُلُ إِلَى الرَّجُلِ فِي الثَّوْبِ الْوَاحِدِ، وَلاَ تُفْضِي الْمَرْأَةُ إِلَى الْمَرْأَةِ فِي الثَّوْبِ الْوَاحِدِ"</div>
+                                <div class="translation">Telah menceritakan kepada kami Abdullah bin Abi Ziyad, telah menceritakan kepada kami Zaid bin Hubab, telah mengabarkan kepadaku Ad-Dahhak bin Utsman, telah mengabarkan kepadaku Zaid bin Aslam, dari Abdurrahman bin Abi Sa'id Al-Khudri, dari ayahnya, ia berkata: Rasulullah ﷺ bersabda: "Janganlah seorang laki-laki melihat aurat laki-laki lain, dan janganlah seorang perempuan melihat aurat perempuan lain, dan janganlah seorang laki-laki tidur dalam satu selimut dengan laki-laki lain tanpa penghalang, dan janganlah seorang perempuan tidur dalam satu selimut dengan perempuan lain tanpa penghalang."</div>
+                                <span class="source">— H.R. Tirmidzi, hasan gharib</span>
+                            </div>
+                            <p style="margin-top:8px; color:#2d3f54;">Hadis ini mengajarkan pentingnya menjaga pandangan dan tidak melanggar aurat orang lain, serta menjaga kesopanan dalam kehidupan sehari-hari.</p>
+                        `
+                }]
+            }, {
+                id: 'bab4',
+                label: 'BAB IV — Privasi dalam Rumah Tangga dan Kehidupan Sosial',
+                icon: svgIcons.home,
+                children: [{
+                    id: '4A',
+                    label: 'A. Perlindungan Privasi Rumah Tangga',
+                    icon: svgIcons.family,
+                    content: `
+                            <h2 class="panel-title">A. Perlindungan Privasi Rumah Tangga</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا مَرْوَانُ بْنُ مُعَاوِيَةَ، عَنْ عُمَرَ بْنِ حَمْزَةَ الْعُمَرِيِّ، حَدَّثَنَا عَبْدُ الرَّحْمَنِ بْنُ سَعْدٍ، قَالَ سَمِعْتُ أَبَا سَعِيدٍ الْخُدْرِيَّ، يَقُولُ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "إِنَّ مِنْ أَشَرِّ النَّاسِ عِنْدَ اللَّهِ مَنْزِلَةً يَوْمَ الْقِيَامَةِ الرَّجُلُ يُفْضِي إِلَى امْرَأَتِهِ وَتُفْضِي إِلَيْهِ ثُمَّ يَنْشُرُ سِرَّهَا"</div>
+                                <div class="translation">Telah menceritakan kepada kami Abu Bakar bin Abi Syaibah, telah menceritakan kepada kami Marwan bin Mu‘awiyah, dari Umar bin Hamzah al-‘Umari, telah menceritakan kepada kami Abdurrahman bin Sa‘d, ia berkata: Aku mendengar Abu Sa'id Al-Khudri berkata: Rasulullah ﷺ bersabda: "Sesungguhnya seburuk-buruk kedudukan seseorang di sisi Allah pada hari kiamat adalah seorang laki-laki yang menggauli istrinya dan istrinya menggaulinya, kemudian ia menyebarkan rahasianya."</div>
+                                <span class="source">— H.R. Muslim</span>
+                            </div>
+                        `
+                }, {
+                    id: '4C',
+                    label: 'C. Menjaga Kenyamanan dan Keamanan Sosial',
+                    icon: svgIcons.neighborhood,
+                    content: `
+                            <h2 class="panel-title">C. Menjaga Kenyamanan dan Keamanan Sosial</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا يَحْيَى بْنُ أَيُّوبَ، وَقُتَيْبَةُ بْنُ سَعِيدٍ، وَعَلِيُّ بْنُ حُجْرٍ، جَمِيعًا عَنْ إِسْمَاعِيلَ بْنِ جَعْفَرٍ، قَالَ ابْنُ أَيُّوبَ حَدَّثَنَا إِسْمَاعِيلُ، قَالَ أَخْبَرَنِي الْعَلاَءُ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: "لاَ يَدْخُلُ الْجَنَّةَ مَنْ لاَ يَأْمَنُ جَارُهُ بَوَائِقَهُ"</div>
+                                <div class="translation">Telah menceritakan kepada kami Yahya bin Ayyub, Qutaibah bin Sa‘id, dan ‘Ali bin Hujr, semuanya dari Isma‘il bin Ja‘far. Ibnu Ayyub berkata: telah menceritakan kepada kami Isma‘il. Ia (Isma‘il) berkata: telah mengabarkan kepadaku al-‘Ala’, dari ayahnya, dari Abu Hurairah bahwa Rasulullah ﷺ bersabda: "Tidak akan masuk surga orang yang tidak aman tetangganya dari keburukannya."</div>
+                                <span class="source">— H.R. Muslim 46</span>
+                            </div>
+
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا مُحَمَّدُ بْنُ عُبَيْدٍ، وَأَحْمَدُ بْنُ عَبَدَةَ، الْمَعْنَى، قَالاَ حَدَّثَنَا حَمَّادٌ، حَدَّثَنَا عَامِرٌ الأَحْوَلُ، عَنْ عَمْرِو بْنِ شُعَيْبٍ، عَنْ أَبِيهِ، عَنْ جَدِّهِ، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: "لاَ يُجْلَسْ بَيْنَ رَجُلَيْنِ إِلاَّ بِإِذْنِهِمَا"</div>
+                                <div class="translation">Telah menceritakan kepada kami Muhammad bin Ubaid dan Ahmad bin Abadah, keduanya berkata: Telah menceritakan kepada kami Hammad, telah menceritakan kepada kami Amir al-Ahwal, dari Amru bin Shu'aib, dari ayahnya, dari kakeknya, bahwa Rasulullah ﷺ bersabda: "Tidak boleh duduk di antara dua pria kecuali dengan izin mereka."</div>
+                                <span class="source">— H.R. Abu Dawud 4844</span>
+                            </div>
+                        `
+                }]
+            }];
+
+            const extraData = [{
+                id: 'daftar-pustaka',
+                label: 'Daftar Pustaka',
+                icon: svgIcons.books,
+                content: `
+                        <h2 class="panel-title">Daftar Pustaka</h2>
+                        <div class="bibliography">
+                            <ul>
+                                <li>Abū Dāwud, Sulaimān ibn al-Asy‘aṡ ibn Isḥāq ibn Basyīr ibn Syidād ibn ‘Amru al-Azdiy al-Sijistāniy. <em>Sunan Abī Dāwud</em>. Edited by Muḥammad Muḥyī al-Dīn ‘Abd al-Ḥamīd. 4 vols. Beirut: al-Maktabah al-‘Aṣriyyah, n.d.</li>
+                                <li>Al-Bukhāriy, Abū ‘Abdillāh Muḥammad ibn Ismā‘īl. <em>Ṣaḥīḥ al-Bukhāriy</em>. Edited by Muṣṭafā Daib al-Bagā. 7 vols. Damaskus: Dār Ibn Kaṡīr, 1993.</li>
+                                <li>Ibn al-Ḥajjāj, Muslim. <em>Ṣaḥīḥ Muslim</em>. Edited by Muḥammad Fu‘ād ‘Abd al-Bāqī. 5 vols. n.p.: Dār Iḥyā' al-Turāṡ al-‘Arabiy, 1955.</li>
+                                <li>Ibn Mājah, Abū ‘Abd Allāh Muḥammad. <em>Sunan ibn Mājah</em>. Edited by Muḥammad Fu‘ād ‘Abd al-Bāqī. 2 vols. n.p.: Dār Iḥyā' al-Kutub al-‘Arabiyyah, n.d.</li>
+                                <li>Al-Nassā'iy, Abū ‘Abd al-Raḥmān ibn Syu‘aib. <em>Sunan al-Nassā'iy</em>. Edited by ‘Abd al-Fattāḥ Abū Guddah. 8 vols. Aleppo: Maktab al-Maṭbū‘āt al-Islāmiyyah, 1986.</li>
+                                <li>Al-Tirmīziy, Abū ‘Īsā Muḥammad ibn ‘Īsā. <em>Sunan al-Tirmīziy</em>. Edited by Aḥmad Muḥammad Syākir, et al. 5 vols. Mesir: Muṣṭafā al-Bābī al-Ḥalabiy, 1975.</li>
+                            </ul>
+                        </div>
+                    `
+            }, {
+                id: 'profil-penulis',
+                label: 'Profil Penulis',
+                icon: svgIcons.profile,
+                content: `
+                        <h2 class="panel-title">Profil Penulis</h2>
+                        <div class="profile-card">
+                            <div class="name">Akhsa Alpar Mubarok</div>
+                            <div class="role">Penulis &amp; Peneliti Hadis</div>
+                            <p>
+                                Akhsa Alpar Mubarok adalah penulis buku <em>“Privasi dalam Perspektif Hadis: Studi Hadis Tematik”</em>. Ketertarikannya pada kajian hadis dan isu-isu sosial keislaman mendorongnya untuk menghimpun dan menyusun hadis-hadis Nabi secara tematik, khususnya yang berkaitan dengan konsep privasi, perlindungan kehormatan, etika komunikasi, dan kehidupan sosial dalam Islam.
+                            </p>
+                            <p style="margin-top:10px;">
+                                Buku ini disusun sebagai upaya untuk menghadirkan pemahaman hadis yang lebih utuh, sistematis, dan proporsional terhadap isu privasi yang semakin relevan di tengah perkembangan teknologi informasi dan media sosial. Dengan pendekatan studi hadis tematik (<em>maudhu‘i</em>), penulis mengklasifikasikan hadis-hadis ke dalam beberapa tema besar sehingga pembaca dapat memahami keterkaitan makna hadis secara lebih komprehensif dan kontekstual.
+                            </p>
+                        </div>
+                    `
+            }];
+
+            // ===== RENDER FUNCTIONS =====
+            const topMenuContainer = document.getElementById('topMenu');
+            const menuContainer = document.getElementById('menuContainer');
+            const extraMenuContainer = document.getElementById('extraMenu');
+            const panelContainer = document.getElementById('panelContainer');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const hamburger = document.getElementById('hamburgerBtn');
+
+            function renderTopMenu() {
+                let html = '';
+                topMenuData.forEach(item => {
+                    html += `<div style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 2px solid rgba(43,79,140,0.08);">`;
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                                <span class="icon">${item.icon}</span> ${item.label}
+                            </button>`;
+                    html += `</div>`;
+                });
+                topMenuContainer.innerHTML = html;
+            }
+
+            function renderMenuItems(items, depth) {
+                let html = '';
+                items.forEach(item => {
+                    if (item.children) {
+                        const isTop = depth === 0;
+                        html += `<div class="menu-section">`;
+                        html += `<button class="menu-head ${isTop ? 'open' : ''}" data-toggle="${item.id}" aria-expanded="${isTop}">
+                                    <span class="icon">${item.icon || svgIcons.folder}</span> ${item.label}
+                                    <span class="arrow">▶</span>
+                                </button>`;
+                        html += `<ul class="sub-menu ${isTop ? 'open' : ''}">`;
+                        html += renderMenuItems(item.children, depth + 1);
+                        html += `</ul></div>`;
+                    } else {
+                        html += `<li><button class="sub-link" data-panel="${item.id}">
+                                    <span class="sub-icon">${item.icon || svgIcons.target}</span> ${item.label}
+                                </button></li>`;
+                    }
+                });
+                return html;
+            }
+
+            function renderMenu() {
+                let html = '';
+                menuData.forEach(item => {
+                    html += `<div class="menu-section">`;
+                    html += `<button class="menu-head open" data-toggle="${item.id}" aria-expanded="true">
+                                <span class="icon">${item.icon || svgIcons.folder}</span> ${item.label}
+                                <span class="arrow">▶</span>
+                            </button>`;
+                    html += `<ul class="sub-menu open">`;
+                    html += renderMenuItems(item.children, 1);
+                    html += `</ul></div>`;
+                });
+                menuContainer.innerHTML = html;
+            }
+
+            function renderExtraMenu() {
+                let html = '';
+                extraData.forEach(item => {
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                                <span class="icon">${item.icon}</span> ${item.label}
+                            </button>`;
+                });
+                extraMenuContainer.innerHTML = html;
+            }
+
+            function renderPanels() {
+                let html = '';
+                topMenuData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+
+                function collectPanels(items) {
+                    items.forEach(item => {
+                        if (item.children) {
+                            collectPanels(item.children);
+                        } else {
+                            html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                        }
+                    });
+                }
+                collectPanels(menuData);
+                extraData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+                panelContainer.innerHTML = html;
+            }
+
+            function showPanel(panelId, fromSubLink = true) {
+                document.querySelectorAll('.content-panel').forEach(el => el.classList.remove('active'));
+                const panel = document.getElementById('panel-' + panelId);
+                if (panel) panel.classList.add('active');
+
+                document.querySelectorAll('.sub-link, .extra-link').forEach(el => el.classList.remove('active'));
+                const link = document.querySelector(`.sub-link[data-panel="${panelId}"], .extra-link[data-panel="${panelId}"]`);
+                if (link) link.classList.add('active');
+
+                if (window.innerWidth <= 991 && fromSubLink) closeSidebar();
+            }
+
+            function toggleSection(btn) {
+                const sub = btn.nextElementSibling;
+                if (!sub) return;
+                const isOpen = sub.classList.contains('open');
+                if (isOpen) {
+                    sub.classList.remove('open');
+                    btn.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+                } else {
+                    sub.classList.add('open');
+                    btn.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            }
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function toggleSidebar() {
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            function init() {
+                renderPanels();
+                renderTopMenu();
+                renderMenu();
+                renderExtraMenu();
+
+                topMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                menuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('menu-head')) {
+                        e.stopPropagation();
+                        toggleSection(target);
+                        return;
+                    }
+                    if (target.classList.contains('sub-link')) {
+                        e.preventDefault();
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                        return;
+                    }
+                });
+
+                extraMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                // Default: tampilkan kata pengantar
+                if (topMenuData.length > 0) {
+                    showPanel(topMenuData[0].id, false);
+                }
+
+                hamburger.addEventListener('click', toggleSidebar);
+                overlay.addEventListener('click', closeSidebar);
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 991) closeSidebar();
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+                });
+            }
+
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+        })();
+    </script>
+</body>
+</html>
