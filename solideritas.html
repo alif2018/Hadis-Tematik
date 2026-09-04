@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solidaritas dalam Perspektif Hadits Tematik</title>
+    <base target="_self" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f6f0;
+            color: #1e2b3a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        :root {
+            --primary: #2b4f8c;
+            --gold: #c9a84c;
+            --gold-light: #e0c66e;
+            --gold-dark: #a8892f;
+            --bg-body: #f8f6f0;
+            --bg-card: #ffffff;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --sidebar-width: 300px;
+            --header-height: 72px;
+        }
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 2px 12px rgba(43, 79, 140, 0.25);
+        }
+        .app-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .app-header .brand img {
+            height: 44px;
+            width: auto;
+            border-radius: 6px;
+            background: #fff;
+            padding: 4px;
+            object-fit: contain;
+        }
+        .app-header .brand .title-group {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .app-header .brand .title-group h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .app-header .brand .title-group .author {
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+        .app-header .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px 4px;
+            border-radius: 6px;
+        }
+        .app-header .hamburger:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .app-header .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: #fff;
+            border-radius: 4px;
+        }
+        .app-layout {
+            display: flex;
+            flex: 1;
+            position: relative;
+        }
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            border-left: 1px solid rgba(43, 79, 140, 0.10);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.04);
+            height: calc(100vh - var(--header-height));
+            position: sticky;
+            top: var(--header-height);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 16px 10px 30px;
+            flex-shrink: 0;
+            transition: transform var(--transition);
+            z-index: 900;
+        }
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: #f0ede7;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 8px;
+        }
+
+        .menu-section {
+            margin-bottom: 4px;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.06);
+        }
+        .menu-section:last-of-type {
+            border-bottom: none;
+        }
+        .menu-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 14px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-align: left;
+        }
+        .menu-head:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .menu-head .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            fill: var(--primary);
+        }
+        .menu-head .arrow {
+            margin-left: auto;
+            font-size: 0.7rem;
+            transition: transform var(--transition);
+            color: var(--gold-dark);
+        }
+        .menu-head.open .arrow {
+            transform: rotate(90deg);
+        }
+
+        .sub-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 6px 0;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.35s ease, opacity 0.25s ease;
+            opacity: 0;
+        }
+        .sub-menu.open {
+            max-height: 1200px;
+            opacity: 1;
+        }
+        .sub-menu li {
+            margin: 0;
+        }
+        .sub-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px 8px 38px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 450;
+            color: #2d3f54;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .sub-link:hover {
+            background: rgba(43, 79, 140, 0.07);
+            color: var(--primary);
+        }
+        .sub-link.active {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .sub-link .sub-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px;
+            fill: #2d3f54;
+            opacity: 0.8;
+        }
+        .sub-link:hover .sub-icon {
+            fill: var(--primary);
+        }
+        .sub-link.active .sub-icon {
+            fill: #fff;
+            opacity: 1;
+        }
+
+        .extra-menu {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 2px solid rgba(43, 79, 140, 0.08);
+        }
+        .extra-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+        .extra-link:hover {
+            background: rgba(43, 79, 140, 0.06);
+        }
+        .extra-link.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(43, 79, 140, 0.25);
+        }
+        .extra-link .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            fill: var(--primary);
+        }
+        .extra-link.active .icon {
+            fill: #fff;
+        }
+
+        .top-menu {
+            margin-bottom: 6px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(43, 79, 140, 0.08);
+        }
+        .top-menu .extra-link {
+            font-weight: 600;
+            color: var(--gold-dark);
+        }
+        .top-menu .extra-link:hover {
+            background: rgba(201, 168, 76, 0.08);
+        }
+        .top-menu .extra-link.active {
+            background: var(--gold);
+            color: #1e2b3a;
+        }
+        .top-menu .extra-link.active .icon {
+            fill: #1e2b3a;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 32px 40px 60px;
+            min-width: 0;
+            background: var(--bg-body);
+        }
+        .content-panel {
+            display: none;
+            animation: fadeUp 0.35s ease;
+        }
+        .content-panel.active {
+            display: block;
+        }
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .panel-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 22px 0 10px;
+            padding-bottom: 4px;
+            border-bottom: 2px solid var(--gold-light);
+        }
+        .hadith-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 18px 0 22px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--gold);
+        }
+        .hadith-box .arabic {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #1e2b3a;
+            direction: rtl;
+            font-family: 'Times New Roman', 'Traditional Arabic', serif;
+            margin-bottom: 12px;
+            padding: 6px 0;
+            word-wrap: break-word;
+        }
+        .hadith-box .translation {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #2d3f54;
+            border-top: 1px dashed rgba(43, 79, 140, 0.12);
+            padding-top: 12px;
+        }
+        .hadith-box .source {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--gold-dark);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+        .bibliography {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(43, 79, 140, 0.10);
+        }
+        .bibliography ul {
+            list-style: none;
+            padding: 0;
+        }
+        .bibliography ul li {
+            padding: 6px 0 6px 20px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #2d3f54;
+            border-bottom: 1px solid rgba(43, 79, 140, 0.05);
+            text-indent: -20px;
+            padding-left: 30px;
+        }
+        .bibliography ul li::before {
+            content: "•";
+            color: var(--gold);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        .profile-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin: 18px 0;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            align-items: flex-start;
+        }
+        .profile-box .avatar {
+            flex-shrink: 0;
+            width: 140px;
+            height: 170px;
+            background: #e8e4db;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary);
+            font-weight: 300;
+            border: 2px solid var(--gold-light);
+        }
+        .profile-box .bio {
+            flex: 1;
+            min-width: 200px;
+        }
+        .profile-box .bio p {
+            margin-bottom: 8px;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            color: #2d3f54;
+        }
+        .profile-box .bio strong {
+            color: var(--primary);
+        }
+        .profile-box .bio ul {
+            list-style: none;
+            padding: 0;
+            margin: 6px 0 0;
+        }
+        .profile-box .bio ul li {
+            padding: 3px 0 3px 18px;
+            position: relative;
+            font-size: 0.9rem;
+        }
+        .profile-box .bio ul li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+        }
+
+        .synopsis-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin: 18px 0;
+            box-shadow: var(--shadow);
+            line-height: 1.8;
+            font-size: 0.98rem;
+            color: #2d3f54;
+        }
+        .synopsis-box p {
+            margin-bottom: 14px;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 850;
+            backdrop-filter: blur(2px);
+        }
+        .overlay.active {
+            display: block;
+        }
+
+        @media (max-width: 991px) {
+            .app-header .hamburger {
+                display: flex;
+            }
+            .sidebar {
+                position: fixed;
+                top: var(--header-height);
+                right: 0;
+                height: calc(100vh - var(--header-height));
+                transform: translateX(100%);
+                box-shadow: -8px 0 30px rgba(0, 0, 0, 0.10);
+                border-left: none;
+                width: 290px;
+                padding: 12px 8px 30px;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                padding: 20px 18px 40px;
+            }
+            .panel-title {
+                font-size: 1.5rem;
+            }
+            .panel-subtitle {
+                font-size: 1.1rem;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 1rem;
+            }
+            .app-header .brand img {
+                height: 36px;
+            }
+            .hadith-box {
+                padding: 16px 18px;
+            }
+            .hadith-box .arabic {
+                font-size: 1rem;
+            }
+            .profile-box {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .profile-box .avatar {
+                width: 120px;
+                height: 150px;
+            }
+        }
+        @media (max-width: 480px) {
+            :root {
+                --header-height: 64px;
+            }
+            .app-header {
+                padding: 0 14px;
+            }
+            .app-header .brand .title-group h1 {
+                font-size: 0.85rem;
+            }
+            .app-header .brand .title-group .author {
+                font-size: 0.7rem;
+            }
+            .sidebar {
+                width: 265px;
+            }
+            .main-content {
+                padding: 14px 12px 30px;
+            }
+            .panel-title {
+                font-size: 1.25rem;
+            }
+            .sub-link {
+                padding: 7px 10px 7px 28px;
+                font-size: 0.8rem;
+            }
+            .menu-head {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="brand">
+            <img src="logo-pshd.jpg" alt="Logo" />
+            <div class="title-group">
+                <h1>Solidaritas dalam Perspektif Hadits Tematik</h1>
+                <span class="author">Penyusun: Khoirul Fahmi & Muhammad Gufron</span>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+    <div class="app-layout">
+        <div class="overlay" id="overlay"></div>
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Daftar isi">
+            <div class="top-menu" id="topMenu"></div>
+            <div id="menuContainer"></div>
+            <div class="extra-menu" id="extraMenu"></div>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div id="panelContainer"></div>
+        </main>
+    </div>
+    <script>
+        (function() {
+            'use strict';
+
+            // ===== SVG ICONS =====
+            const svgIcons = {
+                book: '<svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>',
+                books: '<svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>',
+                folder: '<svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>',
+                target: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>',
+                heart: '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>',
+                hands: '<svg viewBox="0 0 24 24"><path d="M18 11h-2V6c0-1.1-.9-2-2-2v0c-1.1 0-2 .9-2 2v5H9V4c0-1.1-.9-2-2-2v0C5.9 2 5 2.9 5 4v12.25c0 .77.31 1.48.86 2.02l4.97 4.98c.55.55 1.28.86 2.04.86h5.08c1.66 0 3.01-1.34 3.01-3v-6c0-1.66-1.34-3-3-3z"/></svg>',
+                scale: '<svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l4-2.18L12 3zm6.82 9L12 15.72 5.18 12 12 8.28l6.82 3.72zM5 16.5v-3.55L12 17l7-4.05v3.55L12 20.28 5 16.5z"/></svg>',
+                star: '<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>',
+                user: '<svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>',
+                edit: '<svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>',
+                info: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>',
+                home: '<svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>',
+                people: '<svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>',
+                list: '<svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>'
+            };
+
+            // ============================================================
+            //  DATA MENU — sesuai struktur Heading 1 → Heading 2
+            // ============================================================
+
+            const menuData = [{
+                id: 'bab1',
+                label: 'BAB I — Solidaritas dalam Islam',
+                icon: svgIcons.folder,
+                children: [{
+                    id: '1A',
+                    label: 'A. Pengertian Solidaritas dalam Islam',
+                    icon: svgIcons.target,
+                    content: `
+                        <h2 class="panel-title">A. Pengertian Solidaritas dalam Islam</h2>
+
+                        <h3 class="panel-subtitle">1. Makna Ukhuwah (Persaudaraan Iman)</h3>
+                        <div class="hadith-box">
+                            <div class="arabic">(٦٠١١) حَدَّثَنَا أَبُو نُعَيْمٍ: حَدَّثَنَا زَكَرِيَّاءُ، عَنْ عَامِرٍ قَالَ: سَمِعْتُهُ يَقُولُ: سَمِعْتُ النُّعْمَانَ بْنَ بَشِيرٍ يَقُولُ: قَالَ رَسُولُ اللهِ ﷺ: «تَرَى الْمُؤْمِنِينَ فِي تَرَاحُمِهِمْ وَتَوَادِّهِمْ وَتَعَاطُفِهِمْ كَمَثَلِ الْجَسَدِ إِذَا اشْتَكَى عُضْوًا تَدَاعَى لَهُ سَائِرُ جَسَدِهِ بِالسَّهَرِ وَالْحُمَّى.</div>
+                            <div class="translation">HR. Shahih Bukhari 6011 — Dari An-Nu'man bin Basyir, Rasulullah ﷺ bersabda: "Perumpamaan orang-orang beriman dalam hal saling menyayangi, saling mencintai, dan saling peduli adalah seperti satu tubuh. Apabila satu anggota tubuh sakit, maka seluruh tubuh ikut merasakannya dengan tidak bisa tidur dan demam."</div>
+                            <span class="source">— Shahih Bukhari 6011</span>
+                        </div>
+
+                        <h3 class="panel-subtitle">2. Konsep Persaudaraan dan Keterikatan Iman</h3>
+                        <div class="hadith-box">
+                            <div class="arabic">(٢٤٤٦) حَدَّثَنَا مُحَمَّدُ بْنُ الْعَلَاءِ: حَدَّثَنَا أَبُو أُسَامَةَ، عَنْ بُرَيْدٍ، عَنْ أَبِي بُرْدَةَ، عَنْ أَبِي مُوسَى، عَنِ النَّبِيِّ ﷺ قَالَ: «الْمُؤْمِنُ لِلْمُؤْمِنِ كَالْبُنْيَانِ، يَشُدُّ بَعْضُهُ بَعْضًا وَشَبَّكَ بَيْنَ أَصَابِعِهِ.</div>
+                            <div class="translation">HR. Shahih Bukhari 2446 — Dari Abu Musa al-Asy'ari, Rasulullah ﷺ bersabda: "Seorang mukmin terhadap mukmin yang lain seperti sebuah bangunan, yang satu saling menguatkan yang lain."</div>
+                            <span class="source">— Shahih Bukhari 2446</span>
+                        </div>
+
+                        <h3 class="panel-subtitle">3. Eksistensi Solidaritas Sesama Muslim</h3>
+                        <div class="hadith-box">
+                            <div class="arabic">(٢٤٤٢) حَدَّثَنَا يَحْيَى بْنُ بُكَيْرٍ: حَدَّثَنَا اللَّيْثُ، عَنْ عُقَيْلٍ، عَنِ ابْنِ شِهَابٍ أَنَّ سَالِمًا أَخْبَرَهُ: أَنَّ عَبْدَ اللهِ بْنَ عُمَرَ أَخْبَرَهُ: أَنَّ رَسُولَ اللهِ ﷺ قَالَ: «الْمُسْلِمُ أَخُو الْمُسْلِمِ، لَا يَظْلِمُهُ وَلَا يُسْلِمُهُ، وَمَنْ كَانَ فِي حَاجَةِ أَخِيهِ كَانَ اللهُ فِي حَاجَتِهِ، وَمَنْ فَرَّجَ عَنْ مُسْلِمٍ كُرْبَةً فَرَّجَ اللهُ عَنْهُ كُرْبَةً مِنْ كُرُبَاتِ يَوْمِ الْقِيَامَةِ، وَمَنْ سَتَرَ مُسْلِمًا سَتَرَهُ اللهُ يَوْمَ الْقِيَامَةِ.</div>
+                            <div class="translation">HR. Shahih Bukhari 2442 — Dari Abdullah bin 'Umar, Rasulullah ﷺ bersabda: "Seorang muslim adalah saudara bagi muslim yang lain. Ia tidak menzaliminya dan tidak membiarkannya (dalam bahaya). Barang siapa berada dalam kebutuhan saudaranya, maka Allah akan berada dalam kebutuhannya. Barang siapa melepaskan satu kesusahan seorang muslim, Allah akan melepaskan darinya satu kesusahan pada hari kiamat. Dan barang siapa menutupi aib seorang muslim, Allah akan menutupi aibnya pada hari kiamat."</div>
+                            <span class="source">— Shahih Bukhari 2442</span>
+                        </div>
+                    `
+                }, {
+                    id: '1B',
+                    label: 'B. Bentuk-Bentuk Solidaritas dalam Hadits',
+                    icon: svgIcons.list,
+                    content: `
+                        <h2 class="panel-title">B. Bentuk-Bentuk Solidaritas dalam Hadits</h2>
+
+                        <h3 class="panel-subtitle">1. Solidaritas Iman dan Persaudaraan Spiritual</h3>
+                        <div class="hadith-box">
+                            <div class="arabic">(١٣) حَدَّثَنَا مُسَدَّدٌ قَالَ: حَدَّثَنَا يَحْيَى، عَنْ شُعْبَةَ، عَنْ قَتَادَةَ، عَنْ أَنَسٍ، عَنِ النَّبِيِّ ﷺ قَالَ: «لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لِأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ.</div>
+                            <div class="translation">HR. Shahih Bukhari 13 — Dari Anas bin Malik, Rasulullah ﷺ bersabda: "Tidak sempurna iman salah seorang di antara kalian sampai ia mencintai untuk saudaranya apa yang ia cintai untuk dirinya sendiri."</div>
+                            <span class="source">— Shahih Bukhari 13</span>
+                        </div>
+
+                        <h3 class="panel-subtitle">2. Solidaritas dalam Mengatasi Kesulitan</h3>
+                        <div class="hadith-box">
+                            <div class="arabic">(٢٦٩٩) حَدَّثَنَا يَحْيَى بْنُ يَحْيَى التَّمِيمِيُّ، وَأَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، وَمُحَمَّدُ بْنُ الْعَلَاءِ الْهَمْدَانِيُّ وَاللَّفْظُ لِيَحْيَى قَالَ يَحْيَى: أَخْبَرَنَا، وَقَالَ الْآخَرَانِ: حَدَّثَنَا أَبُو مُعَاوِيَةَ، عَنِ الْأَعْمَشِ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ، قَالَ: قَالَ رَسُولُ اللَّهِ ﷺ: «مَنْ نَفَّسَ عَنْ مُؤْمِنٍ كُرْبَةً مِنْ كُرَبِ الدُّنْيَا، نَفَّسَ اللَّهُ عَنْهُ كُرْبَةً مِنْ كُرَبِ يَوْمِ الْقِيَامَةِ. وَمَنْ يَسَّرَ عَلَى مُعْسِرٍ، يَسَّرَ اللَّهُ عَلَيْهِ فِي الدُّنْيَا وَالْآخِرَةِ. وَمَنْ سَتَرَ مُسْلِمًا، سَتَرَهُ اللَّهُ فِي الدُّنْيَا وَالْآخِرَةِ. وَاللَّهُ فِي عَوْنِ الْعَبْدِ مَا كَانَ الْعَبْدُ فِي عَوْنِ أَخِيهِ.</div>
+                            <div class="translation">HR. Shahih Muslim 2699 — Dari Abu Hurairah, Rasulullah ﷺ bersabda: "Barang siapa melapangkan satu kesusahan seorang mukmin dari kesusahan dunia, Allah akan melapangkan baginya satu kesusahan dari kesusahan hari kiamat. Barang siapa memudahkan orang yang kesulitan, Allah akan memudahkannya di dunia dan akhirat. Barang siapa menutupi aib seorang muslim, Allah akan menutupi aibnya di dunia dan akhirat. Allah selalu menolong seorang hamba selama hamba itu menolong saudaranya."</div>
+                            <span class="source">— Shahih Muslim 2699</span>
+                        </div>
+
+                        <h3 class="panel-subtitle">3. Solidaritas sebagai Tanggung Jawab Sosial Kolektif</h3>
+                        <div class="hadith-box">
+                            <div class="arabic">(٤٩) حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ. حَدَّثَنَا وَكِيعُ بْنُ سُفْيَانَ. ح وحدثنا محمد بن المثنى. حدثنا مُحَمَّدُ بْنُ جَعْفَرٍ. حَدَّثَنَا شُعْبَةُ كِلَاهُمَا عَنْ قَيْسِ بْنِ مُسْلِمٍ، عَنْ طَارِقِ بْنِ شِهَابٍ. وَهَذَا حَدِيثُ أَبِي بَكْرٍ. قَالَ: أَوَّلُ مَنْ بَدَأَ بِالْخُطْبَةِ، يَوْمَ الْعِيدِ قَبْلَ الصَّلَاةِ، مَرْوَانُ. فَقَامَ إِلَيْهِ رَجُلٌ. فَقَالَ: الصَّلَاةُ قَبْلَ الْخُطْبَةِ. فَقَالَ: قَدْ تُرِكَ مَا هُنَالِكَ. فَقَالَ أَبُو سَعِيدٍ: أَمَّا هَذَا فَقَدْ قَضَى مَا عَلَيْهِ. سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: «مَنْ رَأَى مِنْكُمْ مُنْكَرًا فَلْيُغَيِّرْهُ بِيَدِهِ. فَإِنْ لَمْ يَسْتَطِعْ فَبِلِسَانِهِ. وَمَنْ لَمْ يَسْتَطِعْ فَبِقَلْبِهِ. وَذَلِكَ أَضْعَفُ الإِيمَانِ.</div>
+                            <div class="translation">HR. Shahih Muslim 49 — Dari Abu Sa'id, Rasulullah ﷺ bersabda: "Barang siapa di antara kalian melihat kemungkaran, hendaklah ia mengubahnya dengan tangannya. Jika tidak mampu, maka dengan lisannya. Jika tidak mampu juga, maka dengan hatinya. Dan itulah selemah-lemahnya iman."</div>
+                            <span class="source">— Shahih Muslim 49</span>
+                        </div>
+
+                        <h3 class="panel-subtitle">4. Solidaritas dalam Bantuan Sosial dan Ekonomi</h3>
+                        <div class="hadith-box">
+                            <div class="arabic">(٥٣٥٣) حَدَّثَنَا يَحْيَى بْنُ قَزَعَةَ: حَدَّثَنَا مَالِكٌ، عَنْ ثَوْرِ بْنِ زَيْدٍ، عَنْ أَبِي الْغَيْثِ، عَنْ أَبِي هُرَيْرَةَ قَالَ: قَالَ النَّبِيُّ ﷺ: «السَّاعِي عَلَى الْأَرْمَلَةِ وَالْمِسْكِينِ كَالْمُجَاهِدِ فِي سَبِيلِ اللهِ، أَوِ الْقَائِمِ اللَّيْلَ الصَّائِمِ النَّهَارَ.</div>
+                            <div class="translation">HR. Shahih Bukhari 5353 — Dari Abu Hurairah, Rasulullah ﷺ bersabda: "Orang yang mengurus (menafkahi dan membantu) janda dan orang miskin, seperti orang yang berjihad di jalan Allah, atau seperti orang yang selalu shalat malam dan berpuasa di siang hari."</div>
+                            <span class="source">— Shahih Bukhari 5353</span>
+                        </div>
+
+                        <h3 class="panel-subtitle">5. Solidaritas melalui Sikap Positif dan Kebaikan</h3>
+                        <div class="hadith-box">
+                            <div class="arabic">(١٩٥٦) حَدَّثَنَا عَبَّاسُ بْنُ عَبْدِ الْعَظِيمِ الْعَنْبَرِيُّ، قَالَ: حَدَّثَنَا النَّضْرُ بْنُ مُحَمَّدٍ الْجُرَشِيُّ الْيَمَامِيُّ، قَالَ: حَدَّثَنَا عِكْرِمَةُ بْنُ عَمَّارٍ، قَالَ: حَدَّثَنَا أَبُو زُمَيْلٍ، عَنْ مَالِكِ بْنِ مَرْثَدٍ، عَنْ أَبِيهِ، عَنْ أَبِي ذَرٍّ قَالَ: قَالَ رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: «تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ، وَأَمْرُكَ بِالْمَعْرُوفِ وَنَهْيُكَ عَنِ الْمُنْكَرِ صَدَقَةٌ، وَإِرْشَادُكَ الرَّجُلَ فِي أَرْضِ الضَّلَالِ لَكَ صَدَقَةٌ، وَبَصَرُكَ لِلرَّجُلِ الرَّدِيءِ الْبَصَرِ لَكَ صَدَقَةٌ، وَإِمَاطَتُكَ الْحَجَرَ وَالشَّوْكَةَ وَالْعَظْمَ عَنِ الطَّرِيقِ لَكَ صَدَقَةٌ، وَإِفْرَاغُكَ مِنْ دَلْوِكَ فِي دَلْوِ أَخِيكَ لَكَ صَدَقَةٌ.</div>
+                            <div class="translation">HR. Sunan At-Tirmidzi 1956 — Dari Abu Dzar, Rasulullah ﷺ bersabda: "Senyummu di hadapan saudaramu adalah sedekah bagimu. Perintahmu kepada kebaikan dan laranganmu dari kemungkaran adalah sedekah. Petunjukmu kepada seseorang yang tersesat adalah sedekah. Bantuanmu kepada orang yang lemah penglihatannya adalah sedekah. Menyingkirkan batu, duri, dan tulang dari jalan adalah sedekah. Dan menuangkan air dari embermu ke ember saudaramu adalah sedekah."</div>
+                            <span class="source">— Sunan At-Tirmidzi 1956</span>
+                        </div>
+
+                        <h3 class="panel-subtitle">6. Solidaritas dalam Menjaga Persaudaraan dan Menghindari Permusuhan</h3>
+                        <div class="hadith-box">
+                            <div class="arabic">(٢٥٦٣) حَدَّثَنَا إِسْحَاقُ بْنُ إِبْرَاهِيمَ، أَخْبَرَنَا جَرِيرٌ، عَنِ الْأَعْمَشِ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ، قَالَ: قَالَ رَسُولُ اللَّهِ ﷺ: «لَا تَحَاسَدُوا، وَلَا تَبَاغَضُوا، وَلَا تَجَسَّسُوا، وَلَا تَحَسَّسُوا، وَلَا تَنَاجَشُوا، وَكُونُوا عِبَادَ اللَّهِ إِخْوَانًا.</div>
+                            <div class="translation">HR. Shahih Muslim 2563 — Dari Abu Hurairah, Rasulullah ﷺ bersabda: "Janganlah kalian saling dengki, jangan saling membenci, jangan saling memata-matai, jangan saling mencari-cari kesalahan, dan jangan saling menaikkan harga (secara curang). Jadilah kalian, wahai hamba-hamba Allah, bersaudara."</div>
+                            <span class="source">— Shahih Muslim 2563</span>
+                        </div>
+
+                        <h3 class="panel-subtitle">7. Solidaritas dalam Menjenguk Orang Sakit</h3>
+                        <div class="hadith-box">
+                            <div class="arabic">(٩٦٩) حَدَّثَنَا أَحْمَدُ بْنُ مَنِيعٍ، قَالَ: حَدَّثَنَا الْحُسَيْنُ بْنُ مُحَمَّدٍ، قَالَ: حَدَّثَنَا إِسْرَائِيلُ، عَنْ ثُوَيْرٍ — هُوَ بْنُ أَبِي فَاخِتَةَ — عَنْ أَبِيهِ قَالَ: أَخَذَ عَلِيٌّ بِيَدِي، قَالَ: انْطَلِقْ بِنَا إِلَى الْحَسَنِ نَعُودُهُ، فَوَجَدْنَا عِنْدَهُ أَبَا مُوسَى، فَقَالَ عَلِيٌّ: أَعَائِدًا جِئْتَ يَا أَبَا مُوسَى أَمْ زَائِرًا؟ فَقَالَ: لَا، بَلْ عَائِدًا، فَقَالَ عَلِيٌّ: سَمِعْتُ رَسُولَ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: «مَا مِنْ مُسْلِمٍ يَعُودُ مُسْلِمًا غُدْوَةً إِلَّا صَلَّى عَلَيْهِ سَبْعُونَ أَلْفَ مَلَكٍ حَتَّى يُمْسِيَ، وَإِنْ عَادَهُ عَشِيَّةً إِلَّا صَلَّى عَلَيْهِ سَبْعُونَ أَلْفَ مَلَكٍ حَتَّى يُصْبِحَ، وَكَانَ لَهُ خَرِيفٌ فِي الْجَنَّةِ.</div>
+                            <div class="translation">HR. Sunan At-Tirmidzi 969 — Dari Ali bin Abi Thalib, Rasulullah ﷺ bersabda: "Tidaklah seorang muslim menjenguk muslim yang lain pada pagi hari, kecuali tujuh puluh ribu malaikat akan mendoakannya hingga sore hari. Dan jika ia menjenguknya pada sore hari, maka tujuh puluh ribu malaikat akan mendoakannya hingga pagi hari. Dan baginya disediakan buah-buahan (balasan kebaikan) di dalam surga."</div>
+                            <span class="source">— Sunan At-Tirmidzi 969</span>
+                        </div>
+
+                        <h3 class="panel-subtitle">8. Solidaritas sebagai Bentuk Persatuan Umat</h3>
+                        <div class="hadith-box">
+                            <div class="arabic">(٢٧٥١) حَدَّثَنَا قُتَيْبَةُ بْنُ سَعِيدٍ، حَدَّثَنَا ابْنُ أَبِي عَدِيٍّ، عَنِ ابْنِ إِسْحَاقَ. (ح) وَحَدَّثَنَا عُبَيْدُ اللَّهِ بْنُ عُمَرَ، حَدَّثَنِي هُشَيْمٌ، عَنْ يَحْيَى بْنِ سَعِيدٍ، جَمِيعًا، عَنْ عَمْرِو بْنِ شُعَيْبٍ، عَنْ أَبِيهِ، عَنْ جَدِّهِ، قَالَ: قَالَ رَسُولُ اللَّهِ ﷺ: «الْمُسْلِمُونَ تَتَكَافَأُ دِمَاؤُهُمْ، يَسْعَى بِذِمَّتِهِمْ أَدْنَاهُمْ، وَيُجِيرُ عَلَيْهِمْ أَقْصَاهُمْ، وَهُمْ يَدٌ عَلَىٰ مَنْ سِوَاهُمْ، يَرُدُّ مُشِدُّهُمْ عَلَىٰ مُضْعِفِهِمْ، وَمُتَسَرِّيهِمْ عَلَىٰ قَاعِدِهِمْ، لَا يُقْتَلُ مُؤْمِنٌ بِكَافِرٍ، وَلَا ذُو عَهْدٍ فِي عَهْدِهِ.</div>
+                            <div class="translation">HR. Sunan Abi Dawud 2751 — Dari 'Amr bin Syu'aib dari ayahnya dari kakeknya, Rasulullah ﷺ bersabda: "Kaum muslimin itu darah mereka setara (sama nilainya). Orang yang paling rendah kedudukannya di antara mereka dapat memberi jaminan perlindungan, dan jaminan itu berlaku atas seluruh kaum muslimin. Yang paling jauh di antara mereka dapat memberi perlindungan, dan semuanya terikat olehnya. Mereka bersatu melawan siapa pun selain mereka. Yang kuat di antara mereka melindungi yang lemah, yang berperang melindungi yang tidak ikut berperang."</div>
+                            <span class="source">— Sunan Abi Dawud 2751</span>
+                        </div>
+                    `
+                }, {
+                    id: '1C',
+                    label: 'C. Dampak Sosial dan Spiritualitas dari Solidaritas',
+                    icon: svgIcons.scale,
+                    content: `
+                        <h2 class="panel-title">C. Dampak Sosial dan Spiritualitas dari Solidaritas</h2>
+
+                        <h3 class="panel-subtitle">1. Solidaritas Sosial melalui Perantara Kebaikan</h3>
+                        <div class="hadith-box">
+                            <div class="arabic">(١٨٩٣) وَحَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ وَأَبُو كُرَيْبٍ وَابْنُ أَبِي عُمَرَ وَاللَّفْظُ لِأَبِي كُرَيْبٍ قَالُوا: حَدَّثَنَا أَبُو مُعَاوِيَةَ عَنِ الْأَعْمَشِ، عَنْ أَبِي عَمْرٍو الشَّيْبَانِيِّ، عَنْ أَبِي مَسْعُودٍ الْأَنْصَارِيِّ. قَالَ: جَاءَ رَجُلٌ إِلَى النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فَقَالَ: إِنِّي أُبْدِعَ بِي فَاحْمِلْنِي. فَقَالَ: مَا عِنْدِي. فَقَالَ رَجُلٌ: يَا رَسُولَ اللَّهِ! أَنَا أَدُلُّهُ عَلَى مَنْ يَحْمِلُهُ. فَقَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «مَنْ دَلَّ عَلَى خَيْرٍ فَلَهُ مِثْلُ أَجْرِ فَاعِلِهِ.</div>
+                            <div class="translation">HR. Shahih Muslim 1893 — Dari Abu Mas'ud Al-Anshari, Rasulullah ﷺ bersabda: "Barang siapa menunjukkan kepada suatu kebaikan, maka ia akan memperoleh pahala seperti pahala orang yang melakukannya."</div>
+                            <span class="source">— Shahih Muslim 1893</span>
+                        </div>
+
+                        <h3 class="panel-subtitle">2. Solidaritas dalam Kebaikan dan Sedekah</h3>
+                        <div class="hadith-box">
+                            <div class="arabic">(٢٥٨٨) حَدَّثَنَا يَحْيَى بْنُ أَيُّوبَ، وَقُتَيْبَةُ، وَابْنُ حُجْرٍ، قَالُوا: حَدَّثَنَا إِسْمَاعِيلُ — وَهُوَ ابْنُ جَعْفَرٍ — عَنِ الْعَلَاءِ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، عَنْ رَسُولِ اللَّهِ ﷺ قَالَ: «مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ، وَمَا زَادَ اللَّهُ عَبْدًا بِعَفْوٍ إِلَّا عِزًّا، وَمَا تَوَاضَعَ أَحَدٌ لِلَّهِ إِلَّا رَفَعَهُ اللَّهُ.</div>
+                            <div class="translation">HR. Shahih Muslim 2588 — Dari Abu Hurairah, Rasulullah ﷺ bersabda: "Sedekah tidak akan mengurangi harta sedikit pun. Allah tidak menambahkan kepada seorang hamba dengan sikap memaafkan kecuali kemuliaan. Dan tidaklah seseorang merendahkan diri karena Allah, melainkan Allah akan mengangkat derajatnya."</div>
+                            <span class="source">— Shahih Muslim 2588</span>
+                        </div>
+
+                        <h3 class="panel-subtitle">3. Solidaritas melalui Silaturahmi dan Kasih Sayang</h3>
+                        <div class="hadith-box">
+                            <div class="arabic">(٢٥٥٧) وَحَدَّثَنِي عَبْدُ الْمَلِكِ بْنُ شُعَيْبِ بْنِ اللَّيْثِ، حَدَّثَنِي أَبِي، عَنْ جَدِّي، حَدَّثَنِي عُقَيْلُ بْنُ خَالِدٍ، قَالَ: قَالَ ابْنُ شِهَابٍ: أَخْبَرَنِي أَنَسُ بْنُ مَالِكٍ، أَنَّ رَسُولَ اللَّهِ ﷺ قَالَ: «مَنْ أَحَبَّ أَنْ يُبْسَطَ لَهُ فِي رِزْقِهِ، وَيُنْسَأَ لَهُ فِي أَثَرِهِ، فَلْيَصِلْ رَحِمَهُ.</div>
+                            <div class="translation">HR. Shahih Muslim 2557 — Dari Anas bin Malik, Rasulullah ﷺ bersabda: "Barang siapa yang ingin diluaskan rezekinya dan dipanjangkan umurnya (jejak kehidupannya), maka hendaklah ia menyambung tali silaturahmi."</div>
+                            <span class="source">— Shahih Muslim 2557</span>
+                        </div>
+                    `
+                }]
+            }, {
+                id: 'bab2',
+                label: 'BAB II — Solidaritas dalam Kehidupan',
+                icon: svgIcons.people,
+                children: [{
+                    id: '2A',
+                    label: 'A. Solidaritas dalam Hubungan Bertetangga',
+                    icon: svgIcons.home,
+                    content: `
+                        <h2 class="panel-title">A. Solidaritas dalam Hubungan Bertetangga</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">(٦٠١٦) حَدَّثَنَا مُحَمَّدُ بْنُ بَشَّارٍ، حَدَّثَنَا غُنْدَرٌ، حَدَّثَنَا شُعْبَةُ، عَنْ عَبْدِ الْمَلِكِ بْنِ عُمَيْرٍ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ أَبِي بَكْرَةَ، عَنْ أَبِي بَكْرَةَ، عَنِ النَّبِيِّ ﷺ أَنَّهُ قَالَ: «وَاللَّهِ لَا يُؤْمِنُ، وَاللَّهِ لَا يُؤْمِنُ، وَاللَّهِ لَا يُؤْمِنُ». قِيلَ: وَمَنْ يَا رَسُولَ اللهِ؟ قَالَ: «الَّذِي لَا يَأْمَنُ جَارُهُ بَوَائِقَهُ.</div>
+                            <div class="translation">HR. Shahih Bukhari 6016 — Dari Abu Bakrah, Rasulullah ﷺ bersabda: "Demi Allah, tidak (sempurna) iman seseorang. Demi Allah, tidak (sempurna) iman seseorang. Demi Allah, tidak (sempurna) iman seseorang." Ditanyakan: "Siapa wahai Rasulullah?" Beliau menjawab: "Orang yang tetangganya tidak merasa aman dari kejahatannya."</div>
+                            <span class="source">— Shahih Bukhari 6016</span>
+                        </div>
+                        <p style="margin-top:16px; line-height:1.8; color:#2d3f54;">Hadits ini menegaskan bahwa keimanan seseorang tidak sempurna jika tetangganya tidak merasa aman dari gangguannya. Ini menunjukkan bahwa solidaritas dimulai dari lingkungan terdekat, yaitu tetangga.</p>
+                    `
+                }, {
+                    id: '2B',
+                    label: 'B. Solidaritas dalam Ikatan Kekeluargaan',
+                    icon: svgIcons.heart,
+                    content: `
+                        <h2 class="panel-title">B. Solidaritas dalam Ikatan Kekeluargaan</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">(٥٩٨٤) حَدَّثَنَا يَحْيَى بْنُ بُكَيْرٍ، حَدَّثَنَا اللَّيْثُ، عَنْ عُقَيْلٍ، عَنِ ابْنِ شِهَابٍ، أَنَّ مُحَمَّدَ بْنَ جُبَيْرِ بْنِ مُطْعِمٍ، قَالَ: إِنَّ جُبَيْرَ بْنَ مُطْعِمٍ أَخْبَرَهُ أَنَّهُ سَمِعَ النَّبِيَّ ﷺ يَقُولُ: «لَا يَدْخُلُ الْجَنَّةَ قَاطِعٌ.</div>
+                            <div class="translation">HR. Shahih Bukhari 5984 — Dari Jubair bin Muth'im, ia mendengar Nabi ﷺ bersabda: "Tidak akan masuk surga orang yang memutus (tali silaturahmi)."</div>
+                            <span class="source">— Shahih Bukhari 5984</span>
+                        </div>
+                        <p style="margin-top:16px; line-height:1.8; color:#2d3f54;">Hadits ini menunjukkan betapa pentingnya menjaga hubungan kekeluargaan. Memutus silaturahmi adalah dosa besar yang dapat menghalangi seseorang dari surga. Solidaritas dalam keluarga merupakan fondasi utama dalam membangun masyarakat yang harmonis.</p>
+                    `
+                }, {
+                    id: '2C',
+                    label: 'C. Solidaritas dalam Menghadapi Kesulitan',
+                    icon: svgIcons.hands,
+                    content: `
+                        <h2 class="panel-title">C. Solidaritas dalam Menghadapi Kesulitan</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">(١٩٢٤) حَدَّثَنَا ابْنُ أَبِي عُمَرَ، حَدَّثَنَا سُفْيَانُ، عَنْ عَمْرِو بْنِ دِينَارٍ، عَنْ أَبِي قَابُوسَ، عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو، قَالَ: قَالَ رَسُولُ اللَّهِ ﷺ: «الرَّاحِمُونَ يَرْحَمُهُمُ الرَّحْمَنُ، ارْحَمُوا مَنْ فِي الْأَرْضِ يَرْحَمْكُمْ مَنْ فِي السَّمَاءِ.</div>
+                            <div class="translation">HR. Sunan At-Tirmidzi 1924 (hasan shahih) — Dari Abdullah bin 'Amr, Rasulullah ﷺ bersabda: "Orang-orang yang penyayang akan disayang oleh Allah Yang Maha Penyayang. Sayangilah siapa yang ada di bumi, niscaya kalian akan disayang oleh (Allah) yang ada di langit."</div>
+                            <span class="source">— Sunan At-Tirmidzi 1924</span>
+                        </div>
+                        <p style="margin-top:16px; line-height:1.8; color:#2d3f54;">Hadits ini mengajarkan bahwa sikap penyayang dan peduli terhadap sesama, terutama di saat sulit, akan mendatangkan rahmat dari Allah. Solidaritas dalam menghadapi kesulitan adalah cerminan dari kasih sayang yang hakiki.</p>
+                    `
+                }]
+            }, {
+                id: 'bab3',
+                label: 'BAB III — Penutup',
+                icon: svgIcons.book,
+                children: [{
+                    id: '3A',
+                    label: 'A. Kesimpulan',
+                    icon: svgIcons.info,
+                    content: `
+                        <h2 class="panel-title">A. Kesimpulan</h2>
+                        <div style="background:#fff; border-radius:var(--radius); padding:24px; box-shadow:var(--shadow); line-height:1.9; font-size:0.98rem; color:#2d3f54;">
+                            <p>Berdasarkan pemaparan hadits-hadits tematik pada bab sebelumnya, dapat disimpulkan bahwa solidaritas merupakan bagian tak terpisahkan dari kesempurnaan iman seorang muslim. Nilai ini diajarkan secara berjenjang oleh Rasulullah ﷺ, mulai dari larangan menyakiti tetangga, larangan memutus tali silaturahmi, hingga anjuran saling mengasihi di tengah kesulitan hidup. Ketiganya menegaskan bahwa kepedulian sosial adalah wujud nyata dari keimanan, bukan sekadar anjuran moral semata.</p>
+                            <p style="margin-top:12px;">Solidaritas dalam Islam tidak hanya terbatas pada hubungan antarmanusia, tetapi juga mencakup kepedulian terhadap makhluk lain dan lingkungan. Nilai-nilai ini mengajarkan bahwa setiap muslim memiliki tanggung jawab sosial untuk menciptakan kehidupan yang harmonis, saling mendukung, dan penuh kasih sayang.</p>
+                        </div>
+                    `
+                }, {
+                    id: '3B',
+                    label: 'B. Saran',
+                    icon: svgIcons.edit,
+                    content: `
+                        <h2 class="panel-title">B. Saran</h2>
+                        <div style="background:#fff; border-radius:var(--radius); padding:24px; box-shadow:var(--shadow); line-height:1.9; font-size:0.98rem; color:#2d3f54;">
+                            <p>Penulis menyarankan agar nilai-nilai solidaritas ini tidak hanya dipahami secara tekstual, tetapi diimplementasikan dalam kehidupan bertetangga, berkeluarga, dan bermasyarakat. Kesadaran akan pentingnya solidaritas harus ditanamkan sejak dini melalui pendidikan formal maupun informal.</p>
+                            <p style="margin-top:12px;">Penulis juga menyadari e-book ini masih jauh dari sempurna, sehingga kritik dan saran pembaca sangat diharapkan demi penyempurnaan karya ini ke depan. Semoga e-book ini dapat menjadi inspirasi bagi para pembaca untuk lebih peduli terhadap sesama dan membangun masyarakat yang lebih baik.</p>
+                        </div>
+                    `
+                }]
+            }];
+
+            // ===== TOP MENU (Kata Pengantar) =====
+            const topMenuData = [{
+                id: 'kata-pengantar',
+                label: 'Kata Pengantar',
+                icon: svgIcons.book,
+                content: `
+                    <h2 class="panel-title">Kata Pengantar</h2>
+                    <div style="background:#fff; border-radius:var(--radius); padding:24px; box-shadow:var(--shadow); line-height:1.9; font-size:0.98rem; color:#2d3f54;">
+                        <p>Puji syukur ke hadirat Allah Swt. atas segala rahmat dan karunia-Nya sehingga penulis dapat menyelesaikan e-book berjudul <strong>"Solidaritas dalam Perspektif Hadits Tematik."</strong> Shalawat serta salam semoga senantiasa tercurah kepada Nabi Muhammad ﷺ beserta keluarga, sahabat, dan seluruh umatnya.</p>
+                        <p style="margin-top:12px;">E-book ini membahas konsep solidaritas dalam Islam dengan pendekatan hadits tematik. Solidaritas merupakan ajaran penting dalam Islam yang menekankan nilai persaudaraan, kepedulian, dan tanggung jawab sosial antar sesama muslim. Melalui pengumpulan dan pemaparan hadits-hadits shahih, penulis berupaya menunjukkan bagaimana Rasulullah ﷺ menanamkan nilai solidaritas dalam berbagai aspek kehidupan.</p>
+                        <p style="margin-top:12px;"> menyadari bahwa karya ini masih memiliki keterbatasan. Oleh karena itu, kritik dan saran yang membangun sangat diharapkan demi penyempurnaan ke depannya. Semoga e-book ini dapat memberikan manfaat dan menambah wawasan pembaca dalam memahami pentingnya solidaritas dalam kehidupan umat Islam.</p>
+                        <p style="margin-top:24px; text-align:right; font-style:italic; color:#5e6f82;">Serang, 16 Desember 2025<br/><strong>Muhammad Gufron</strong></p>
+                    </div>
+                `
+            }];
+
+            // ===== EXTRA MENU (Daftar Pustaka, Profil, Sinopsis) =====
+            const extraData = [{
+                id: 'daftar-pustaka',
+                label: 'Daftar Pustaka',
+                icon: svgIcons.books,
+                content: `
+                    <h2 class="panel-title">Daftar Pustaka</h2>
+                    <div class="bibliography">
+                        <ul>
+                            <li>Abū Dāwud, Sulaimān ibn al-Asyʻaṡ ibn Isḥāq ibn Basyīr ibn Syidād ibn ʻAmru al-Azdiy al-Sijistāniy. <em>Sunan Abī Dāwud</em>. Edited by Syuʻaib al-Arna'ūṭ and Muḥammad Kāmil Qurah Balaliy. Vol. 4. Dār al-Risālah al-ʻĀlamiyah, 2009.</li>
+                            <li>Al-Bukhāriy, Abū ʻAbdillāh Muḥammad ibn Ismāʻīl ibn Ibrāhīm ibn al-Mugīrah al-Juʻfiy. <em>Al-Jāmiʻ Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Min Umūr Rasūl Allāh Ṣallā Allāh ʻalaih Wasallam Wa Sunanih Wa Ayyāmih</em>. Edited by Muḥammad Zuhair ibn Nāṣir al-Nāṣir. Vol. 1–9. Dār Ṭauq al-Najāt, 1422.</li>
+                            <li>Ibn al-Ḥajjāj, Muslim. <em>Al-Musnad Al-Ṣaḥīḥ Al-Mukhtaṣar Bi Naql Al-ʻAdl ʻan Al-ʻAdl Ilā Rasūl Allāh Ṣallā Allāh ʻalaih Wasallam</em>. Edited by Muḥammad Fu'ād ʻAbd al-Bāqī. Vol. 1–4. Dār Iḥyā' al-Turāṡ al-ʻArabiy, 1955.</li>
+                            <li>Al-Tirmiżiy, Abū ʻĪsā Muḥammad ibn ʻĪsā ibn Saurah ibn Mūsā al-Ḍaḥḥak. <em>Al-Jāmiʻ Al-Kabīr (Sunan Al-Tirmiżiy)</em>. Edited by Basysyār ʻAwad Maʻrūf. Vol. 2–3. Beirut: Dār al-Garb al-Islāmiy, 1996.</li>
+                        </ul>
+                    </div>
+                `
+            }, {
+                id: 'profil-penulis',
+                label: 'Profil Penulis',
+                icon: svgIcons.user,
+                content: `
+                    <h2 class="panel-title">Profil Penulis</h2>
+                    <div class="profile-box">
+                        <div class="avatar">📖</div>
+                        <div class="bio">
+                            <p><strong>Muhammad Gufron</strong></p>
+                            <p>Mahasiswa UIN Sultan Maulana Hasanuddin Banten Fakultas Ushuluddin dan Adab Prodi Ilmu Al-Qur'an dan Tafsir. Lahir di Serang, 27 Juni 2003. Sekarang berdomisili di Jl. Raya Banten, Lopang Cilik, RT/RW 002/002, Kel. Lopang, Kec. Serang.</p>
+                            <p><strong>Riwayat Pendidikan:</strong></p>
+                            <ul>
+                                <li>SD Negeri 17 Kota Serang (2010–2016)</li>
+                                <li>SMP Nurul Islah Petir (2016–2019)</li>
+                                <li>SMA Nurul Islah Petir (2019–2022)</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            }, {
+                id: 'profil-editor',
+                label: 'Profil Editor',
+                icon: svgIcons.edit,
+                content: `
+                    <h2 class="panel-title">Profil Editor</h2>
+                    <div class="profile-box">
+                        <div class="avatar">✍️</div>
+                        <div class="bio">
+                            <p><strong>Khoirul Fahmi</strong></p>
+                            <p>Lahir di Kota Serang pada 7 Agustus 2003. Seorang mahasiswa UIN Sultan Maulana Hasanuddin Banten Fakultas Ushuluddin dan Adab, Prodi Ilmu Hadis. Sempat mondok di Pesantren Salaf Apik Kauman Kaliwungu Kendal pada tahun 2017.</p>
+                            <p style="margin-top:8px;">Beliau juga bertindak sebagai desain cover dan editor dalam e-book ini.</p>
+                        </div>
+                    </div>
+                `
+            }, {
+                id: 'sinopsis',
+                label: 'Sinopsis',
+                icon: svgIcons.info,
+                content: `
+                    <h2 class="panel-title">Sinopsis</h2>
+                    <div class="synopsis-box">
+                        <p>Di tengah derasnya arus modernisasi dan perkembangan teknologi, umat Islam dihadapkan pada berbagai tantangan moral, sosial, dan spiritual yang semakin kompleks. E-book ini hadir sebagai sebuah refleksi sekaligus panduan untuk memperkuat nilai-nilai keislaman dalam kehidupan sehari-hari. Dengan bahasa yang ringan namun tetap ilmiah, pembahasan dalam buku ini mengajak pembaca memahami Islam tidak hanya sebagai ritual agama, tetapi juga sebagai pedoman hidup yang penuh kasih sayang, persaudaraan, dan kebijaksanaan.</p>
+                        <p>Berlandaskan ayat-ayat Al-Qur'an serta hadis-hadis Nabi Muhammad ﷺ, buku ini membahas pentingnya menjaga akhlak, membangun solidaritas sosial, memperkuat ukhuwah Islamiyah, serta menghadirkan sikap moderat dalam menghadapi perbedaan. Selain itu, pembaca juga diajak untuk memikirkan bagaimana ajaran Islam mampu menjadi solusi atas berbagai permasalahan kehidupan modern, baik dalam lingkungan keluarga, masyarakat, maupun bangsa.</p>
+                        <p>E-book ini cocok dibaca oleh pelajar, santri, akademisi, maupun masyarakat umum yang ingin memperdalam pemahaman keislaman secara kontekstual dan aplikatif. Dengan harapan dapat menjadi sumber inspirasi dan motivasi, buku ini mengajak setiap pembaca untuk menjadikan nilai-nilai Islam sebagai cahaya dalam menjalani kehidupan yang damai, beradab, dan penuh berkah.</p>
+                    </div>
+                `
+            }];
+
+            // ============================================================
+            //  RENDER ENGINE
+            // ============================================================
+
+            const topMenuContainer = document.getElementById('topMenu');
+            const menuContainer = document.getElementById('menuContainer');
+            const extraMenuContainer = document.getElementById('extraMenu');
+            const panelContainer = document.getElementById('panelContainer');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const hamburger = document.getElementById('hamburgerBtn');
+
+            let activePanelId = null;
+
+            function renderTopMenu() {
+                let html = '';
+                topMenuData.forEach(item => {
+                    html += `<div style="margin-bottom:12px;padding-bottom:12px;border-bottom:2px solid rgba(43,79,140,0.08);">`;
+                    html += `<button class="extra-link" data-panel="${item.id}"><span class="icon">${item.icon}</span> ${item.label}</button>`;
+                    html += `</div>`;
+                });
+                topMenuContainer.innerHTML = html;
+            }
+
+            function renderMenuItems(items, depth) {
+                let html = '';
+                items.forEach(item => {
+                    if (item.children) {
+                        const isTop = depth === 0;
+                        html += `<div class="menu-section">`;
+                        html += `<button class="menu-head ${isTop ? 'open' : ''}" data-toggle="${item.id}" aria-expanded="${isTop}">
+                            <span class="icon">${item.icon || svgIcons.folder}</span> ${item.label}
+                            <span class="arrow">▶</span>
+                        </button>`;
+                        html += `<ul class="sub-menu ${isTop ? 'open' : ''}">`;
+                        html += renderMenuItems(item.children, depth + 1);
+                        html += `</ul></div>`;
+                    } else {
+                        html += `<li><button class="sub-link" data-panel="${item.id}">
+                            <span class="sub-icon">${item.icon || svgIcons.target}</span> ${item.label}
+                        </button></li>`;
+                    }
+                });
+                return html;
+            }
+
+            function renderMenu() {
+                let html = '';
+                menuData.forEach(item => {
+                    html += `<div class="menu-section">`;
+                    html += `<button class="menu-head open" data-toggle="${item.id}" aria-expanded="true">
+                        <span class="icon">${item.icon || svgIcons.folder}</span> ${item.label}
+                        <span class="arrow">▶</span>
+                    </button>`;
+                    html += `<ul class="sub-menu open">`;
+                    html += renderMenuItems(item.children, 1);
+                    html += `</ul></div>`;
+                });
+                menuContainer.innerHTML = html;
+            }
+
+            function renderExtraMenu() {
+                let html = '';
+                extraData.forEach(item => {
+                    html += `<button class="extra-link" data-panel="${item.id}"><span class="icon">${item.icon}</span> ${item.label}</button>`;
+                });
+                extraMenuContainer.innerHTML = html;
+            }
+
+            function renderPanels() {
+                let html = '';
+                topMenuData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+
+                function collectPanels(items) {
+                    items.forEach(item => {
+                        if (item.children) {
+                            collectPanels(item.children);
+                        } else {
+                            html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                        }
+                    });
+                }
+                collectPanels(menuData);
+                extraData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+                panelContainer.innerHTML = html;
+            }
+
+            function showPanel(panelId, fromSubLink = true) {
+                document.querySelectorAll('.content-panel').forEach(el => el.classList.remove('active'));
+                const panel = document.getElementById('panel-' + panelId);
+                if (panel) panel.classList.add('active');
+
+                document.querySelectorAll('.sub-link, .extra-link').forEach(el => el.classList.remove('active'));
+                const link = document.querySelector(`.sub-link[data-panel="${panelId}"], .extra-link[data-panel="${panelId}"]`);
+                if (link) link.classList.add('active');
+
+                activePanelId = panelId;
+                if (window.innerWidth <= 991 && fromSubLink) closeSidebar();
+            }
+
+            function toggleSection(btn) {
+                const sub = btn.nextElementSibling;
+                if (!sub) return;
+                const isOpen = sub.classList.contains('open');
+                if (isOpen) {
+                    sub.classList.remove('open');
+                    btn.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+                } else {
+                    sub.classList.add('open');
+                    btn.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            }
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function toggleSidebar() {
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            function init() {
+                renderPanels();
+                renderTopMenu();
+                renderMenu();
+                renderExtraMenu();
+
+                // Top menu clicks
+                topMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                // Main menu clicks
+                menuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('menu-head')) {
+                        e.stopPropagation();
+                        toggleSection(target);
+                        return;
+                    }
+                    if (target.classList.contains('sub-link')) {
+                        e.preventDefault();
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                        return;
+                    }
+                });
+
+                // Extra menu clicks
+                extraMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                // Default: tampilkan Kata Pengantar
+                if (topMenuData.length > 0) {
+                    showPanel(topMenuData[0].id, false);
+                }
+
+                // Hamburger & overlay
+                hamburger.addEventListener('click', toggleSidebar);
+                overlay.addEventListener('click', closeSidebar);
+
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 991) closeSidebar();
+                });
+
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+                });
+            }
+
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+        })();
+    </script>
+</body>
+</html>
