@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fenomena Buzzer pada Masa Rasulullah · E-Book</title>
+    <base target="_self" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f6f0;
+            color: #1e2b3a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        :root {
+            --primary: #2b4f8c;
+            --gold: #c9a84c;
+            --gold-light: #e0c66e;
+            --gold-dark: #a8892f;
+            --bg-body: #f8f6f0;
+            --bg-card: #ffffff;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+            --sidebar-width: 320px;
+            --header-height: 72px;
+        }
+        .app-header {
+            position: sticky; top: 0; z-index: 1000;
+            height: var(--header-height);
+            background: var(--primary); color: #fff;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 2px 12px rgba(43,79,140,0.25);
+        }
+        .app-header .brand { display: flex; align-items: center; gap: 14px; }
+        .app-header .brand img {
+            height: 44px; width: auto; border-radius: 6px;
+            background: #fff; padding: 4px; object-fit: contain;
+        }
+        .app-header .brand .title-group { display: flex; flex-direction: column; line-height: 1.2; }
+        .app-header .brand .title-group h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem; font-weight: 700; letter-spacing: 0.5px;
+        }
+        .app-header .brand .title-group .author {
+            font-size: 0.75rem; color: var(--gold-light); font-weight: 400; letter-spacing: 0.3px;
+        }
+        .app-header .hamburger {
+            display: none; flex-direction: column; gap: 5px;
+            background: transparent; border: none; cursor: pointer;
+            padding: 6px 4px; border-radius: 6px;
+        }
+        .app-header .hamburger:hover { background: rgba(255,255,255,0.1); }
+        .app-header .hamburger span {
+            display: block; width: 26px; height: 2.5px; background: #fff; border-radius: 4px;
+        }
+        .app-layout { display: flex; flex: 1; position: relative; }
+        .sidebar {
+            width: var(--sidebar-width); background: #fff;
+            border-left: 1px solid rgba(43,79,140,0.10);
+            box-shadow: -4px 0 20px rgba(0,0,0,0.04);
+            height: calc(100vh - var(--header-height));
+            position: sticky; top: var(--header-height);
+            overflow-y: auto; overflow-x: hidden;
+            padding: 16px 10px 30px;
+            flex-shrink: 0;
+            transition: transform var(--transition);
+            z-index: 900;
+        }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-track { background: #f0ede7; }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 8px; }
+        .menu-section { margin-bottom: 4px; border-bottom: 1px solid rgba(43,79,140,0.06); }
+        .menu-section:last-of-type { border-bottom: none; }
+        .menu-head {
+            display: flex; align-items: center; gap: 10px;
+            width: 100%; padding: 12px 14px;
+            background: transparent; border: none; border-radius: var(--radius);
+            font-family: 'Inter', sans-serif; font-size: 0.86rem; font-weight: 600;
+            color: var(--primary); cursor: pointer; transition: all var(--transition);
+            text-align: left;
+        }
+        .menu-head:hover { background: rgba(43,79,140,0.06); }
+        .menu-head .icon {
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; width: 20px; height: 20px; fill: var(--primary);
+        }
+        .menu-head .arrow {
+            margin-left: auto; font-size: 0.7rem;
+            transition: transform var(--transition); color: var(--gold-dark);
+        }
+        .menu-head.open .arrow { transform: rotate(90deg); }
+        .sub-menu {
+            list-style: none; padding: 0; margin: 0 0 6px 0;
+            overflow: hidden; max-height: 0;
+            transition: max-height 0.4s ease, opacity 0.25s ease; opacity: 0;
+        }
+        .sub-menu.open { max-height: 5000px; opacity: 1; }
+        .sub-menu li { margin: 0; }
+        .sub-link {
+            display: flex; align-items: center; gap: 10px;
+            padding: 8px 14px 8px 34px;
+            font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 450;
+            color: #2d3f54; border-radius: 8px; cursor: pointer;
+            transition: all var(--transition); border: none; background: transparent;
+            width: 100%; text-align: left;
+        }
+        .sub-link:hover { background: rgba(43,79,140,0.07); color: var(--primary); }
+        .sub-link.active {
+            background: var(--primary); color: #fff; font-weight: 500;
+            box-shadow: 0 4px 12px rgba(43,79,140,0.25);
+        }
+        .sub-link .sub-icon {
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; width: 16px; height: 16px;
+            fill: #2d3f54; opacity: 0.8;
+        }
+        .sub-link:hover .sub-icon { fill: var(--primary); }
+        .sub-link.active .sub-icon { fill: #fff; opacity: 1; }
+        .extra-menu {
+            margin-top: 16px; padding-top: 12px;
+            border-top: 2px solid rgba(43,79,140,0.08);
+        }
+        .extra-link {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 14px; border-radius: var(--radius);
+            font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 500;
+            color: var(--primary); cursor: pointer;
+            transition: all var(--transition); border: none;
+            background: transparent; width: 100%; text-align: left;
+        }
+        .extra-link:hover { background: rgba(43,79,140,0.06); }
+        .extra-link.active {
+            background: var(--primary); color: #fff;
+            box-shadow: 0 4px 12px rgba(43,79,140,0.25);
+        }
+        .extra-link .icon {
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; width: 20px; height: 20px; fill: var(--primary);
+        }
+        .extra-link.active .icon { fill: #fff; }
+        .main-content {
+            flex: 1; padding: 32px 40px 60px;
+            min-width: 0; background: var(--bg-body);
+        }
+        .content-panel { display: none; animation: fadeUp 0.35s ease; }
+        .content-panel.active { display: block; }
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.55rem; font-weight: 700; color: var(--primary);
+            margin-bottom: 8px; border-bottom: 3px solid var(--gold);
+            padding-bottom: 10px; display: inline-block;
+        }
+        .panel-sub { font-size: 0.95rem; color: #5e6f82; margin-bottom: 24px; }
+        .hadith-box {
+            background: var(--bg-card); border-radius: var(--radius);
+            padding: 20px 24px; margin: 18px 0 22px;
+            box-shadow: var(--shadow); border-left: 4px solid var(--gold);
+        }
+        .hadith-box .arabic {
+            font-size: 1.12rem; line-height: 2.1; color: #1e2b3a;
+            direction: rtl; text-align: right;
+            font-family: 'Times New Roman', 'Traditional Arabic', serif;
+            margin-bottom: 12px; padding: 6px 0; word-wrap: break-word;
+        }
+        .hadith-box .translation {
+            font-size: 0.94rem; line-height: 1.75; color: #2d3f54;
+            border-top: 1px dashed rgba(43,79,140,0.12); padding-top: 12px;
+        }
+        .hadith-box .source {
+            display: block; margin-top: 10px; font-size: 0.8rem;
+            color: var(--gold-dark); font-weight: 600; letter-spacing: 0.2px;
+        }
+        .sub-section { margin-top: 24px; }
+        .sub-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem; color: var(--primary); margin-bottom: 8px;
+        }
+        .sub-section p { line-height: 1.75; color: #2d3f54; margin-bottom: 12px; text-align: justify; }
+        .author-card {
+            background: linear-gradient(135deg, #eef4fb 0%, #dce9f5 100%);
+            border-radius: 16px; padding: 28px;
+            box-shadow: var(--shadow);
+            border: 2px dashed var(--primary);
+            margin-top: 16px;
+        }
+        .author-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem; font-weight: 900;
+            color: var(--primary); text-align: center;
+            letter-spacing: 1px; line-height: 1.1;
+        }
+        .author-tagline {
+            text-align: center; color: var(--primary);
+            font-style: italic; font-size: 0.95rem;
+            margin: 12px 0 24px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(43,79,140,0.3);
+        }
+        .info-block {
+            background: #fff; border-radius: 12px; padding: 18px 20px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+            margin-bottom: 16px;
+        }
+        .info-block h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem; color: var(--primary);
+            margin-bottom: 12px; padding-bottom: 8px;
+            border-bottom: 2px solid var(--gold);
+            display: flex; align-items: center; gap: 8px;
+        }
+        .info-block p { line-height: 1.75; color: #2d3f54; font-size: 0.92rem; text-align: justify; }
+        .info-list { list-style: none; padding: 0; }
+        .info-list li {
+            padding: 8px 0; font-size: 0.9rem;
+            color: #2d3f54; line-height: 1.6;
+            display: flex; gap: 8px;
+            border-bottom: 1px dashed rgba(43,79,140,0.08);
+        }
+        .info-list li:last-child { border-bottom: none; }
+        .info-list li strong {
+            color: var(--primary); min-width: 130px; flex-shrink: 0; font-weight: 600;
+        }
+        .overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.35); z-index: 850;
+            backdrop-filter: blur(2px);
+        }
+        .overlay.active { display: block; }
+        .prakata-text {
+            line-height: 1.85; font-size: 0.98rem;
+            color: #2d3f54; margin-bottom: 16px; text-align: justify;
+        }
+        .prakata-text strong { color: var(--primary); }
+        .signature {
+            text-align: right; font-style: italic;
+            color: #5e6f82; margin-top: 20px;
+        }
+        .bibliography { margin-top: 20px; }
+        .bibliography ul { list-style: none; padding: 0; }
+        .bibliography ul li {
+            padding: 8px 0 8px 20px; font-size: 0.85rem;
+            line-height: 1.7; color: #2d3f54;
+            border-bottom: 1px solid rgba(43,79,140,0.06);
+            text-indent: -20px; padding-left: 30px;
+        }
+        .bibliography ul li::before {
+            content: "•"; color: var(--gold);
+            font-weight: 700; margin-right: 8px;
+        }
+        @media (max-width: 991px) {
+            .app-header .hamburger { display: flex; }
+            .sidebar {
+                position: fixed; top: var(--header-height); right: 0;
+                height: calc(100vh - var(--header-height));
+                transform: translateX(100%);
+                box-shadow: -8px 0 30px rgba(0,0,0,0.10);
+                border-left: none; width: 300px; padding: 12px 8px 30px;
+            }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { padding: 20px 18px 40px; }
+            .panel-title { font-size: 1.3rem; }
+            .app-header .brand .title-group h1 { font-size: 0.88rem; }
+            .app-header .brand img { height: 36px; }
+            .hadith-box { padding: 16px 18px; }
+            .hadith-box .arabic { font-size: 1rem; }
+            .author-name { font-size: 1.4rem; }
+        }
+        @media (max-width: 480px) {
+            :root { --header-height: 64px; }
+            .app-header { padding: 0 14px; }
+            .app-header .brand .title-group h1 { font-size: 0.75rem; }
+            .app-header .brand .title-group .author { font-size: 0.6rem; }
+            .sidebar { width: 280px; }
+            .main-content { padding: 14px 12px 30px; }
+            .panel-title { font-size: 1.1rem; }
+            .sub-link { padding: 7px 10px 7px 28px; font-size: 0.78rem; }
+            .menu-head { padding: 10px 12px; font-size: 0.8rem; }
+            .author-card { padding: 18px; }
+            .info-block { padding: 14px; }
+            .info-list li { font-size: 0.82rem; flex-direction: column; gap: 2px; }
+            .info-list li strong { min-width: auto; }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="brand">
+            <img src="logo-pshd.jpg" alt="Logo" />
+            <div class="title-group">
+                <h1>Fenomena Buzzer pada Masa Rasulullah</h1>
+                <span class="author">Penyusun: Farhan Dafa Amrullah</span>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+    <div class="app-layout">
+        <div class="overlay" id="overlay"></div>
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Daftar isi">
+            <div class="top-menu" id="topMenu"></div>
+            <div id="menuContainer"></div>
+            <div class="extra-menu" id="extraMenu"></div>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div id="panelContainer"></div>
+        </main>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            var svgIcons = {
+                book: '<svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>',
+                books: '<svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>',
+                folder: '<svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>',
+                target: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>',
+                heart: '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>',
+                scale: '<svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l4-2.18L12 3zm6.82 9L12 15.72 5.18 12 12 8.28l6.82 3.72zM5 16.5v-3.55L12 17l7-4.05v3.55L12 20.28 5 16.5z"/></svg>',
+                star: '<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>',
+                cloud: '<svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>',
+                hands: '<svg viewBox="0 0 24 24"><path d="M18 11h-2V6c0-1.1-.9-2-2-2v0c-1.1 0-2 .9-2 2v5H9V4c0-1.1-.9-2-2-2v0C5.9 2 5 2.9 5 4v12.25c0 .77.31 1.48.86 2.02l4.97 4.98c.55.55 1.28.86 2.04.86h5.08c1.66 0 3.01-1.34 3.01-3v-6c0-1.66-1.34-3-3-3z"/></svg>',
+                fire: '<svg viewBox="0 0 24 24"><path d="M17.56 10.59c-.93-.88-1.74-2.18-1.75-3.64 0-1.63 1.05-3.1 2.5-3.65-2.09-.64-4.52.22-5.73 2.05-1.46 2.21-.49 5.2 1.64 6.78-1.28-.15-2.43-.81-3.14-1.85-.94-1.38-1.02-3.21-.19-4.66C9.28 6.55 7.82 8.3 7.3 10.45c-.6 2.5.39 5.16 2.45 6.74C11.39 18.3 13.06 19 14.8 19c2.04 0 3.99-.87 5.37-2.38 1.4-1.52 1.94-3.7 1.35-5.65-.55-1.82-2.12-3.19-3.96-3.38z"/></svg>',
+                shield: '<svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>',
+                user: '<svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>',
+                eye: '<svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>',
+                sad: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 9.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-7 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm6.5 6.5c-1.5 1.5-3.5 2-5 2s-3.5-.5-5-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+                mask: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-1.03.2-2.01.56-2.91L10 14.44V16c0 1.1.9 2 2 2v2zm5.88-5.88l-1.88-.75V11c0-1.1-.9-2-2-2h-2V7h1c1.1 0 2-.9 2-2V4.26c3.22 1.15 5.6 3.99 6.13 7.5.02.12.04.24.04.36 0 1.25-.39 2.41-1.06 3.38z"/></svg>',
+                bolt: '<svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/></svg>',
+                sparkle: '<svg viewBox="0 0 24 24"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5z"/></svg>'
+            };
+
+            var topMenuData = [{
+                id: 'kata-pengantar',
+                label: 'Kata Pengantar',
+                icon: svgIcons.book,
+                content: [
+                    '<h2 class="panel-title">Kata Pengantar</h2>',
+                    '<p class="prakata-text">Puji syukur penulis panjatkan ke hadirat Allah Swt. yang telah melimpahkan rahmat, taufik, dan hidayah-Nya sehingga buku yang berjudul <strong>"Fenomena Buzzer pada Masa Rasulullah"</strong> ini dapat diselesaikan dengan baik. Shalawat serta salam semoga senantiasa tercurah kepada Nabi Muhammad Saw., keluarga, sahabat, dan seluruh umatnya hingga akhir zaman.</p>',
+                    '<p class="prakata-text">Perkenalkan, penulis menyusun buku ini sebagai bentuk kajian sederhana mengenai fenomena penyebaran informasi, fitnah, ghibah, hoaks, dan provokasi yang ternyata telah terjadi sejak masa Rasulullah Saw.</p>',
+                    '<p class="prakata-text">Penulis menyadari bahwa penyusunan buku ini tidak terlepas dari bantuan, dukungan, dan doa dari berbagai pihak. Oleh karena itu, penulis mengucapkan terima kasih yang sebesar-besarnya kepada kedua orang tua, keluarga, para dosen, guru, sahabat, serta semua pihak yang telah memberikan motivasi dan kontribusi dalam proses penyusunan buku ini. Semoga segala kebaikan yang diberikan mendapat balasan terbaik dari Allah Swt.</p>',
+                    '<p class="prakata-text">Penulis juga menyadari bahwa buku ini masih jauh dari kata sempurna. Oleh sebab itu, kritik dan saran yang membangun sangat penulis harapkan demi perbaikan dan pengembangan karya ini di masa mendatang. Semoga buku ini dapat memberikan manfaat, menambah wawasan, serta menjadi pengingat pentingnya menjaga lisan, kehormatan sesama, dan kebenaran informasi.</p>',
+                    '<p class="signature">Penulis,<br /><strong>Farhan Dafa Amrullah</strong></p>'
+                ].join('')
+            }];
+
+            function hadithBox(arabic, translation, source) {
+                return '<div class="hadith-box">' +
+                    '<div class="arabic">' + arabic + '</div>' +
+                    '<div class="translation">' + translation + '</div>' +
+                    '<span class="source">— ' + source + '</span>' +
+                    '</div>';
+            }
+            function panelWrap(title, inner) {
+                return '<h2 class="panel-title">' + title + '</h2>' + inner;
+            }
+            function subSection(text) {
+                return '<div class="sub-section"><p>' + text + '</p></div>';
+            }
+
+            var menuData = [
+                {
+                    id: 'bab1',
+                    label: 'BAB I — TRANSFORMASI ETIKA INFORMASI & KEJUJURAN SOSIAL',
+                    icon: svgIcons.shield,
+                    children: [
+                        {
+                            id: '1A',
+                            label: '1. Urgensi Verifikasi Informasi dalam Penyebaran Berita',
+                            icon: svgIcons.eye,
+                            content: panelWrap('1. Urgensi Verifikasi Informasi dalam Penyebaran Berita',
+                                hadithBox(
+                                    'قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: كَفَى بِالْمَرْءِ إِثْمًا أَنْ يُحَدِّثَ بِكُلِّ مَا سَمِعَ',
+                                    'Rasulullah shallallahu \'alaihi wa sallam bersabda: <strong>"Cukuplah seseorang dianggap berdusta jika ia menceritakan segala yang ia dengar."</strong>',
+                                    'HR. Muslim'
+                                ) +
+                                hadithBox(
+                                    'دَنَنَا أَبُو كُرَيْبٍ، حَدَّثَنَا أَبُو مُعَاوِيَةَ، عَنِ الْأَعْمَشِ، عَنْ إِسْمَاعِيلَ بْنِ رَجَاءِ، عَنْ أَبِيهِ، عَنْ أَبِي سَعِيدٍ الْخُدْرِيَّ، وَعَنْ قَيْسِ بْنِ مُسْلِمٍ، عَنْ طَارِقِ بْنِ شِهَابٍ، عَنْ أَبِي سَعِيدٍ الْخُدْرِيَّ، قَالَ: أَخْرَجَ مَرْوَانُ الْمِنْبَرَ فِي يَوْمِ عِيدٍ فَبَدَأَ بِالْخُطْبَةِ قَبْلَ الصَّلَاةِ فَقَالَ رَجُلٌ: يَا مَرْوَانُ خَالَفْتَ السُّنَّةَ، أَخْرَجْتَ الْمِنْبَرَ فِي هَذَا الْيَوْمِ وَلَمْ يَكُنْ يُخْرَجُ، وَبَدَأْتَ بِالْخُطْبَةِ قَبْلَ الصَّلَاةِ وَلَمْ يَكُنْ يُبْدَأُ بِهَا. فَقَالَ أَبُو سَعِيدٍ: أَمَّا هَذَا فَقَدْ قَضَى مَا عَلَيْهِ، سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: "مَنْ رَأَى مِنْكُمْ مُنْكَرًا فَاسْتَطَاعَ أَنْ يُغَيِّرَهُ بِيَدِهِ فَلْيُغَيِّرْهُ بِيَدِهِ، فَإِنْ لَمْ يَسْتَطِعْ فَبِلِسَانِهِ، فَإِنْ لَمْ يَسْتَطِعْ فَبِقَلْبِهِ، وَذَلِكَ أَضْعَفُ الْإِيمَانِ"',
+                                    'Diriwayatkan bahwa Abu Sa\'id Al-Khudri berkata: <strong>"Marwan mengeluarkan mimbar pada hari \'Eid, dan ia memulai dengan khutbah sebelum shalat. Seorang lelaki berkata: \'Wahai Marwan, kamu telah menyelisihi sunnah. Kamu telah mengeluarkan mimbar pada hari ini, dan itu tidak pernah dilakukan sebelumnya, dan kamu telah memulai dengan khutbah sebelum shalat, dan itu tidak pernah dilakukan sebelumnya.\' Abu Sa\'id berkata: \'Adapun lelaki ini, ia telah melaksanakan kewajibannya. Aku mendengar Rasulullah (ﷺ) bersabda: \'Siapa di antara kalian yang melihat perbuatan buruk dan mampu mengubahnya dengan tangannya, maka ubahlah dengan tangannya. Jika ia tidak mampu, maka dengan lisannya; dan jika ia tidak mampu, maka dengan hatinya, dan itu adalah iman yang paling lemah.\'"</strong>',
+                                    'HR. Muslim'
+                                ) +
+                                subSection('Di era digital yang serba cepat, informasi menyebar tanpa verifikasi. Buzzer, hoaks, dan berita palsu menjadi fenomena yang mengancam kejujuran sosial. Hadis-hadis Nabi SAW mengajarkan pentingnya memverifikasi setiap informasi sebelum menyebarkannya. Bahkan sekadar menceritakan apa yang didengar tanpa cek kebenarannya sudah cukup menjadikan seseorang dianggap pendusta.')
+                            )
+                        },
+                        {
+                            id: '1B',
+                            label: '2. Dampak Dusta terhadap Integritas Iman dan Moralitas',
+                            icon: svgIcons.fire,
+                            content: panelWrap('2. Dampak Dusta terhadap Integritas Iman dan Moralitas',
+                                hadithBox(
+                                    'خَدَّثَنَا زُهَيْرُ بْنُ حَرْبٍ، وَعُثْمَانُ بْنُ أَبِي شَيْبَةَ، وَإِسْحَاقُ بْنُ إِبْرَاهِيمَ، قَالَ إِسْحَاقُ: أَخْبَرَنَا، وَقَالَ الْآخَرَانِ: حَدَّثَنَا جَرِيرٌ، عَنْ مَنْصُورٍ، عَنْ أَبِي وَائِلٍ، عَنْ عَبْدِ اللَّهِ، قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "إِنَّ الصِّدْقَ يَهْدِي إِلَى الْبِرِّ، وَإِنَّ الْبِرَّ يَهْدِي إِلَى الْجَنَّةِ، وَإِنَّ الرَّجُلَ لَيَصْدُقُ حَتَّى يُكْتَبَ صِدِّيقًا، وَإِنَّ الْكَذِبَ يَهْدِي إِلَى الْفُجُورِ، وَإِنَّ الْفُجُورَ يَهْدِي إِلَى النَّارِ، وَإِنَّ الرَّجُلَ لَيَكْذِبُ حَتَّى يُكْتَبَ كَذَّابًا"',
+                                    'Abdullah melaporkan bahwa Rasulullah (ﷺ) bersabda: <strong>"Kebenaran mengantarkan seseorang ke surga dan kebaikan mengantarkan seseorang ke surga, dan seseorang berkata jujur hingga dia dicatat sebagai orang yang jujur, dan kebohongan mengantarkan kepada keburukan dan keburukan mengantarkan kepada neraka, dan seseorang berbohong hingga dia dicatat sebagai pendusta."</strong>',
+                                    'HR. Bukhari & Muslim'
+                                ) +
+                                hadithBox(
+                                    'حَدَّثَنَا يَحْيَى بْنُ مُوسَى، قَالَ: قُلْتُ لِعَبْدِ الرَّحِيمِ بْنِ هَارُونَ: حَدَّثَكُمْ عَبْدُ الْعَزِيزِ بْنُ أَبِي رَوَّادٍ، عَنْ نَافِعٍ، عَنِ ابْنِ عُمَرَ، أَنَّ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: "إِذَا كَذَبَ الْعَبْدُ تَبَاعَدَ عَنْهُ الْمَلَكُ مِيلًا مِنْ نَتْنِ مَا جَاءَ بِهِ"',
+                                    'Dari Ibn \'Umar, bahwa Rasulullah (ﷺ) bersabda: <strong>"Ketika seorang hamba (Allah) berbohong, malaikat menjauh darinya sejauh satu mil karena bau busuk dari apa yang telah dilakukannya."</strong> Yahya berkata: "Saya bertanya kepada \'Abdur-Rahim bin Harun apakah dia menyetujuinya, dan dia berkata \'Ya\'."',
+                                    'HR. Tirmidzi No. 1972'
+                                ) +
+                                subSection('Dusta bukan sekadar pelanggaran sosial, tetapi juga merusak integritas iman. Nabi SAW menggambarkan bahwa kebohongan mengantarkan seseorang pada kehancuran moral dan jauh dari rahmat Allah. Malaikat pun menjauh dari pendusta karena bau busuk perbuatannya.')
+                            )
+                        },
+                        {
+                            id: '1C',
+                            label: '3. Ghibah sebagai Bentuk Pelanggaran Etika Sosial',
+                            icon: svgIcons.sad,
+                            content: panelWrap('3. Ghibah sebagai Bentuk Pelanggaran Etika Sosial',
+                                hadithBox(
+                                    'حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا يَزِيدُ بْنُ هَارُونَ، حَدَّثَنَا عَبْدُ الْمَلِكِ بْنُ قُدَامَةَ الْجُمَحِيُّ، عَنْ إِسْحَاقَ بْنِ أَبِي الْفُرَاتِ، عَنِ الْمَقْبُرِيِّ، عَنْ أَبِي هُرَيْرَةَ، قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "سَيَأْتِي عَلَى النَّاسِ سَنَوَاتٌ خَدَّاعَاتٌ، يُصَدَّقُ فِيهَا الْكَاذِبُ وَيُكَذَّبُ فِيهَا الصَّادِقُ، وَيُؤْتَمَنُ فِيهَا الْخَائِنُ وَيُخَوَّنُ فِيهَا الْأَمِينُ، وَيَنْطِقُ فِيهَا الرُّوَيْبِضَةُ" قِيلَ: وَمَا الرُّوَيْبِضَةُ؟ قَالَ: "الرَّجُلُ التَّافِهُ فِي أَمْرِ الْعَامَّةِ"',
+                                    'Telah menceritakan kepada kami Abu Bakr bin Abu Syaibah, telah menceritakan kepada kami Yazid bin Harun, telah menceritakan kepada kami Abdul Malik bin Qudamah Al-Jumahi, dari Ishaq bin Abu Al-Furat, dari Al-Maqburi, dari Abu Hurairah, dia berkata: Rasulullah ﷺ bersabda: <strong>"Akan datang kepada manusia tahun-tahun yang penuh tipu daya, ketika pendusta dianggap jujur, dan orang jujur dianggap pendusta; pengkhianat dianggap amanah, dan orang yang amanah dianggap pengkhianat; dan Ruwaibidah akan berbicara."</strong> Dikatakan: "Siapa itu Ruwaibidah?" Dia berkata: <strong>"Orang-orang yang rendah dan hina yang mengatur urusan masyarakat."</strong>',
+                                    'HR. Ibn Majah No. 4036'
+                                ) +
+                                subSection('Ghibah, hoaks, dan penyebaran informasi tanpa verifikasi adalah tanda-tanda kerusakan sosial yang telah diprediksi Nabi SAW. Ketika pendusta dianggap jujur dan orang jujur dianggap pendusta, masyarakat mengalami krisis moral yang mendalam. Inilah yang disebut "tahun-tahun penuh tipu daya".')
+                            )
+                        }
+                    ]
+                },
+                {
+                    id: 'bab2',
+                    label: 'BAB II — ETIKA INFORMASI, PENYAKIT LISAN & KRISIS MORAL',
+                    icon: svgIcons.mask,
+                    children: [
+                        {
+                            id: '2A',
+                            label: '1. Namimah sebagai Pemicu Kerusakan Relasi Sosial',
+                            icon: svgIcons.fire,
+                            content: panelWrap('1. Namimah sebagai Pemicu Kerusakan Relasi Sosial',
+                                hadithBox(
+                                    'حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا اللَّيْثُ، عَنْ يَزِيدَ بْنِ أَبِي حَبِيبٍ، عَنْ عِرَاكٍ، عَنْ أَبِي هُرَيْرَةَ، أَنَّهُ سَمِعَ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: "إِنَّ شَرَّ النَّاسِ ذُو الْوَجْهَيْنِ، الَّذِي يَأْتِي هَؤُلَاءِ بِوَجْهٍ وَهَؤُلَاءِ بِوَجْهٍ"',
+                                    'Telah menceritakan kepada kami Qutaibah, telah menceritakan kepada kami Al-Layth, dari Yazid bin Abi Habib, dari Iraak, dari Abu Hurairah, bahwa ia mendengar Rasulullah shallallahu \'alaihi wa sallam bersabda: <strong>"Sesungguhnya seburuk-buruk manusia adalah orang yang memiliki dua wajah, yang datang kepada sebagian orang dengan satu wajah dan kepada sebagian yang lain dengan wajah yang lain."</strong>',
+                                    'HR. Abu Dawud'
+                                ) +
+                                hadithBox(
+                                    'حَدَّثَنَا ابْنُ الْمُصَفَّى، حَدَّثَنَا بَقِيَّةُ، وَأَبُو الْمُغِيرَةِ، قَالَا: حَدَّثَنَا صَفْوَانُ، قَالَ: حَدَّثَنِي رَاشِدُ بْنُ سَعْدٍ، وَعَبْدُ الرَّحْمَنِ بْنُ جُبَيْرٍ، عَنْ أَنَسِ بْنِ مَالِكٍ، قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "لَمَّا عُرِجَ بِي مَرَرْتُ بِقَوْمٍ لَهُمْ أَظْفَارٌ مِنْ نُحَاسٍ يَخْمِشُونَ وُجُوهَهُمْ وَصُدُورَهُمْ، فَقُلْتُ: مَنْ هَؤُلَاءِ يَا جِبْرِيلُ؟ قَالَ: هَؤُلَاءِ الَّذِينَ يَأْكُلُونَ لُحُومَ النَّاسِ وَيَقَعُونَ فِي أَعْرَاضِهِمْ"',
+                                    'Dari Anas bin Malik: Nabi (ﷺ) bersabda: <strong>"Ketika saya diangkat ke langit, saya melewati sekelompok orang yang memiliki kuku dari tembaga dan menggaruk wajah dan dada mereka. Saya bertanya: Siapa mereka ini, Jibril? Dia menjawab: Mereka adalah orang-orang yang suka menggunjing dan mencela kehormatan orang lain."</strong>',
+                                    'HR. Abu Dawud No. 4878'
+                                ) +
+                                hadithBox(
+                                    'حَدَّثَنَا يَحْيَى بْنُ أَيُّوبَ، وَقُتَيْبَةُ، وَابْنُ حُجْرٍ، قَالُوا: حَدَّثَنَا إِسْمَاعِيلُ، عَنِ الْعَلَاءِ، عَنْ أَبِيهِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: "أَتَدْرُونَ مَا الْغِيبَةُ؟" قَالُوا: اللَّهُ وَرَسُولُهُ أَعْلَمُ. قَالَ: "ذِكْرُكَ أَخَاكَ بِمَا يَكْرَهُ" قِيلَ: أَفَرَأَيْتَ إِنْ كَانَ فِي أَخِي مَا أَقُولُ؟ قَالَ: "إِنْ كَانَ فِيهِ مَا تَقُولُ فَقَدِ اغْتَبْتَهُ، وَإِنْ لَمْ يَكُنْ فِيهِ فَقَدْ بَهَتَّهُ"',
+                                    'Abu Hurairah melaporkan bahwa Rasulullah (ﷺ) bersabda: <strong>"Apakah kalian tahu apa itu ghibah?"</strong> Mereka (para Sahabat) berkata: "Allah dan Rasul-Nya lebih tahu." Kemudian beliau (Nabi yang Mulia) berkata: <strong>"Ghibah adalah menyebutkan saudaramu dengan sesuatu yang tidak disukainya."</strong> Dikatakan kepadanya: "Bagaimana jika saya benar-benar menemukan (kekurangan) pada saudara saya yang saya sebutkan?" Beliau berkata: <strong>"Jika (kekurangan) itu benar-benar ada padanya, maka sesungguhnya kamu telah mengghibahnya, dan jika itu tidak ada, maka kamu telah menfitnahnya."</strong>',
+                                    'HR. Muslim No. 2589'
+                                ) +
+                                subSection('Namimah (adu domba) dan ghibah (menggunjing) adalah penyakit lisan yang merusak relasi sosial. Pelakunya digambarkan sebagai "orang bermuka dua" — seburuk-buruk manusia di sisi Allah — dan diancam dengan azab di neraka. Di era digital, namimah dan ghibah semakin mudah dilakukan melalui media sosial, pesan berantai, dan komentar anonim.')
+                            )
+                        },
+                        {
+                            id: '2B',
+                            label: '2. Kemunafikan Sosial dalam Perilaku Bermuka Dua',
+                            icon: svgIcons.mask,
+                            content: panelWrap('2. Kemunafikan Sosial dalam Perilaku Bermuka Dua',
+                                hadithBox(
+                                    'حَدَّثَنَا ابْنُ أَبِي عُمَرَ، حَدَّثَنَا سُفْيَانُ، عَنْ مَنْصُورٍ، عَنْ إِبْرَاهِيمَ، عَنْ هَمَّامِ بْنِ الْحَارِثِ، قَالَ: مَرَّ رَجُلٌ عَلَى حُذَيْفَةَ بْنِ الْيَمَانِ فَقِيلَ لَهُ: إِنَّ هَذَا يُبَلِّغُ الْأُمَرَاءَ عَنِ النَّاسِ. فَقَالَ حُذَيْفَةُ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: "لَا يَدْخُلُ الْجَنَّةَ قَتَّاتٌ"',
+                                    'Hammam bin Al-Harith berkata: <strong>"Seorang lelaki lewat di depan Hudhaifah bin Al-Yaman dan dikatakan kepadanya: \'Orang ini menyampaikan berita tentang orang-orang kepada para pemimpin.\' Maka Hudhaifah berkata: \'Rasulullah (ﷺ) bersabda: \'Tidak akan masuk surga orang yang menyebarkan berita.\'"</strong>',
+                                    'HR. Tirmidzi No. 2026'
+                                ) +
+                                subSection('Kemunafikan sosial ditandai dengan perilaku bermuka dua: menyampaikan informasi kepada pihak berwenang dengan tujuan mengadu domba, atau menyebarkan berita untuk kepentingan pribadi. Rasulullah SAW mengancam pelaku <em>qattat</em> (penyebar berita) dengan tidak masuk surga.')
+                            )
+                        },
+                        {
+                            id: '2C',
+                            label: '3. Larangan Mencari Aib, Hasad, dan Tuduhan terhadap Sesama',
+                            icon: svgIcons.shield,
+                            content: panelWrap('3. Larangan Mencari Aib, Hasad, dan Tuduhan terhadap Sesama',
+                                hadithBox(
+                                    'حَدَّثَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، قَالَ: حَدَّثَنَا مُحَمَّدُ بْنُ خَارِمٍ، قَالَ: حَدَّثَنَا الْأَعْمَشُ، عَنْ مُجَاهِدٍ، عَنْ طَاوُسٍ، عَنِ ابْنِ عَبَّاسٍ، قَالَ: مَرَّ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ بِقَبْرَيْنِ فَقَالَ: "إِنَّهُمَا لَيُعَذَّبَانِ، وَمَا يُعَذَّبَانِ فِي كَبِيرٍ. أَمَّا أَحَدُهُمَا فَكَانَ لَا يَسْتَتِرُ مِنَ الْبَوْلِ، وَأَمَّا الْآخَرُ فَكَانَ يَمْشِي بِالنَّمِيمَةِ" ثُمَّ أَخَذَ جَرِيدَةً رَطْبَةً فَشَقَّهَا نِصْفَيْنِ، فَغَرَزَ فِي كُلِّ قَبْرٍ وَاحِدَةً. قَالُوا: يَا رَسُولَ اللَّهِ، لِمَ فَعَلْتَ هَذَا؟ قَالَ: "لَعَلَّهُ يُخَفَّفُ عَنْهُمَا مَا لَمْ يَيْبَسَا"',
+                                    'Diriwayatkan dari Ibn Abbas: Nabi (ﷺ) pernah melewati dua kuburan dan berkata: <strong>"Kedua orang ini sedang disiksa bukan karena dosa besar (yang harus dihindari). Salah satu dari mereka tidak pernah menyelamatkan dirinya dari terkena kencing, sementara yang lainnya biasa berjalan dengan ghibah (menyebarkan kebencian antara teman)."</strong> Nabi (ﷺ) kemudian mengambil sehelai daun pohon kurma, membelahnya, dan menancapkan satu di setiap kubur. Mereka berkata: "Wahai Rasulullah! Mengapa engkau melakukan ini?" Beliau menjawab: <strong>"Aku berharap agar siksaan mereka dapat diringankan sampai (daun-daun itu) menjadi kering."</strong>',
+                                    'HR. Bukhari No. 218'
+                                ) +
+                                hadithBox(
+                                    'حَدَّثَنَا مُحَمَّدُ بْنُ الْمُثَنَّى، وَابْنُ بَشَّارٍ، قَالَا: حَدَّثَنَا مُحَمَّدُ بْنُ جَعْفَرٍ، حَدَّثَنَا شُعْبَةُ، سَمِعْتُ إِبَا إِسْحَاقَ، يُحَدِّثُ عَنْ أَبِي الْأَحْوَصِ، عَنْ عَبْدِ اللَّهِ بْنِ مَسْعُودٍ، قَالَ: إِنَّ مُحَمَّدًا صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: "أَلَا أُنَبِّئُكُمْ مَا الْعَضْهُ؟ هِيَ النَّمِيمَةُ الْمُفْشِيَةُ بَيْنَ النَّاسِ"',
+                                    'Diriwayatkan dari Abdullah bin Mas\'ud: Muhammad (ﷺ) bersabda: <strong>"Apakah aku tidak memberitahukan kepada kalian apa itu ghibah? Yaitu namimah yang menyebarkan berita di antara manusia."</strong> Dan Muhammad (ﷺ) bersabda: <strong>"Sesungguhnya seorang laki-laki berkata benar hingga dia dicatat sebagai orang yang jujur, dan dia berdusta hingga dia dicatat sebagai seorang pendusta."</strong>',
+                                    'HR. Muslim No. 2606'
+                                ) +
+                                subSection('Islam sangat melarang mencari-cari aib orang lain, hasad (iri hati), dan menuduh tanpa bukti. Pelaku namimah dan ghibah diancam dengan siksa kubur, sebagaimana ditunjukkan dalam hadis tentang dua kuburan yang disiksa karena kencing dan namimah. Di era digital, "mencari aib" sering diwujudkan dalam bentuk <em>stalking</em>, mengorek masa lalu, dan menyebarkan skandal.')
+                            )
+                        }
+                    ]
+                },
+                {
+                    id: 'bab3',
+                    label: 'BAB III — KARAKTER MUSLIM IDEAL DALAM MENJAGA ETIKA SOSIAL',
+                    icon: svgIcons.star,
+                    children: [
+                        {
+                            id: '3A',
+                            label: '1. Karakter Muslim Ideal sebagai Penjaga Lisan dan Perbuatan',
+                            icon: svgIcons.hands,
+                            content: panelWrap('1. Karakter Muslim Ideal sebagai Penjaga Lisan dan Perbuatan',
+                                hadithBox(
+                                    'حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا وَكِيعٌ، عَنِ الْأَوْزَاعِيِّ، عَنْ يَحْيَى، عَنْ أَبِي قِلَابَةَ، قَالَ: قَالَ أَبُو مَسْعُودٍ لِأَبِي عَبْدِ اللَّهِ أَوْ قَالَ أَبُو عَبْدِ اللَّهِ لِأَبِي مَسْعُودٍ: مَا سَمِعْتَ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ فِي "زَعَمُوا"؟ قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: "بِئْسَ مَطِيَّةُ الرَّجُلِ زَعَمُوا"',
+                                    'Telah menceritakan kepada kami Abu Bakr bin Abi Syaibah, telah menceritakan kepada kami Waki\', dari Al-Awza\'i, dari Yahya, dari Abu Qilabah, ia berkata: Abu Mas\'ud kepada Abu Abd Allah atau Abu Abd Allah kepada Abu Mas\'ud: Apa yang kamu dengar Rasulullah shallallahu \'alaihi wa sallam katakan tentang \'Zha\'mu\'? Ia menjawab: <strong>"Aku mendengar Rasulullah shallallahu \'alaihi wa sallam bersabda: \'Sungguh, itu adalah tunggangan yang buruk bagi seorang lelaki untuk mengatakan \'Zha\'mu\'.\'"</strong>',
+                                    'HR. Abu Dawud'
+                                ) +
+                                hadithBox(
+                                    'حَدَّثَنَا أَحْمَدُ بْنُ يُونُسَ، حَدَّثَنَا زُهَيْرٌ، حَدَّثَنَا عُمَارَةُ بْنُ غَزِيَّةَ، عَنْ يَحْيَى بْنِ رَاشِدٍ، قَالَ: جَلَسْنَا لِعَبْدِ اللَّهِ بْنِ عُمَرَ فَخَرَجَ إِلَيْنَا فَجَلَسَ فَقَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: "مَنْ حَالَتْ شَفَاعَتُهُ دُونَ حَدٍّ مِنْ حُدُودِ اللَّهِ فَقَدْ ضَادَّ اللَّهَ، وَمَنْ خَاصَمَ فِي بَاطِلٍ وَهُوَ يَعْلَمُهُ لَمْ يَزَلْ فِي سَخَطِ اللَّهِ حَتَّى يَنْزِعَ عَنْهُ، وَمَنْ قَالَ فِي مُؤْمِنٍ مَا لَيْسَ فِيهِ أَسْكَنَهُ اللَّهُ رَدْغَةَ الْخَبَالِ حَتَّى يَخْرُجَ مِمَّا قَالَ"',
+                                    'Yahya ibn Rashid berkata: <strong>"Kami sedang duduk menunggu Abdullah ibn Umar yang keluar kepada kami dan duduk. Dia kemudian berkata: Saya mendengar Rasulullah (ﷺ) bersabda: \'Jika syafaat seseorang menjadi penghalang bagi salah satu hukuman yang ditetapkan oleh Allah, maka dia telah menentang Allah; jika seseorang berselisih dengan mengetahui tentang sesuatu yang batil, maka dia tetap dalam kemurkaan Allah sampai dia berhenti, dan jika seseorang membuat tuduhan tidak benar terhadap seorang Muslim, maka Allah akan membuatnya tinggal di cairan kotor yang mengalir dari penghuni neraka sampai dia menarik kembali pernyataannya.\'"</strong>',
+                                    'HR. Abu Dawud'
+                                ) +
+                                subSection('Muslim ideal adalah penjaga lisan dan perbuatan. Ia tidak berbicara berdasarkan "kata orang" (zha\'mu), tidak menuduh tanpa bukti, dan tidak menjadi perantara yang menghalangi keadilan. Setiap kata yang keluar dari lisannya harus dapat dipertanggungjawabkan di hadapan Allah.')
+                            )
+                        },
+                        {
+                            id: '3B',
+                            label: '2. Fenomena Fitnah dan Krisis Moral pada Akhir Zaman',
+                            icon: svgIcons.cloud,
+                            content: panelWrap('2. Fenomena Fitnah dan Krisis Moral pada Akhir Zaman',
+                                hadithBox(
+                                    'حَدَّثَنَا آدَمُ بْنُ أَبِي إِيَاسٍ، قَالَ: حَدَّثَنَا شُعْبَةُ، عَنْ عَبْدِ اللَّهِ بْنِ أَبِي السَّفَرِ، وَإِسْمَاعِيلَ، عَنِ الشَّعْبِيِّ، عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو رَضِيَ اللَّهُ عَنْهُمَا، عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: "الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ، وَالْمُهَاجِرُ مَنْ هَجَرَ مَا نَهَى اللَّهُ عَنْهُ"',
+                                    'Dari Abdullah bin Amr, Nabi (ﷺ) bersabda: <strong>"Seorang Muslim adalah orang yang selamat dari lisan dan tangannya, dan seorang Muhajir adalah orang yang meninggalkan apa yang dilarang Allah."</strong>',
+                                    'HR. Bukhari No. 10'
+                                ) +
+                                hadithBox(
+                                    'حَدَّثَنَا مُحَمَّدُ بْنُ مُوسَى الْبَصْرِيُّ، حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، عَنْ أَبِي الصَّهْبَاءِ، عَنْ سَعِيدِ بْنِ جُبَيْرٍ، عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ، قَالَ: أَحْسَبُهُ عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، قَالَ: "إِذَا أَصْبَحَ ابْنُ آدَمَ فَإِنَّ الْأَعْضَاءَ كُلَّهَا تُكَفِّرُ اللِّسَانَ، فَتَقُولُ: اتَّقِ اللَّهَ فِينَا، فَإِنَّمَا نَحْنُ بِكَ، فَإِنِ اسْتَقَمْتَ اسْتَقَمْنَا، وَإِنِ اعْوَجَجْتَ اعْوَجَجْنَا"',
+                                    'Telah menceritakan kepada kami Muhammad bin Musa al-Bashri, telah menceritakan kepada kami Hammad bin Zaid, dari Abu Shahba, dari Said bin Jubair, dari Abu Sa\'id al-Khudri, ia mengangkatnya, ia berkata: <strong>"Ketika anak Adam bangun di pagi hari, semua anggota tubuhnya tunduk kepada lidah dan berkata: \'Takutlah kepada Allah mengenai kami, sesungguhnya kami adalah bagian darimu. Jika kamu lurus, kami akan lurus, dan jika kamu bengkok, kami akan bengkok.\'"</strong>',
+                                    'HR. Tirmidzi'
+                                ) +
+                                hadithBox(
+                                    'حَدَّثَنَا بِشْرُ بْنُ مُحَمَّدٍ، أَخْبَرَنَا عَبْدُ اللَّهِ، أَخْبَرَنَا مَعْمَرٌ، عَنْ هَمَّامِ بْنِ مُنَبِّهٍ، عَنْ أَبِي هُرَيْرَةَ، عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: "إِيَّاكُمْ وَالظَّنَّ، فَإِنَّ الظَّنَّ أَكْذَبُ الْحَدِيثِ، وَلَا تَحَسَّسُوا، وَلَا تَجَسَّسُوا، وَلَا تَحَاسَدُوا، وَلَا تَدَابَرُوا، وَلَا تَبَاغَضُوا، وَكُونُوا عِبَادَ اللَّهِ إِخْوَانًا"',
+                                    'Telah menceritakan kepada kami Bisyru bin Muhammad, telah mengabarkan kepada kami Abdullah, telah mengabarkan kepada kami Ma\'mar, dari Hammam bin Munabbih, dari Abu Hurairah, dari Nabi (ﷺ) bersabda: <strong>"Hati-hatilah kalian terhadap prasangka, karena prasangka adalah seburuk-buruknya perkataan; dan janganlah kalian mencari-cari kesalahan orang lain, dan janganlah kalian mengintip, dan janganlah kalian saling hasad, dan janganlah kalian saling memutuskan hubungan, dan janganlah kalian saling membenci; dan jadilah kalian hamba-hamba Allah yang bersaudara."</strong>',
+                                    'HR. Bukhari No. 6064'
+                                ) +
+                                hadithBox(
+                                    'أَخْبَرَنَا أَبُو يُوسُفَ الصَّيْدَلَانِيُّ، مُحَمَّدُ بْنُ أَحْمَدَ الرَّقِّيُّ حَدَّثَنَا مُحَمَّدُ بْنُ سَلَمَةَ، عَنِ ابْنِ إِسْحَاقَ، عَنْ مُحَمَّدِ بْنِ إِبْرَاهِيمَ، عَنْ أَبِي سَلَمَةَ، عَنْ أَبِي هُرَيْرَةَ، قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "إِنَّ الرَّجُلَ لَيَتَكَلَّمُ بِالْكَلِمَةِ مِنْ سَخَطِ اللَّهِ لَا يَرَى بِهَا بَأْسًا فَيَهْوِي بِهَا فِي نَارِ جَهَنَّمَ سَبْعِينَ خَرِيفًا"',
+                                    'Diriwayatkan dari Abu Hurairah bahwa Rasulullah (ﷺ) bersabda: <strong>"Seorang lelaki mungkin berbicara dengan suatu kata yang membuat Allah marah dan tidak melihat ada yang salah dengan itu, tetapi itu akan menyebabkan dia terjatuh ke dalam Neraka sejauh tujuh puluh tahun."</strong>',
+                                    'HR. Tirmidzi'
+                                ) +
+                                subSection('Fitnah dan krisis moral pada akhir zaman ditandai dengan lidah yang tidak terkendali. Satu kata yang dianggap remeh bisa menjerumuskan seseorang ke dalam neraka selama tujuh puluh tahun. Inilah pentingnya menjaga lisan, terutama di era media sosial di mana setiap komentar dan unggahan dapat dengan mudah tersebar luas.')
+                            )
+                        },
+                        {
+                            id: '3C',
+                            label: '3. Amar Ma\'ruf serta Perlindungan Kehormatan Sesama Muslim',
+                            icon: svgIcons.heart,
+                            content: panelWrap('3. Amar Ma\'ruf serta Perlindungan Kehormatan Sesama Muslim',
+                                hadithBox(
+                                    'حَدَّثَنَا أَحْمَدُ بْنُ مُحَمَّدٍ قَالَ: أَخْبَرَنَا ابْنُ الْمُبَارَكِ، عَنْ أَبِي بَكْرٍ النَّهْشَلِيِّ، عَنْ مَرْزُوقٍ أَبِي بَكْرٍ الثَّقَفِيِّ، عَنْ أُمِّ الدَّرْدَاءِ، عَنْ أَبِي الدَّرْدَاءِ، عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: "مَنْ رَدَّ عَنْ عِرْضِ أَخِيهِ رَدَّ اللَّهُ عَنْ وَجْهِهِ النَّارَ يَوْمَ الْقِيَامَةِ"',
+                                    'Abu Darda meriwayatkan bahwa Rasulullah (ﷺ) bersabda: <strong>"Siapa yang membela kehormatan saudaranya, Allah akan melindungi wajahnya dari api neraka pada hari kiamat."</strong>',
+                                    'HR. Tirmidzi'
+                                ) +
+                                subSection('Amar ma\'ruf nahi munkar bukan hanya tentang mengajak pada kebaikan, tetapi juga melindungi kehormatan sesama Muslim dari fitnah dan tuduhan palsu. Di era buzzer dan hoaks, membela kehormatan orang yang dizalimi adalah bentuk amal mulia yang dijanjikan perlindungan dari api neraka.')
+                            )
+                        }
+                    ]
+                }
+            ];
+
+            var extraData = [
+                {
+                    id: 'daftar-pustaka',
+                    label: 'Daftar Pustaka',
+                    icon: svgIcons.books,
+                    content: [
+                        '<h2 class="panel-title">Daftar Pustaka</h2>',
+                        '<div class="bibliography"><ul>',
+                        '<li>Ibn al-Hajjāj, Muslim. <em>Ṣaḥīḥ Muslim</em>. Edited by Muḥammad Fu\'ād \'Abd al-Bāqī. 5 vols. n.p.: Dār Iḥyā\' al-Turāṣ al-\'Arabiy, 1955.</li>',
+                        '<li>Ibn Mājah, Abū \'Abd Allāh Muḥammad. <em>Sunan Ibn Mājah</em>. Edited by Syu\'aib al-Arna\'ūṭ et al. 5 vols. n.p.: Dār al-Risālah al-\'Ālamiyyah, 2009.</li>',
+                        '<li>Tirmiżiy, Abū \'Īsā Muḥammad ibn \'Īsā al-. <em>Al-Jāmi\' al-Kabīr (Sunan al-Tirmiżiy)</em>. Edited by Basysyār \'Awad Ma\'rūf. 6 vols. Beirut: Dār al-Garb al-Islāmiy, 1996.</li>',
+                        '<li>Bukhāriy, Abū \'Abdillāh Muḥammad ibn Ismā\'īl al-. <em>Ṣaḥīḥ al-Bukhāriy</em>. Edited by Muḥammad Zuhair ibn Nāṣir al-Nāṣir. 9 vols. n.p.: Dār Ṭauq al-Najāt, 1422.</li>',
+                        '<li>Abū Dāwud, Sulaimān ibn al-Asy\'aś. <em>Sunan Abī Dāwud</em>. Edited by Syu\'aib al-Arna\'ūṭ, Muḥammad Kāmil Qurah Balaliy. 7 vols. n.p.: Dār al-Risālah al-\'Ālamiyah, 2009.</li>',
+                        '</ul></div>'
+                    ].join('')
+                },
+                {
+                    id: 'tentang-penulis',
+                    label: 'Tentang Penulis',
+                    icon: svgIcons.user,
+                    content: [
+                        '<h2 class="panel-title">Tentang Penulis</h2>',
+                        '<div class="author-card">',
+                        '<div class="author-name">FARHAN DAFA AMRULLAH</div>',
+                        '<div class="author-tagline">Mahasiswa Ilmu Hadis · UIN Sultan Maulana Hasanuddin Banten</div>',
+                        '<div class="info-block">',
+                        '<h3><span>🪪</span> Data Pribadi</h3>',
+                        '<ul class="info-list">',
+                        '<li><strong>Nama</strong><span>Farhan Dafa Amrullah</span></li>',
+                        '<li><strong>Status</strong><span>Mahasiswa aktif semester 6</span></li>',
+                        '<li><strong>Program Studi</strong><span>Ilmu Hadis</span></li>',
+                        '<li><strong>Universitas</strong><span>Universitas Islam Negeri Maulana Hasanuddin Banten</span></li>',
+                        '<li><strong>Tempat, Tgl Lahir</strong><span>Serang, 15 April 2005</span></li>',
+                        '<li><strong>Alamat</strong><span>Cikande Permai Blok F3/10</span></li>',
+                        '</ul>',
+                        '</div>',
+                        '<div class="info-block">',
+                        '<h3><span>📖</span> Tentang Buku Ini</h3>',
+                        '<p>Buku <em>"Fenomena Buzzer pada Masa Rasulullah"</em> ini merupakan kajian sederhana mengenai fenomena penyebaran informasi, fitnah, ghibah, hoaks, dan provokasi yang ternyata telah terjadi sejak masa Rasulullah Saw. Melalui pendekatan hadis tematik, penulis mengajak pembaca untuk memahami bagaimana Islam mengajarkan etika informasi, menjaga lisan, dan melindungi kehormatan sesama — nilai-nilai yang sangat relevan di era digital saat ini.</p>',
+                        '</div>',
+                        '<div class="info-block">',
+                        '<h3><span>✨</span> Pesan Penulis</h3>',
+                        '<p><em>"Jagalah lisan, kehormatan sesama, dan kebenaran informasi."</em> — Di era buzzer dan hoaks, umat Islam dituntut untuk lebih bijak dalam menerima dan menyebarkan informasi. Buku ini hadir sebagai pengingat bahwa setiap kata yang kita ucapkan akan dipertanggungjawabkan di hadapan Allah.</p>',
+                        '</div>',
+                        '</div>'
+                    ].join('')
+                }
+            ];
+
+            var topMenuContainer = document.getElementById('topMenu');
+            var menuContainer = document.getElementById('menuContainer');
+            var extraMenuContainer = document.getElementById('extraMenu');
+            var panelContainer = document.getElementById('panelContainer');
+            var sidebar = document.getElementById('sidebar');
+            var overlay = document.getElementById('overlay');
+            var hamburger = document.getElementById('hamburgerBtn');
+
+            function renderTopMenu() {
+                var html = '';
+                topMenuData.forEach(function(item) {
+                    html += '<div style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 2px solid rgba(43,79,140,0.08);">';
+                    html += '<button class="extra-link" data-panel="' + item.id + '">' +
+                        '<span class="icon">' + item.icon + '</span> ' + item.label +
+                        '</button>';
+                    html += '</div>';
+                });
+                topMenuContainer.innerHTML = html;
+            }
+
+            function renderMenuItems(items) {
+                var html = '';
+                items.forEach(function(item) {
+                    if (item.children) {
+                        html += '<div class="menu-section">';
+                        html += '<button class="menu-head" data-toggle="' + item.id + '" aria-expanded="false">' +
+                            '<span class="icon">' + (item.icon || svgIcons.folder) + '</span> ' + item.label +
+                            '<span class="arrow">▶</span>' +
+                            '</button>';
+                        html += '<ul class="sub-menu">';
+                        html += renderMenuItems(item.children);
+                        html += '</ul></div>';
+                    } else {
+                        html += '<li><button class="sub-link" data-panel="' + item.id + '">' +
+                            '<span class="sub-icon">' + (item.icon || svgIcons.target) + '</span> ' + item.label +
+                            '</button></li>';
+                    }
+                });
+                return html;
+            }
+
+            function renderMenu() {
+                var html = '';
+                menuData.forEach(function(item) {
+                    html += '<div class="menu-section">';
+                    html += '<button class="menu-head open" data-toggle="' + item.id + '" aria-expanded="true">' +
+                        '<span class="icon">' + (item.icon || svgIcons.folder) + '</span> ' + item.label +
+                        '<span class="arrow">▶</span>' +
+                        '</button>';
+                    html += '<ul class="sub-menu open">';
+                    html += renderMenuItems(item.children);
+                    html += '</ul></div>';
+                });
+                menuContainer.innerHTML = html;
+            }
+
+            function renderExtraMenu() {
+                var html = '';
+                extraData.forEach(function(item) {
+                    html += '<button class="extra-link" data-panel="' + item.id + '">' +
+                        '<span class="icon">' + item.icon + '</span> ' + item.label +
+                        '</button>';
+                });
+                extraMenuContainer.innerHTML = html;
+            }
+
+            function renderPanels() {
+                var html = '';
+                topMenuData.forEach(function(item) {
+                    html += '<div class="content-panel" id="panel-' + item.id + '">' + item.content + '</div>';
+                });
+                function collectPanels(items) {
+                    items.forEach(function(item) {
+                        if (item.children) {
+                            collectPanels(item.children);
+                        } else {
+                            html += '<div class="content-panel" id="panel-' + item.id + '">' + item.content + '</div>';
+                        }
+                    });
+                }
+                collectPanels(menuData);
+                extraData.forEach(function(item) {
+                    html += '<div class="content-panel" id="panel-' + item.id + '">' + item.content + '</div>';
+                });
+                panelContainer.innerHTML = html;
+            }
+
+            function showPanel(panelId, fromSubLink) {
+                if (fromSubLink === undefined) fromSubLink = true;
+                document.querySelectorAll('.content-panel').forEach(function(el) { el.classList.remove('active'); });
+                var panel = document.getElementById('panel-' + panelId);
+                if (panel) panel.classList.add('active');
+                document.querySelectorAll('.sub-link, .extra-link').forEach(function(el) { el.classList.remove('active'); });
+                var link = document.querySelector('.sub-link[data-panel="' + panelId + '"], .extra-link[data-panel="' + panelId + '"]');
+                if (link) link.classList.add('active');
+                if (window.innerWidth <= 991 && fromSubLink) closeSidebar();
+                window.scrollTo(0, 0);
+            }
+
+            function toggleSection(btn) {
+                var sub = btn.nextElementSibling;
+                if (!sub) return;
+                var isOpen = sub.classList.contains('open');
+                if (isOpen) {
+                    sub.classList.remove('open');
+                    btn.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+                } else {
+                    sub.classList.add('open');
+                    btn.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            }
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            function toggleSidebar() {
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            function init() {
+                renderPanels();
+                renderTopMenu();
+                renderMenu();
+                renderExtraMenu();
+
+                topMenuContainer.addEventListener('click', function(e) {
+                    var target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        var panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                menuContainer.addEventListener('click', function(e) {
+                    var target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('menu-head')) {
+                        e.stopPropagation();
+                        toggleSection(target);
+                        return;
+                    }
+                    if (target.classList.contains('sub-link')) {
+                        e.preventDefault();
+                        var panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                        return;
+                    }
+                });
+
+                extraMenuContainer.addEventListener('click', function(e) {
+                    var target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        var panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                if (topMenuData.length > 0) {
+                    showPanel(topMenuData[0].id, false);
+                }
+
+                hamburger.addEventListener('click', toggleSidebar);
+                overlay.addEventListener('click', closeSidebar);
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 991) closeSidebar();
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+                });
+            }
+
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+        })();
+    </script>
+</body>
+</html>
