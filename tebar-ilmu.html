@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ilmu yang Berkah · Penyebaran Pengetahuan dalam Perspektif Hadis</title>
+    <base target="_self" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f6f0;
+            color: #1e2b3a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        :root {
+            --primary: #2b4f8c;
+            --gold: #c9a84c;
+            --gold-light: #e0c66e;
+            --gold-dark: #a8892f;
+            --bg-body: #f8f6f0;
+            --bg-card: #ffffff;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+            --sidebar-width: 320px;
+            --header-height: 72px;
+        }
+        .app-header {
+            position: sticky; top: 0; z-index: 1000;
+            height: var(--header-height);
+            background: var(--primary); color: #fff;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 2px 12px rgba(43,79,140,0.25);
+        }
+        .app-header .brand { display: flex; align-items: center; gap: 14px; }
+        .app-header .brand img {
+            height: 44px; width: auto; border-radius: 6px;
+            background: #fff; padding: 4px; object-fit: contain;
+        }
+        .app-header .brand .title-group { display: flex; flex-direction: column; line-height: 1.2; }
+        .app-header .brand .title-group h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem; font-weight: 700; letter-spacing: 0.5px;
+        }
+        .app-header .brand .title-group .author {
+            font-size: 0.75rem; color: var(--gold-light); font-weight: 400; letter-spacing: 0.3px;
+        }
+        .app-header .hamburger {
+            display: none; flex-direction: column; gap: 5px;
+            background: transparent; border: none; cursor: pointer;
+            padding: 6px 4px; border-radius: 6px;
+        }
+        .app-header .hamburger:hover { background: rgba(255,255,255,0.1); }
+        .app-header .hamburger span {
+            display: block; width: 26px; height: 2.5px; background: #fff; border-radius: 4px;
+        }
+        .app-layout { display: flex; flex: 1; position: relative; }
+        .sidebar {
+            width: var(--sidebar-width); background: #fff;
+            border-left: 1px solid rgba(43,79,140,0.10);
+            box-shadow: -4px 0 20px rgba(0,0,0,0.04);
+            height: calc(100vh - var(--header-height));
+            position: sticky; top: var(--header-height);
+            overflow-y: auto; overflow-x: hidden;
+            padding: 16px 10px 30px;
+            flex-shrink: 0;
+            transition: transform var(--transition);
+            z-index: 900;
+        }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-track { background: #f0ede7; }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 8px; }
+        .menu-section { margin-bottom: 4px; border-bottom: 1px solid rgba(43,79,140,0.06); }
+        .menu-section:last-of-type { border-bottom: none; }
+        .menu-head {
+            display: flex; align-items: center; gap: 10px;
+            width: 100%; padding: 12px 14px;
+            background: transparent; border: none; border-radius: var(--radius);
+            font-family: 'Inter', sans-serif; font-size: 0.86rem; font-weight: 600;
+            color: var(--primary); cursor: pointer; transition: all var(--transition);
+            text-align: left;
+        }
+        .menu-head:hover { background: rgba(43,79,140,0.06); }
+        .menu-head .icon {
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; width: 20px; height: 20px; fill: var(--primary);
+        }
+        .menu-head .arrow {
+            margin-left: auto; font-size: 0.7rem;
+            transition: transform var(--transition); color: var(--gold-dark);
+        }
+        .menu-head.open .arrow { transform: rotate(90deg); }
+        .sub-menu {
+            list-style: none; padding: 0; margin: 0 0 6px 0;
+            overflow: hidden; max-height: 0;
+            transition: max-height 0.4s ease, opacity 0.25s ease; opacity: 0;
+        }
+        .sub-menu.open { max-height: 5000px; opacity: 1; }
+        .sub-menu li { margin: 0; }
+        .sub-link {
+            display: flex; align-items: center; gap: 10px;
+            padding: 8px 14px 8px 34px;
+            font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 450;
+            color: #2d3f54; border-radius: 8px; cursor: pointer;
+            transition: all var(--transition); border: none; background: transparent;
+            width: 100%; text-align: left;
+        }
+        .sub-link:hover { background: rgba(43,79,140,0.07); color: var(--primary); }
+        .sub-link.active {
+            background: var(--primary); color: #fff; font-weight: 500;
+            box-shadow: 0 4px 12px rgba(43,79,140,0.25);
+        }
+        .sub-link .sub-icon {
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; width: 16px; height: 16px;
+            fill: #2d3f54; opacity: 0.8;
+        }
+        .sub-link:hover .sub-icon { fill: var(--primary); }
+        .sub-link.active .sub-icon { fill: #fff; opacity: 1; }
+        .extra-menu {
+            margin-top: 16px; padding-top: 12px;
+            border-top: 2px solid rgba(43,79,140,0.08);
+        }
+        .extra-link {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 14px; border-radius: var(--radius);
+            font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 500;
+            color: var(--primary); cursor: pointer;
+            transition: all var(--transition); border: none;
+            background: transparent; width: 100%; text-align: left;
+        }
+        .extra-link:hover { background: rgba(43,79,140,0.06); }
+        .extra-link.active {
+            background: var(--primary); color: #fff;
+            box-shadow: 0 4px 12px rgba(43,79,140,0.25);
+        }
+        .extra-link .icon {
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; width: 20px; height: 20px; fill: var(--primary);
+        }
+        .extra-link.active .icon { fill: #fff; }
+        .main-content {
+            flex: 1; padding: 32px 40px 60px;
+            min-width: 0; background: var(--bg-body);
+        }
+        .content-panel { display: none; animation: fadeUp 0.35s ease; }
+        .content-panel.active { display: block; }
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.55rem; font-weight: 700; color: var(--primary);
+            margin-bottom: 8px; border-bottom: 3px solid var(--gold);
+            padding-bottom: 10px; display: inline-block;
+        }
+        .panel-sub { font-size: 0.95rem; color: #5e6f82; margin-bottom: 24px; }
+        .hadith-box {
+            background: var(--bg-card); border-radius: var(--radius);
+            padding: 20px 24px; margin: 18px 0 22px;
+            box-shadow: var(--shadow); border-left: 4px solid var(--gold);
+        }
+        .hadith-box .arabic {
+            font-size: 1.12rem; line-height: 2.1; color: #1e2b3a;
+            direction: rtl; text-align: right;
+            font-family: 'Times New Roman', 'Traditional Arabic', serif;
+            margin-bottom: 12px; padding: 6px 0; word-wrap: break-word;
+        }
+        .hadith-box .translation {
+            font-size: 0.94rem; line-height: 1.75; color: #2d3f54;
+            border-top: 1px dashed rgba(43,79,140,0.12); padding-top: 12px;
+        }
+        .hadith-box .source {
+            display: block; margin-top: 10px; font-size: 0.8rem;
+            color: var(--gold-dark); font-weight: 600; letter-spacing: 0.2px;
+        }
+        .sub-section { margin-top: 24px; }
+        .sub-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem; color: var(--primary); margin-bottom: 8px;
+        }
+        .sub-section p { line-height: 1.75; color: #2d3f54; margin-bottom: 12px; text-align: justify; }
+        .author-card {
+            background: linear-gradient(135deg, #eef4fb 0%, #dce9f5 100%);
+            border-radius: 16px; padding: 28px;
+            box-shadow: var(--shadow);
+            border: 2px dashed var(--primary);
+            margin-top: 16px;
+        }
+        .author-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem; font-weight: 900;
+            color: var(--primary); text-align: center;
+            letter-spacing: 1px; line-height: 1.1;
+        }
+        .author-tagline {
+            text-align: center; color: var(--primary);
+            font-style: italic; font-size: 0.95rem;
+            margin: 12px 0 24px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(43,79,140,0.3);
+        }
+        .info-block {
+            background: #fff; border-radius: 12px; padding: 18px 20px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+            margin-bottom: 16px;
+        }
+        .info-block h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem; color: var(--primary);
+            margin-bottom: 12px; padding-bottom: 8px;
+            border-bottom: 2px solid var(--gold);
+            display: flex; align-items: center; gap: 8px;
+        }
+        .info-block p { line-height: 1.75; color: #2d3f54; font-size: 0.92rem; text-align: justify; }
+        .info-list { list-style: none; padding: 0; }
+        .info-list li {
+            padding: 8px 0; font-size: 0.9rem;
+            color: #2d3f54; line-height: 1.6;
+            display: flex; gap: 8px;
+            border-bottom: 1px dashed rgba(43,79,140,0.08);
+        }
+        .info-list li:last-child { border-bottom: none; }
+        .info-list li strong {
+            color: var(--primary); min-width: 130px; flex-shrink: 0; font-weight: 600;
+        }
+        .overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.35); z-index: 850;
+            backdrop-filter: blur(2px);
+        }
+        .overlay.active { display: block; }
+        .prakata-text {
+            line-height: 1.85; font-size: 0.98rem;
+            color: #2d3f54; margin-bottom: 16px; text-align: justify;
+        }
+        .prakata-text strong { color: var(--primary); }
+        .signature {
+            text-align: right; font-style: italic;
+            color: #5e6f82; margin-top: 20px;
+        }
+        .bibliography { margin-top: 20px; }
+        .bibliography ul { list-style: none; padding: 0; }
+        .bibliography ul li {
+            padding: 8px 0 8px 20px; font-size: 0.85rem;
+            line-height: 1.7; color: #2d3f54;
+            border-bottom: 1px solid rgba(43,79,140,0.06);
+            text-indent: -20px; padding-left: 30px;
+        }
+        .bibliography ul li::before {
+            content: "•"; color: var(--gold);
+            font-weight: 700; margin-right: 8px;
+        }
+        @media (max-width: 991px) {
+            .app-header .hamburger { display: flex; }
+            .sidebar {
+                position: fixed; top: var(--header-height); right: 0;
+                height: calc(100vh - var(--header-height));
+                transform: translateX(100%);
+                box-shadow: -8px 0 30px rgba(0,0,0,0.10);
+                border-left: none; width: 300px; padding: 12px 8px 30px;
+            }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { padding: 20px 18px 40px; }
+            .panel-title { font-size: 1.3rem; }
+            .app-header .brand .title-group h1 { font-size: 0.88rem; }
+            .app-header .brand img { height: 36px; }
+            .hadith-box { padding: 16px 18px; }
+            .hadith-box .arabic { font-size: 1rem; }
+            .author-name { font-size: 1.4rem; }
+        }
+        @media (max-width: 480px) {
+            :root { --header-height: 64px; }
+            .app-header { padding: 0 14px; }
+            .app-header .brand .title-group h1 { font-size: 0.75rem; }
+            .app-header .brand .title-group .author { font-size: 0.6rem; }
+            .sidebar { width: 280px; }
+            .main-content { padding: 14px 12px 30px; }
+            .panel-title { font-size: 1.1rem; }
+            .sub-link { padding: 7px 10px 7px 28px; font-size: 0.78rem; }
+            .menu-head { padding: 10px 12px; font-size: 0.8rem; }
+            .author-card { padding: 18px; }
+            .info-block { padding: 14px; }
+            .info-list li { font-size: 0.82rem; flex-direction: column; gap: 2px; }
+            .info-list li strong { min-width: auto; }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="brand">
+            <img src="logo-pshd.jpg" alt="Logo" />
+            <div class="title-group">
+                <h1>Penyebaran Pengetahuan</h1>
+                <span class="author">Penyusun: Anisa Fitriyani</span>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+    <div class="app-layout">
+        <div class="overlay" id="overlay"></div>
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Daftar isi">
+            <div class="top-menu" id="topMenu"></div>
+            <div id="menuContainer"></div>
+            <div class="extra-menu" id="extraMenu"></div>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div id="panelContainer"></div>
+        </main>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            var svgIcons = {
+                book: '<svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>',
+                books: '<svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>',
+                folder: '<svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>',
+                target: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>',
+                heart: '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>',
+                scale: '<svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l4-2.18L12 3zm6.82 9L12 15.72 5.18 12 12 8.28l6.82 3.72zM5 16.5v-3.55L12 17l7-4.05v3.55L12 20.28 5 16.5z"/></svg>',
+                star: '<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>',
+                cloud: '<svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>',
+                hands: '<svg viewBox="0 0 24 24"><path d="M18 11h-2V6c0-1.1-.9-2-2-2v0c-1.1 0-2 .9-2 2v5H9V4c0-1.1-.9-2-2-2v0C5.9 2 5 2.9 5 4v12.25c0 .77.31 1.48.86 2.02l4.97 4.98c.55.55 1.28.86 2.04.86h5.08c1.66 0 3.01-1.34 3.01-3v-6c0-1.66-1.34-3-3-3z"/></svg>',
+                fire: '<svg viewBox="0 0 24 24"><path d="M17.56 10.59c-.93-.88-1.74-2.18-1.75-3.64 0-1.63 1.05-3.1 2.5-3.65-2.09-.64-4.52.22-5.73 2.05-1.46 2.21-.49 5.2 1.64 6.78-1.28-.15-2.43-.81-3.14-1.85-.94-1.38-1.02-3.21-.19-4.66C9.28 6.55 7.82 8.3 7.3 10.45c-.6 2.5.39 5.16 2.45 6.74C11.39 18.3 13.06 19 14.8 19c2.04 0 3.99-.87 5.37-2.38 1.4-1.52 1.94-3.7 1.35-5.65-.55-1.82-2.12-3.19-3.96-3.38z"/></svg>',
+                shield: '<svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>',
+                user: '<svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>',
+                eye: '<svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>',
+                bolt: '<svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/></svg>',
+                sparkle: '<svg viewBox="0 0 24 24"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5z"/></svg>',
+                lamp: '<svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6A4.997 4.997 0 0 1 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>',
+                chat: '<svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>'
+            };
+
+            var topMenuData = [{
+                id: 'prakata',
+                label: 'Prakata',
+                icon: svgIcons.book,
+                content: [
+                    '<h2 class="panel-title">Prakata</h2>',
+                    '<p class="prakata-text">Menyusun kajian hadis tematik mengenai <strong>"Ilmu yang Berkah: Penyebaran Pengetahuan dalam Perspektif Hadis"</strong> merupakan sebuah perjalanan intelektual dan spiritual yang sangat berkesan bagi saya. Di era informasi saat ini, di mana arus pengetahuan mengalir begitu deras melalui berbagai media digital, kita sering kali dihadapkan pada tantangan untuk menjaga kemurnian dan etika dalam berbagi ilmu. Oleh karena itu, merujuk kembali pada tuntunan hadis bukan sekadar kebutuhan akademis untuk menyelesaikan tugas, melainkan sebuah keharusan agar setiap pengetahuan yang kita bagikan tetap berpijak pada nilai-nilai kejujuran, kerendahan hati, dan kemaslahatan nyata bagi sesama.</p>',
+                    '<p class="prakata-text">Dalam naskah ini, fokus utama saya adalah menelusuri kembali metode dan strategi pembelajaran yang diterapkan oleh Rasulullah SAW. Beliau adalah guru terbaik yang mampu menyederhanakan hal-hal rumit menjadi sesuatu yang mudah dipahami tanpa mengurangi bobot kebenarannya sedikit pun. Dengan merujuk pada kitab-kitab hadis primer seperti Shahih Bukhari dan Shahih Muslim, saya berusaha menyajikan gambaran autentik mengenai bagaimana sebuah majelis ilmu seharusnya dikelola, serta bagaimana akhlak seorang penyampai ilmu dapat memberikan pengaruh besar terhadap penerimaan pesan tersebut oleh masyarakat luas secara harmonis.</p>',
+                    '<p class="prakata-text">Proses penyusunan naskah ini melibatkan berbagai tahapan yang menantang, terutama dalam upaya menyelaraskan konteks hadis klasik dengan realita sosial modern. Namun, berkat ketekunan serta dukungan moral dari rekan-rekan dan keluarga, segala hambatan tersebut dapat teratasi. Saya ingin mengucapkan terima kasih yang tulus kepada semua pihak yang telah membantu dalam proses pengumpulan data dan diskusi selama ini. Semoga langkah kecil melalui pendekatan hadis tematik ini dapat menambah kecintaan kita terhadap sunnah dan menginspirasi kita untuk menjadi pembelajar sepanjang hayat.</p>',
+                    '<p class="signature">Serang, 10 Mei 2026<br /><strong>Anisa Fitriyani</strong></p>'
+                ].join('')
+            }];
+
+            function hadithBox(arabic, translation, source) {
+                return '<div class="hadith-box">' +
+                    '<div class="arabic">' + arabic + '</div>' +
+                    '<div class="translation">' + translation + '</div>' +
+                    '<span class="source">— ' + source + '</span>' +
+                    '</div>';
+            }
+            function panelWrap(title, inner) {
+                return '<h2 class="panel-title">' + title + '</h2>' + inner;
+            }
+            function subSection(text) {
+                return '<div class="sub-section"><p>' + text + '</p></div>';
+            }
+
+            var menuData = [
+                {
+                    id: 'bab1',
+                    label: 'BAB I — KONSEP DASAR PENYEBARAN PENGETAHUAN',
+                    icon: svgIcons.lamp,
+                    children: [
+                        {
+                            id: '1A',
+                            label: '1. Keutamaan Penuntut Ilmu dan Ulama',
+                            icon: svgIcons.star,
+                            content: panelWrap('1. Keutamaan Penuntut Ilmu dan Ulama',
+                                hadithBox(
+                                    'قَالَ: قَدِمَ رَجُلٌ مِنَ الْمَدِينَةِ عَلَى أَبِي الدَّرْدَاءِ، وَهُوَ بِدَمَشْقَ قَالَ: مَا أَقْدَمَكَ يَا أَخِي؟ قَالَ: حَدِيثٌ بَلَغَنِي أَنَّكَ تُحَدِّثُهُ عَنْ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، قَالَ: أَمَا جِئْتَ لِحَاجَةٍ؟ قَالَ: لَا، قَالَ: أَمَا قَدِمْتَ لِتِجَارَةٍ؟ قَالَ: لَا، قَالَ: مَا جِئْتُ إِلَّا فِي طَلَبِ هَذَا الْحَدِيثِ؟ قَالَ: فَإِنِّي سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: «مَنْ سَلَكَ طَرِيقًا يَبْتَغِي فِيهِ عِلْمًا سَلَكَ اللَّهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ، وَإِنَّ الْمَلَائِكَةَ لَتَضَعُ أَجْنِحَتَهَا رِضَاءً لِطَالِبِ الْعِلْمِ، وَإِنَّ الْعَالِمَ لَيَسْتَغْفِرُ لَهُ مَنْ فِي السَّمَاوَاتِ وَمَنْ فِي الْأَرْضِ حَتَّى الْحِيتَانُ فِي الْمَاءِ، وَفَضْلُ الْعَالِمِ عَلَى الْعَابِدِ كَفَضْلِ الْقَمَرِ عَلَى سَائِرِ الْكَوَاكِبِ، إِنَّ الْعُلَمَاءَ وَرَثَةُ الْأَنْبِيَاءِ، إِنَّ الْأَنْبِيَاءَ لَمْ يُوَرِّثُوا دِينَارًا وَلَا دِرْهَمًا، إِنَّمَا وَرَّثُوا الْعِلْمَ، فَمَنْ أَخَذَ بِهِ أَخَذَ بِحَظٍّ وَافِرٍ»',
+                                    'Seorang laki-laki dari Madinah datang kepada Abu Darda\', sementara ia berada di Damaskus. Maka ia berkata: "Apa yang membuatmu datang, wahai saudaraku?" Ia menjawab: "Sebuah hadis telah sampai kepadaku bahwa engkau meriwayatkannya dari Rasulullah." Ia berkata: "Apakah engkau datang karena suatu keperluan?" Ia menjawab: "Tidak." Ia berkata: "Apakah engkau datang untuk berdagang?" Ia menjawab: "Tidak." Ia berkata: "Tidaklah aku datang kecuali untuk mencari hadis ini." Ia berkata: "Sesungguhnya aku mendengar Rasulullah bersabda: <strong>\'Barang siapa menempuh suatu jalan untuk mencari ilmu, maka Allah akan memudahkan baginya jalan menuju surga. Sesungguhnya para malaikat benar-benar meletakkan sayap-sayapnya karena ridha kepada penuntut ilmu. Sesungguhnya orang yang berilmu dimintakan ampun oleh semua yang ada di langit dan di bumi, bahkan ikan-ikan di dalam air. Keutamaan orang berilmu dibandingkan ahli ibadah seperti keutamaan bulan atas seluruh bintang. Sesungguhnya para ulama adalah pewaris para nabi. Sesungguhnya para nabi tidak mewariskan dinar dan tidak pula dirham, melainkan mereka mewariskan ilmu. Barang siapa mengambilnya, maka sungguh ia telah mengambil bagian yang banyak.\'"</strong>',
+                                    'HR. At-Tirmidzi No. 2682'
+                                ) +
+                                hadithBox(
+                                    'قَالَ: أَتَيْتُ صَفْوَانَ بْنَ عَسَّالٍ الْمُرَادِيَّ، أَسْأَلُهُ عَنِ الْمَسْحِ عَلَى الْخُفَّيْنِ، فَقَالَ: مَا جَاءَ بِكَ يَا زِرُّ؟ قُلْتُ: ابْتِغَاءَ الْعِلْمِ، فَقَالَ: إِنَّ الْمَلَائِكَةَ لَتَضَعُ أَجْنِحَتَهَا لِطَالِبِ الْعِلْمِ رِضًا بِمَا يَطْلُبُ',
+                                    'Aku mendatangi Safwan bin Assal al-Muradi, lalu ia bertanya: "Apa yang membuatmu datang?" Aku menjawab: "Aku datang untuk menuntut ilmu." Safwan berkata: <strong>"Sesungguhnya para malaikat akan meletakkan sayap-sayap mereka bagi penuntut ilmu karena ridha dengan apa yang ia cari."</strong>',
+                                    'HR. At-Tirmidzi No. 3535'
+                                ) +
+                                hadithBox(
+                                    'ذُكِرَ لِرَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ رَجُلَانِ: أَحَدُهُمَا عَابِدٌ وَالْآخَرُ عَالِمٌ، فَقَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «فَضْلُ الْعَالِمِ عَلَى الْعَابِدِ كَفَضْلِي عَلَى أَدْنَاكُمْ»',
+                                    'Disebutkan di hadapan Rasulullah mengenai dua orang laki-laki; salah satunya adalah seorang ahli ibadah (\'abid) dan yang lainnya adalah seorang yang berilmu (\'alim). Maka Rasulullah bersabda: <strong>"Keutamaan orang yang berilmu atas ahli ibadah adalah seperti keutamaanku atas orang yang paling rendah di antara kalian."</strong>',
+                                    'HR. At-Tirmidzi No. 2685'
+                                ) +
+                                subSection('Islam memberikan kedudukan yang sangat tinggi kepada para penuntut ilmu dan ulama. Hadis-hadis di atas menegaskan bahwa jalan menuntut ilmu adalah jalan menuju surga, para malaikat meletakkan sayapnya, seluruh makhluk memintakan ampun, dan para ulama adalah pewaris para nabi.')
+                            )
+                        },
+                        {
+                            id: '1B',
+                            label: '2. Penyampaian Ilmu dan Kebaikan melalui Dakwah',
+                            icon: svgIcons.chat,
+                            content: panelWrap('2. Penyampaian Ilmu dan Kebaikan melalui Dakwah',
+                                hadithBox(
+                                    'قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: مَنْ نَفَّسَ عَنْ مُؤْمِنٍ كُرْبَةً مِنْ كُرَبِ الدُّنْيَا، نَفَّسَ اللَّهُ عَنْهُ كُرْبَةً مِنْ كُرَبِ يَوْمِ الْقِيَامَةِ. وَمَنْ يَسَّرَ عَلَى مُعْسِرٍ، يَسَّرَ اللَّهُ عَلَيْهِ فِي الدُّنْيَا وَالْآخِرَةِ. وَمَنْ سَتَرَ مُسْلِمًا، سَتَرَهُ اللَّهُ فِي الدُّنْيَا وَالْآخِرَةِ. وَاللَّهُ فِي عَوْنِ الْعَبْدِ مَا كَانَ الْعَبْدُ فِي عَوْنِ أَخِيهِ. وَمَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا، سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ. وَمَا اجْتَمَعَ قَوْمٌ فِي بَيْتٍ مِنْ بُيُوتِ اللَّهِ، يَتْلُونَ كِتَابَ اللَّهِ، وَيَتَدَارَسُونَهُ بَيْنَهُمْ، إِلَّا نَزَلَتْ عَلَيْهِمُ السَّكِينَةُ، وَغَشِيَتْهُمُ الرَّحْمَةُ وَحَفَّتْهُمُ الْمَلَائِكَةُ، وَذَكَرَهُمُ اللَّهُ فِيمَنْ عِنْدَهُ. وَمَنْ بَطَّأَ بِهِ عَمَلُهُ، لَمْ يُسْرِعْ بِهِ نَسَبُهُ',
+                                    'Rasulullah bersabda: <strong>"Barangsiapa yang melapangkan satu kesusahan dunia seorang mukmin, maka Allah akan melapangkan satu kesusahannya pada hari kiamat. Barangsiapa yang memudahkan urusan orang yang dalam kesulitan, maka Allah akan memudahkan urusannya di dunia dan di akhirat. Barangsiapa yang menutupi aib seorang Muslim, maka Allah akan menutupi aibnya di dunia dan di akhirat. Allah senantiasa menolong hamba-Nya selama hamba tersebut menolong saudaranya. Barangsiapa yang menempuh suatu jalan untuk mencari ilmu, maka Allah akan memudahkan baginya jalan menuju surga. Tidaklah suatu kaum berkumpul di salah satu rumah Allah (masjid) untuk membaca Kitabullah dan saling mempelajarinya di antara mereka, melainkan akan turun kepada mereka ketenangan, mereka akan diliputi oleh rahmat, mereka akan dikelilingi oleh para malaikat, dan Allah akan menyebut-nyebut mereka di hadapan makhluk yang ada di sisi-Nya. Dan barang siapa yang lambat amalnya, maka nasabnya tidak akan bisa mempercepatnya."</strong>',
+                                    'HR. Muslim No. 2699'
+                                ) +
+                                hadithBox(
+                                    'أَنَّ رَجُلًا أَتَى النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَسْتَحْمِلُهُ فَقَالَ: إِنَّهُ قَدْ أَبْدَعَ بِي، فَقَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «إِنِّي أَدُلُّكَ» فَأَتَاهُ فَحَمَلَهُ، فَقَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «مَنْ دَلَّ عَلَى خَيْرٍ فَلَهُ مِثْلُ أَجْرِ فَاعِلِهِ»',
+                                    'Bahwa seorang laki-laki mendatangi Nabi untuk meminta bantuan tunggangan (kendaraan), ia berkata: "Sesungguhnya tungganganku telah habis (mati atau tidak bisa berjalan lagi)." Maka Rasulullah Saw bersabda: <strong>"Datanglah kepada si Fulan."</strong> Lalu orang itu mendatanginya dan ia pun diberikan tunggangan. Maka Rasulullah bersabda: <strong>"Barangsiapa yang menunjukkan kepada kebaikan, maka baginya pahala seperti pahala orang yang mengerjakannya."</strong>',
+                                    'HR. At-Tirmidzi No. 2671'
+                                ) +
+                                hadithBox(
+                                    'قَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «دِمَاؤُكُمْ، وَأَمْوَالُكُمْ، وَأَعْرَاضُكُمْ، بَيْنَكُمْ حَرَامٌ، كَحُرْمَةِ يَوْمِكُمْ هَذَا، فِي شَهْرِكُمْ هَذَا، فِي بَلَدِكُمْ هَذَا، لِيُبَلِّغِ الشَّاهِدُ الْغَائِبَ، فَإِنَّ الشَّاهِدَ عَسَى أَنْ يُبَلِّغَ مَنْ هُوَ أَوْعَى لَهُ مِنْهُ»',
+                                    'Nabi bersabda: <strong>"Sesungguhnya darah kalian, harta kalian, dan kehormatan kalian adalah haram (terjaga) atas kalian, sebagaimana haramnya hari kalian ini, di bulan kalian ini, dan di negeri kalian ini. Hendaklah yang hadir menyampaikan kepada yang tidak hadir, karena bisa jadi yang hadir menyampaikan kepada orang yang lebih memahami darinya."</strong>',
+                                    'HR. Bukhari No. 67'
+                                ) +
+                                subSection('Dakwah dan penyampaian ilmu adalah bagian tak terpisahkan dari kehidupan seorang Muslim. Setiap kebaikan yang kita tunjukkan kepada orang lain akan berbalas pahala, dan menyampaikan pesan kepada yang belum tahu adalah kewajiban bersama.')
+                            )
+                        },
+                        {
+                            id: '1C',
+                            label: '3. Peran Ulama dalam Menjaga dan Menyampaikan Ilmu',
+                            icon: svgIcons.shield,
+                            content: panelWrap('3. Peran Ulama dalam Menjaga dan Menyampaikan Ilmu',
+                                hadithBox(
+                                    'سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: «مَنْ سُئِلَ عَنْ عِلْمٍ فَكَتَمَهُ، أُلْجِمَ يَوْمَ الْقِيَامَةِ بِلِجَامٍ مِنْ نَارٍ»',
+                                    'Aku mendengar Rasulullah bersabda: <strong>"Barangsiapa ditanya tentang suatu ilmu lalu ia menyembunyikannya, maka ia akan dikendalikan (mulutnya diikat) pada hari kiamat dengan kendali dari api neraka."</strong>',
+                                    'HR. Ibn Majah No. 264'
+                                ) +
+                                hadithBox(
+                                    'قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «إِنَّ اللَّهَ لَا يَقْبِضُ الْعِلْمَ انْتِزَاعًا يَنْتَزِعُهُ مِنَ الْعِبَادِ، وَلَكِنْ يَقْبِضُ الْعِلْمَ بِقَبْضِ الْعُلَمَاءِ، حَتَّى إِذَا لَمْ يَبْقَ عَالِمٌ، اتَّخَذَ النَّاسُ رُؤُوسًا جُهَّالًا، فَسُئِلُوا فَأَفْتَوْا بِغَيْرِ عِلْمٍ، فَضَلُّوا وَأَضَلُّوا»',
+                                    'Rasulullah bersabda: <strong>"Sesungguhnya Allah tidak mencabut ilmu dengan cara mencabutnya dari hamba-hamba-Nya, tetapi Allah mencabut ilmu dengan mewafatkan para ulama, sehingga ketika tidak tersisa seorang alim pun, manusia akan mengangkat pemimpin-pemimpin yang bodoh. Mereka ditanya lalu berfatwa tanpa ilmu, maka mereka sesat dan menyesatkan."</strong>',
+                                    'HR. Bukhari'
+                                ) +
+                                hadithBox(
+                                    'قَالَ: إِنَّهُ خَيْرُ النَّاسِ، إِنَّهُ خَيْرُ النَّاسِ، إِنَّهُ خَيْرُ النَّاسِ، بَعْدَ شَيْءٍ سَمِعْتُهُ مِنْ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، قَالُوا: وَمَا سَمِعْتَهُ؟ قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: «يُؤْتَى بِالرَّجُلِ يَوْمَ الْقِيَامَةِ فَيُلْقَى فِي النَّارِ، فَتَنْدَلِقُ أَقْتَابُهُ فِي النَّارِ، فَيَدُورُ بِهَا كَمَا يَدُورُ الْحِمَارُ بِالرَّحَا، فَيَجْتَمِعُ أَهْلُ النَّارِ عَلَيْهِ فَيَقُولُونَ: أَيْ فُلَانُ مَا شَأْنُكَ؟ أَلَيْسَ كُنْتَ تَأْمُرُنَا بِالْمَعْرُوفِ، وَتَنْهَانَا عَنِ الْمُنْكَرِ؟ قَالَ: كُنْتُ آمُرُكُمْ بِالْمَعْرُوفِ وَلَا آتِيهِ، وَأَنْهَاكُمْ عَنِ الْمُنْكَرِ وَآتِيهِ»',
+                                    'Usamah berkata: <strong>"Sesungguhnya ia adalah manusia terbaik."</strong> Mereka bertanya: "Apa yang engkau dengar beliau bersabda?" Usamah menjawab: "Aku mendengar beliau bersabda: <strong>\'Seseorang akan didatangkan pada hari kiamat, lalu dilemparkan ke dalam neraka, maka terburailah usus perutnya di dalam neraka itu. Ia pun berputar-putar seperti seekor keledai yang berputar mengelilingi alat penggilingannya. Penduduk neraka kemudian berkumpul mengerumuninya seraya bertanya: \'Wahai fulan, apa yang terjadi padamu? Bukankah dulu engkau memerintahkan kami berbuat makruf (kebaikan) dan melarang kami dari kemungkaran?\' Ia menjawab: \'Dahulu aku memerintahkan kalian berbuat makruf, namun aku sendiri tidak melaksanakannya; dan aku melarang kalian dari kemungkaran, namun aku sendiri mengerjakannya.\'\"</strong>',
+                                    'HR. Bukhari No. 3094'
+                                ) +
+                                hadithBox(
+                                    'سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: «أَلَا إِنَّ الدُّنْيَا مَلْعُونَةٌ مَلْعُونٌ مَا فِيهَا إِلَّا ذِكْرَ اللَّهِ وَمَا وَالَاهُ، وَعَالِمًا أَوْ مُتَعَلِّمًا»',
+                                    'Aku mendengar Rasulullah bersabda: <strong>"Ketahuilah, sesungguhnya dunia itu terlaknat dan terlaknat apa yang ada di dalamnya, kecuali zikir kepada Allah dan apa yang berkaitan dengannya, atau orang yang berilmu, atau orang yang belajar."</strong>',
+                                    'HR. Tirmidzi No. 2322'
+                                ) +
+                                subSection('Ulama memiliki peran vital dalam menjaga dan menyampaikan ilmu. Menyembunyikan ilmu adalah dosa besar, dan ketika ulama wafat, umat berpotensi kehilangan arah. Orang berilmu dan pembelajar adalah pengecualian dari laknatnya dunia.')
+                            )
+                        },
+                        {
+                            id: '1D',
+                            label: '4. Hubungan Ilmu, Amal, dan Dzikir dalam Kehidupan',
+                            icon: svgIcons.heart,
+                            content: panelWrap('4. Hubungan Ilmu, Amal, dan Dzikir dalam Kehidupan',
+                                hadithBox(
+                                    'قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «مَنْ نَفَّسَ عَنْ مُؤْمِنٍ كُرْبَةً مِنْ كُرَبِ الدُّنْيَا، نَفَّسَ اللَّهُ عَنْهُ كُرْبَةً مِنْ كُرَبِ يَوْمِ الْقِيَامَةِ، وَمَنْ يَسَّرَ عَلَى مُعْسِرٍ، يَسَّرَ اللَّهُ عَلَيْهِ فِي الدُّنْيَا وَالْآخِرَةِ، وَمَنْ سَتَرَ مُسْلِمًا، سَتَرَهُ اللَّهُ فِي الدُّنْيَا وَالْآخِرَةِ، وَاللَّهُ فِي عَوْنِ الْعَبْدِ مَا كَانَ الْعَبْدُ فِي عَوْنِ أَخِيهِ»',
+                                    'Rasulullah bersabda: <strong>"Barangsiapa yang melapangkan satu kesusahan dunia seorang mukmin, maka Allah akan melapangkan satu kesusahannya pada hari kiamat. Barangsiapa yang memudahkan urusan orang yang dalam kesulitan, maka Allah akan memudahkan urusannya di dunia dan di akhirat. Barangsiapa yang menutupi aib seorang Muslim, maka Allah akan menutupi aibnya di dunia dan di akhirat. Allah senantiasa menolong hamba-Nya selama hamba tersebut menolong saudaranya."</strong>',
+                                    'HR. Muslim No. 2699'
+                                ) +
+                                subSection('Ilmu yang bermanfaat harus diiringi dengan amal saleh dan dzikir kepada Allah. Ketiganya merupakan satu kesatuan yang tidak terpisahkan dalam membentuk pribadi Muslim yang utuh dan berkah.')
+                            )
+                        },
+                        {
+                            id: '1E',
+                            label: '5. Perjalanan Menuntut Ilmu dan Mencari Ilmu yang Lebih Berilmu',
+                            icon: svgIcons.target,
+                            content: panelWrap('5. Perjalanan Menuntut Ilmu dan Mencari Ilmu yang Lebih Berilmu',
+                                hadithBox(
+                                    'بَيْنَمَا مُوسَى فِي مَلَأٍ مِنْ بَنِي إِسْرَائِيلَ، جَاءَهُ رَجُلٌ فَقَالَ: هَلْ تَعْلَمُ أَحَدًا أَعْلَمَ مِنْكَ؟ قَالَ: لَا، فَأَوْحَى اللَّهُ إِلَى مُوسَى: بَلَى، عَبْدِي خَضِرٌ، فَسَأَلَ مُوسَى السَّبِيلَ إِلَيْهِ، فَجَعَلَ اللَّهُ لَهُ الْحُوتَ آيَةً، وَقِيلَ لَهُ: إِذَا فَقَدْتَ الْحُوتَ فَارْجِعْ، فَإِنَّكَ سَتَلْقَاهُ، فَكَانَ يَتْبَعُ أَثَرَ الْحُوتِ فِي الْبَحْرِ',
+                                    'Ketika Musa berada di tengah-tengah pemuka Bani Israil, datanglah seorang laki-laki dan bertanya: <strong>"Apakah engkau mengetahui ada seseorang yang lebih berilmu darimu?"</strong> Musa menjawab: "Tidak." Maka Allah mewahyukan kepada Musa: <strong>"Ada, yaitu hamba-Ku, Khidir."</strong> Musa pun memohon jalan untuk menemuinya, lalu Allah menjadikan ikan sebagai tanda baginya. Dikatakan kepadanya: "Apabila engkau kehilangan ikan itu, kembalilah, karena sesungguhnya engkau akan menemuinya." Maka Musa mengikuti jejak ikan itu di laut.',
+                                    'HR. Bukhari No. 3219'
+                                ) +
+                                subSection('Kisah Nabi Musa yang mencari Nabi Khidir mengajarkan bahwa menuntut ilmu tidak mengenal batas usia, kedudukan, maupun jarak. Bahkan seorang nabi pun diperintahkan untuk terus belajar kepada yang lebih berilmu. Perjalanan menuntut ilmu adalah perjalanan spiritual yang penuh hikmah.')
+                            )
+                        }
+                    ]
+                },
+                {
+                    id: 'bab2',
+                    label: 'BAB II — METODE PENYEBARAN PENGETAHUAN',
+                    icon: svgIcons.chat,
+                    children: [
+                        {
+                            id: '2A',
+                            label: '1. Metode Penyampaian Ilmu yang Efektif dan Mudah Dipahami',
+                            icon: svgIcons.lamp,
+                            content: panelWrap('1. Metode Penyampaian Ilmu yang Efektif dan Mudah Dipahami',
+                                hadithBox(
+                                    'أَنَّ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ كَانَ إِذَا تَكَلَّمَ بِكَلِمَةٍ أَعَادَهَا ثَلَاثًا حَتَّى تُفْهَمَ عَنْهُ، وَإِذَا أَتَى عَلَى قَوْمٍ فَسَلَّمَ عَلَيْهِمْ سَلَّمَ عَلَيْهِمْ ثَلَاثًا',
+                                    'Bahwa Nabi, apabila berbicara dengan suatu kalimat, beliau mengulanginya tiga kali hingga kalimat itu dipahami. Dan jika beliau mendatangi suatu kaum, beliau mengucapkan salam kepada mereka tiga kali.',
+                                    'HR. Bukhari No. 95'
+                                ) +
+                                hadithBox(
+                                    'كَانَ كَلَامُ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ كَلَامًا فَصْلًا يَفْهَمُهُ كُلُّ مَنْ سَمِعَهُ',
+                                    'Perkataan Rasulullah Saw adalah perkataan yang jelas (terperinci), yang dapat dipahami oleh setiap orang yang mendengarnya.',
+                                    'HR. Abu Dawud No. 4839'
+                                ) +
+                                hadithBox(
+                                    'قَالَ: كَانَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: (يَسِّرُوا وَلَا تُعَسِّرُوا، وَبَشِّرُوا وَلَا تُنَفِّرُوا)',
+                                    'Nabi bersabda: <strong>"Mudahkanlah dan janganlah kalian mempersulit, berilah kabar gembira dan janganlah kalian membuat orang menjauh."</strong>',
+                                    'HR. Bukhari No. 69'
+                                ) +
+                                hadithBox(
+                                    'حَدِّثُوا النَّاسَ بِمَا يَعْرِفُونَ، أَتُحِبُّونَ أَنْ يُكَذَّبَ اللَّهُ وَرَسُولُهُ؟',
+                                    'Berbicarah kepada manusia sesuai dengan apa yang mereka ketahui. Apakah kalian ingin Allah dan Rasul-Nya didustakan?',
+                                    'HR. Bukhari No. 127'
+                                ) +
+                                subSection('Metode penyampaian ilmu yang efektif menurut Rasulullah SAW meliputi: pengulangan tiga kali, berbicara dengan jelas dan terperinci, memudahkan bukan mempersulit, memberi kabar gembira, dan menyesuaikan pembicaraan dengan pemahaman audiens.')
+                            )
+                        },
+                        {
+                            id: '2B',
+                            label: '2. Strategi Pembelajaran Rasulullah dalam Menyampaikan Ilmu',
+                            icon: svgIcons.star,
+                            content: panelWrap('2. Strategi Pembelajaran Rasulullah dalam Menyampaikan Ilmu',
+                                hadithBox(
+                                    'قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «إِنَّ مِنَ الشَّجَرِ شَجَرَةً لَا يَسْقُطُ وَرَقُهَا، وَإِنَّهَا مَثَلُ الْمُسْلِمِ، حَدِّثُونِي مَا هِيَ؟» فَوَقَعَ النَّاسُ فِي شَجَرِ الْبَوَادِي، قَالَ عَبْدُ اللَّهِ: وَوَقَعَ فِي نَفْسِي أَنَّهَا النَّخْلَةُ، فَاسْتَحْيَيْتُ، ثُمَّ قَالُوا: حَدِّثْنَا مَا هِيَ يَا رَسُولَ اللَّهِ؟ قَالَ: «هِيَ النَّخْلَةُ»',
+                                    'Rasulullah Saw bersabda: <strong>"Sesungguhnya di antara pepohonan ada sebuah pohon yang tidak gugur daunnya, dan ia adalah perumpamaan bagi seorang Muslim. Maka beritahukanlah kepadaku pohon apakah itu?"</strong> Maka orang-orang membayangkan pohon-pohon yang ada di pedalaman. (gurun) Abdullah (Ibnu Umar) berkata: "Lalu terdetik di dalam hatiku bahwa pohon itu adalah pohon kurma." Kemudian para sahabat bertanya: "Beritahukanlah kepada kami pohon apakah itu, wahai Rasulullah?" Beliau bersabda: <strong>"Ia adalah pohon kurma."</strong>',
+                                    'HR. Bukhari No. 61'
+                                ) +
+                                hadithBox(
+                                    'قَالَ: كُنَّا عِنْدَ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، وَكَانَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ رَحِيمًا رَفِيقًا، فَلَمَّا ظَنَنَّا أَنَّا قَدْ أَهْلَكْنَا، أَوْ قَدْ شَقَقْنَا، سَأَلَنَا عَمَّا تَرَكْنَا بَعْدَنَا فَأَخْبَرْنَاهُ، قَالَ: «ارْجِعُوا إِلَى أَهْلِيكُمْ، فَأَقِيمُوا فِيهِمْ، وَعَلِّمُوهُمْ وَمُرُوهُمْ»',
+                                    'Kami mendatangi Nabi Saw dan saat itu kami adalah pemuda-pemuda yang sebaya. Kami tinggal bersama beliau selama dua puluh malam. Rasulullah adalah seorang yang sangat penyayang lagi lembut. Ketika beliau melihat kami tampak sudah merindukan keluarga kami, beliau bertanya tentang siapa saja yang kami tinggalkan. Kami pun memberitahukannya. Beliau bersabda: <strong>"Kembalilah kalian kepada keluarga kalian, tinggallah bersama mereka, ajari mereka, dan perintahkanlah mereka (untuk shalat) dan beliau menyebutkan hal-hal lain yang sebagiannya aku hafal dan sebagiannya tidak dan shalatlah kalian sebagaimana kalian melihat aku shalat. Jika waktu shalat telah tiba, hendaklah salah seorang dari kalian mengumandangkan adzan, dan hendaklah yang paling tua di antara menjadi Imam."</strong>',
+                                    'HR. Bukhari No. 605'
+                                ) +
+                                hadithBox(
+                                    'كَانَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَتَخَوَّلُنَا بِالْمَوْعِظَةِ فِي الْأَيَّامِ كَرَاهَةَ السَّآمَةِ عَلَيْنَا',
+                                    'Nabi senantiasa mengatur waktu dalam memberi nasihat kepada kami pada hari-hari tertentu, karena khawatir kami akan merasa bosan.',
+                                    'HR. Bukhari No. 68'
+                                ) +
+                                subSection('Strategi pembelajaran Rasulullah SAW meliputi: menggunakan perumpamaan dan pertanyaan, menyesuaikan waktu dan metode, lembut dan penuh kasih sayang, serta mengatur waktu agar tidak membosankan.')
+                            )
+                        }
+                    ]
+                },
+                {
+                    id: 'bab3',
+                    label: 'BAB III — ETIKA PENYEBARAN PENGETAHUAN',
+                    icon: svgIcons.shield,
+                    children: [
+                        {
+                            id: '3A',
+                            label: '1. Etika Penyebaran Ilmu secara Amanah dan Tepat Sasaran',
+                            icon: svgIcons.shield,
+                            content: panelWrap('1. Etika Penyebaran Ilmu secara Amanah dan Tepat Sasaran',
+                                hadithBox(
+                                    'قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «طَلَبُ الْعِلْمِ فَرِيضَةٌ عَلَى كُلِّ مُسْلِمٍ، وَوَاضِعُ الْعِلْمِ عِنْدَ غَيْرِ أَهْلِهِ كَمُقَلِّدِ الْخَنَازِيرِ الْجَوْهَرَ وَاللُّؤْلُؤَ وَالذَّهَبَ»',
+                                    'Rasulullah SAW bersabda: <strong>"Menuntut ilmu itu wajib bagi setiap Muslim, dan orang yang memberikan (mengajarkan) ilmu kepada orang yang bukan ahlinya (yang tidak layak menerimanya) adalah seperti orang yang mengalungkan babi dengan permata, mutiara, dan emas."</strong>',
+                                    'HR. Ibn Majah No. 224'
+                                ) +
+                                hadithBox(
+                                    'قَالَ: بَلِّغُوا عَنِّي وَلَوْ آيَةً، وَحَدِّثُوا عَنْ بَنِي إِسْرَائِيلَ وَلَا حَرَجَ، وَمَنْ كَذَبَ عَلَيَّ مُتَعَمِّدًا فَلْيَتَبَوَّأْ مَقْعَدَهُ مِنَ النَّارِ',
+                                    'Nabi Saw bersabda: <strong>"Sampaikanlah dariku walau hanya satu ayat, dan ceritakanlah tentang Bani Israil dan tidak ada dosa (bagimu), dan barang siapa yang berdusta atasku dengan sengaja, maka hendaklah ia menempatkan duduknya di neraka."</strong>',
+                                    'HR. Bukhari No. 3274'
+                                ) +
+                                hadithBox(
+                                    'قَالَ: سَمِعْتُ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: «نَضَّرَ اللَّهُ امْرَأً سَمِعَ مِنَّا شَيْئًا فَبَلَّغَهُ كَمَا سَمِعَ، فَرُبَّ مُبَلِّغٍ أَوْعَى مِنْ سَامِعٍ»',
+                                    'Aku mendengar Nabi bersabda: <strong>"Semoga Allah mencerahkan (wajah) seseorang yang mendengar sesuatu dari kami, lalu ia menyampaikannya sebagaimana ia mendengarnya. Maka boleh jadi orang yang menyampaikan itu lebih memahami daripada orang yang mendengar langsung."</strong>',
+                                    'HR. At-Tirmidzi No. 2657'
+                                ) +
+                                subSection('Etika penyebaran ilmu menuntut kita untuk: menyampaikan ilmu dengan amanah, tepat sasaran kepada yang berhak menerima, tidak menyembunyikan ilmu, dan menyampaikannya sesuai dengan apa yang kita dengar tanpa menambah atau mengurangi.')
+                            )
+                        },
+                        {
+                            id: '3B',
+                            label: '2. Akhlak dalam Menyampaikan Ilmu',
+                            icon: svgIcons.heart,
+                            content: panelWrap('2. Akhlak dalam Menyampaikan Ilmu',
+                                hadithBox(
+                                    'قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «يَا عَائِشَةُ إِنَّ اللَّهَ رَفِيقٌ يُحِبُّ الرِّفْقَ، وَيُعْطِي عَلَى الرِّفْقِ مَا لَا يُعْطِي عَلَى الْعُنْفِ، وَمَا لَا يُعْطِي عَلَى مَا سِوَاهُ»',
+                                    'Rasulullah Saw bersabda: <strong>"Wahai Aisyah, sesungguhnya Allah Maha Lembut dan mencintai kelembutan. Allah memberikan (pahala) atas kelembutan apa yang tidak diberikan-Nya atas kekerasan, dan tidak diberikan atas selainnya."</strong>',
+                                    'HR. Muslim'
+                                ) +
+                                subSection('Akhlak dalam menyampaikan ilmu harus dilandasi kelembutan, kasih sayang, dan kesabaran. Islam mengajarkan bahwa kelembutan adalah kunci keberhasilan dakwah dan penyampaian ilmu. Kekerasan hanya akan menjauhkan orang dari kebenaran.')
+                            )
+                        },
+                        {
+                            id: '3C',
+                            label: '3. Etika Sosial dalam Majelis Ilmu',
+                            icon: svgIcons.hands,
+                            content: panelWrap('3. Etika Sosial dalam Majelis Ilmu',
+                                hadithBox(
+                                    'أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: «لَا تَبَاغَضُوا، وَلَا تَحَاسَدُوا، وَلَا تَدَابَرُوا، وَكُونُوا عِبَادَ اللَّهِ إِخْوَانًا، وَلَا يَحِلُّ لِمُسْلِمٍ أَنْ يَهْجُرَ أَخَاهُ فَوْقَ ثَلَاثَةِ أَيَّامٍ»',
+                                    'Rasulullah shallallahu \'alaihi wasallam bersabda: <strong>"Janganlah kalian saling membenci, janganlah kalian saling mendengki, janganlah kalian saling membelakangi (bersikap acuh tak acuh), dan janganlah kalian saling memutuskan hubungan. Dan jadilah kalian hamba-hamba Allah yang bersaudara. Tidak halal bagi seorang muslim untuk mendiamkan (memutuskan komunikasi dengan) saudaranya lebih dari tiga hari."</strong>',
+                                    'HR. Bukhari No. 5728'
+                                ) +
+                                subSection('Majelis ilmu adalah tempat berkumpulnya orang-orang yang mencari keridhaan Allah. Oleh karena itu, etika sosial dalam majelis ilmu harus dijaga: tidak saling membenci, tidak saling mendengki, tidak saling membelakangi, dan tidak memutus hubungan lebih dari tiga hari.')
+                            )
+                        }
+                    ]
+                }
+            ];
+
+            var extraData = [
+                {
+                    id: 'daftar-pustaka',
+                    label: 'Daftar Pustaka',
+                    icon: svgIcons.books,
+                    content: [
+                        '<h2 class="panel-title">Daftar Pustaka</h2>',
+                        '<div class="bibliography"><ul>',
+                        '<li>Ibn Mājah, Abū \'Abd Allāh Muḥammad. <em>Sunan Ibn Mājah</em>. Edited by Muḥammad Fu\'ād \'Abd al-Bāqī. 2 vols. n.p.: Dār Iḥyā\' al-Kutub al-\'Arabiyyah, n.d.</li>',
+                        '<li>Al-Bukhāriy, Abū \'Abdillāh Muḥammad ibn Ismā\'īl. <em>Ṣaḥīḥ al-Bukhāriy</em>. Edited by Muṣṭafā Daib al-Bagā. 7 vols. Damaskus: Dār Ibn Kašīr, 1993.</li>',
+                        '<li>Ibn al-Ḥājjāj, Muslim. <em>Ṣaḥīḥ Muslim</em>. Edited by Muḥammad Fu\'ād \'Abd al-Bāqī. 5 vols. n.p.: Dār Iḥyā\' al-Turāṣ al-\'Arabiy, 1955.</li>',
+                        '<li>Al-Tirmiżiy, Abū \'Īsā Muḥammad ibn \'Īsā. <em>Sunan al-Tirmiżiy</em>. Edited by Aḥmad Muḥammad Syākir et al. 5 vols. Mesir: Muṣṭafā al-Bābī al-Ḥalabiy, 1975.</li>',
+                        '<li>Abū Dāwud, Sulaimān ibn al-Asy\'aś ibn Isḥāq ibn Basyīr ibn Syidād ibn \'Amru al-Azdiy al-Sijistāniy. <em>Sunan Abī Dāwud</em>. Edited by Muḥammad Muḥyī al-Dīn \'Abd al-Ḥamīd. 4 vols. Beirut: al-Maktabah al-\'Asriyyah, n.d.</li>',
+                        '</ul></div>'
+                    ].join('')
+                },
+                {
+                    id: 'tentang-penulis',
+                    label: 'Tentang Penulis',
+                    icon: svgIcons.user,
+                    content: [
+                        '<h2 class="panel-title">Tentang Penulis</h2>',
+                        '<div class="author-card">',
+                        '<div class="author-name">ANISA FITRIYANI</div>',
+                        '<div class="author-tagline">Virgo Girl · Pembelajar Sepanjang Hayat</div>',
+                        '<div class="info-block">',
+                        '<h3><span>🪪</span> Data Pribadi</h3>',
+                        '<ul class="info-list">',
+                        '<li><strong>Nama</strong><span>Anisa Fitriyani</span></li>',
+                        '<li><strong>NIM</strong><span>231370042</span></li>',
+                        '<li><strong>Tempat, Tgl Lahir</strong><span>22 September 2002</span></li>',
+                        '<li><strong>Zodiak</strong><span>Virgo ♍</span></li>',
+                        '<li><strong>Tinggi Badan</strong><span>153 cm</span></li>',
+                        '<li><strong>Program Studi</strong><span>Ilmu Hadis · UIN Sultan Maulana Hasanuddin Banten</span></li>',
+                        '</ul>',
+                        '</div>',
+                        '<div class="info-block">',
+                        '<h3><span>🎨</span> Warna Favorit</h3>',
+                        '<p>Beige · Cokelat Muda · Biru · Hijau Sage</p>',
+                        '</div>',
+                        '<div class="info-block">',
+                        '<h3><span>📖</span> Tentang Buku Ini</h3>',
+                        '<p>Buku <em>"Ilmu yang Berkah: Penyebaran Pengetahuan dalam Perspektif Hadis"</em> ini merupakan kajian hadis tematik yang menelusuri kembali metode dan strategi pembelajaran yang diterapkan oleh Rasulullah SAW. Dengan merujuk pada kitab-kitab hadis primer, buku ini menyajikan gambaran autentik tentang bagaimana majelis ilmu seharusnya dikelola, serta bagaimana akhlak seorang penyampai ilmu dapat mempengaruhi penerimaan pesan oleh masyarakat.</p>',
+                        '</div>',
+                        '<div class="info-block">',
+                        '<h3><span>💡</span> Moto Hidup</h3>',
+                        '<p style="font-style:italic; color:var(--primary); text-align:center; font-size:1rem; line-height:1.8;">"Komitmen pada diri sendiri itu penting, nanti akan ada saatnya ketika kamu mulai lelah dan ingin menyerah, kamu akan kembali mengingat, alasan mengapa kamu memulai semu ini?"</p>',
+                        '</div>',
+                        '</div>'
+                    ].join('')
+                }
+            ];
+
+            var topMenuContainer = document.getElementById('topMenu');
+            var menuContainer = document.getElementById('menuContainer');
+            var extraMenuContainer = document.getElementById('extraMenu');
+            var panelContainer = document.getElementById('panelContainer');
+            var sidebar = document.getElementById('sidebar');
+            var overlay = document.getElementById('overlay');
+            var hamburger = document.getElementById('hamburgerBtn');
+
+            function renderTopMenu() {
+                var html = '';
+                topMenuData.forEach(function(item) {
+                    html += '<div style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 2px solid rgba(43,79,140,0.08);">';
+                    html += '<button class="extra-link" data-panel="' + item.id + '">' +
+                        '<span class="icon">' + item.icon + '</span> ' + item.label +
+                        '</button>';
+                    html += '</div>';
+                });
+                topMenuContainer.innerHTML = html;
+            }
+
+            function renderMenuItems(items) {
+                var html = '';
+                items.forEach(function(item) {
+                    if (item.children) {
+                        html += '<div class="menu-section">';
+                        html += '<button class="menu-head" data-toggle="' + item.id + '" aria-expanded="false">' +
+                            '<span class="icon">' + (item.icon || svgIcons.folder) + '</span> ' + item.label +
+                            '<span class="arrow">▶</span>' +
+                            '</button>';
+                        html += '<ul class="sub-menu">';
+                        html += renderMenuItems(item.children);
+                        html += '</ul></div>';
+                    } else {
+                        html += '<li><button class="sub-link" data-panel="' + item.id + '">' +
+                            '<span class="sub-icon">' + (item.icon || svgIcons.target) + '</span> ' + item.label +
+                            '</button></li>';
+                    }
+                });
+                return html;
+            }
+
+            function renderMenu() {
+                var html = '';
+                menuData.forEach(function(item) {
+                    html += '<div class="menu-section">';
+                    html += '<button class="menu-head open" data-toggle="' + item.id + '" aria-expanded="true">' +
+                        '<span class="icon">' + (item.icon || svgIcons.folder) + '</span> ' + item.label +
+                        '<span class="arrow">▶</span>' +
+                        '</button>';
+                    html += '<ul class="sub-menu open">';
+                    html += renderMenuItems(item.children);
+                    html += '</ul></div>';
+                });
+                menuContainer.innerHTML = html;
+            }
+
+            function renderExtraMenu() {
+                var html = '';
+                extraData.forEach(function(item) {
+                    html += '<button class="extra-link" data-panel="' + item.id + '">' +
+                        '<span class="icon">' + item.icon + '</span> ' + item.label +
+                        '</button>';
+                });
+                extraMenuContainer.innerHTML = html;
+            }
+
+            function renderPanels() {
+                var html = '';
+                topMenuData.forEach(function(item) {
+                    html += '<div class="content-panel" id="panel-' + item.id + '">' + item.content + '</div>';
+                });
+                function collectPanels(items) {
+                    items.forEach(function(item) {
+                        if (item.children) {
+                            collectPanels(item.children);
+                        } else {
+                            html += '<div class="content-panel" id="panel-' + item.id + '">' + item.content + '</div>';
+                        }
+                    });
+                }
+                collectPanels(menuData);
+                extraData.forEach(function(item) {
+                    html += '<div class="content-panel" id="panel-' + item.id + '">' + item.content + '</div>';
+                });
+                panelContainer.innerHTML = html;
+            }
+
+            function showPanel(panelId, fromSubLink) {
+                if (fromSubLink === undefined) fromSubLink = true;
+                document.querySelectorAll('.content-panel').forEach(function(el) { el.classList.remove('active'); });
+                var panel = document.getElementById('panel-' + panelId);
+                if (panel) panel.classList.add('active');
+                document.querySelectorAll('.sub-link, .extra-link').forEach(function(el) { el.classList.remove('active'); });
+                var link = document.querySelector('.sub-link[data-panel="' + panelId + '"], .extra-link[data-panel="' + panelId + '"]');
+                if (link) link.classList.add('active');
+                if (window.innerWidth <= 991 && fromSubLink) closeSidebar();
+                window.scrollTo(0, 0);
+            }
+
+            function toggleSection(btn) {
+                var sub = btn.nextElementSibling;
+                if (!sub) return;
+                var isOpen = sub.classList.contains('open');
+                if (isOpen) {
+                    sub.classList.remove('open');
+                    btn.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+                } else {
+                    sub.classList.add('open');
+                    btn.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            }
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            function toggleSidebar() {
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            function init() {
+                renderPanels();
+                renderTopMenu();
+                renderMenu();
+                renderExtraMenu();
+
+                topMenuContainer.addEventListener('click', function(e) {
+                    var target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        var panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                menuContainer.addEventListener('click', function(e) {
+                    var target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('menu-head')) {
+                        e.stopPropagation();
+                        toggleSection(target);
+                        return;
+                    }
+                    if (target.classList.contains('sub-link')) {
+                        e.preventDefault();
+                        var panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                        return;
+                    }
+                });
+
+                extraMenuContainer.addEventListener('click', function(e) {
+                    var target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        var panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                if (topMenuData.length > 0) {
+                    showPanel(topMenuData[0].id, false);
+                }
+
+                hamburger.addEventListener('click', toggleSidebar);
+                overlay.addEventListener('click', closeSidebar);
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 991) closeSidebar();
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+                });
+            }
+
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+        })();
+    </script>
+</body>
+</html>
