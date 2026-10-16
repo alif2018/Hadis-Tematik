@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prokrastinasi dalam Perspektif Hadis · E-Book</title>
+    <base target="_self" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f6f0;
+            color: #1e2b3a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        :root {
+            --primary: #2b4f8c;
+            --gold: #c9a84c;
+            --gold-light: #e0c66e;
+            --gold-dark: #a8892f;
+            --bg-body: #f8f6f0;
+            --bg-card: #ffffff;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+            --sidebar-width: 320px;
+            --header-height: 72px;
+            --olive: #6b7040;
+        }
+        .app-header {
+            position: sticky; top: 0; z-index: 1000;
+            height: var(--header-height);
+            background: var(--primary); color: #fff;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 2px 12px rgba(43,79,140,0.25);
+        }
+        .app-header .brand { display: flex; align-items: center; gap: 14px; }
+        .app-header .brand img {
+            height: 44px; width: auto; border-radius: 6px;
+            background: #fff; padding: 4px; object-fit: contain;
+        }
+        .app-header .brand .title-group { display: flex; flex-direction: column; line-height: 1.2; }
+        .app-header .brand .title-group h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem; font-weight: 700; letter-spacing: 0.5px;
+        }
+        .app-header .brand .title-group .author {
+            font-size: 0.78rem; color: var(--gold-light); font-weight: 400; letter-spacing: 0.3px;
+        }
+        .app-header .hamburger {
+            display: none; flex-direction: column; gap: 5px;
+            background: transparent; border: none; cursor: pointer;
+            padding: 6px 4px; border-radius: 6px;
+        }
+        .app-header .hamburger:hover { background: rgba(255,255,255,0.1); }
+        .app-header .hamburger span {
+            display: block; width: 26px; height: 2.5px; background: #fff; border-radius: 4px;
+        }
+        .app-layout { display: flex; flex: 1; position: relative; }
+        .sidebar {
+            width: var(--sidebar-width); background: #fff;
+            border-left: 1px solid rgba(43,79,140,0.10);
+            box-shadow: -4px 0 20px rgba(0,0,0,0.04);
+            height: calc(100vh - var(--header-height));
+            position: sticky; top: var(--header-height);
+            overflow-y: auto; overflow-x: hidden;
+            padding: 16px 10px 30px;
+            flex-shrink: 0;
+            transition: transform var(--transition);
+            z-index: 900;
+        }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-track { background: #f0ede7; }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 8px; }
+        .menu-section { margin-bottom: 4px; border-bottom: 1px solid rgba(43,79,140,0.06); }
+        .menu-section:last-of-type { border-bottom: none; }
+        .menu-head {
+            display: flex; align-items: center; gap: 10px;
+            width: 100%; padding: 12px 14px;
+            background: transparent; border: none; border-radius: var(--radius);
+            font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 600;
+            color: var(--primary); cursor: pointer; transition: all var(--transition);
+            text-align: left;
+        }
+        .menu-head:hover { background: rgba(43,79,140,0.06); }
+        .menu-head .icon {
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; width: 20px; height: 20px; fill: var(--primary);
+        }
+        .menu-head .arrow {
+            margin-left: auto; font-size: 0.7rem;
+            transition: transform var(--transition); color: var(--gold-dark);
+        }
+        .menu-head.open .arrow { transform: rotate(90deg); }
+        .sub-menu {
+            list-style: none; padding: 0; margin: 0 0 6px 0;
+            overflow: hidden; max-height: 0;
+            transition: max-height 0.4s ease, opacity 0.25s ease; opacity: 0;
+        }
+        .sub-menu.open { max-height: 3000px; opacity: 1; }
+        .sub-menu li { margin: 0; }
+        .sub-link {
+            display: flex; align-items: center; gap: 10px;
+            padding: 8px 14px 8px 34px;
+            font-family: 'Inter', sans-serif; font-size: 0.83rem; font-weight: 450;
+            color: #2d3f54; border-radius: 8px; cursor: pointer;
+            transition: all var(--transition); border: none; background: transparent;
+            width: 100%; text-align: left;
+        }
+        .sub-link:hover { background: rgba(43,79,140,0.07); color: var(--primary); }
+        .sub-link.active {
+            background: var(--primary); color: #fff; font-weight: 500;
+            box-shadow: 0 4px 12px rgba(43,79,140,0.25);
+        }
+        .sub-link .sub-icon {
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; width: 16px; height: 16px;
+            fill: #2d3f54; opacity: 0.8;
+        }
+        .sub-link:hover .sub-icon { fill: var(--primary); }
+        .sub-link.active .sub-icon { fill: #fff; opacity: 1; }
+        /* Nested menu-head inside sub-menu (untuk bab dengan sub a,b,c) */
+        .sub-menu .menu-head { padding: 8px 14px 8px 28px; font-size: 0.85rem; }
+        .sub-menu .menu-head .icon { width: 16px; height: 16px; }
+        .sub-menu .sub-menu .sub-link { padding-left: 52px; font-size: 0.8rem; }
+        .extra-menu {
+            margin-top: 16px; padding-top: 12px;
+            border-top: 2px solid rgba(43,79,140,0.08);
+        }
+        .extra-link {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 14px; border-radius: var(--radius);
+            font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 500;
+            color: var(--primary); cursor: pointer;
+            transition: all var(--transition); border: none;
+            background: transparent; width: 100%; text-align: left;
+        }
+        .extra-link:hover { background: rgba(43,79,140,0.06); }
+        .extra-link.active {
+            background: var(--primary); color: #fff;
+            box-shadow: 0 4px 12px rgba(43,79,140,0.25);
+        }
+        .extra-link .icon {
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; width: 20px; height: 20px; fill: var(--primary);
+        }
+        .extra-link.active .icon { fill: #fff; }
+        .main-content {
+            flex: 1; padding: 32px 40px 60px;
+            min-width: 0; background: var(--bg-body);
+        }
+        .content-panel { display: none; animation: fadeUp 0.35s ease; }
+        .content-panel.active { display: block; }
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem; font-weight: 700; color: var(--primary);
+            margin-bottom: 8px; border-bottom: 3px solid var(--gold);
+            padding-bottom: 10px; display: inline-block;
+        }
+        .panel-sub { font-size: 0.95rem; color: #5e6f82; margin-bottom: 24px; }
+        .hadith-box {
+            background: var(--bg-card); border-radius: var(--radius);
+            padding: 20px 24px; margin: 18px 0 22px;
+            box-shadow: var(--shadow); border-left: 4px solid var(--gold);
+        }
+        .hadith-box .arabic {
+            font-size: 1.15rem; line-height: 2.1; color: #1e2b3a;
+            direction: rtl; text-align: right;
+            font-family: 'Times New Roman', 'Traditional Arabic', serif;
+            margin-bottom: 12px; padding: 6px 0; word-wrap: break-word;
+        }
+        .hadith-box .translation {
+            font-size: 0.95rem; line-height: 1.75; color: #2d3f54;
+            border-top: 1px dashed rgba(43,79,140,0.12); padding-top: 12px;
+        }
+        .hadith-box .source {
+            display: block; margin-top: 10px; font-size: 0.8rem;
+            color: var(--gold-dark); font-weight: 600; letter-spacing: 0.2px;
+        }
+        .sub-section { margin-top: 28px; }
+        .sub-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem; color: var(--primary); margin-bottom: 8px;
+        }
+        .sub-section p { line-height: 1.75; color: #2d3f54; margin-bottom: 12px; }
+        .empty-note {
+            padding: 24px; background: #fff; border-radius: var(--radius);
+            box-shadow: var(--shadow); color: #5e6f82; font-style: italic;
+            border-left: 4px solid var(--gold); margin: 18px 0;
+        }
+        /* Tentang Penulis */
+        .author-card {
+            background: linear-gradient(135deg, #fffaf0 0%, #fdf4e3 100%);
+            border-radius: 16px; padding: 28px;
+            box-shadow: var(--shadow);
+            border: 2px dashed var(--gold);
+            margin-top: 16px;
+        }
+        .author-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem; font-weight: 900;
+            color: var(--primary); text-align: center;
+            letter-spacing: 1px; line-height: 1;
+        }
+        .author-tagline {
+            text-align: center; color: var(--olive);
+            font-style: italic; font-size: 0.95rem;
+            margin: 10px 0 24px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(201,168,76,0.4);
+        }
+        .author-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+        }
+        .info-block {
+            background: #fff; border-radius: 12px; padding: 18px 20px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+        }
+        .info-block h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem; color: var(--primary);
+            margin-bottom: 12px; padding-bottom: 8px;
+            border-bottom: 2px solid var(--gold);
+            display: flex; align-items: center; gap: 8px;
+        }
+        .info-block h3 .emoji { font-size: 1.2rem; }
+        .info-list { list-style: none; padding: 0; }
+        .info-list li {
+            padding: 6px 0; font-size: 0.88rem;
+            color: #2d3f54; line-height: 1.55;
+            display: flex; gap: 8px;
+        }
+        .info-list li strong {
+            color: var(--primary); min-width: 110px; flex-shrink: 0; font-weight: 600;
+        }
+        .info-list li .val { color: #2d3f54; }
+        .timeline { list-style: none; padding: 0; position: relative; }
+        .timeline::before {
+            content: ''; position: absolute; left: 7px; top: 4px; bottom: 4px;
+            width: 2px; background: rgba(201,168,76,0.4);
+        }
+        .timeline li {
+            position: relative; padding: 6px 0 6px 26px;
+            font-size: 0.85rem; color: #2d3f54; line-height: 1.5;
+        }
+        .timeline li::before {
+            content: ''; position: absolute; left: 3px; top: 12px;
+            width: 10px; height: 10px; border-radius: 50%;
+            background: var(--gold); border: 2px solid #fff;
+            box-shadow: 0 0 0 2px var(--gold);
+        }
+        .timeline li .year {
+            display: block; font-size: 0.75rem;
+            color: var(--gold-dark); font-weight: 600; margin-top: 2px;
+        }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+        .skill-tag {
+            background: rgba(43,79,140,0.08); color: var(--primary);
+            padding: 5px 12px; border-radius: 20px;
+            font-size: 0.78rem; font-weight: 500;
+        }
+        .contact-list li {
+            display: flex; align-items: center; gap: 10px;
+            padding: 8px 0; font-size: 0.88rem; color: #2d3f54;
+        }
+        .contact-list .ci {
+            width: 34px; height: 34px; border-radius: 50%;
+            background: rgba(201,168,76,0.15);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gold-dark); font-weight: 700; flex-shrink: 0;
+        }
+        .overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.35); z-index: 850;
+            backdrop-filter: blur(2px);
+        }
+        .overlay.active { display: block; }
+        .prakata-text {
+            line-height: 1.85; font-size: 0.98rem;
+            color: #2d3f54; margin-bottom: 16px; text-align: justify;
+        }
+        .prakata-text strong { color: var(--primary); }
+        .signature {
+            text-align: right; font-style: italic;
+            color: #5e6f82; margin-top: 20px;
+        }
+        @media (max-width: 991px) {
+            .app-header .hamburger { display: flex; }
+            .sidebar {
+                position: fixed; top: var(--header-height); right: 0;
+                height: calc(100vh - var(--header-height));
+                transform: translateX(100%);
+                box-shadow: -8px 0 30px rgba(0,0,0,0.10);
+                border-left: none; width: 300px; padding: 12px 8px 30px;
+            }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { padding: 20px 18px 40px; }
+            .panel-title { font-size: 1.4rem; }
+            .app-header .brand .title-group h1 { font-size: 1rem; }
+            .app-header .brand img { height: 36px; }
+            .hadith-box { padding: 16px 18px; }
+            .hadith-box .arabic { font-size: 1rem; }
+            .author-grid { grid-template-columns: 1fr; }
+            .author-name { font-size: 1.7rem; }
+        }
+        @media (max-width: 480px) {
+            :root { --header-height: 64px; }
+            .app-header { padding: 0 14px; }
+            .app-header .brand .title-group h1 { font-size: 0.85rem; }
+            .app-header .brand .title-group .author { font-size: 0.68rem; }
+            .sidebar { width: 280px; }
+            .main-content { padding: 14px 12px 30px; }
+            .panel-title { font-size: 1.2rem; }
+            .sub-link { padding: 7px 10px 7px 28px; font-size: 0.78rem; }
+            .menu-head { padding: 10px 12px; font-size: 0.82rem; }
+            .author-card { padding: 18px; }
+            .info-block { padding: 14px; }
+            .info-list li { font-size: 0.82rem; }
+            .info-list li strong { min-width: 90px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="brand">
+            <img src="logo-pshd.jpg" alt="Logo" />
+            <div class="title-group">
+                <h1>Prokrastinasi dalam Perspektif Hadis</h1>
+                <span class="author">Penyusun: Ola Alifiyanti Zahra Purnama</span>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+    <div class="app-layout">
+        <div class="overlay" id="overlay"></div>
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Daftar isi">
+            <div class="top-menu" id="topMenu"></div>
+            <div id="menuContainer"></div>
+            <div class="extra-menu" id="extraMenu"></div>
+        </nav>
+        <main class="main-content" id="mainContent">
+            <div id="panelContainer"></div>
+        </main>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // ===== SVG ICONS =====
+            const svgIcons = {
+                book: '<svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>',
+                books: '<svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>',
+                folder: '<svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>',
+                target: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>',
+                heart: '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>',
+                scale: '<svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l4-2.18L12 3zm6.82 9L12 15.72 5.18 12 12 8.28l6.82 3.72zM5 16.5v-3.55L12 17l7-4.05v3.55L12 20.28 5 16.5z"/></svg>',
+                star: '<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>',
+                drop: '<svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>',
+                cloud: '<svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>',
+                hands: '<svg viewBox="0 0 24 24"><path d="M18 11h-2V6c0-1.1-.9-2-2-2v0c-1.1 0-2 .9-2 2v5H9V4c0-1.1-.9-2-2-2v0C5.9 2 5 2.9 5 4v12.25c0 .77.31 1.48.86 2.02l4.97 4.98c.55.55 1.28.86 2.04.86h5.08c1.66 0 3.01-1.34 3.01-3v-6c0-1.66-1.34-3-3-3z"/></svg>',
+                clock: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm.5 5v6l5 3-.75 1.23L11 13V7h1.5z"/></svg>',
+                bolt: '<svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/></svg>',
+                brain: '<svg viewBox="0 0 24 24"><path d="M13 3c-3.9 0-7 3.1-7 7H4c-1.1 0-2 .9-2 2s.9 2 2 2h2v3c0 1.66 1.34 3 3 3h1v-3h2v3h1c1.66 0 3-1.34 3-3v-3h2c1.1 0 2-.9 2-2s-.9-2-2-2h-2c0-3.9-3.1-7-7-7z"/></svg>',
+                repeat: '<svg viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>',
+                fire: '<svg viewBox="0 0 24 24"><path d="M17.56 10.59c-.93-.88-1.74-2.18-1.75-3.64 0-1.63 1.05-3.1 2.5-3.65-2.09-.64-4.52.22-5.73 2.05-1.46 2.21-.49 5.2 1.64 6.78-1.28-.15-2.43-.81-3.14-1.85-.94-1.38-1.02-3.21-.19-4.66C9.28 6.55 7.82 8.3 7.3 10.45c-.6 2.5.39 5.16 2.45 6.74C11.39 18.3 13.06 19 14.8 19c2.04 0 3.99-.87 5.37-2.38 1.4-1.52 1.94-3.7 1.35-5.65-.55-1.82-2.12-3.19-3.96-3.38z"/></svg>',
+                sad: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 9.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-7 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm6.5 6.5c-1.5 1.5-3.5 2-5 2s-3.5-.5-5-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+                shield: '<svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>',
+                check: '<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>',
+                user: '<svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>'
+            };
+
+            // ===== DATA PRAKATA =====
+            const topMenuData = [{
+                id: 'prakata',
+                label: 'Prakata',
+                icon: svgIcons.book,
+                content: `
+                    <h2 class="panel-title">Prakata</h2>
+                    <p class="prakata-text">
+                        Penulis berterima kasih kepada Allah SWT atas rahmat, hidayah, dan inayah-Nya yang telah memungkinkan penulis menyelesaikan ebook berjudul <strong>"Prokrastinasi (Menunda-nunda Pekerjaan) dalam Perspektif Hadis: Kajian Hadis Tematik tentang Upaya Menghindari Prokrastinasi dalam Mewujudkan Produktivitas Muslim"</strong> dengan cepat. Uswah hasanah Nabi Muhammad SAW telah membimbing orang-orang menuju kebenaran. Semoga shalawat dan salam senantiasa tercurah kepadanya.
+                    </p>
+                    <p class="prakata-text">
+                        Ebook ini disusun untuk mendalami bagaimana nilai-nilai nabawi memberikan solusi terhadap fenomena prokrastinasi atau menunda pekerjaan yang sering menjadi kendala dalam produktivitas umat. Melalui kajian hadis tematik ini, diharapkan pembaca dapat memahami upaya-upaya dalam menghindari sifat mempertahankan guna mewujudkan produktivitas sebagai seorang Muslim.
+                    </p>
+                    <p class="prakata-text">
+                        Penulis menyadari bahwa buku elektronik ini tidak sempurna. Oleh karena itu, kritik dan saran yang membangun sangat penting bagi penulis untuk mendorong perbaikan di masa depan. Akhir kata, semoga pekerjaan ini bermanfaat, memberi tahu orang lain, dan bermanfaat bagi kita semua.
+                    </p>
+                    <p class="signature">Penulis<br /><strong>Ola Alifiyanti Zahra Purnama</strong></p>
+                `
+            }];
+
+            // ===== DATA MENU UTAMA =====
+            const menuData = [{
+                id: 'bab1',
+                label: 'BAB I — AKSELERASI AMAL',
+                icon: svgIcons.bolt,
+                children: [{
+                    id: '1A',
+                    label: '1. Akselerasi Amal',
+                    icon: svgIcons.bolt,
+                    content: `
+                        <h2 class="panel-title">1. Akselerasi Amal</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">خَدَّنَا يَحْيَى بْنُ أَيُّوبَ وَقُتَيْبَةُ بْنُ سَعِيدٍ وَابْنُ خُجْرٍ قَالُوا حَدَّثَنَا إِسْمَعِيلُ بَعْثُونَ ابْنِ جَعْقَرٍ عَنِ الْعَلَاءِ عَنْ أَبِيهِ عَنْ أَبِي هُرَيْرَةَ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ بَادِرُوا بِالْأَعْمَالِ سِتًّا طُلُوعَ الشَّمْسِ مِنْ مَغْرِبِهَا أَوْ الدُّجَّالَ أَوْ الدَّابَةَ أَوْ خَاصَّةَ أَحَدِكُمْ أَوْ أَمْرَ الْعَامَّةِ</div>
+                            <div class="translation">Telah menceritakan kepada kami Yahya bin Ayyub, Qutaibah bin Sa'id dan Ibnu Hujr mereka berkata, telah menceritakan kepada kami Isma'il bin Ja'far dari Al Ala’ dari ayahnya dari Abu Hurairah, Rasulullah ﷺ bersabda, <strong>"Segeralah beramal sebelum (munculnya) enam (hal): terbitnya matahari dari barat, kabut, Dajjal, binatang, kekhususan salah seorang dari kalian (kematian) atau urusan umum (kiamat)."</strong></div>
+                            <span class="source">— HR. Muslim: 2947</span>
+                        </div>
+                        <div class="sub-section">
+                            <p>Hadis ini mengajarkan prinsip <em>akselerasi amal</em> — bersegera dalam berbuat kebaikan sebelum datangnya enam peristiwa besar yang menutup kesempatan. Prokrastinasi adalah kebalikan dari semangat ini: menunda amal berarti membuang kesempatan yang belum tentu kembali.</p>
+                        </div>
+                    `
+                }, {
+                    id: '1B',
+                    label: '2. Larangan Menunda',
+                    icon: svgIcons.clock,
+                    content: `
+                        <h2 class="panel-title">2. Larangan Menunda</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">خَدَّتَنَا وَكِيعٌ خَدَّتَنَا خَمَّاذُ بْنُ سَلَمَةَ عَنْ هِسَّامٍ عَنْ أَنْسُ بْنِ مَالِكٍ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ إِنْ قَامَتْ عَلَى أَحَدِكُمْ الْقِيَامَةُ وَفِي يَدِهِ قَسْلَةُ قَلَيْغِرِسْهَا</div>
+                            <div class="translation">Telah menceritakan kepada kami Waki', telah menceritakan kepada kami Hammad bin Salamah dari Hisyam dari Anas bin Malik berkata, Rasulullah SAW bersabda, <strong>"Jika tiba hari kiamat sedang pada tangan dari kalian bibit pohon kurma maka tanamlah."</strong></div>
+                            <span class="source">— HR. Ahmad bin Hanbal: 12902</span>
+                        </div>
+                        <div class="sub-section">
+                            <p>Bahkan di detik-detik terakhir menjelang kiamat, selama masih ada amal yang bisa dikerjakan, jangan menundanya. Islam sangat melarang sikap menunda-nunda pekerjaan yang bermanfaat, meskipun hanya berupa menanam satu bibit kurma.</p>
+                        </div>
+                    `
+                }, {
+                    id: '1C',
+                    label: '3. Keutamaan Bersegera',
+                    icon: svgIcons.star,
+                    content: `
+                        <h2 class="panel-title">3. Keutamaan Bersegera</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">خَدَّتَنَا عَبْدُ اللَّهِ بْنُ يُوشَفَ حَدَّتَنَا اللَّيْكُ حَدَّتَنَا سَعِيدُ هُوَ الْمَقْبُرِيْكُ عَنْ أَيِّهِ عَنْ أَبِي هُرَيْرَةَ قَالَ كَانَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ يَا نِسَاءَ الْمُسْلِمَاتِ لا تَخْفِرَنَّ جَارَةٌ لِجَارَتِهَا وَلَوْ فِرْسِنَ شَاءٍ</div>
+                            <div class="translation">Telah menceritakan kepada kami Abdullah bin Yusuf, telah menceritakan kepada kami Al Laits, telah menceritakan kepada kami Sa'id yaitu Al Maqburi dari Ayahnya dari Abu Hurairah dia berkata, Nabi SAW bersabda, <strong>"Wahai para wanita muslimah, janganlah antara tetangga yang satu dengan yang lainnya saling meremehkan walaupun hanya dengan memberi kaki kambing."</strong></div>
+                            <span class="source">— HR. Imam Bukhari: 6017</span>
+                        </div>
+                        <div class="hadith-box">
+                            <div class="arabic">حَدَّثَنَا عَبْدُ اللَّهِ بْنُ يُوسُفَ أَخْبَرَنَا مَالِكٌ عَنْ أَبِي حَازِمٍ عَنْ سَهْلِ بْنِ سَعْدٍ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ لَا يَزَالُ النَّاسُ بِخَيْرٍ مَا عَجَّلُوا الْفِطْرَ</div>
+                            <div class="translation">Telah menceritakan kepada kami 'Abdullah bin Yusuf, ia berkata: Telah mengabarkan kepada kami Malik, dari Abu Hazim, dari Sahl bin Sa'ad, bahwa Rasulullah SAW bersabda: <strong>"Senantiasa manusia berada dalam kebaikan selama mereka menyegerakan berbuka."</strong></div>
+                            <span class="source">— HR. Imam Bukhari: 1957</span>
+                        </div>
+                        <div class="sub-section">
+                            <p>Bersegera dalam kebaikan — sekecil apa pun — adalah ciri orang yang beriman. Menunda kebaikan, meski hanya memberi "kaki kambing" kepada tetangga, atau menunda berbuka puasa, dapat menghilangkan keberkahan dan kebaikan yang dijanjikan Allah.</p>
+                        </div>
+                    `
+                }]
+            }, {
+                id: 'bab2',
+                label: 'BAB II — PENYEBAB PENUNDAAN',
+                icon: svgIcons.sad,
+                children: [{
+                    id: '2A',
+                    label: '1. Fenomena Kelalaian (Ghaflah)',
+                    icon: svgIcons.cloud,
+                    content: `
+                        <h2 class="panel-title">1. Fenomena Kelalaian (Ghaflah)</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">أَخْبَرَنَا الْمَكِّيُّ بْنُ إِبْرَاهِيمَ حَدَّثَنَا عَبْدُ اللَّهِ هُوَ ابْنُ سَعِيدٍ أَنَّهُ سَمِعَ أَبَاهُ يُحَدِّثُ عَنْ ابْنِ عَبَّاسٍ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ إِنَّ نِعْمَتَانِ مَغْبُونٌ فِيهِمَا كَثِيرٌ مِنْ النَّاسِ الصِّحَّةُ وَالْفَرَاغُ</div>
+                            <div class="translation">Telah mengabarkan kepada kami Al Makki bin Ibrahim, telah menceritakan kepada kami Abdullah ia adalah Ibnu Sa'id, bahwa ia mendengar ayahnya menceritakan dari Ibnu Abbas ia berkata, Rasulullah SAW bersabda, <strong>"Sesungguhnya kesehatan dan waktu luang adalah dua kenikmatan dari kenikmatan-kenikmatan Allah yang kebanyakan manusia terpedaya olehnya."</strong></div>
+                            <span class="source">— HR. Darimi: 2749</span>
+                        </div>
+                        <div class="sub-section">
+                            <p><em>Ghaflah</em> (kelalaian) adalah akar dari prokrastinasi. Banyak orang menyia-nyiakan dua nikmat besar — kesehatan dan waktu luang — karena mengira keduanya akan selalu ada. Padahal, keduanya adalah amanah yang akan dipertanggungjawabkan.</p>
+                        </div>
+                    `
+                }, {
+                    id: '2B',
+                    label: '2. Tipu Daya Kesenangan Sesaat',
+                    icon: svgIcons.fire,
+                    content: `
+                        <h2 class="panel-title">2. Tipu Daya Kesenangan Sesaat</h2>
+                        <div class="hadith-box">
+                            <div class="arabic">و حَدَّثَنِي عَنْ مَالِكٍ عَنْ أَبِي الرَّبَادِ عَنْ الْأَعْسَرِ عَنْ أَبِي هُرَيْرَةَ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ يَغْفِرُ الشَّيْطَانُ عَلَى قَافِيَةِ رَأْسِ أَحَدِكُمْ إِذَا هُوَ تَامَ تَلَاتَ عُقَدٍ يَضْرِبُ مَكَانَ كُلَّ عُقَدٍ عَلَيْنَ لَيْلٌ طَوِيلٌ قَارُقُدُ قَارُقُطَ قَدَّكَرَ اللَّهُ انْحَلَّتْ عُقَدَهُ قَارُقُطَ أَنْ تَوَضَّأَ انْحَلَّتْ عُقَدَهُ قَارُقُس صَلَّى انْحَلَّتْ عُقَدَهُ قَاضْبَحَ نَشِيطًا طَبَّتِ النَّفْسِ وَإِالَّ أَضْبَحَ خَبِيثَ النَّفْسِ كَسْأَلَن</div>
+                            <div class="translation">Telah menceritakan kepadaku dari Malik dari Abu Az Zinad dari Al A'raj dari Abu Hurairah, bahwa Rasulullah SAW bersabda, <strong>"Setan mengikat bagian belakang kepala salah seorang dari kalian ketika dia tidur dengan tiga ikatan. Dalam setiap ikatan, dia hendak membuat malam menjadi panjang. Setan berkata 'Tidurlah!' Jika salah seorang dari kalian bangun, kemudian berzikir kepada Allah maka terlepas satu ikatannya. Jika (salah seorang dari kalian) berwudu, maka terlepaslah satu ikatan lagi. Jika salat maka terlepas satu ikatan lagi, hingga pada pagi hari dalam keadaan giat serta tenang jiwanya, namun jika tidak seperti itu, niscaya dia pada pagi hari dalam keadaan kotor jiwanya dan malas."</strong></div>
+                            <span class="source">— HR. Malik: 532</span>
+                        </div>
+                        <div class="hadith-box">
+                            <div class="arabic">أَخْبَرَنَا إِسْحَقُ بْنُ إِبْرَاهِيمَ قَالَ أَنْبَأَنَا جَرِيرٌ عَنْ مُحَمَّدِ بْنِ إِسْحَقَ عَنْ عَمْرِو بْنِ أَبِي عَمْرٍو عَنْ أَنَسِ بْنِ مَالِكٍ قَالَ كَانَ لِرَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ دَعَوَاتٌ لَا يَدَعُهُنَّ اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ الْهَمِّ وَالْحَزَنِ وَالْعَجْزِ وَالْكَسَلِ وَالْبُخْلِ وَالْجُبْنِ وَالدَّيْنِ وَغَلَبَةِ الرِّجَالِ وَحَدِيثُ ابْنِ فُضَيْلٍ خَطَأٌ</div>
+                            <div class="translation">Telah mengabarkan kepada kami Ishaq bin Ibrahim ia berkata, telah memberitakan kepada kami Jarir dari Muhammad bin Ishaq dari Amru bin Abu Amru dari Anas bin Malik ia berkata, <strong>"Rasulullah mempunyai doa-doa yang tidak pernah ditinggalkan untuk membacanya, 'ALLAHUMMA INNI A'UUDZU BIKA MINAL HAMMI WAL HAZNI WAL 'AJZI WAL KASALI WA BUKHLI, WAL JUBNI WAD DAINI WA GHALABATIR RIJAL (Ya Allah, aku berlindung kepada-Mu dari kegelisahan, kesedihan, kelemahan, kemalasan, kebakhilan, sifat pengecut, utang dan penindasan para penguasa)."</strong></div>
+                            <span class="source">— HR. An-Nasai: 5450</span>
+                        </div>
+                        <div class="hadith-box">
+                            <div class="arabic">أَخْبَرَنَا مُحَمَّدُ بْنُ الْمُثَنَّى عَنْ مُعَاذِ بْنِ هِشَامٍ قَالَ حَدَّثَنِي أَبِي عَنْ قَتَادَةَ عَنْ أَنَسٍ أَنَّ نَبِيَّ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ كَانَ يَقُولُ اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ الْعَجْزِ وَالْكَسَلِ وَالْبُخْلِ وَالْهَرَمِ وَعَذَابِ الْقَبْرِ وَفِتْنَةِ الْمَحْيَا وَالْمَمَاتِ</div>
+                            <div class="translation">Telah mengabarkan kepada kami Muhammad Ibnu Al Mutsanna dari Mu'adz bin Hisyam ia berkata, telah menceritakan kepada kami Ayahku dari Qatadah dari Anas bahwa Nabi Allah mengucapkan, <strong>"Ya Allah, sesungguhnya aku berlindung kepada-Mu dari kelemahan, kemalasan, kikir, pikun, siksa kubur dan fitnah dunia dan setelah mati."</strong></div>
+                            <span class="source">— HR. An-Nasa'i: 5448</span>
+                        </div>
+                        <div class="hadith-box">
+                            <div class="arabic">أَبِي صَالِحٍ عَنْ أَبِي هُرَيْرَةَ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ تَعِسَ عَبْدُ الدَّيْنَارِ وَعَبْدُ الدَّرْهَمِ وَعَبْدُ الْحَمِيدَةِ تَعِسَ وَاتَّكَسَ وَإِذَا شِئِلَ قَالَ اتَّقَسُّ</div>
+                            <div class="translation">Telah menceritakan kepada kami Ya'qub bin Humaid, telah menceritakan kepada kami Ishaq bin Sa'id dari Shofwan bin Sulaim dari Abdullah bin Dinar dari Abu Shalih dari Abu Hurairah dia berkata, Rasulullah SAW bersabda, <strong>"Celakalah budak dinar, budak dirham dan budak pakaian (sutra), binasalah ia dan merugilah ia, jika ia kemasukan duri maka ia tidak dapat mengeluarkannya."</strong></div>
+                            <span class="source">— HR. Ibnu Majah: 4136</span>
+                        </div>
+                        <div class="sub-section">
+                            <p>Prokrastinasi sering muncul karena kita diperdaya oleh kesenangan sesaat — tidur yang nyaman, hiburan yang instan, atau harta yang melalaikan. Rasulullah SAW mengajarkan doa berlindung dari <em>al-kasal</em> (kemalasan), yang merupakan salah satu pintu masuk setan untuk menunda kebaikan.</p>
+                        </div>
+                    `
+                }]
+            }, {
+                id: 'bab3',
+                label: 'BAB III — REGULASI DIRI DAN MENTAL',
+                icon: svgIcons.brain,
+                children: [{
+                    id: '3A',
+                    label: 'a. Mentalitas',
+                    icon: svgIcons.target,
+                    children: [{
+                        id: '3A1',
+                        label: '1. Fokus Produktif sebagai Solusi Anti Prokrastinasi',
+                        icon: svgIcons.bolt,
+                        content: `
+                            <h2 class="panel-title">1. Fokus Produktif sebagai Solusi Anti Prokrastinasi</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">خَدَّتَنَا مُحَمَّدُ بْنُ الصَّبَّاحِ أَنْبَائِنَا شَقَّيَانُ بْنُ عُيَيْنَةَ عَنْ أَبْنِ عَجْلَانِ عَنْ الْأَعْتِحِ عَنْ أَبِي هُرَيْرَةَ بَيْلُغُ بِهِ التَّيِّيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ الْمُؤْمِنُ الْقَوِيُّ حَيْثُ وَأَحَبُّ إِلَى اللَّهِ مِنَ الْمُؤْمِنِ الصَّعِيفِ وَفِي كُلِّ حَيْثُ أَخْرِضَ عَلَى مَا يَنْقَعُكَ وَالَ تَقْجِزْ قَإِنْ عَلَيْكَ أَمْرُ قَفْلَ قَدْرَ اللَّهِ وَمَا شَاءَ قَعَلَ وَلِإِنَّكَ وَاللَّوْ قَإِنَّ اللَّوْ تَقْتِحُ عَمَلَ الشَّيْطَانِ</div>
+                                <div class="translation">Telah menceritakan kepada kami Muhammad bin As Shabah, telah memberitakan kepada kami Sufyan bin 'Uyainah dari Ibnu 'Ajlan dari Al A'raj dari Abu Hurairah dan sampai kepada Nabi SAW, beliau bersabda, <strong>"Seorang mukmin yang kuat itu lebih baik dan lebih dicintai oleh Allah daripada seorang mukmin yang lemah, dan dalam masing-masing keduanya itu terdapat kebaikan. Bersungguh-sungguhlah terhadap sesuatu yang bermanfaat bagimu dan jangan lemah semangat. Jika suatu perkara mengalahkanmu maka katakanlah, 'Ketentuan Allah telah ditetapkan, dan suatu yang telah Dia kehendaki maka akan terjadi.' Dan jauhilah olehmu dari ucapan 'Seandainya', karena sesungguhnya ungkapan 'Seandainya' membuka peluang masuknya setan."</strong></div>
+                                <span class="source">— HR. Ibnu Majah: 4168</span>
+                            </div>
+                            <div class="sub-section">
+                                <p>Fokus produktif berarti mengarahkan energi pada hal-hal yang bermanfaat, bukan pada penyesalan atau angan-angan kosong. Kata "seandainya" adalah pintu prokrastinasi karena membuat kita sibuk dengan masa lalu yang tak bisa diubah.</p>
+                            </div>
+                        `
+                    }]
+                }, {
+                    id: '3B',
+                    label: 'b. Konsistensi',
+                    icon: svgIcons.repeat,
+                    children: [{
+                        id: '3B1',
+                        label: '1. Prinsip Istiqomah',
+                        icon: svgIcons.repeat,
+                        content: `
+                            <h2 class="panel-title">1. Prinsip Istiqomah</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">عَنْ عَائِشَةَ أَنَّهَا قَالَتْ كَانَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ إِذَا عَمِلَ عَمَلًا أَثْبَتَهُ وَكَانَ إِذَا نَامَ مِنْ اللَّيْلِ صَلَّى مَا كُتِبَ لَهُ وَلَمْ يُصَلِّ بَعْدَ الْوِتْرِ</div>
+                                <div class="translation">Dari 'Aisyah, ia berkata: <strong>"Adalah Rasulullah SAW apabila mengerjakan suatu amalan, beliau menekuninya. Dan apabila beliau tidur di malam hari, beliau salat sebanyak yang ditetapkan untuk beliau, dan beliau tidak salat setelah witir."</strong></div>
+                                <span class="source">— HR. Imam Muslim: 783</span>
+                            </div>
+                            <div class="hadith-box">
+                                <div class="arabic">خَدَّتَا مُحَمَّدُ بْنُ سَلَامِ أَخْبَرَنَا عَبْدُ اللَّهِ عَنْ عُبَيْدِ اللَّهِ بْنِ عُمَرَ عَنْ حُبَيْبِ بْنِ عَبْدِ الرَّحْمَنِ عَنْ حَفْصِ بْنِ عَاصِمٍ عَنْ أَبِي هُرَيْرَةَ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ سَبْعَةٌ يُظِلُّهُمْ اللَّهُ فِي ظِلِّهِ يَوْمَ لَا ظِلَّ إِلَّا ظِلُّهُ إِمَامٌ عَادِلٌ وَشَابٌّ نَشَأَ فِي عِبَادَةِ اللَّهِ وَرَجُلٌ ذَكَرَ اللَّهَ فِي خَلَاءٍ فَفَاضَتْ عَيْنَاهُ وَرَجُلٌ قَلْبُهُ مُعَلَّقٌ فِي الْمَسْجِدِ وَرَجُلَانِ تَحَابَّا فِي اللَّهِ وَرَجُلٌ دَعَتْهُ امْرَأَةٌ ذَاتُ مَنْصِبٍ وَجَمَالٍ إِلَى نَفْسِهَا قَالَ إِنِّي أَخَافُ اللَّهَ وَرَجُلٌ تَصَدَّقَ بِصَدَقَةٍ فَأَخْفَاهَا حَتَّى لَا تَعْلَمَ شِمَالُهُ مَا صَنَعَتْ يَمِينُهُ</div>
+                                <div class="translation">Telah menceritakan kepada kami Muhammad bin Salam, telah mengabarkan kepada kami Abdullah dari Ubaidillah bin Umar dari Khubaib bin Abdurrahman dari Hafsh bin 'Ashim dari Abu Hurairah dari Nabi SAW bersabda, <strong>"Ada tujuh golongan yang Allah melindungi mereka dalam lindungan-Nya pada hari kiamat, di hari ketika tiada perlindungan selain perlindungan-Nya, yaitu: imam yang adil, pemuda yang tumbuh dalam beribadah kepada Allah, seseorang yang senantiasa mengingat Allah saat sendiri sehingga matanya berlinang, seseorang yang hatinya selalu terkait dengan masjid, dua orang yang saling mencintai karena Allah, seseorang yang diajak berkencan oleh wanita bangsawan dan rupawan, namun ia menjawab, 'Saya takut kepada Allah', serta seseorang yang bersedekah secara sembunyi-sembunyi hingga tangan kirinya tidak mengetahui apa yang dilakukan oleh tangan kanannya."</strong></div>
+                                <span class="source">— HR. Al-Bukhari</span>
+                            </div>
+                            <div class="sub-section">
+                                <p>Istiqomah adalah kunci produktivitas yang berkelanjutan. Amalan yang kecil namun konsisten jauh lebih baik daripada amalan besar yang hanya sekali. Inilah yang membedakan orang produktif dari orang yang prokrastinator.</p>
+                            </div>
+                        `
+                    }, {
+                        id: '3B2',
+                        label: '2. Kekuatan Niat',
+                        icon: svgIcons.target,
+                        content: `
+                            <h2 class="panel-title">2. Kekuatan Niat</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا الْحَمْدِيُّ عَبْدُ اللَّهِ بْنُ الزُّبَيْرِ قَالَ حَدَّثَنَا شُقَيَّانُ قَالَ حَدَّثَنَا يَحْيَى بْنُ سَعِيدٍ الْأَنْصَارِيُّ قَالَ أَخْبَرَنِي مُحَمَّدُ بْنُ إِبْرَاهِيمَ النَّبِيِّ أَنَّهُ سَمِعَ عَلْقَمَةَ بْنِ وَقَاصٍ اللَّيْنِيَّ يَقُولُ سَمِعْتُ عُمَرَ بْنِ الْخَطَّابِ رَضِيَ اللَّهُ عَنْهُ عَلَى الْمِنْبَرِ سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ إِنَّمَا الْأَعْمَالُ بِالنَّبِيَّاتِ وَإِنَّمَا لِكُلِّ اِمْرِئٍ مَا تَوَى قَمَنَّ كَاتِثَ هِجْرَتُهُ إِلَى ذُنُبًا يُصِيبُهَا أَوْ إِلَى اِمْرَأَةٍ يَتَكُهُما قَهْجَرْتُهُ إِلَى مَا هَاجَرَ إِلَى</div>
+                                <div class="translation">Telah menceritakan kepada kami Al-Humaidi 'Abdullah bin Zubair, ia berkata: Telah menceritakan kepada kami Sufyan, ia berkata: Telah menceritakan kepada kami Yahya bin Sa'id Al-Anshari, ia berkata: Telah mengabarkan kepadaku Muhammad bin Ibrahim, bahwa ia mendengar 'Alqamah bin Waqqash Al-Laitsi berkata: Aku mendengar 'Umar bin Al-Khaththab RA di atas mimbar berkata: Aku mendengar Rasulullah SAW bersabda: <strong>"Sesungguhnya setiap amalan tergantung pada niatnya. Dan setiap orang akan mendapatkan apa yang ia niatkan. Maka barangsiapa yang hijrahnya kepada Allah dan Rasul-Nya, maka hijrahnya kepada Allah dan Rasul-Nya. Barangsiapa yang hijrahnya kepada dunia yang ingin ia raih atau wanita yang ingin ia nikahi, maka hijrahnya kepada apa yang ia niatkan."</strong></div>
+                                <span class="source">— HR. Muslim</span>
+                            </div>
+                            <div class="sub-section">
+                                <p>Niat adalah kompas amal. Prokrastinasi sering terjadi karena niat yang lemah dan tidak jelas. Dengan memperbaiki niat, kita membangun fondasi produktivitas yang kokoh.</p>
+                            </div>
+                        `
+                    }]
+                }, {
+                    id: '3C',
+                    label: 'c. Waktu',
+                    icon: svgIcons.clock,
+                    children: [{
+                        id: '3C1',
+                        label: '1. Waktu sebagai Amanah',
+                        icon: svgIcons.clock,
+                        content: `
+                            <h2 class="panel-title">1. Waktu sebagai Amanah</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">عَنْ أَنَسِ بْنِ مَالِكٍ أَنَّ رَجُلًا سَأَلَ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَتَى السَّاعَةُ قَالَ مَا أَعْدَدْتَ لَهَا قَالَ مَا أَعْدَدْتُ لَهَا مِنْ كَثِيرِ عَمَلٍ إِلَّا أَنِّي أُحِبُّ اللَّهَ وَرَسُولَهُ قَالَ أَنْتَ مَعَ مَنْ أَحْبَبْتَ</div>
+                                <div class="translation">Dari Anas bin Malik, bahwa seorang laki-laki bertanya kepada Nabi SAW: "Kapan kiamat?" Beliau menjawab: "Apa yang telah engkau persiapkan untuknya?" Ia berkata: "Aku tidak mempersiapkan banyak amal, hanya saja aku mencintai Allah dan Rasul-Nya." Beliau bersabda: <strong>"Engkau akan bersama orang yang engkau cintai."</strong></div>
+                                <span class="source">— HR. Muslim: 2952</span>
+                            </div>
+                            <div class="sub-section">
+                                <p>Waktu adalah amanah. Pertanyaan tentang kiamat bukan untuk ditakuti, tetapi untuk memotivasi kita mempersiapkan diri. Prokrastinasi adalah bentuk pengkhianatan terhadap amanah waktu.</p>
+                            </div>
+                        `
+                    }, {
+                        id: '3C2',
+                        label: '2. Pemanfaatan Peluang',
+                        icon: svgIcons.bolt,
+                        content: `
+                            <h2 class="panel-title">2. Pemanfaatan Peluang</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا مُحَمَّدُ بْنُ بَشَّارٍ حَدَّثَنَا جَعْفَرُ بْنُ عَوْنٍ حَدَّثَنَا أَبُو الْعُمَيْسِ عَنْ عَوْنِ بْنِ أَبِي جُحَيْفَةَ عَنْ أَبِيهِ قَالَ آخَى النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ بَيْنَ سَلْمَانَ وَأَبِي الدَّرْدَاءِ فَزَارَ سَلْمَانُ أَبَا الدَّرْدَاءِ فَرَأَى أُمَّ الدَّرْدَاءِ مُتَبَذِّلَةً فَقَالَ لَهَا مَا شَأْنُكِ قَالَتْ أَخُوكَ أَبُو الدَّرْدَاءِ لَيْسَ لَهُ حَاجَةٌ فِي الدُّنْيَا فَجَاءَ أَبُو الدَّرْدَاءِ فَصَنَعَ لَهُ طَعَامًا فَقَالَ كُلْ فَإِنِّي صَائِمٌ فَقَالَ مَا أَنَا بِآكِلٍ حَتَّى تَأْكُلَ فَأَكَلَ فَلَمَّا كَانَ اللَّيْلُ ذَهَبَ أَبُو الدَّرْدَاءِ يَقُومُ فَقَالَ نَمْ فَنَامَ ثُمَّ ذَهَبَ يَقُومُ فَقَالَ نَمْ فَلَمَّا كَانَ مِنْ آخِرِ اللَّيْلِ قَالَ سَلْمَانُ قُمْ الْآنَ فَصَلَّيَا فَقَالَ لَهُ سَلْمَانُ إِنَّ لِرَبِّكَ عَلَيْكَ حَقًّا وَلِنَفْسِكَ عَلَيْكَ حَقًّا وَلِأَهْلِكَ عَلَيْكَ حَقًّا فَأَعْطِ كُلَّ ذِي حَقٍّ حَقَّهُ فَأَتَى النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فَذَكَرَ ذَلِكَ لَهُ فَقَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ صَدَقَ سَلْمَانُ</div>
+                                <div class="translation">Telah menceritakan kepada kami Muhammad bin Basysyar, telah menceritakan kepada kami Ja'far bin 'Aun, telah menceritakan kepada kami Abu Al 'Umais dari 'Aun bin Abu Juhaifah dari bapaknya berkata, Nabi mempersaudarakan Salman dan Abu Darda'. Suatu hari Salman mengunjungi Abu Darda', lalu ia melihat Ummu Darda' dengan baju yang kumuh, lalu ia berkata, kepadanya, "Ada apa denganmu?" Dia menjawab, "Saudaramu Abu Darda', dia tidak memperhatikan kebutuhan dunia." Kemudian Abu Darda' datang, lalu ia membuat makanan untuk Salman. Salman berkata kepada Abu Darda': "Makanlah!" Abu Darda' menjawab, "Aku sedang berpuasa." Salman berkata, "Aku tidak akan makan hingga engkau makan." Dia berkata, "Lalu Abu Darda' ikut makan." Pada malam hari Abu Darda' bangun, lalu Salman berkata, "Teruskanlah tidur." Maka iapun tidur lalu bangun lagi, lalu Salman berkata, "Teruskanlah tidur." Maka iapun Tidur lagi. Pada akhir malam Salman berkata, "Sekarang bangunlah." Kemudian mereka berdua salat malam." Lalu Salman berkata kepada Abu Darda', <strong>"Sesungguhnya Tuhanmu mempunyai hak atasmu, dan jiwamu mempunyai hak atasmu, dan istrimu mempunyai hak atasmu, maka berilah setiap hak kepada orang yang berhak."</strong> Kemudian Abu Darda' menemui Nabi lalu ia menceritakan hal itu. Maka beliau bersabda, <strong>"Salman benar".</strong></div>
+                                <span class="source">— HR. Bukhari: 6139</span>
+                            </div>
+                            <div class="sub-section">
+                                <p>Pemanfaatan peluang berarti menempatkan setiap hak pada porsinya: hak Allah, hak diri, dan hak keluarga. Prokrastinasi sering muncul karena keseimbangan ini rusak.</p>
+                            </div>
+                        `
+                    }]
+                }]
+            }, {
+                id: 'bab4',
+                label: 'BAB IV — INTEGRITAS PERILAKU DAN IBADAH',
+                icon: svgIcons.shield,
+                children: [{
+                    id: '4A',
+                    label: 'a. Tanggung Jawab',
+                    icon: svgIcons.hands,
+                    children: [{
+                        id: '4A1',
+                        label: '1. Amanah Tugas',
+                        icon: svgIcons.shield,
+                        content: `
+                            <h2 class="panel-title">1. Amanah Tugas</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا عَبْدَانُ أَخْبَرَنَا عَبْدُ اللَّهِ أَخْبَرَنَا مُوسَى بْنُ عُقْبَةَ عَنْ نَافِعٍ عَنْ ابْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ كُلُّكُمْ رَاعٍ وَكُلُّكُمْ مَسْئُولٌ عَنْ رَعِيَّتِهِ وَالْأَمِيرُ رَاعٍ وَالرَّجُلُ رَاعٍ عَلَى أَهْلِ بَيْتِهِ وَالْمَرْأَةُ رَاعِيَةٌ عَلَى بَيْتِ زَوْجِهَا وَوَلَدِهِ فَكُلُّكُمْ رَاعٍ وَكُلُّكُمْ مَسْئُولٌ عَنْ رَعِيَّتِهِ</div>
+                                <div class="translation">Telah menceritakan kepada kami Abdan, telah mengabarkan kepada kami Abdullah, telah mengabarkan kepada kami Musa bin Uqbah dari Nafi' dari Ibnu Umar radhiallahu'anhuma, dari Nabi SAW beliau bersabda, <strong>"Setiap kalian adalah pemimpin. Dan setiap kalian akan dimintai pertanggungjawaban terhadap yang dipimpinnya. Seorang Amir adalah pemimpin. Seorang suami juga pemimpin atas keluarganya. Seorang wanita juga pemimpin atas rumah suaminya dan anak-anaknya. Maka setiap kalian adalah pemimpin dan setiap kalian akan dimintai pertanggungjawaban atas yang dipimpinnya."</strong></div>
+                                <span class="source">— HR. Bukhari: 4904</span>
+                            </div>
+                            <div class="sub-section">
+                                <p>Prokrastinasi adalah pengkhianatan terhadap amanah kepemimpinan. Setiap orang adalah pemimpin — minimal bagi dirinya sendiri — dan akan dimintai pertanggungjawaban.</p>
+                            </div>
+                        `
+                    }, {
+                        id: '4A2',
+                        label: '2. Kesesuaian Ucapan dan Tindakan',
+                        icon: svgIcons.check,
+                        content: `
+                            <h2 class="panel-title">2. Kesesuaian Ucapan dan Tindakan</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا إِسْحَقُ بْنُ مَنْصُورٍ حَدَّثَنَا حَبَّانُ بْنُ هِلَالٍ حَدَّثَنَا أَبَانُ هُوَ ابْنُ يَزِيدَ الْعَطَّارُ حَدَّثَنَا يَحْيَى أَنَّ زَيْدَ بْنَ سَلَّامٍ حَدَّثَهُ أَنَّ أَبَا سَلَّامٍ حَدَّثَهُ عَنْ أَبِي مَالِكٍ الْأَشْعَرِيِّ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ الطُّهُورُ شَطْرُ الْإِيمَانِ وَالْحَمْدُ لِلَّهِ تَمْلَأُ الْمِيزَانَ وَسُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ تَمْلَآنِ أَوْ تَمْلَأُ مَا بَيْنَ السَّمَوَاتِ وَالْأَرْضِ وَالصَّلَاةُ نُورٌ وَالصَّدَقَةُ بُرْهَانٌ وَالصَّبْرُ ضِيَاءٌ وَالْقُرْآنُ حُجَّةٌ لَكَ أَوْ عَلَيْكَ كُلُّ النَّاسِ يَغْدُو فَبَائِعٌ نَفْسَهُ فَمُعْتِقُهَا أَوْ مُوبِقُهَا</div>
+                                <div class="translation">Telah menceritakan kepada kami Ishaq bin Manshur, telah menceritakan kepada kami Habban bin Hilal, telah menceritakan kepada kami Aban yaitu Ibnu Yazid Al 'Aththar, telah menceritakan kepada kami Yahya bahwa Zaid bin Sallam, telah menceritakan kepadanya bahwa Abu Sallam menceritakan kepadanya dari Abu Malik Al Asy'ari ia berkata, Rasulullah bersabda, <strong>"Wudu adalah setengah keimanan, Al Hamdulillah memenuhi timbangan, dan Subhanallah wal hamdulillah memenuhi antara langit dan bumi, salat adalah cahaya, sedekah adalah bukti, kesabaran adalah pelita dan Al-Qur'an adalah hujjah yang akan menjadi pembelamu atau bahkan akan menuntutmu. Setiap orang akan pergi, kemudian ia menjual dirinya, maka ia akan membebaskannya atau akan mencelakakannya."</strong> Abu Isa berkata, hadits ini adalah hadits hasan shahih.</div>
+                                <span class="source">— HR. Imam Tirmidzi: 3517</span>
+                            </div>
+                            <div class="sub-section">
+                                <p>Integritas adalah menyatunya ucapan, niat, dan tindakan. Orang yang prokrastinator sering kali tahu apa yang seharusnya dilakukan tetapi tidak melakukannya. Padahal, konsistensi ucapan dan tindakan adalah tanda keimanan yang matang.</p>
+                            </div>
+                        `
+                    }]
+                }, {
+                    id: '4B',
+                    label: 'b. Disiplin Ibadah',
+                    icon: svgIcons.clock,
+                    children: [{
+                        id: '4B1',
+                        label: '1. Tepat Waktu',
+                        icon: svgIcons.clock,
+                        content: `
+                            <h2 class="panel-title">1. Tepat Waktu</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">أَخْبَرَنَا عُبَيْدُ اللَّهِ بْنُ سَعِيدٍ قَالَ حَدَّثَنَا أَبُو بَكْرٍ نُبَيِّرُ بْنُ عَيَّاشٍ عَنْ عَاصِمٍ عَنْ زِرٍّ عَنْ عَبْدِ اللَّهِ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ لَعَلَّكُمْ سَتُدْرِكُونَ أَقْوَامًا يُصَلُّونَ الصَّلَاةَ لِغَيْرِ وَقْتِهَا فَإِنْ أَدْرَكْتُمُوهُمْ فَصَلُّوا الصَّلَاةَ لِوَقْتِهَا وَصَلُّوا مَعَهُمْ وَاجْعَلُوهَا سُنَّةً</div>
+                                <div class="translation">Telah mengabarkan kepada kami 'Ubaidullah bin Sa'id dia berkata, telah menceritakan kepada kami Abu Bakr bin 'Ayyasy dari 'Ashim dari Zirr dari Abdullah dia berkata, Rasulullah SAW bersabda, <strong>"Mungkin kalian akan menjumpai suatu kaum yang mengerjakan salat tidak pada waktunya. Jika kalian mendapati mereka, maka salatlah pada waktunya, kemudian ikutlah salat bersama mereka dan anggaplah itu sebagai salat sunnah."</strong></div>
+                                <span class="source">— HR. Nasa'i: 779</span>
+                            </div>
+                            <div class="hadith-box">
+                                <div class="arabic">أَخْبَرْتَا عَبْدُ اللَّهِ بْنُ مُحَمَّدٍ بْنِ عَبْدِ الرَّحْمَنِ الرُّهُورِي قَالَ حَدَّثَنَا شُقَيَّانُ حَدَّثَنَا الرُّهُورِيُّ عَنْ سَعِيدٍ عَنْ أَبِي هُرَيْرَةَ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ إِذَا أَيُّهُمْ الصَّلَاةَ قَالَ تَأْتُوهَا وَأَتَهُمْ تَسْعَوْنَ وَأَتُوهَا تَمْشُونَ وَعَلَيْكُمْ السَّكِينَةُ قَمَا أَذْرَكْتُمْ قَصَ لُوا وَمَا قَاتَكُمْ قَاقْضُوا</div>
+                                <div class="translation">Telah mengabarkan kepada kami Abdullah bin Muhammad bin 'Abdurrahman Az Zuhri dia berkata, telah menceritakan kepada kami Sufyan, telah menceritakan kepada kami Az Zuhri dari Sa'id dari Abu Hurairah dia berkata, Rasulullah bersabda, <strong>"Jika kalian mendatangi salat, jangan dengan lari tergesa-gesa. Datangilah dengan berjalan dan tenang. Apa yang kalian dapati, salatlah, dan yang ketinggalan maka sempurnakanlah."</strong></div>
+                                <span class="source">— HR. An-Nasa'i: 861</span>
+                            </div>
+                            <div class="hadith-box">
+                                <div class="arabic">أَخْبَرَنَا سَرِيعُ بْنُ عَبْدِ اللَّهِ الْوَاسِطِيُّ الْخَصِيُّ قَالَ حَدَّثَنَا إِسْحَقُ بْنُ يُوسُفَ الْأَزْرَقُ عَنْ شَرِيكٍ عَنْ عَاصِمٍ عَنْ أَبِي وَائِلٍ عَنْ عَبْدِ اللَّهِ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ أَوَّلُ مَا يُحَاسَبُ بِهِ الْعَبْدُ الصَّلَاةُ وَأَوَّلُ مَا يُقْضَى بَيْنَ النَّاسِ فِي الدِّمَاءِ</div>
+                                <div class="translation">Telah mengabarkan kepada kami Sari' bin Abdullah Al Washiti Al Khishi, ia berkata: telah menceritakan kepada kami Ishaq bin Yusuf Al Azraq dari Syarik dari 'Ashim dari Abu Wail dari Abdullah, ia berkata, Rasulullah bersabda, <strong>"Sesuatu pertama yang dengannya seorang hamba dihisab adalah salat dan sesuatu pertama yang diputuskan diantara para manusia adalah mengenai darah."</strong></div>
+                                <span class="source">— HR. Nasa'i: 3991</span>
+                            </div>
+                            <div class="sub-section">
+                                <p>Salat tepat waktu adalah disiplin paling dasar bagi seorang Muslim. Jika seseorang mampu disiplin dalam salat, ia akan mampu disiplin dalam seluruh aspek kehidupan lainnya, termasuk menjauhi prokrastinasi.</p>
+                            </div>
+                        `
+                    }, {
+                        id: '4B2',
+                        label: '2. Persiapan Spiritual',
+                        icon: svgIcons.star,
+                        content: `
+                            <h2 class="panel-title">2. Persiapan Spiritual</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">خَدَّتَا مُوسَى بْنُ إِسْمَعِيلَ وَمُحَمَّدُ بْنُ عَبْدِ اللَّهِ الْخُرَاعِيُّ قَالَ خَدَّتَا أَبُو الْأَشْهَبِ عَنْ أَبِي تَصْرَةَ عَنْ أَبِي سَعِيدٍ الْخُذْرِيِّ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهِ عَلَيْهِ وَسَلَّمَ رَأَى فِي أَصْحَابِهِ تَأَخَّرًا فَقَالَ لَهُمْ تَقَدَّمُوا فَأْتَمُّوا بِي وَلِيَأْتَمَّ بِكُمْ مَنْ بَعْدَكُمْ وَلَا يَزَالُ قَوْمٌ يَتَأَخَّرُونَ حَتَّى يُؤَخِّرَهُمْ اللَّهُ عَزَّ وَجَلَّ</div>
+                                <div class="translation">Telah menceritakan kepada kami Musa bin Isma'il dan Muhammad bin Abdullah Al-Khuza'i dia berkata, telah menceritakan kepada kami Abu Al-Asyhab dari Abu Nadirah dari Abu Sa'id Al-Khudri bahwasanya Rasulullah pernah melihat pada sahabat-sahabatnya bersikap lamban (untuk maju ke depan), maka beliau bersabda kepada mereka, <strong>"Majulah dan ikutilah aku, dan hendaklah orang yang di belakang kalian mengikuti kalian. Suatu kaum masih saja bersikap lamban, sehingga Allah 'Azza wa Jalla juga akan memperlamban mereka (dari rahmat-Nya)."</strong></div>
+                                <span class="source">— HR. Abu Dawud: 680</span>
+                            </div>
+                            <div class="sub-section">
+                                <p>Persiapan spiritual adalah fondasi disiplin. Orang yang selalu siap secara rohani akan lebih mudah bersegera dalam kebaikan dan tidak menunda-nunda pekerjaan.</p>
+                            </div>
+                        `
+                    }]
+                }, {
+                    id: '4C',
+                    label: 'c. Produktivitas',
+                    icon: svgIcons.bolt,
+                    children: [{
+                        id: '4C1',
+                        label: '1. Ketangkasan Beraksi',
+                        icon: svgIcons.bolt,
+                        content: `
+                            <h2 class="panel-title">1. Ketangkasan Beraksi</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">أَخْبَرَنَا سُوَيْدُ بْنُ نَصْرٍ قَالَ أَخْبَرَنَا عَبْدُ اللَّهِ عَنْ خُبَيْبِ بْنِ عَبْدِ الرَّحْمَنِ عَنْ حَفْصِ بْنِ عَاصِمٍ عَنْ أَبِي هُرَيْرَةَ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ سَبْعَةٌ يُظِلُّهُمْ اللَّهُ عَزَّ وَجَلَّ فِي ظِلِّهِ يَوْمَ لَا ظِلَّ إِلَّا ظِلُّهُ إِمَامٌ عَادِلٌ وَشَابٌّ نَشَأَ فِي عِبَادَةِ اللَّهِ عَزَّ وَجَلَّ وَرَجُلٌ ذَكَرَ اللَّهَ عَزَّ وَجَلَّ فِي خَلَاءٍ فَفَاضَتْ عَيْنَاهُ وَرَجُلٌ كَانَ قَلْبُهُ مُعَلَّقًا فِي الْمَسْجِدِ وَرَجُلَانِ تَحَابَّا فِي اللَّهِ عَزَّ وَجَلَّ وَرَجُلٌ دَعَتْهُ امْرَأَةٌ ذَاتُ مَنْصِبٍ وَجَمَالٍ إِلَى نَفْسِهَا فَقَالَ إِنِّي أَخَافُ اللَّهَ عَزَّ وَجَلَّ وَرَجُلٌ تَصَدَّقَ بِصَدَقَةٍ فَأَخْفَاهَا حَتَّى لَا تَعْلَمَ شِمَالُهُ مَا صَنَعَتْ يَمِينُهُ</div>
+                                <div class="translation">Telah mengabarkan kepada kami Suwaid bin Nash ia berkata, telah memberitakan kepada kami Abdullah dari Ubaidullah dari Khabib bin 'Abdurrahman dari Hafsh bin Ashim dari Abu Hurairah bahwa Rasulullah SAW bersabda, <strong>"Ada tujuh golongan yang akan Allah lindungi pada hari kiamat, di hari yang tidak ada perlindungan selain perlindungan-Nya; imam yang adil, seorang pemuda yang tumbuh dalam peribadatan kepada Allah 'Azza wa Jalla, seorang laki-laki yang berzikir kepada Allah dalam keheningan kemudian meneteskan air mata, seorang laki-laki yang hatinya selalu terpaut dengan masjid, dua orang laki-laki yang mencintai karena Allah 'Azza wa Jalla, seorang laki-laki yang bersedekah dengan sembunyi-sembunyi hingga tangan kirinya tidak mengetahui apa yang dilakukan oleh tangan kanannya."</strong></div>
+                                <span class="source">— HR. Imam An-Nas'i: 5380</span>
+                            </div>
+                            <div class="sub-section">
+                                <p>Ketangkasan beraksi bukan berarti terburu-buru tanpa perhitungan, melainkan kesiapan hati untuk segera merespons kebaikan. Tujuh golongan yang disebutkan dalam hadis ini adalah mereka yang hatinya selalu siap untuk beramal.</p>
+                            </div>
+                        `
+                    }, {
+                        id: '4C2',
+                        label: '2. Hasil Hidup yang Bermanfaat',
+                        icon: svgIcons.star,
+                        content: `
+                            <h2 class="panel-title">2. Hasil Hidup yang Bermanfaat</h2>
+                            <div class="hadith-box">
+                                <div class="arabic">خَدَّتَا أَحْمَدُ بْنُ يُوْسِنَ حَدَّثَنَا زَائِدَةُ عَنْ الْأَعْمَشِ عَنْ أَبِي صَالِحٍ عَنْ أَبِي هُرَيْرَةَ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَا مِنْ رَجُلٍ يَشْلُكُ طَرِيقًا يَطْلُبُ فِيهِ عِلْمًا إِلَّا سَهَلَ اللَّهُ لَهُ طَرِيقَ الْجَنَّةِ وَمَنْ أَبْطَأَ بِهِ عَمَلُهُ لَمْ يُشْرِغُ بِهِ تَسْبُهُ</div>
+                                <div class="translation">Telah menceritakan kepada kami Ahmad bin Yunus, telah menceritakan kepada kami Zaidah dari Al A'masy dari Abu Shalih dari Abu Hurairah, ia berkata, Rasulullah SAW bersabda, <strong>"Tidaklah seorang laki-laki yang meniti jalan untuk menuntut ilmu, melainkan Allah akan mempermudah baginya jalan menuju Surga. Dan barang siapa yang dilambatkan oleh amalnya, sungguh garis nasabnya tidak akan dapat mempercepatnya."</strong></div>
+                                <span class="source">— HR. Abu Dawud: 3643</span>
+                            </div>
+                            <div class="hadith-box">
+                                <div class="arabic">حَدَّثَنَا عَبْدُ اللَّهِ بْنُ يُوسُفَ قَالَ أَخْبَرَنَا مَالِكٌ عَنْ أَبِي الزِّنَادِ عَنِ الْأَعْرَجِ عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ يَعْقِدُ الشَّيْطَانُ عَلَى قَافِيَةِ رَأْسِ أَحَدِكُمْ إِذَا هُوَ نَامَ ثَلَاثَ عُقَدٍ يَضْرِبُ كُلَّ عُقْدَةٍ عَلَيْكَ لَيْلٌ طَوِيلٌ فَارْقُدْ فَإِنِ اسْتَيْقَظَ فَذَكَرَ اللَّهَ انْحَلَّتْ عُقْدَةٌ فَإِنْ تَوَضَّأَ انْحَلَّتْ عُقْدَةٌ فَإِنْ صَلَّى انْحَلَّتْ عُقْدَةٌ فَأَصْبَحَ نَشِيطًا طَيِّبَ النَّفْسِ وَإِلَّا أَصْبَحَ خَبِيثَ النَّفْسِ كَسْلَانَ</div>
+                                <div class="translation">Telah menceritakan kepada kami 'Abdullah bin Yusuf, ia berkata: Telah mengabarkan kepada kami Malik, dari Abu az-Zinad, dari al-A'raj, dari Abu Hurairah radhiallahu'anhu, bahwa Rasulullah SAW bersabda: <strong>"Setan mengikat tengkuk kepala salah seorang dari kalian saat tidur dengan tiga ikatan. Setiap kali mengikat ikatan tersebut, setan mengatakan, 'Engkau akan melewati malam yang sangat panjang, maka tidurlah dengan nyenyak.' Jika ia bangun, lalu berzikir, maka lepaslah satu ikatan. Jika kemudian ia berwudu, maka lepaslah satu ikatan yang lain. Jika kemudian ia mendirikan salat, lepaslah seluruh ikatannya. Lantas di pagi harinya ia menjadi sosok orang yang ceria dan semangat beraktivitas. Namun sebaliknya, jika hal tersebut tidak terlaksana, maka pagi harinya ia tak memiliki gairah hidup dan malas beraktivitas."</strong></div>
+                                <span class="source">— HR. Bukhari: 1074</span>
+                            </div>
+                            <div class="sub-section">
+                                <p>Hasil hidup yang bermanfaat lahir dari amal yang konsisten, bukan dari bakat atau nasab semata. Hadis ini menegaskan bahwa amal — bukan garis keturunan — yang menentukan kedudukan seseorang di sisi Allah.</p>
+                            </div>
+                        `
+                    }]
+                }]
+            }];
+
+            // ===== EXTRA: TENTANG PENULIS =====
+            const extraData = [{
+                id: 'tentang-penulis',
+                label: 'Tentang Penulis',
+                icon: svgIcons.user,
+                content: `
+                    <h2 class="panel-title">Tentang Penulis</h2>
+                    <div class="author-card">
+                        <div class="author-name">OLA ALIFIYANTI ZAHRA PURNAMA</div>
+                        <div class="author-tagline">Aktif, Kreatif, Komunikatif &amp; Selalu Ingin Berkembang ♡</div>
+                        <div class="author-grid">
+                            <div class="info-block">
+                                <h3><span class="emoji">🪪</span> Data Pribadi</h3>
+                                <ul class="info-list">
+                                    <li><strong>Tempat, Tgl Lahir</strong><span class="val">Cilegon, 26 November 2004</span></li>
+                                    <li><strong>Jenis Kelamin</strong><span class="val">Perempuan</span></li>
+                                    <li><strong>Agama</strong><span class="val">Islam</span></li>
+                                    <li><strong>Status</strong><span class="val">Belum Menikah</span></li>
+                                    <li><strong>Alamat</strong><span class="val">Taman Krakatau Blok 1/6 No 12 A</span></li>
+                                </ul>
+                            </div>
+                            <div class="info-block">
+                                <h3><span class="emoji">📞</span> Kontak</h3>
+                                <ul class="contact-list">
+                                    <li><span class="ci">☎</span> 083157991406</li>
+                                    <li><span class="ci">✉</span> olaalifiyantizahra04@gmail.com</li>
+                                </ul>
+                                <h3 style="margin-top:18px;"><span class="emoji">⭐</span> Keahlian</h3>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">Microsoft Word</span>
+                                    <span class="skill-tag">Microsoft Excel</span>
+                                    <span class="skill-tag">Microsoft Power Point</span>
+                                    <span class="skill-tag">Public Speaking</span>
+                                </div>
+                                <h3 style="margin-top:18px;"><span class="emoji">💛</span> Hobi</h3>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">Membaca Buku</span>
+                                    <span class="skill-tag">Memasak</span>
+                                </div>
+                            </div>
+                            <div class="info-block">
+                                <h3><span class="emoji">🎓</span> Pendidikan</h3>
+                                <ul class="timeline">
+                                    <li>TK Fajaria<span class="year">2010 – 2011</span></li>
+                                    <li>SDIT Banten Islamic School<span class="year">2011 – 2017</span></li>
+                                    <li>SMPIT Putri Al-Hanif<span class="year">2017 – 2020</span></li>
+                                    <li>SMAN 1 WARINGINKURUNG<span class="year">2020 – 2023</span></li>
+                                    <li>UIN Sultan Maulana Hasanuddin Banten<span class="year">2023 – sekarang</span></li>
+                                </ul>
+                            </div>
+                            <div class="info-block">
+                                <h3><span class="emoji">💼</span> Pengalaman</h3>
+                                <ul class="timeline">
+                                    <li>Bendahara PMR SMAN 1 WARINGINKURUNG<span class="year">2021 – 2023</span></li>
+                                    <li>Pengurus TRADA (Tari Tradisional) SMAN 1 WARINGINKURUNG<span class="year">2021 – 2023</span></li>
+                                    <li>Pengurus Bidang KOMINFO Pengurus Mahasiswa Program Studi Ilmu Hadis<span class="year">2024</span></li>
+                                    <li>Sek. Bidang KOMINFO (Komunikasi dan Informasi) Program Studi Ilmu Hadis<span class="year">2025</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="text-align:center; margin-top:24px; font-style:italic; color:#5e6f82; font-size:0.9rem;">
+                        “Terus belajar, terus bertumbuh,<br />karena menjadi versi terbaik dari diri sendiri.”
+                    </p>
+                `
+            }];
+
+            // ===== RENDER =====
+            const topMenuContainer = document.getElementById('topMenu');
+            const menuContainer = document.getElementById('menuContainer');
+            const extraMenuContainer = document.getElementById('extraMenu');
+            const panelContainer = document.getElementById('panelContainer');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const hamburger = document.getElementById('hamburgerBtn');
+
+            function renderTopMenu() {
+                let html = '';
+                topMenuData.forEach(item => {
+                    html += `<div style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 2px solid rgba(43,79,140,0.08);">`;
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                        <span class="icon">${item.icon}</span> ${item.label}
+                    </button>`;
+                    html += `</div>`;
+                });
+                topMenuContainer.innerHTML = html;
+            }
+
+            function renderMenuItems(items, depth) {
+                let html = '';
+                items.forEach(item => {
+                    if (item.children) {
+                        const isTop = depth === 0;
+                        html += `<div class="menu-section">`;
+                        html += `<button class="menu-head ${isTop ? 'open' : ''}" data-toggle="${item.id}" aria-expanded="${isTop}">
+                            <span class="icon">${item.icon || svgIcons.folder}</span> ${item.label}
+                            <span class="arrow">▶</span>
+                        </button>`;
+                        html += `<ul class="sub-menu ${isTop ? 'open' : ''}">`;
+                        html += renderMenuItems(item.children, depth + 1);
+                        html += `</ul></div>`;
+                    } else {
+                        html += `<li><button class="sub-link" data-panel="${item.id}">
+                            <span class="sub-icon">${item.icon || svgIcons.target}</span> ${item.label}
+                        </button></li>`;
+                    }
+                });
+                return html;
+            }
+
+            function renderMenu() {
+                let html = '';
+                menuData.forEach(item => {
+                    html += `<div class="menu-section">`;
+                    html += `<button class="menu-head open" data-toggle="${item.id}" aria-expanded="true">
+                        <span class="icon">${item.icon || svgIcons.folder}</span> ${item.label}
+                        <span class="arrow">▶</span>
+                    </button>`;
+                    html += `<ul class="sub-menu open">`;
+                    html += renderMenuItems(item.children, 1);
+                    html += `</ul></div>`;
+                });
+                menuContainer.innerHTML = html;
+            }
+
+            function renderExtraMenu() {
+                let html = '';
+                extraData.forEach(item => {
+                    html += `<button class="extra-link" data-panel="${item.id}">
+                        <span class="icon">${item.icon}</span> ${item.label}
+                    </button>`;
+                });
+                extraMenuContainer.innerHTML = html;
+            }
+
+            function renderPanels() {
+                let html = '';
+                topMenuData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+                function collectPanels(items) {
+                    items.forEach(item => {
+                        if (item.children) {
+                            collectPanels(item.children);
+                        } else {
+                            html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                        }
+                    });
+                }
+                collectPanels(menuData);
+                extraData.forEach(item => {
+                    html += `<div class="content-panel" id="panel-${item.id}">${item.content}</div>`;
+                });
+                panelContainer.innerHTML = html;
+            }
+
+            let activePanelId = null;
+
+            function showPanel(panelId, fromSubLink = true) {
+                document.querySelectorAll('.content-panel').forEach(el => el.classList.remove('active'));
+                const panel = document.getElementById('panel-' + panelId);
+                if (panel) panel.classList.add('active');
+                document.querySelectorAll('.sub-link, .extra-link').forEach(el => el.classList.remove('active'));
+                const link = document.querySelector(`.sub-link[data-panel="${panelId}"], .extra-link[data-panel="${panelId}"]`);
+                if (link) link.classList.add('active');
+                activePanelId = panelId;
+                if (window.innerWidth <= 991 && fromSubLink) closeSidebar();
+                // Scroll ke atas
+                document.querySelector('.main-content').scrollTop = 0;
+            }
+
+            function toggleSection(btn) {
+                const sub = btn.nextElementSibling;
+                if (!sub) return;
+                const isOpen = sub.classList.contains('open');
+                if (isOpen) {
+                    sub.classList.remove('open');
+                    btn.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+                } else {
+                    sub.classList.add('open');
+                    btn.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            }
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            function toggleSidebar() {
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            function init() {
+                renderPanels();
+                renderTopMenu();
+                renderMenu();
+                renderExtraMenu();
+
+                topMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                menuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('menu-head')) {
+                        e.stopPropagation();
+                        toggleSection(target);
+                        return;
+                    }
+                    if (target.classList.contains('sub-link')) {
+                        e.preventDefault();
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                        return;
+                    }
+                });
+
+                extraMenuContainer.addEventListener('click', function(e) {
+                    const target = e.target.closest('button');
+                    if (!target) return;
+                    if (target.classList.contains('extra-link')) {
+                        const panelId = target.dataset.panel;
+                        if (panelId) showPanel(panelId, true);
+                    }
+                });
+
+                if (topMenuData.length > 0) {
+                    showPanel(topMenuData[0].id, false);
+                }
+
+                hamburger.addEventListener('click', toggleSidebar);
+                overlay.addEventListener('click', closeSidebar);
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 991) closeSidebar();
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+                });
+            }
+
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+        })();
+    </script>
+</body>
+</html>
